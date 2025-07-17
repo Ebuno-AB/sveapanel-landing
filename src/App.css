@@ -1,3 +1,6 @@
+/* =====================
+   Global Styles
+   ===================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
 body {
@@ -12,6 +15,9 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* =====================
+   Landing Page Layout
+   ===================== */
 .landing-root {
   min-height: 100vh;
   min-width: 100vw;
@@ -42,7 +48,6 @@ body {
   height: 48px;
   width: auto;
   display: block;
-  
 }
 
 .nav {
@@ -59,6 +64,7 @@ body {
   letter-spacing: -0.01em;
   transition: color 0.2s;
 }
+
 .nav-link:hover {
   color: #23481e;
 }
@@ -76,6 +82,7 @@ body {
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
 }
+
 .appointment-btn:hover {
   background: #1a3415;
   box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.12);
@@ -142,11 +149,15 @@ body {
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
 }
+
 .experts-btn:hover {
   background: #1a3415;
   box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.12);
 }
 
+/* =====================
+   Hero Section
+   ===================== */
 .landing-visual {
   width: 600px;
   height: 600px;
@@ -162,7 +173,9 @@ body {
   display: block;
 }
 
-/* --- Steps Section --- */
+/* =====================
+   Steps Section
+   ===================== */
 .steps-section {
   width: 100%;
   background: #fff;
@@ -265,13 +278,16 @@ body {
   transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
   margin-top: 0.5rem;
 }
+
 .bankid-btn:hover {
   background: linear-gradient(90deg, #23481e 60%, #5ecb8b 100%);
   box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.16);
   transform: translateY(-2px) scale(1.03);
 }
 
-/* --- Services Section (Refined) --- */
+/* =====================
+   Services Section
+   ===================== */
 .services-section {
   background: #fff;
   width: 100%;
@@ -294,7 +310,6 @@ body {
   color: #444;
   margin-bottom: 4.2rem;
   text-align: center;
-
 }
 
 .services-cards {
@@ -303,9 +318,7 @@ body {
   gap: 2.5rem;
   width: 50%;
   align-items: center;
- /* hover effect on cards*/
- transition: transform 0.3s, box-shadow 0.3s;
-
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .service-card {
@@ -323,11 +336,6 @@ body {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* .service-card:hover {
-  transform: scale(1.035) translateY(-6px) rotateZ(-0.5deg);
-  box-shadow: 0 16px 48px 0 rgba(44, 62, 80, 0.22);
-  background: #ffffff61;
-} */
 .services-cards .service-card:nth-child(even) {
   flex-direction: row-reverse;
 }
@@ -409,29 +417,26 @@ body {
 }
 
 .services-cards .service-card:nth-child(even) {
-  margin-left: 30rem; /* or use transform: translateX(80px); */
+  margin-left: 30rem;
 }
 
 .services-cards .service-card:nth-child(odd) {
-  margin-right: 30rem; /* or use transform: translateX(-80px); */
+  margin-right: 30rem;
 }
 
 .card-content {
   display: flex;
   align-items: center;
-  gap: 1rem; /* space between image and text */
+  gap: 1rem;
 }
 
 .form-img {
-  max-width: 300px; /* or whatever fits your design */
+  max-width: 300px;
   height: auto;
-
-  /* Optionally, add border-radius for rounded corners */
 }
 
 .highlight {
   color: #00CCA3;
-
 }
 
 .swish-img {
@@ -440,13 +445,14 @@ body {
   object-fit: contain;
   border-radius: 2rem;
   background: #f9fff9;
-
 }
 
-/* --- About Form --- */
+/* =====================
+   About Form Section
+   ===================== */
 .about-form {
   margin-top: 10rem;
-  background: #a8ffc5;
+  background: #acf6c4;
   width: 100%;
   padding: 4rem 0 4rem 0;
   display: flex;
@@ -469,8 +475,6 @@ body {
   margin-bottom: 1.1rem;
 }
 
-
-
 .about-form-title {
   font-size: 2rem;
   font-weight: 700;
@@ -478,8 +482,9 @@ body {
   margin-bottom: 1rem;
 }
 
-/* --- Info Container --- */
-
+/* =====================
+   Info Container
+   ===================== */
 .info-container {
   display: flex;
   flex-direction: row;
@@ -503,7 +508,6 @@ body {
   font-weight: 800;
   color: #23481e;
   margin-bottom: 1rem;
-
 }
 
 .info-desc {
@@ -513,8 +517,9 @@ body {
   margin-bottom: 1rem;
 }
 
-/* --- Proof Container --- */
-
+/* =====================
+   Proof Container
+   ===================== */
 .proof-container {
   background: #ffffff;
   width: 100%;
@@ -532,13 +537,18 @@ body {
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
 }
+
 .fade-in {
   opacity: 1;
 }
+
 .fade-out {
   opacity: 0;
 }
 
+/* =====================
+   Custom Hero Section
+   ===================== */
 .custom-hero {
   position: relative;
   margin: 0 auto;
@@ -624,7 +634,6 @@ body {
   display: block;
 }
 
-
 .custom-app-btn.apple {
   border: 1px solid #e0e0e0;
 }
@@ -681,17 +690,18 @@ body {
   top: 60px;
   transform: rotate(18deg);
 }
+
 .custom-card.card2 {
   left: 200px;
   top: 180px;
   transform: rotate(8deg);
 }
+
 .custom-card.card3 {
   left: 170px;
   top: 320px;
   transform: rotate(-6deg);
 }
- 
 
 @media (max-width: 900px) {
   .landing-main {
@@ -706,7 +716,6 @@ body {
   .landing-visual-img {
     width: 0px;
     height: 1px;
-
   }
   .steps-list {
     flex-direction: column;
@@ -740,159 +749,76 @@ body {
   }
 }
 
-/* .spline-container {
-  display: flex;
-  background: #a8ffc5;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  margin-top: 20rem;
-
-  max-width: 1000px;
-  max-height: 500px;
-  border-radius: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.10);
-  margin-bottom: 2rem;
-}
-
-.spline-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #23481e;
-  margin-bottom: 0;
-  text-align: left;
-  max-width: 320px;
-  flex: 1;
-} */
-
-/* every other image should be at each side of the screen in turns */
+/* =====================
+   Spline Images
+   ===================== */
 .spline-img {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   width: 1000px;
   height: auto;
   position: relative;
-  top: 0;
   margin: 0 auto;
-  z-index: 0;
+  top: 0;
 }
+
+.spline-img.fade-in {
+  opacity: 1;
+}
+
 .spline-img:nth-of-type(odd) {
   left: 10%;
   right: auto;
 }
+
 .spline-img:nth-of-type(even) {
-  left: 0%;
-  right: auto;
+  left: auto;
+  right: 20%;
 }
 
+/* =====================
+   Cards Section
+   ===================== */
 .cards-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  gap: 6rem;
-  margin: 2rem 0 2rem 0;
-  background: none;
-  box-shadow: none;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  min-width: 0;
+  gap: 2.5rem;
+  margin: 3rem 0;
 }
 
 .card {
 
+
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: none;
-  box-shadow: none;
+  min-width: 220px;
+  max-width: 270px;
+  position: relative;
 }
 
 .card-img {
-  width: 180px;
-  height: 180px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
-  border-radius: 1.5rem;
+
+
   margin-bottom: 1rem;
 }
 
 .card-text {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #23481e;
-  font-weight: 600;
+  margin-bottom: 0.7rem;
   text-align: center;
-  margin-top: 0.5rem;
 }
 
-@media (max-width: 900px) {
-  .cards-container {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  .card-img {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-
-@media (max-width: 600px) {
-  .landing-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.2rem;
-    padding: 1.5rem 1rem 0 1rem;
-  }
-  .landing-main {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 0.5rem;
-    gap: 1.5rem;
-  }
-  .landing-title {
-    font-size: 2rem;
-
-  }
-  
-  .logo-container {
-    height: 40px;
-  }
-  .logo-img {
-    height: 32px;
-  }
-
-
-  .footer-container {
-    background: linear-gradient(90deg, #5ecb8b 0%, #a8ffc5 100%);
-    width: 100%;
-    padding: 3rem 0 2rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 -2px 16px 0 rgba(44, 62, 80, 0.06);
-  }
-  .footer-content {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  .footer-content h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #23481e;
-    margin-bottom: 0.5rem;
-  }
-  .footer-content p {
-    font-size: 1rem;
-    color: #23481e;
-    opacity: 0.85;
-    margin: 0;
-  }
-}
-
+/* =====================
+   Footer
+   ===================== */
 .footer-container {
   background: linear-gradient(90deg, #5ecb8b 0%, #a8ffc5 100%);
   width: 100vw;
@@ -903,125 +829,72 @@ body {
   box-shadow: 0 -2px 16px 0 rgba(44, 62, 80, 0.06);
 }
 
-.footer-content {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.footer-content h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #23481e;
-  margin-bottom: 0.5rem;
-}
-
-.footer-content p {
-  font-size: 1rem;
-  color: #23481e;
-  opacity: 0.85;
-  margin: 0;
-}
-
-.services-card {
-  background: #fff;
-  border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.10);
-  padding: 3rem 2.5rem;
-  max-width: 900px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 3rem auto 0 auto;
-}
-
-.services-steps {
-  display: flex;
+.footer-content.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2.5rem;
-  width: 100%;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.service-step {
-  display: flex;
   align-items: flex-start;
-  gap: 1.2rem;
-  flex: 1 1 220px;
-  min-width: 220px;
-  max-width: 270px;
-  margin-bottom: 1.5rem;
-  background: none;
-  box-shadow: none;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem auto;
 }
 
-.step-icon {
-  background: linear-gradient(135deg, #5ecb8b 60%, #23481e 100%);
-  color: #fff;
-  font-size: 2rem;
-  font-weight: 900;
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 50%;
+.footer-section {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.10);
-  margin-right: 1rem;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
-.step-title {
-  font-size: 1.2rem;
-  font-weight: 700;
+.footer-section h3, .footer-section h4 {
   color: #23481e;
   margin-bottom: 0.5rem;
-}
-
-.step-desc {
-  font-size: 1rem;
-  color: #444;
-  font-weight: 400;
-}
-
-.services-cta {
-  margin-top: 2rem;
-  background: #23481e;
-  color: #fff;
-  border: none;
-  border-radius: 2rem;
-  padding: 1rem 2.4rem;
-  font-size: 1.15rem;
   font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
-}
-.services-cta:hover {
-  background: #1a3415;
-  box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.12);
 }
 
-@media (max-width: 900px) {
-  .services-steps {
-    flex-direction: column;
+.footer-section p, .footer-section a, .footer-section li {
+  color: #23481e;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.footer-link, .footer-links a {
+  color: #23481e;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.footer-link:hover, .footer-links a:hover {
+  color: #5ecb8b;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #23481e;
+  opacity: 0.7;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 700px) {
+  .footer-content.grid {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
-    align-items: center;
-  }
-  .service-step {
-    max-width: 100%;
-    min-width: 0;
-    width: 100%;
-  }
-  .services-card {
-    padding: 2rem 1rem;
-    max-width: 98vw;
+    padding: 0 1rem;
   }
 }
 
+/* =====================
+   Game Icons
+   ===================== */
 .game-icon {
   position: absolute;
   width: 130px; /* Adjust as needed */
@@ -1042,20 +915,22 @@ body {
   left: 14%;
   top: 90%;
 }
+
 .game-icon-2 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 1.1s;
   left: 70%;
   top: -10%;
 }
+
 .game-icon-3 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2.2s;
   left: 50%;
   top: 70%;
 }
-.game-icon-4 {
 
+.game-icon-4 {
   opacity: 80%;
   left: 20%;
   top: 0%;

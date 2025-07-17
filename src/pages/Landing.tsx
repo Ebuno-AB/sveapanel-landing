@@ -1,5 +1,5 @@
 import '../App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import globeImage from '../assets/image.png';
 import logoImage from '../assets/logo.png';
 import appleImage from '../assets/apple.svg';
@@ -31,6 +31,7 @@ function Landing() {
   const images = [globeImage, bankIdImage, personalFormImage];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,12 +44,37 @@ function Landing() {
     return () => clearInterval(interval);
   }, []);  
 
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+          } else {
+            entry.target.classList.remove('fade-in');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    splineRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+    return () => {
+      splineRefs.current.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, []);
+
   return (
     <>
       <div className="">
         <header className="landing-header">
           <div className="logo-container">
+            <a href="/">
             <img src={logoImage} alt="Sveapanelen logo" className="logo-img" />
+            </a>
           </div>
           <nav className="nav">
             <a href="#services" className="nav-link">Tjänster</a>
@@ -127,40 +153,30 @@ function Landing() {
           <div className="card">
             <img src={mistplay1} alt="Game" className="card-img" />
             <div className="card-text">Spela och tjäna poäng!</div>
+            <p>Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit. Quisquam, quos.</p>
           </div>
           <div className="card">
             <img src={earn} alt="Game" className="card-img" />
             <div className="card-text">Upptäck nya spel!</div>
+            <p>Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit. Quisquam, quos.</p>
           </div>
           <div className="card">
             <img src={reward} alt="Game" className="card-img" />
             <div className="card-text">Få belöningar direkt!</div>
+            <p>Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit. Quisquam, quos.</p>
           </div>
         </div>
 
-       
-       <img src={games} alt="Game" className="spline-img" />
+       <img ref={el => { splineRefs.current[0] = el; }} src={games} alt="Game" className="spline-img" /> 
 
-       <img src={forms} alt="Game" className="spline-img" />
-{/*    
-        <div className="spline-container"> 
-          <img src={Game} alt="Game" className="spline-img" />
-          <p className="spline-text">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-        </div> */}
+       <img ref={el => { splineRefs.current[1] = el; }} src={forms} alt="Game" className="spline-img" />
 
-          {/* <Spline
-        scene="https://prod.spline.design/4xYMX4Uy35mxFbhh/scene.splinecode" 
-      /> */}
    
-        
 
         {/* ABOUT FORM */}
-
-        {/* <div className="about-form">
+        <div className="about-form">
           <h2 className="about-form-title">Vad är betalda undersökningar?</h2>
           <p className="about-form-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-         
-
           <div className="info-container">
             <div className="info-card">
               <h3 className="info-title">Vad brukar belöningarna ligga på?</h3>
@@ -168,7 +184,7 @@ function Landing() {
             </div>
             <div className="info-card">
               <h3 className="info-title">Hur långa är de?</h3>
-              <h3 className="info-desc"> Undersökningarna är från 1-25 minuter långa.</h3>
+              <h3 className="info-desc"> Undersökningarna är från 1-25 minuter långa. <br/> <br/> Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit. Quisquam, quos.</h3>
             </div>
             <div className="info-card">
               <h3 className="info-title">Hur får jag pengarna?</h3>
@@ -176,18 +192,15 @@ function Landing() {
             </div>
           </div>
           <button className="about-form-btn">Läs mer</button>
-        </div> */}
+        </div> 
 
         {/* PROOF */}
-        {/* <div className="proof-container">
+        <div className="proof-container">
           <h2 className="proof-title">Vi har betalat ut mer än 100 000kr till våra användare!</h2>
           <p className="proof-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-        </div> */}
-
-        <div className='about-form-container'>
-
-          
         </div>
+
+
 
       </div>
       <Footer />
