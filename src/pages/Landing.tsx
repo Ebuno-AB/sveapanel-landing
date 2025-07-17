@@ -19,6 +19,7 @@ import gameIcon1 from '../assets/dragon_city.png';
 import gameIcon2 from '../assets/arena.png';
 import gameIcon3 from '../assets/toonblast.png';
 import icon1 from '../assets/icon1.svg';
+import forms from '../assets/forms.svg';
 
 const placeholderSvg =
   'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
@@ -139,6 +140,8 @@ function Landing() {
 
        
        <img src={games} alt="Game" className="spline-img" />
+
+       <img src={forms} alt="Game" className="spline-img" />
 {/*    
         <div className="spline-container"> 
           <img src={Game} alt="Game" className="spline-img" />
