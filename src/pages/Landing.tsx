@@ -140,6 +140,8 @@ function Landing() {
             </div>
           </div>
         </section>
+
+       
       
       </div>
       {/* Services Section - now outside landing-root for white background */}
@@ -167,11 +169,40 @@ function Landing() {
           </div>
         </div>
 
-       <img ref={el => { splineRefs.current[0] = el; }} src={games} alt="Game" className="spline-img" /> 
 
+        <div className="ratings-section">
+          <h2 className="ratings-headline">Vi har betalat ut mer än <span className="highlight">2 000 000 kr</span> till våra nöjda användare!</h2>
+          <p className="ratings-desc">SveaPanelen har tusentals nöjda användare och ett av de högsta betygen i branschen.</p>
+          <div className="ratings-summary">
+            <span className="ratings-value">4.7</span>
+            <span className="ratings-stars">★★★★★</span>
+            <span className="ratings-outof">/ 5.0</span>
+            <span className="ratings-count">(2500+ omdömen)</span>
+          </div>
+          <div className="ratings-testimonials">
+            <div className="testimonial-card">
+              <p className="testimonial-text">“Trovärdig, cashback och erbjuder roliga spel i appen! Varje enkät och spel är underhållande. Jag kan varmt rekommendera den! :)
+              ”</p>
+              <span className="testimonial-user">– Randy M.G.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-text">“Bästa panelen jag testat. Bra support och många undersökningar.”</p>
+              <span className="testimonial-user">– Erik L.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-text">“Trodde inte det var så enkelt att tjäna pengar på enkäter!”</p>
+              <span className="testimonial-user">– Maria P.</span>
+            </div>
+          </div>
+        </div>
+
+
+
+        {/* IMAGES*/} 
+
+       <img ref={el => { splineRefs.current[0] = el; }} src={games} alt="Game" className="spline-img" /> 
        <img ref={el => { splineRefs.current[1] = el; }} src={forms} alt="Game" className="spline-img" />
 
-   
 
         {/* ABOUT FORM */}
         <div className="about-form">
@@ -184,7 +215,7 @@ function Landing() {
             </div>
             <div className="info-card">
               <h3 className="info-title">Hur långa är de?</h3>
-              <h3 className="info-desc"> Undersökningarna är från 1-25 minuter långa. <br/> <br/> Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit. Quisquam, quos.</h3>
+              <h3 className="info-desc"> Undersökningarna är från 1-25 minuter långa.</h3>
             </div>
             <div className="info-card">
               <h3 className="info-title">Hur får jag pengarna?</h3>
@@ -194,13 +225,9 @@ function Landing() {
           <button className="about-form-btn">Läs mer</button>
         </div> 
 
-        {/* PROOF */}
-        <div className="proof-container">
-          <h2 className="proof-title">Vi har betalat ut mer än 100 000kr till våra användare!</h2>
-          <p className="proof-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-        </div>
 
 
+       
 
       </div>
       <Footer />
