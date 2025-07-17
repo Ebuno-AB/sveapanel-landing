@@ -742,35 +742,85 @@ body {
 
 .spline-container {
   display: flex;
+  background: #a8ffc5;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 2.5rem;
-  margin-top: 2rem;
-  max-width: 900px;
-  max-height: 800px;
+  margin-top: 20rem;
+
+  max-width: 1000px;
+  max-height: 500px;
   border-radius: 2rem;
   box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.10);
   margin-bottom: 2rem;
 }
 
 .spline-text {
-  margin-left: 6rem;
   font-size: 1.5rem;
   font-weight: 700;
   color: #23481e;
   margin-bottom: 0;
-
   text-align: left;
   max-width: 320px;
+  flex: 1;
 }
 
-.spline-scene {
-  width: 1000px;
-  height: 1000px;
+.spline-img {
   margin-left: 40rem;
- 
 }
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6rem;
+  margin: 2rem 0 2rem 0;
+  background: none;
+  box-shadow: none;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.card {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  box-shadow: none;
+}
+
+.card-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1.3rem;
+  color: #23481e;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .cards-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .card-img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
 
 @media (max-width: 600px) {
   .landing-header {

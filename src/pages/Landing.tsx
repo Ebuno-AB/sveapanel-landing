@@ -10,6 +10,10 @@ import moneyImage from '../assets/money.svg';
 import mobileImage from '../assets/mobile.svg';
 import candyCrush from '../assets/candyCrush.svg';
 import Footer from '../components/footer';
+import Game from '../assets/game.png';
+import mistplay1 from '../assets/mistplay-img1.png';
+import earn from '../assets/earn.png';
+import reward from '../assets/reward.png';
 const placeholderSvg =
   'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
   import Spline from '@splinetool/react-spline';
@@ -107,43 +111,36 @@ function Landing() {
         <h2 className="services-heading">Tjäna pengar med <br/> <span className="text-black">SveaPanelen</span></h2>
         <p className="services-subheading">Med tre enkla steg kan du tjäna pengar på att svara på enkäter!</p>
        
-
-      {/* <div className="spline-container"> */}
-      <p className="spline-text">Tjäna pengar genom att spela spel! <br/>Vi har ett stort utbud av spel som du kan spela och tjäna pengar på!</p>
-        <div className="spline-scene"> 
-        <Spline
-        scene="https://prod.spline.design/4xYMX4Uy35mxFbhh/scene.splinecode" 
-      />
+     
+       <div className="cards-container">
+          <div className="card">
+            <img src={mistplay1} alt="Game" className="card-img" />
+            <div className="card-text">Spela och tjäna poäng!</div>
+          </div>
+          <div className="card">
+            <img src={earn} alt="Game" className="card-img" />
+            <div className="card-text">Upptäck nya spel!</div>
+          </div>
+          <div className="card">
+            <img src={reward} alt="Game" className="card-img" />
+            <div className="card-text">Få belöningar direkt!</div>
+          </div>
         </div>
 
        
-      {/* </div> */}
-        <div className="services-card">
-          <div className="services-steps">
-            <div className="service-step">
-              <div className="step-icon">1</div>
-              <div>
-                <h3 className="step-title">Registrera dig med BankID</h3>
-                <p className="step-desc">SveaPanelen har avtal med Nordea så att vi kan låta våra användare registrera sig med BankID, snabbt och säkert.</p>
-              </div>
-            </div>
-            <div className="service-step">
-              <div className="step-icon">2</div>
-              <div>
-                <h3 className="step-title">Svara på några frågor</h3>
-                <p className="step-desc">Du behöver bara svara på några enstaka frågor om dig själv så vi kan hitta matchande undersökningar!</p>
-              </div>
-            </div>
-            <div className="service-step">
-              <div className="step-icon">3</div>
-              <div>
-                <h3 className="step-title">Svara på enkäter & få betalt!</h3>
-                <p className="step-desc">Vårt system hittar automatiskt undersökningar som du kan göra, sedan får du betalt och kan ta ut via Swish!</p>
-              </div>
-            </div>
-          </div>
-          <button className="services-cta">Bli medlem</button>
+   
+        <div className="spline-container"> 
+          <img src={Game} alt="Game" className="spline-img" />
+          <p className="spline-text">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
         </div>
+
+          {/* <Spline
+        scene="https://prod.spline.design/4xYMX4Uy35mxFbhh/scene.splinecode" 
+      /> */}
+   
+        
+
+        {/* ABOUT FORM */}
 
         {/* <div className="about-form">
           <h2 className="about-form-title">Vad är betalda undersökningar?</h2>
@@ -167,10 +164,11 @@ function Landing() {
           <button className="about-form-btn">Läs mer</button>
         </div> */}
 
-        <div className="proof-container">
+        {/* PROOF */}
+        {/* <div className="proof-container">
           <h2 className="proof-title">Vi har betalat ut mer än 100 000kr till våra användare!</h2>
           <p className="proof-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-        </div>
+        </div> */}
 
         <div className='about-form-container'>
 
