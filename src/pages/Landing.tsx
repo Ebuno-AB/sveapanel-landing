@@ -12,7 +12,10 @@ import candyCrush from '../assets/candyCrush.svg';
 import Footer from '../components/footer';
 const placeholderSvg =
   'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
+  import Spline from '@splinetool/react-spline';
 
+
+       
 function Landing() {
   const images = [globeImage, bankIdImage, personalFormImage];
   const [index, setIndex] = useState(0);
@@ -41,14 +44,17 @@ function Landing() {
             <button className="appointment-btn" aria-label="Boka ett möte">Registrera dig</button>
           </nav>
         </header>
-
-        {/* centered container  */}
+       
+ 
+  
+        {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
           <div className="custom-hero-content">
             {/* Left: Text */}
             <div className="custom-hero-left">
               <span className="custom-welcome">Välkommen till</span>
               <h1 className="custom-title">Betalda undersökningar<br/>Som du kan lita på</h1>
+              <p className="custom-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
               <div className="custom-app-buttons">
                 <button className="custom-app-btn google">
                   <img src={googleImage} alt="Google" />
@@ -92,7 +98,6 @@ function Landing() {
               </div>
             </div>
           </div>
-          
         </section>
       
       </div>
@@ -102,34 +107,42 @@ function Landing() {
         <h2 className="services-heading">Tjäna pengar med <br/> <span className="text-black">SveaPanelen</span></h2>
         <p className="services-subheading">Med tre enkla steg kan du tjäna pengar på att svara på enkäter!</p>
        
-        <div className="services-cards">
-          <div className="service-card">
-      
-            <img src={bankIdImage} alt="" className="service-img" />
-            <div className="service-content">
-              <h3 className="service-title">1. Registrera dig med BankID</h3>
-              <p className="service-desc">SveaPanelen har avtal med Nordea så att vi kan låta våra användare registrera sig med BankID, snabbt och säkert.</p>
 
-            </div>
-          </div>
-          <div className="service-card">
-         
-            <img src={personalFormImage} alt="" className="form-img" />
-            <div className="service-content">
-              <h3 className="service-title">2. Svara på några frågor</h3>
-              <p className="service-desc">Du behöver bara svara på några enstaka frågor om dig själv så vi kan hitta matchande undersökningar!</p>
+      {/* <div className="spline-container"> */}
+      <p className="spline-text">Tjäna pengar genom att spela spel! <br/>Vi har ett stort utbud av spel som du kan spela och tjäna pengar på!</p>
+        <div className="spline-scene"> 
+        <Spline
+        scene="https://prod.spline.design/4xYMX4Uy35mxFbhh/scene.splinecode" 
+      />
+        </div>
 
+       
+      {/* </div> */}
+        <div className="services-card">
+          <div className="services-steps">
+            <div className="service-step">
+              <div className="step-icon">1</div>
+              <div>
+                <h3 className="step-title">Registrera dig med BankID</h3>
+                <p className="step-desc">SveaPanelen har avtal med Nordea så att vi kan låta våra användare registrera sig med BankID, snabbt och säkert.</p>
+              </div>
+            </div>
+            <div className="service-step">
+              <div className="step-icon">2</div>
+              <div>
+                <h3 className="step-title">Svara på några frågor</h3>
+                <p className="step-desc">Du behöver bara svara på några enstaka frågor om dig själv så vi kan hitta matchande undersökningar!</p>
+              </div>
+            </div>
+            <div className="service-step">
+              <div className="step-icon">3</div>
+              <div>
+                <h3 className="step-title">Svara på enkäter & få betalt!</h3>
+                <p className="step-desc">Vårt system hittar automatiskt undersökningar som du kan göra, sedan får du betalt och kan ta ut via Swish!</p>
+              </div>
             </div>
           </div>
-          <div className="service-card">
-           
-            <img src={moneyImage} alt="" className="swish-img" />
-            <div className="service-content">
-              <h3 className="service-title">3. Svara på enkäter & få betalt!</h3>
-              <p className="service-desc">Vårt system hittar automatiskt undersökningar som du kan göra, sedan får du betalt och kan ta ut via Swish!</p>
-   
-            </div>
-          </div>
+          <button className="services-cta">Bli medlem</button>
         </div>
 
         {/* <div className="about-form">
