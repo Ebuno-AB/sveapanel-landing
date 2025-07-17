@@ -14,6 +14,12 @@ import Game from '../assets/game.png';
 import mistplay1 from '../assets/mistplay-img1.png';
 import earn from '../assets/earn.png';
 import reward from '../assets/reward.png';
+import games from '../assets/games.svg';
+import gameIcon1 from '../assets/dragon_city.png';
+import gameIcon2 from '../assets/arena.png';
+import gameIcon3 from '../assets/toonblast.png';
+import icon1 from '../assets/icon1.svg';
+
 const placeholderSvg =
   'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
   import Spline from '@splinetool/react-spline';
@@ -54,6 +60,10 @@ function Landing() {
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
           <div className="custom-hero-content">
+            <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
+            <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
+            <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" />
+            <img src={icon1} alt="Game" className="game-icon game-icon-4" />
             {/* Left: Text */}
             <div className="custom-hero-left">
               <span className="custom-welcome">Välkommen till</span>
@@ -128,11 +138,12 @@ function Landing() {
         </div>
 
        
-   
+       <img src={games} alt="Game" className="spline-img" />
+{/*    
         <div className="spline-container"> 
           <img src={Game} alt="Game" className="spline-img" />
           <p className="spline-text">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-        </div>
+        </div> */}
 
           {/* <Spline
         scene="https://prod.spline.design/4xYMX4Uy35mxFbhh/scene.splinecode" 
