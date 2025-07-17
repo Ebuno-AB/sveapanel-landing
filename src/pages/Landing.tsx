@@ -175,7 +175,8 @@ function Landing() {
           <p className="ratings-desc">SveaPanelen har tusentals nöjda användare och ett av de högsta betygen i branschen.</p>
           <div className="ratings-summary">
             <span className="ratings-value">4.7</span>
-            <span className="ratings-stars">★★★★★</span>
+            <span className="ratings-stars">★★★★</span>
+            <span className="ratings-stars-last">★</span>
             <span className="ratings-outof">/ 5.0</span>
             <span className="ratings-count">(2500+ omdömen)</span>
           </div>
