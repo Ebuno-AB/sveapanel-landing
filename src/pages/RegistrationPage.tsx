@@ -1,13 +1,22 @@
+import '../App.css';
 import React from 'react';
 import BackButton from '../components/backButton';
+import qrCode from '../assets/features/qr-code.png'
+import bankId from '../assets/bankId.svg'
+
 
 const RegistrationPage: React.FC = () => {
   return (
-    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+    <div className='registration-page'>
       <BackButton />
-      <h1>Registration Page</h1>
-      <p>Implement QR code logic here</p>
+      {/* <img src={bankId} alt="BankID" className='bank-id-img' /> */}
+      <h1>Registrera dig med BankID </h1> 
+      <p>Skanna QR-koden med BankID för att registrera dig </p>
+     
       {/* Add your registration form here */}
+      <div className='qr-code-container'>
+        <img src={qrCode} alt="BankID" className='qr-code-img'  />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import '../App.css';
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import globeImage from '../assets/image.png';
 import logoImage from '../assets/logo.png';
 import appleImage from '../assets/apple.svg';
@@ -21,7 +21,7 @@ import gameCards from '../assets/features/gameCards.webp';
 import rewards from '../assets/features/rewards.png';
 import tokens from '../assets/features/tokens.png';
 import consoles from '../assets/features/consoles.png';
-import { Gamepad2, List, Gift, DollarSign, ChevronDown} from 'lucide-react';
+import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 
 
@@ -33,10 +33,22 @@ const placeholderSvg =
        
 function Landing() {
   const navigate = useNavigate();
+  const location = useLocation();
   const images = [globeImage, personalFormImage];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
+
+  // Check if user is registered (URL contains /r/{code})
+  const isRegistered = location.pathname.includes('/r/');
+  
+  // Extract referral code if present
+  const referralCode = location.pathname.match(/\/r\/([^\/]+)/)?.[1] || null;
+
+  // Debug logging
+  console.log('Current pathname:', location.pathname);
+  console.log('Is registered:', isRegistered);
+  console.log('Referral code:', referralCode);
 
  
 
@@ -98,16 +110,28 @@ function Landing() {
               <span className="custom-welcome">Välkommen till</span>
               <h1 className="custom-title">Betalda undersökningar<br/>Som du kan lita på</h1>
               <p className="custom-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
-              <div className="custom-app-buttons">
-                <button className="custom-app-btn google">
-                  <img src={googleImage} alt="Google" />
-                  Google Play
-                </button>
-                <button className="custom-app-btn apple">
-                  <img src={appleImage} alt="Apple" />
-                  App Store
-                </button>
-              </div>
+              
+              {isRegistered ? (
+                // Show app store buttons for registered users
+                <div className="custom-app-buttons">
+                  <button className="custom-app-btn google">
+                    <img src={googleImage} alt="Google" />
+                    Google Play
+                  </button>
+                  <button className="custom-app-btn apple">
+                    <img src={appleImage} alt="Apple" />
+                    App Store
+                  </button>
+                </div>
+              ) : (
+
+                  <div className="">
+                    <button className="appointment-btn" onClick={() => navigate('/register')}>
+                      Registrera dig med BankID
+                    </button>
+                  </div>
+             
+              )}
             </div>
             {/* Right: Phone mockup and cards */}
             <div className="custom-hero-right">

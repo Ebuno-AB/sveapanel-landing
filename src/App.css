@@ -1445,7 +1445,7 @@ body {
    Back Button Component
    ===================== */
 .back-button {
-  position: fixed;
+  position: absolute;
   top: 2.5rem;
   left: 4rem;
   z-index: 1000;
@@ -1483,6 +1483,14 @@ body {
   box-shadow: 0 0 0 3px rgba(35, 72, 30, 0.1);
 }
 
+@media (max-width: 1024px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}
 /* Responsive adjustments */
 @media (max-width: 700px) {
   .back-button {
@@ -1538,7 +1546,7 @@ body {
 }
 
 .feature-graphics img {
-  width: 69%;
+  width: 60%;
   height: auto;
   object-fit: cover;
 }
@@ -1577,6 +1585,7 @@ body {
 }
 
 .feature-graphics {
+  width: 60%;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -1685,7 +1694,7 @@ body {
 .foldable-card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #23481e;
   margin: 0;
   user-select: none;
 }
@@ -1812,4 +1821,105 @@ body {
     height: 40px;
     font-size: 1.2rem;
   }
+
+
+
 }
+
+/* =====================
+   Registration Page
+   ===================== */
+.registration-page {
+  min-height: 100vh;
+  background: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.registration-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #23481e;
+  margin-bottom: 1rem;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+}
+
+.registration-page p {
+  font-size: 1.2rem;
+
+  margin-bottom: 3rem;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+}
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;  
+  border-radius: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+.qr-code-img {
+  width: 600px;
+  height: 600px;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 1rem;
+}
+
+
+
+
+  
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .registration-page {
+    padding: 1rem;
+  }
+  
+  .registration-page h1 {
+    font-size: 2rem;
+  }
+  
+  .registration-page p {
+    font-size: 1rem;
+  }
+  
+  .qr-code-img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .registration-page h1 {
+    font-size: 1.8rem;
+  }
+  
+  .qr-code-img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.bank-id-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  align-self: right;
+  margin-left: 10px;
+
+}
+
+
+
+
