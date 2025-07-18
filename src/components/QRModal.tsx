@@ -44,12 +44,21 @@ const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose }) => {
         <div className="modal-body">
           <div className="qr-code-modal-container">
             <div className="qr-code-placeholder-modal">
-              <img src={qrCode} alt="QR Code" className="qr-code-img" />
+              <img 
+                src={qrCode} 
+                alt="QR Code" 
+                className="qr-code-img"
+                onError={(e) => {
+                  console.error('QR code image failed to load');
+                  e.currentTarget.style.display = 'none';
+                }}
+                onLoad={() => {
+                  console.log('QR code image loaded successfully');
+                }}
+              />
             </div>
             <p className="qr-code-modal-text">Skanna QR-koden för att registrera dig</p>
           </div>
-          
-
         </div>
       </div>
     </div>

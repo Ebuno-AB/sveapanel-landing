@@ -2680,10 +2680,9 @@ body {
   background: #ffffff;
   border-radius: 0.5rem;
   padding: 1.5rem;
-
 }
 
-.qr-code-img {
+.qr-code-modal-container .qr-code-img {
   width: 300px;
   height: 300px;
   object-fit: contain;
@@ -2744,7 +2743,7 @@ body {
     padding: 1.5rem;
   }
   
-  .qr-code-img {
+  .qr-code-modal-container .qr-code-img {
     width: 200px;
     height: 200px;
   }
@@ -2781,7 +2780,7 @@ body {
     padding: 1rem;
   }
   
-  .qr-code-img {
+  .qr-code-modal-container .qr-code-img {
     width: 180px;
     height: 180px;
   }
@@ -2806,7 +2805,7 @@ body {
     max-height: 100vh;
   }
   
-  .qr-code-img {
+  .qr-code-modal-container .qr-code-img {
     width: 160px;
     height: 160px;
   }
