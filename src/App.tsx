@@ -9,6 +9,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/r/:code" element={<Landing />} />
         <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/register/:code" element={<Landing />} />
         {/* Add more routes here as needed */}
       </Routes>
     </Router>

@@ -39,11 +39,11 @@ function Landing() {
   const [fade, setFade] = useState(true);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-  // Check if user is registered (URL contains /r/{code})
-  const isRegistered = location.pathname.includes('/r/');
+  // Check if user is registered (URL contains /r/{code} or /register/{code})
+  const isRegistered = location.pathname.includes('/r/') || location.pathname.includes('/register/');
   
   // Extract referral code if present
-  const referralCode = location.pathname.match(/\/r\/([^\/]+)/)?.[1] || null;
+  const referralCode = location.pathname.match(/\/r\/([^\/]+)/)?.[1] || location.pathname.match(/\/register\/([^\/]+)/)?.[1] || null;
 
   // Debug logging
   console.log('Current pathname:', location.pathname);
@@ -126,9 +126,10 @@ function Landing() {
               ) : (
 
                   <div className="">
-                    <button className="appointment-btn" onClick={() => navigate('/register')}>
+                    <button className="appointment-btn" style={{marginTop: '2rem'}} onClick={() => navigate('/register')}>
                       Registrera dig med BankID
                     </button>
+                    <p style={{fontSize: '1rem' }}>Registrera dig för att få tillgång till våra tjänster </p>
                   </div>
              
               )}
@@ -346,7 +347,7 @@ function Landing() {
           <h2 className="foldable-cards-section-title">Vanliga frågor</h2>
          {/* Foldable Cards Section */}
          <div className="foldable-cards-section">
-            <FoldableCard title="Hur fungerar det?" defaultOpen={true}>
+            <FoldableCard title="Hur fungerar det?" defaultOpen={false}>
               <p>Du registrerar dig, svarar på enkäter och tjänar pengar direkt via Swish. Det är så enkelt!</p>
               <ul>
                 <li>Registrera dig gratis</li>
@@ -371,6 +372,14 @@ function Landing() {
                 <li>Korta enkäter: 1-10 kr</li>
                 <li>Mellanlånga enkäter: 10-25 kr</li>
                 <li>Långa enkäter: 25-50 kr</li>
+              </ul>
+            </FoldableCard>
+
+            <FoldableCard title="Varför just oss?" defaultOpen={false}> 
+              <p>Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
+              <ul>
+                <li>Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</li>
+                <li>Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</li>
               </ul>
             </FoldableCard>
           </div>
