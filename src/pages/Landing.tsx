@@ -23,6 +23,7 @@ import tokens from '../assets/features/tokens.png';
 import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
+import QRModal from '../components/QRModal';
 
 
 const placeholderSvg =
@@ -37,9 +38,10 @@ function Landing() {
   const images = [globeImage, personalFormImage];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-  // Check if user is registered (URL contains /r/{code} or /register/{code})
+  // Check if user is registered (URL contains /r/{code})
   const isRegistered = location.pathname.includes('/r/') || location.pathname.includes('/register/');
   
   // Extract referral code if present
@@ -126,7 +128,7 @@ function Landing() {
               ) : (
 
                   <div className="">
-                    <button className="appointment-btn" style={{marginTop: '2rem'}} onClick={() => navigate('/register')}>
+                    <button className="appointment-btn" onClick={() => setIsModalOpen(true)}>
                       Registrera dig med BankID
                     </button>
                     <p style={{fontSize: '1rem' }}>Registrera dig för att få tillgång till våra tjänster </p>
@@ -386,6 +388,8 @@ function Landing() {
           </div>
       </div>
       <Footer />
+      {/* QR Modal */}
+      <QRModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

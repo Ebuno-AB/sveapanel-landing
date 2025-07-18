@@ -623,6 +623,7 @@ body {
    Custom Hero Section
    ===================== */
 .custom-hero {
+
   position: relative;
   margin: 0 auto;
   margin-top: 40px;
@@ -789,14 +790,14 @@ body {
 
 @media (max-width: 1200px) {
   .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
-    max-width: 98vw;
+    max-width: 90vw;
     padding-left: 1rem;
     padding-right: 1rem;
   }
 }
 @media (max-width: 900px) {
   .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
-    max-width: 100vw;
+    max-width: 90vw;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -847,10 +848,9 @@ body {
     margin-right: 0;
     transform: none;
   }
-  .service-img {
-    width: 120px;
-    height: 90px;
-  }
+  
+
+
 }
 
 /* =====================
@@ -993,6 +993,24 @@ body {
   margin-top: 1.5rem;
 }
 
+@media (max-width: 1070px) {
+  .footer-content.grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 90vw;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .footer-content.grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 90vw;
+  }
+}
 @media (max-width: 700px) {
   .footer-content.grid {
     grid-template-columns: 1fr;
@@ -1378,7 +1396,7 @@ body {
 }
 @media (max-width: 500px) {
   .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
-    max-width: 100vw;
+    max-width: 90%;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
   }
@@ -1388,6 +1406,10 @@ body {
   .card-content {
     width: 100%;
   }
+  .about-form {
+    width: 90vw;
+    padding: 2rem 0 2rem 0;
+  }
 
 
 
@@ -1396,7 +1418,7 @@ body {
 @media (max-width: 900px) {
   .about-form {
     padding: 2.5rem 1rem;
-    max-width: 98vw;
+    max-width: 95vw;
   }
   .info-container {
     flex-direction: column;
@@ -1830,7 +1852,7 @@ body {
    Registration Page
    ===================== */
 .registration-page {
-  min-height: 100vh;
+  min-height: none;
   background: #fff;
   padding: 2rem;
   display: flex;
@@ -1918,6 +1940,174 @@ body {
   align-self: right;
   margin-left: 10px;
 
+}
+
+/* =====================
+   Modal Component
+   ===================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.modal-close-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.modal-header {
+  padding: 1.5rem 2rem 1rem 2rem;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+}
+
+.modal-body {
+  padding: 1rem 2rem 2rem 2rem;
+  background: #ffffff;
+}
+
+.qr-code-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.qr-code-placeholder-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.qr-code-img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.qr-code-modal-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  font-weight: 400;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+}
+
+
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .modal-content {
+    width: 95%;
+    max-width: none;
+  }
+  
+  .modal-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+  }
+  
+  .modal-title {
+    font-size: 1.4rem;
+  }
+  
+  .modal-body {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+  }
+  
+  .qr-code-img {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .qr-code-img {
+    width: 140px;
+    height: 140px;
+  }
 }
 
 
