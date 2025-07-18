@@ -24,6 +24,7 @@ import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
+import ScrollChest from '../components/ScrollChest';
 
 
 const placeholderSvg =
@@ -80,6 +81,9 @@ function Landing() {
 
   return (
     <>
+      {/* Scroll Chest Animation - Only visible on desktop */}
+      <ScrollChest />
+      
       <div className="">
         <header className="landing-header">
           <div className="logo-container">
