@@ -1,5 +1,6 @@
 import '../App.css';
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import globeImage from '../assets/image.png';
 import logoImage from '../assets/logo.png';
 import appleImage from '../assets/apple.svg';
@@ -19,7 +20,9 @@ import gameIcon1 from '../assets/dragon_city.png';
 import gameIcon2 from '../assets/arena.png';
 import gameIcon3 from '../assets/toonblast.png';
 import icon1 from '../assets/icon1.svg';
+import icon2 from '../assets/icon2.png';
 import forms from '../assets/forms.svg';
+
 
 const placeholderSvg =
   'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
@@ -28,21 +31,13 @@ const placeholderSvg =
 
        
 function Landing() {
-  const images = [globeImage, bankIdImage, personalFormImage];
+  const navigate = useNavigate();
+  const images = [globeImage, personalFormImage];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        setIndex((prev) => (prev + 1) % images.length);
-        setFade(true);
-      }, 400); // match fade-out duration
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);  
+ 
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -66,19 +61,22 @@ function Landing() {
       });
     };
   }, []);
+  
 
   return (
     <>
       <div className="">
         <header className="landing-header">
           <div className="logo-container">
-            <a href="/">
+            <Link to="/">
             <img src={logoImage} alt="Sveapanelen logo" className="logo-img" />
-            </a>
+            </Link>
           </div>
           <nav className="nav">
             <a href="#services" className="nav-link">Tjänster</a>
-            <button className="appointment-btn" aria-label="Boka ett möte">Registrera dig</button>
+            <button className="appointment-btn" aria-label="Boka ett möte" onClick={() => navigate('/register')}>
+              Registrera dig
+            </button>
           </nav>
         </header>
        
@@ -88,9 +86,12 @@ function Landing() {
         <section className="custom-hero fade-in">
           <div className="custom-hero-content">
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
+           
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
             <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" />
             <img src={icon1} alt="Game" className="game-icon game-icon-4" />
+            <img src={icon2} alt="Game" className="game-icon game-icon-5" />
+          
             {/* Left: Text */}
             <div className="custom-hero-left">
               <span className="custom-welcome">Välkommen till</span>
@@ -111,8 +112,8 @@ function Landing() {
             <div className="custom-hero-right">
               <div className="custom-phone-stack">
                 {/* Animated carousel for images */}
-                {(() => {
-                  const images = [mobileImage, globeImage];
+                {/* {(() => {
+                  const images = [globeImage];
                   const [index, setIndex] = React.useState(0);
                   const [fade, setFade] = React.useState(true);
                   React.useEffect(() => {
@@ -126,13 +127,15 @@ function Landing() {
                     return () => clearInterval(interval);
                   }, []);
                   return (
-                    <img
-                      src={images[index]}
+                   
+                  );
+                })()} */}
+                 <img
+                      src={globeImage}
                       alt="mobileImage"
                       className={`fade-image ${fade ? 'fade-in' : 'fade-out'}`}
                     />
-                  );
-                })()}
+             
                 {/* <img src={candyCrush} alt="Card1" className="custom-card card1" />
                 <img src={candyCrush} alt="Card2" className="custom-card card2" />
                 <img src={candyCrush} alt="Card3" className="custom-card card3" /> */}
