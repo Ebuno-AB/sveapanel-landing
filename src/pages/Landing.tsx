@@ -104,7 +104,7 @@ function Landing() {
            
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
             <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" />
-            <img src={icon1} alt="Game" className="game-icon game-icon-4" />
+            <img src={icon1} alt="Game" className="game-icon game-icon-5" style={{left: '20%', top: '20%', opacity: '0.8'}} />
             <img src={icon2} alt="Game" className="game-icon game-icon-5" />
           
             {/* Left: Text */}
