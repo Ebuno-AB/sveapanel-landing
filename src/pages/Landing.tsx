@@ -22,6 +22,10 @@ import gameIcon3 from '../assets/toonblast.png';
 import icon1 from '../assets/icon1.svg';
 import icon2 from '../assets/icon2.png';
 import forms from '../assets/forms.svg';
+import gameCards from '../assets/features/gameCards.webp';
+import rewards from '../assets/features/rewards.png';
+import tokens from '../assets/features/tokens.png';
+import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, ShoppingBag, Gift, Coins, Trophy, Star, DollarSign} from 'lucide-react';
 
 
@@ -209,13 +213,13 @@ function Landing() {
        <img ref={el => { splineRefs.current[1] = el; }} src={forms} alt="Game" className="spline-img" /> */}
 
         {/* Discover Games & Earn Rewards Section */}
+
+        {/* 1st block */}
         <div className="features-section">
           <div className="feature-block">
             <div className="feature-content">
               <div className="feature-icon">
-             
               <Gamepad2 size={24} className="highlight" />                 
-              
               </div>
               <div className="feature-header">SPEL</div>
               <h2 className="feature-title">Upptäck Spel</h2>
@@ -225,39 +229,38 @@ function Landing() {
             </div>
             <div className="feature-graphics">
               <div className="game-icons">
-                
+              <img src={gameCards} />
               </div>
             </div>
           </div>
 
-
+          {/* 2nd block */}
           <div className="feature-block">
             <div className="feature-content">
               <div className="feature-icon">
-             
               <List size={24} className="highlight" />                 
-              
               </div>
               <div className="feature-header">FORMULÄR</div>
               <h2 className="feature-title">Fyll i formulär</h2>
               <p className="feature-description">
-                Fyll i formulär och få pengar direkt via Swish, utan uttagsgränser.
+                Fyll i formulär och få pengar direkt via Swish, utan uttagsgränser. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
               </p>
             </div>
             <div className="feature-graphics">
               <div className="game-icons">
-                
+              <img src={consoles} />
               </div>
             </div>
           </div>
 
-
+          {/* 3rd block */}
           <div className="feature-block">
             <div className="feature-graphics">
               <div className="reward-cards">
-                
-               
               </div>
+              <img src={rewards} className="feature-img"/>
+           
+     
             </div>
             <div className="feature-content">
               <div className="feature-icon">
@@ -266,9 +269,30 @@ function Landing() {
               <div className="feature-header">Swish</div>
               <h2 className="feature-title">Tjäna pengar</h2>
               <p className="feature-description">
-                Få pengar direkt via Swish, utan uttagsgränser.
+                Få pengar direkt via Swish, utan uttagsgränser. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
               </p>
             </div>
+
+         {/* 4th block */}
+          </div>
+          <div className="feature-block">
+            <div className="feature-graphics">
+              <div className="reward-cards">
+              <img src={tokens}/>
+               
+              </div>
+            </div>
+            <div className="feature-content">
+              <div className="feature-icon">
+              <Gift size={24} className="highlight" />                
+              </div>
+              <div className="feature-header">POÄNG</div>
+              <h2 className="feature-title">Formulär</h2>
+              <p className="feature-description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+              </p>
+            </div>
+            
           </div>
         </div>
 

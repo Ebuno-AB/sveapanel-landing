@@ -1068,6 +1068,7 @@ body {
    Ratings/Proof Section
    ===================== */
 .ratings-section {
+  margin-top: 10rem;
   background: #fff;
   border-radius: 2.5rem;
   border: 1.5px solid #e0e0e0;
@@ -1516,12 +1517,13 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 6rem;
-  gap: 4rem;
   padding: 0 2rem;
 }
 
 /* First block (1st) - text left, image right */
 .feature-block:nth-child(1) {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
   flex-direction: row;
 }
 
@@ -1535,11 +1537,15 @@ body {
   flex-direction: row-reverse;
 }
 
-
+.feature-graphics img {
+  width: 69%;
+  height: auto;
+  object-fit: cover;
+}
 
 .feature-content {
   flex: 1;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .feature-icon {
