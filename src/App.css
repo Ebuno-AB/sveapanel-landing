@@ -1641,11 +1641,124 @@ body {
 }
 
 
+@media (max-width: 500px) {
+  .back-button {
+    top: 0.8rem;
+    left: 0.8rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
 
+/* =====================
+   Foldable Card Component
+   ===================== */
+.foldable-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
 
-@keyframes sparkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+.foldable-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.foldable-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: background-color 0.2s ease;
+}
+
+.foldable-card-header:hover {
+  background: #f3f4f6;
+}
+
+.foldable-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  user-select: none;
+}
+
+.foldable-card-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foldable-card-toggle:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.foldable-card-toggle.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.foldable-card-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.foldable-card-content.open {
+  max-height: 500px;
+}
+
+.foldable-card-body {
+  padding: 1.5rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.foldable-cards-section-margin {
+  margin-top: 10rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .foldable-card-header {
+    padding: 1.2rem;
+  }
+  
+  .foldable-card-title {
+    font-size: 1rem;
+  }
+  
+  .foldable-card-body {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .foldable-card-header {
+    padding: 1rem;
+  }
+  
+  .foldable-card-body {
+    padding: 1rem;
+  }
 }
 
 

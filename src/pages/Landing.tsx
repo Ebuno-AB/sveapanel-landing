@@ -5,28 +5,24 @@ import globeImage from '../assets/image.png';
 import logoImage from '../assets/logo.png';
 import appleImage from '../assets/apple.svg';
 import googleImage from '../assets/google.svg';
-import bankIdImage from '../assets/bankId.svg';
+
 import personalFormImage from '../assets/personal_form.svg';
-import moneyImage from '../assets/money.svg';
-import mobileImage from '../assets/mobile.svg';
-import candyCrush from '../assets/candyCrush.svg';
 import Footer from '../components/footer';
-import Game from '../assets/game.png';
 import mistplay1 from '../assets/mistplay-img1.png';
 import earn from '../assets/earn.png';
 import reward from '../assets/reward.png';
-import games from '../assets/games.svg';
 import gameIcon1 from '../assets/dragon_city.png';
 import gameIcon2 from '../assets/arena.png';
 import gameIcon3 from '../assets/toonblast.png';
 import icon1 from '../assets/icon1.svg';
 import icon2 from '../assets/icon2.png';
-import forms from '../assets/forms.svg';
+
 import gameCards from '../assets/features/gameCards.webp';
 import rewards from '../assets/features/rewards.png';
 import tokens from '../assets/features/tokens.png';
 import consoles from '../assets/features/consoles.png';
-import { Gamepad2, List, ShoppingBag, Gift, Coins, Trophy, Star, DollarSign} from 'lucide-react';
+import { Gamepad2, List, Gift, DollarSign, ChevronDown} from 'lucide-react';
+import FoldableCard from '../components/FoldableCard';
 
 
 const placeholderSvg =
@@ -258,7 +254,7 @@ function Landing() {
             <div className="feature-graphics">
               <div className="reward-cards">
               </div>
-              <img src={rewards} className="feature-img"/>
+              <img src={rewards}/>
            
      
             </div>
@@ -300,6 +296,9 @@ function Landing() {
         <div className="about-form">
           <h2 className="about-form-title">Vad är betalda undersökningar?</h2>
           <p className="about-form-desc">Vi är ett företag som hjälper dig att tjäna pengar på att svara på enkäter!</p>
+          
+        
+          
           <div className="info-container">
             <div className="info-card">
               <h3 className="info-title">Vad brukar belöningarna ligga på?</h3>
@@ -319,8 +318,39 @@ function Landing() {
 
 
 
-       
-
+        <div className="foldable-cards-section-margin">
+          <h2 className="foldable-cards-section-title">Vanliga frågor</h2>
+         {/* Foldable Cards Section */}
+         <div className="foldable-cards-section">
+            <FoldableCard title="Hur fungerar det?" defaultOpen={true}>
+              <p>Du registrerar dig, svarar på enkäter och tjänar pengar direkt via Swish. Det är så enkelt!</p>
+              <ul>
+                <li>Registrera dig gratis</li>
+                <li>Svara på enkäter</li>
+                <li>Få pengar via Swish</li>
+              </ul>
+            </FoldableCard>
+            
+            <FoldableCard title="Vilka belöningar kan jag få?">
+              <p>Du kan välja mellan olika belöningar:</p>
+              <ul>
+                <li>Swish-betalningar</li>
+                <li>Presentkort till Amazon</li>
+                <li>Google Play-kort</li>
+                <li>PayPal-betalningar</li>
+              </ul>
+            </FoldableCard>
+            
+            <FoldableCard title="Hur mycket kan jag tjäna?">
+              <p>Belöningarna varierar beroende på enkätens längd och komplexitet:</p>
+              <ul>
+                <li>Korta enkäter: 1-10 kr</li>
+                <li>Mellanlånga enkäter: 10-25 kr</li>
+                <li>Långa enkäter: 25-50 kr</li>
+              </ul>
+            </FoldableCard>
+          </div>
+          </div>
       </div>
       <Footer />
     </>
