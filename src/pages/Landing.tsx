@@ -22,6 +22,7 @@ import gameIcon3 from '../assets/toonblast.png';
 import icon1 from '../assets/icon1.svg';
 import icon2 from '../assets/icon2.png';
 import forms from '../assets/forms.svg';
+import { Gamepad2, List, ShoppingBag, Gift, Coins, Trophy, Star, DollarSign} from 'lucide-react';
 
 
 const placeholderSvg =
@@ -174,7 +175,7 @@ function Landing() {
 
 
         <div className="ratings-section">
-          <h2 className="ratings-headline">Vi har betalat ut mer än <span className="highlight">2 000 000 kr</span> till våra nöjda användare!</h2>
+          <h2 className="ratings-headline">Vi har betalat ut mer än <span className="highlight">2 000 000 kr</span> till våra användare!</h2>
           <p className="ratings-desc">SveaPanelen har tusentals nöjda användare och ett av de högsta betygen i branschen.</p>
           <div className="ratings-summary">
             <span className="ratings-value">4.7</span>
@@ -204,9 +205,72 @@ function Landing() {
 
         {/* IMAGES*/} 
 
-       <img ref={el => { splineRefs.current[0] = el; }} src={games} alt="Game" className="spline-img" /> 
-       <img ref={el => { splineRefs.current[1] = el; }} src={forms} alt="Game" className="spline-img" />
+       {/* <img ref={el => { splineRefs.current[0] = el; }} src={games} alt="Game" className="spline-img" /> 
+       <img ref={el => { splineRefs.current[1] = el; }} src={forms} alt="Game" className="spline-img" /> */}
 
+        {/* Discover Games & Earn Rewards Section */}
+        <div className="features-section">
+          <div className="feature-block">
+            <div className="feature-content">
+              <div className="feature-icon">
+             
+              <Gamepad2 size={24} className="highlight" />                 
+              
+              </div>
+              <div className="feature-header">SPEL</div>
+              <h2 className="feature-title">Upptäck Spel</h2>
+              <p className="feature-description">
+                Våra spel är anpassade för dig. Hitta ett spel du gillar och börja spela. Ju längre du spelar, desto fler poäng får du.
+              </p>
+            </div>
+            <div className="feature-graphics">
+              <div className="game-icons">
+                
+              </div>
+            </div>
+          </div>
+
+
+          <div className="feature-block">
+            <div className="feature-content">
+              <div className="feature-icon">
+             
+              <List size={24} className="highlight" />                 
+              
+              </div>
+              <div className="feature-header">FORMULÄR</div>
+              <h2 className="feature-title">Fyll i formulär</h2>
+              <p className="feature-description">
+                Fyll i formulär och få pengar direkt via Swish, utan uttagsgränser.
+              </p>
+            </div>
+            <div className="feature-graphics">
+              <div className="game-icons">
+                
+              </div>
+            </div>
+          </div>
+
+
+          <div className="feature-block">
+            <div className="feature-graphics">
+              <div className="reward-cards">
+                
+               
+              </div>
+            </div>
+            <div className="feature-content">
+              <div className="feature-icon">
+              <DollarSign size={24} className="highlight" />                
+              </div>
+              <div className="feature-header">Swish</div>
+              <h2 className="feature-title">Tjäna pengar</h2>
+              <p className="feature-description">
+                Få pengar direkt via Swish, utan uttagsgränser.
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* ABOUT FORM */}
         <div className="about-form">

@@ -1068,7 +1068,7 @@ body {
    Ratings/Proof Section
    ===================== */
 .ratings-section {
-  background: linear-gradient(120deg, #fffbe7 60%, #eafff4 100%);
+  background: #fff;
   border-radius: 2.5rem;
   border: 1.5px solid #e0e0e0;
   box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.13);
@@ -1154,7 +1154,7 @@ body {
   justify-content: center;
 }
 .testimonial-card {
-  background: linear-gradient(120deg, #fff 80%, #eafff4 100%);
+  background: linear-gradient(120deg, #fff 80%);
   border-radius: 1.2rem;
   box-shadow: 0 2px 12px 0 rgba(44, 62, 80, 0.10);
   padding: 1.2rem 1.5rem;
@@ -1498,5 +1498,199 @@ body {
     left: 0.8rem;
     font-size: 0.85rem;
     padding: 0.5rem 0.8rem;
+  }
+}
+
+/* =====================
+   Features Section
+   ===================== */
+.features-section {
+  background: #fff;
+  padding: 4rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6rem;
+  gap: 4rem;
+  padding: 0 2rem;
+}
+
+/* First block (1st) - text left, image right */
+.feature-block:nth-child(1) {
+  flex-direction: row;
+}
+
+/* Second block (2nd) - image left, text right */
+.feature-block:nth-child(2) {
+  flex-direction: row-reverse;
+}
+
+/* Third block (3rd) - text left, image right */
+.feature-block:nth-child(3) {
+  flex-direction: row-reverse;
+}
+
+
+
+.feature-content {
+  flex: 1;
+  max-width: 800px;
+}
+
+.feature-icon {
+  margin-bottom: 1rem;
+}
+
+.feature-header {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.feature-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.feature-description {
+  font-size: 1.1rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.feature-graphics {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Game Icons */
+.game-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.game-icon-item {
+  background: #23481e;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+
+.game-icon-item:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.game-icon-item:nth-child(3n) {
+  transform: rotate(-1deg);
+}
+
+.game-icon-item:hover {
+  transform: scale(1.05) rotate(0deg);
+}
+
+/* Reward Cards */
+.reward-cards {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reward-card {
+  width: 80px;
+  height: 50px;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 2;
+}
+
+
+
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .feature-block {
+    flex-direction: column !important;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .feature-content {
+    max-width: 100%;
+  }
+  
+  .feature-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .features-section {
+    padding: 2rem 0;
+  }
+  
+  .feature-block {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+  
+  .feature-title {
+    font-size: 1.8rem;
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+  }
+  
+  .game-icons {
+    gap: 0.8rem;
+  }
+  
+  .game-icon-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .reward-card {
+    width: 60px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }
