@@ -49,16 +49,16 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
           fpsLimit: 60,
           particles: {
             color: {
-              value: ["#FFFFFF", "#", "#"],
+              value: ["#FFF"],
             },
             move: {
-              direction: "none",
+              direction: "top",
               enable: true,
               outModes: {
-                default: "bounce",
+                default: "out",
               },
               random: true,
-              speed: 1,
+              speed: 2,
               straight: false,
             },
             number: {
@@ -66,7 +66,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 enable: true,
                 area: 100,
               },
-              value: 40,
+              value: 20,
             },
             opacity: {
               value: 0.3,
