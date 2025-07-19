@@ -282,11 +282,10 @@ function Landing() {
           <div className="feature-block">
             <div className="feature-graphics">
               <div className="reward-cards">
+              <img src={rewards} style={{width: '60%', height: '60%'}}/>
               </div>
-              <img src={rewards}/>
-           
-     
             </div>
+
             <div className="feature-content">
               <div className="feature-icon">
               <DollarSign size={24} className="highlight" />                
@@ -303,7 +302,7 @@ function Landing() {
           <div className="feature-block">
             <div className="feature-graphics">
               <div className="reward-cards">
-              <img src={tokens}/>
+              <img src={tokens} style={{width: '60%', height: '60%'}}/>
                
               </div>
             </div>
