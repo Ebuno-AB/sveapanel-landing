@@ -6,35 +6,30 @@ import logoImage from "../assets/logo.png";
 import appleImage from "../assets/apple.svg";
 import googleImage from "../assets/google.svg";
 
-import personalFormImage from "../assets/personal_form.svg";
-import Footer from "../components/footer";
-import mistplay1 from "../assets/mistplay-img1.png";
-import earn from "../assets/earn.png";
-import reward from "../assets/reward.png";
-import gameIcon1 from "../assets/dragon_city.png";
-import gameIcon2 from "../assets/arena.png";
-import gameIcon3 from "../assets/toonblast.png";
-import icon1 from "../assets/icon1.svg";
-import icon2 from "../assets/icon2.png";
 
-import gameCards from "../assets/features/gameCards.webp";
-import rewards from "../assets/features/rewards.png";
-import tokens from "../assets/features/tokens.png";
-import consoles from "../assets/features/consoles.png";
-import {
-  Gamepad2,
-  List,
-  Gift,
-  DollarSign,
-  ChevronDown,
-  Banknote,
-} from "lucide-react";
-import FoldableCard from "../components/FoldableCard";
-import QRModal from "../components/QRModal";
+import personalFormImage from '../assets/personal_form.svg';
+import Footer from '../components/footer';
+import mistplay1 from '../assets/mistplay-img1.png';
+import earn from '../assets/earn.png';
+import reward from '../assets/reward.png';
+import gameIcon1 from '../assets/dragon_city.png';
+import gameIcon2 from '../assets/arena.png';
+import gameIcon3 from '../assets/toonblast.png';
+import icon1 from '../assets/icon1.svg';
+import icon2 from '../assets/icon2.png';
 
-const placeholderSvg =
-  'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
-import Spline from "@splinetool/react-spline";
+import gameCards from '../assets/features/gameCards.webp';
+import rewards from '../assets/features/rewards.png';
+import tokens from '../assets/features/tokens.png';
+import consoles from '../assets/features/consoles.png';
+import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
+import FoldableCard from '../components/FoldableCard';
+import QRModal from '../components/QRModal';
+import ScrollChest from '../components/ScrollChest';
+
+import ParticlesComponent from '../components/particlesComponent';
+
+
 
 function Landing() {
   const navigate = useNavigate();
@@ -86,6 +81,9 @@ function Landing() {
 
   return (
     <>
+      {/* Scroll Chest Animation - Only visible on desktop */}
+   
+      
       <div className="">
         <header className="landing-header">
           <div className="logo-container">
@@ -113,7 +111,9 @@ function Landing() {
 
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
+        <ParticlesComponent />
           <div className="custom-hero-content">
+ 
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
 
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
@@ -332,9 +332,13 @@ function Landing() {
           {/* 3rd block */}
           <div className="feature-block">
             <div className="feature-graphics">
-              <div className="reward-cards"></div>
-              <img src={rewards} />
+
+              <div className="reward-cards">
+              <img src={rewards} style={{width: '60%', height: '60%'}}/>
+              </div>
+
             </div>
+
             <div className="feature-content">
               <div className="feature-icon">
                 <DollarSign size={24} className="highlight" />
@@ -352,7 +356,9 @@ function Landing() {
           <div className="feature-block">
             <div className="feature-graphics">
               <div className="reward-cards">
-                <img src={tokens} />
+
+              <img src={tokens} style={{width: '60%', height: '60%'}}/>
+
               </div>
             </div>
             <div className="feature-content">
