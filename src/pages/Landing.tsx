@@ -26,13 +26,9 @@ import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
 import ScrollChest from '../components/ScrollChest';
 
-
-const placeholderSvg =
-  'data:image/svg+xml;utf8,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" rx="24" fill="%23eafff4"/><text x="50%" y="50%" text-anchor="middle" fill="%235ecb8b" font-size="18" font-family="Arial" dy=".3em">Bild</text></svg>';
-  import Spline from '@splinetool/react-spline';
+import ParticlesComponent from '../components/particlesComponent';
 
 
-       
 function Landing() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -82,7 +78,7 @@ function Landing() {
   return (
     <>
       {/* Scroll Chest Animation - Only visible on desktop */}
-      <ScrollChest />
+   
       
       <div className="">
         <header className="landing-header">
@@ -103,7 +99,9 @@ function Landing() {
   
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
+        <ParticlesComponent />
           <div className="custom-hero-content">
+ 
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
            
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
