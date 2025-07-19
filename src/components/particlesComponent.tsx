@@ -66,7 +66,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 enable: true,
                 area: 100,
               },
-              value: 100,
+              value: 50,
             },
             opacity: {
               value: 0.3,

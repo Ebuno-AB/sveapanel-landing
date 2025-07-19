@@ -809,6 +809,9 @@ body {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .custom-hero {
+    overflow: hidden;
+  }
 }
 @media (max-width: 900px) {
   .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
