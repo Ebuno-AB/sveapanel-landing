@@ -82,8 +82,7 @@ function Landing() {
 
   return (
     <>
-      {/* Scroll Chest Animation - Only visible on desktop */}
-   
+  
       
       <div className="">
         <header className="landing-header">
@@ -124,7 +123,7 @@ function Landing() {
               src={icon1}
               alt="Game"
               className="game-icon game-icon-5"
-              style={{ left: "20%", top: "20%", opacity: "0.8" }}
+              style={{ left: "30%", top: "10%", opacity: "0.8" }}
             />
             <img src={icon2} alt="Game" className="game-icon game-icon-5" />
 
@@ -209,7 +208,9 @@ function Landing() {
       
       {/* Services Section - now outside landing-root for white background */}
       <div className="services-section">
+       
         <h2 className="services-heading">
+          
           Tjäna pengar med <br />{" "}
           <span className="text-black">SveaPanelen</span>
         </h2>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 interface LiveEarningsCounterProps {
   className?: string;
 }
@@ -37,8 +38,12 @@ const LiveEarningsCounter: React.FC<LiveEarningsCounterProps> = ({ className = '
   };
 
   return (
+    
     <div className={`live-earnings-counter ${className}`}>
+
+     
       <div className="counter-grid">
+        
         <div className="counter-item">
 
           <div className="counter-value">{formatCurrency(totalEarnings)}</div>

@@ -56,7 +56,8 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
           fpsLimit: 60,
           particles: {
             color: {
-              value: ["#55b77e", "#a8ffc5", "#23481e", "#ffffff", "#10b981"],
+                //gold, purple
+              value: ["#FFD700", "#800080", "#ffffff"],
             },
             move: {
               direction: "top",
@@ -73,7 +74,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 enable: true,
                 area: 100,
               },
-              value: 35,
+              value: 20,
             },
             opacity: {
               value: { min: 0.2, max: 0.6 },
@@ -84,7 +85,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
               },
             },
             shape: {
-              type: ["circle", "star"],
+              type: ["circle"]
             },
             size: {
               value: { min: 1, max: 8},
@@ -102,16 +103,10 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 opacity: 1,
               },
             },
-            life: {
-              duration: {
-                sync: false,
-                value: 20,
-              },
-              count: 1,
-            },
+            
           },
           interactivity: {
-            detectsOn: "canvas",
+            detectsOn: "window",
             events: {
               onHover: {
                 enable: true,
@@ -125,8 +120,9 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
             },
             modes: {
               repulse: {
-                distance: 100,
-                duration: 0.4,
+                distance: 200,
+                duration: 0.6,
+                factor: 10,
               },
               push: {
                 particles_nb: 4,

@@ -1057,7 +1057,7 @@ body {
   animation-delay: 0s;
   width: 130px; /* Adjust as needed */
   height: 130px; /* Adjust as needed */
-  left: 14%;
+  left: 20%;
   top: 90%;
 }
 
@@ -1083,7 +1083,7 @@ body {
 .game-icon-4 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2.2s;
-  left: 10%;
+  left: 40%;
   top: 100%;
   z-index: 0;
 }
@@ -1094,7 +1094,7 @@ body {
   width: 120px;
   height: 120px;
   left: 45%;
-  top: 10%;
+  top: 20%;
   z-index: 0;
 }
   
