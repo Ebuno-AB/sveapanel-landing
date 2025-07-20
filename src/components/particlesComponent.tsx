@@ -26,7 +26,14 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
       zIndex: 0,
       borderRadius: 'inherit',
       width: '100%',
-      height: '100%'
+      height: '100%',
+      background: 'linear-gradient(135deg, rgba(85, 183, 126, 0.1) 0%, rgba(168, 255, 197, 0.05) 50%, rgba(35, 72, 30, 0.08) 100%)',
+      backgroundSize: '400px 400px',
+      backgroundImage: `
+        radial-gradient(circle at 20% 80%, rgba(168, 255, 197, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(85, 183, 126, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.06) 0%, transparent 50%)
+      `
     }}>
       <Particles
         id={id}
@@ -49,16 +56,17 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
           fpsLimit: 60,
           particles: {
             color: {
-              value: ["#FFFFFF", "#", "#"],
+                //gold, purple
+              value: ["#FFD700", "#800080", "#ffffff"],
             },
             move: {
-              direction: "none",
+              direction: "top",
               enable: true,
               outModes: {
-                default: "bounce",
+                default: "out",
               },
               random: true,
-              speed: 1,
+              speed: { min: 0.3, max: 1.9 },
               straight: false,
             },
             number: {
@@ -66,16 +74,59 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 enable: true,
                 area: 100,
               },
-              value: 40,
+              value: 20,
             },
             opacity: {
-              value: 0.3,
+              value: { min: 0.2, max: 0.6 },
+              animation: {
+                enable: true,
+                speed: 1,
+                minimumValue: 0.1,
+              },
             },
             shape: {
-              type: "circle",
+              type: ["circle"]
             },
             size: {
-              value: { min: 1, max: 6},
+              value: { min: 1, max: 8},
+              animation: {
+                enable: true,
+                speed: 2,
+                minimumValue: 0.5,
+              },
+            },
+            twinkle: {
+              particles: {
+                enable: true,
+                color: "#a8ffc5",
+                frequency: 0.05,
+                opacity: 1,
+              },
+            },
+            
+          },
+          interactivity: {
+            detectsOn: "window",
+            events: {
+              onHover: {
+                enable: true,
+                mode: "repulse",
+              },
+              onClick: {
+                enable: true,
+                mode: "push",
+              },
+              resize: true,
+            },
+            modes: {
+              repulse: {
+                distance: 200,
+                duration: 0.6,
+                factor: 10,
+              },
+              push: {
+                particles_nb: 4,
+              },
             },
           },
           detectRetina: true,

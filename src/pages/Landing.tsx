@@ -28,6 +28,7 @@ import QRModal from '../components/QRModal';
 import ScrollChest from '../components/ScrollChest';
 
 import ParticlesComponent from '../components/particlesComponent';
+import LiveEarningsCounter from '../components/LiveEarningsCounter';
 
 
 
@@ -81,8 +82,7 @@ function Landing() {
 
   return (
     <>
-      {/* Scroll Chest Animation - Only visible on desktop */}
-   
+  
       
       <div className="">
         <header className="landing-header">
@@ -111,6 +111,7 @@ function Landing() {
 
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
+
         <ParticlesComponent />
           <div className="custom-hero-content">
  
@@ -122,7 +123,7 @@ function Landing() {
               src={icon1}
               alt="Game"
               className="game-icon game-icon-5"
-              style={{ left: "20%", top: "20%", opacity: "0.8" }}
+              style={{ left: "30%", top: "10%", opacity: "0.8" }}
             />
             <img src={icon2} alt="Game" className="game-icon game-icon-5" />
 
@@ -201,9 +202,15 @@ function Landing() {
           </div>
         </section>
       </div>
+      
+      {/* Live Earnings Counter - positioned for maximum impact */}
+
+      
       {/* Services Section - now outside landing-root for white background */}
       <div className="services-section">
+       
         <h2 className="services-heading">
+          
           Tjäna pengar med <br />{" "}
           <span className="text-black">SveaPanelen</span>
         </h2>
@@ -237,11 +244,11 @@ function Landing() {
             </p>
           </div>
         </div>
-
+        <LiveEarningsCounter />
         <div className="ratings-section">
           <h2 className="ratings-headline">
             Vi har betalat ut mer än{" "}
-            <span className="highlight">10 000 000 kr</span> till våra
+            <span className="highlight">2 000 000 kr</span> till våra
             användare!
           </h2>
           <p className="ratings-desc">
@@ -424,6 +431,25 @@ function Landing() {
                 <li>Svara på enkäter</li>
                 <li>Få pengar via Swish</li>
               </ul>
+            </FoldableCard>
+
+            <FoldableCard title="Vad är betalda undersökningar?" defaultOpen={false}>
+              <p>Betalda undersökningar är enkäter som företag betalar dig för att svara på. Här är hur det fungerar:</p>
+              <ul>
+                <li><strong>Företag behöver feedback:</strong> Många företag vill testa sina produkter och idéer innan de lanseras. De vänder sig till panelföretag som SveaPanelen för att sätta upp undersökningar.</li>
+                <li><strong>Du får betalt:</strong> Vi visar undersökningarna för våra användare och betalar ut belöningar för deltagandet. Alla belöningar kan tas ut till Swish, direkt till ditt konto, utan uttagsgränser.</li>
+                <li><strong>Extra tävlingar:</strong> Vi erbjuder även tävlingar för de som gör flest enkäter eller bjuder in flest användare. Du kan vinna häftiga priser som betalas ut varje vecka!</li>
+              </ul>
+            </FoldableCard>
+
+            <FoldableCard title="Vad kan man tjäna med betalda undersökningar?" defaultOpen={false}>
+              <p>Betalda undersökningar erbjuder möjligheten att tjäna extra pengar på fritiden genom att dela med sig av sina åsikter och tankar om olika produkter och tjänster.</p>
+              <ul>
+                <li><strong>Extra inkomst:</strong> Med minimal ansträngning kan du få en extra inkomst som kan hjälpa dig att spara pengar eller finansiera dina fritidsintressen.</li>
+                <li><strong>Små belopp blir stora:</strong> Även om det är mindre belopp som du kan tjäna på undersökningar så kan små belopp sammanlagt bli ett bra tillskott.</li>
+                <li><strong>Lunch betald:</strong> Genom att vara aktiv då och då kan du få lunchen betald.</li>
+              </ul>
+              <p><strong>Kom igång redan idag:</strong> Börja att tjäna pengar på enkäter och ladda ner appen på App Store eller Google Play.</p>
             </FoldableCard>
 
             <FoldableCard title="Vilka belöningar kan jag få?">
