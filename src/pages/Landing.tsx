@@ -112,6 +112,7 @@ function Landing() {
 
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
+
         <ParticlesComponent />
           <div className="custom-hero-content">
  
