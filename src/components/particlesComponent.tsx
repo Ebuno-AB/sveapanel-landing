@@ -47,9 +47,42 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
             },
           },
           fpsLimit: 60,
+          interactivity: {
+            detectsOn: "canvas",
+            events: {
+              onClick: {
+                enable: true,
+                mode: "push",
+              },
+              onHover: {
+                enable: true,
+                mode: "repulse",
+              },
+              resize: true,
+            },
+            modes: {
+              push: {
+                particles_nb: 4,
+              },
+              repulse: {
+                distance: 100,
+                duration: 0.4,
+              },
+            },
+          },
           particles: {
             color: {
-              value: ["#FFF"],
+              value: ["#FFD700", "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"],
+            },
+            links: {
+              color: "#ffffff",
+              distance: 150,
+              enable: true,
+              opacity: 0.2,
+              width: 1,
+            },
+            collisions: {
+              enable: true,
             },
             move: {
               direction: "top",
@@ -58,24 +91,44 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 default: "out",
               },
               random: true,
-              speed: 2,
+              speed: { min: 0.3, max: 1.9 },
               straight: false,
             },
             number: {
               density: {
                 enable: true,
-                area: 100,
+                area: 800,
               },
-              value: 20,
+              value: 30,
             },
             opacity: {
-              value: 0.3,
+              value: 0.6,
+              animation: {
+                enable: true,
+                speed: 1,
+                minimumValue: 0.1,
+                sync: false,
+              },
             },
             shape: {
-              type: "circle",
+              type: ["circle", "star", "triangle"],
             },
             size: {
-              value: { min: 1, max: 6},
+              value: { min: 1, max: 8 },
+              animation: {
+                enable: true,
+                speed: 2,
+                minimumValue: 0.1,
+                sync: false,
+              },
+            },
+            twinkle: {
+              particles: {
+                enable: true,
+                color: "#FFD700",
+                frequency: 0.05,
+                opacity: 1,
+              },
             },
           },
           detectRetina: true,

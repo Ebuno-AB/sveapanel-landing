@@ -246,7 +246,7 @@ function Landing() {
         <div className="ratings-section">
           <h2 className="ratings-headline">
             Vi har betalat ut mer än{" "}
-            <span className="highlight">10 000 000 kr</span> till våra
+            <span className="highlight">2 000 000 kr</span> till våra
             användare!
           </h2>
           <p className="ratings-desc">
