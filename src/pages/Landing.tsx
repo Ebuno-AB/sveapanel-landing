@@ -25,14 +25,20 @@ import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
-import ScrollChest from '../components/ScrollChest';
 
 import ParticlesComponent from '../components/particlesComponent';
 import LiveEarningsCounter from '../components/LiveEarningsCounter';
+import CookiesConsent from '../components/cookies/CookiesConsent';
+import { useGA } from '../hooks/gtag';
 
 
 
 function Landing() {
+
+useGA();
+
+
+  
   const navigate = useNavigate();
   const location = useLocation();
   const images = [globeImage, personalFormImage];
@@ -52,10 +58,7 @@ function Landing() {
     location.pathname.match(/\/register\/([^\/]+)/)?.[1] ||
     null;
 
-  // Debug logging
-  console.log("Current pathname:", location.pathname);
-  console.log("Is registered:", isRegistered);
-  console.log("Referral code:", referralCode);
+
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -496,6 +499,18 @@ function Landing() {
       <Footer />
       {/* QR Modal */}
       <QRModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      
+      {/* Cookies Consent Banner */}
+      <CookiesConsent 
+        onAccept={() => {
+          console.log('Cookies accepted');
+          // Initialize GA tracking if user accepts cookies
+        }}
+        onDecline={() => {
+          console.log('Cookies declined');
+          // Disable GA tracking if user declines
+        }}
+      />
     </>
   );
 }
