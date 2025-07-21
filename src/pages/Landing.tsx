@@ -25,37 +25,74 @@ import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
-import ScrollChest from '../components/ScrollChest';
+import SocialBrowserWarning from '../components/SocialBrowserWarning';
+import BankIDButton from '../components/BankIDButton';
 
 import ParticlesComponent from '../components/particlesComponent';
 import LiveEarningsCounter from '../components/LiveEarningsCounter';
+import RatingsSection from '../components/ratingsCompnent/RatingsSection';
+import CookiesConsent from '../components/cookies/CookiesConsent';
+import { useGA } from '../hooks/gtag';
+import { useBankID } from '../hooks/useBankID';
+import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 
 
 
 function Landing() {
+  const { trackEvent } = useGA();
+  
   const navigate = useNavigate();
   const location = useLocation();
-  const images = [globeImage, personalFormImage];
-  const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
+  
+  // BankID integration
+  const { qrCodeUrl, browserLink, isLoading, error, initialize, clearAllIntervals } = useBankID();
+  const isPhoneDevice = isPhone();
+  const isSocialBrowserDetected = isSocialBrowser();
+  const currentUrl = window.location.href;
 
-  // Check if user is registered (URL contains /r/{code})
+  // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered =
     location.pathname.includes("/r/") ||
     location.pathname.includes("/register/");
+  
+  // Handle BankID registration button click
+  const handleBankIDRegistration = () => {
+    console.log("🔵 BankID registration button clicked!");
+    console.log("📱 Device details:", {
+      isPhoneDevice,
+      isSocialBrowserDetected,
+      currentUrl
+    });
+    
+    // Start BankID authentication
+    console.log("🚀 Initializing BankID authentication...");
+    initialize(isPhoneDevice);
+    
+    // Open modal (for desktop) or handle mobile flow
+    if (!isPhoneDevice || !isSocialBrowserDetected) {
+      console.log("🖥️ Opening modal for desktop or non-social mobile browser");
+      setIsModalOpen(true);
+    }
+  };
+  
+  // Handle modal close
+  const handleModalClose = () => {
+    console.log("❌ Modal closed - clearing intervals");
+    clearAllIntervals();
+    setIsModalOpen(false);
+  };
 
-  // Extract referral code if present
+  // Extract referral code 
   const referralCode =
     location.pathname.match(/\/r\/([^\/]+)/)?.[1] ||
     location.pathname.match(/\/register\/([^\/]+)/)?.[1] ||
     null;
 
-  // Debug logging
-  console.log("Current pathname:", location.pathname);
-  console.log("Is registered:", isRegistered);
-  console.log("Referral code:", referralCode);
+
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -114,18 +151,18 @@ function Landing() {
 
         <ParticlesComponent />
           <div className="custom-hero-content">
- 
+{/*  
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
 
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
-            <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" />
-            <img
+            <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" /> */}
+            {/* <img
               src={icon1}
               alt="Game"
               className="game-icon game-icon-5"
               style={{ left: "30%", top: "10%", opacity: "0.8" }}
             />
-            <img src={icon2} alt="Game" className="game-icon game-icon-5" />
+            <img src={icon2} alt="Game" className="game-icon game-icon-5" /> */}
 
             {/* Left: Text */}
             <div className="custom-hero-left">
@@ -141,28 +178,36 @@ function Landing() {
               </p>
 
               {isRegistered ? (
+
+               <div className="">
+                <button
+                  className="appointment-btn"
+                  onClick={handleBankIDRegistration}
+                >
+                  Registrera dig med BankID
+                </button>
+                <p style={{ fontSize: "1rem" }}>
+                  Registrera dig för att få tillgång till våra tjänster{" "}
+                </p>
+              </div>
+              ) : (
+                
                 // Show app store buttons for registered users
                 <div className="custom-app-buttons">
-                  <button className="custom-app-btn google">
+                  <button 
+                    className="custom-app-btn google"
+                    onClick={() => navigate('/redirect/google')}
+                  >
                     <img src={googleImage} alt="Google" />
                     Google Play
                   </button>
-                  <button className="custom-app-btn apple">
+                  <button 
+                    className="custom-app-btn apple"
+                    onClick={() => navigate('/redirect/apple')}
+                  >
                     <img src={appleImage} alt="Apple" />
                     App Store
                   </button>
-                </div>
-              ) : (
-                <div className="">
-                  <button
-                    className="appointment-btn"
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    Registrera dig med BankID
-                  </button>
-                  <p style={{ fontSize: "1rem" }}>
-                    Registrera dig för att få tillgång till våra tjänster{" "}
-                  </p>
                 </div>
               )}
             </div>
@@ -245,47 +290,7 @@ function Landing() {
           </div>
         </div>
         <LiveEarningsCounter />
-        <div className="ratings-section">
-          <h2 className="ratings-headline">
-            Vi har betalat ut mer än{" "}
-            <span className="highlight">2 000 000 kr</span> till våra
-            användare!
-          </h2>
-          <p className="ratings-desc">
-            SveaPanelen har tusentals nöjda användare och ett av de högsta
-            betygen i branschen.
-          </p>
-          <div className="ratings-summary">
-            <span className="ratings-value">4.7</span>
-            <span className="ratings-stars">★★★★</span>
-            <span className="ratings-stars-last">★</span>
-            <span className="ratings-outof">/ 5.0</span>
-            <span className="ratings-count">(2500+ omdömen)</span>
-          </div>
-          <div className="ratings-testimonials">
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Trovärdig, cashback och erbjuder roliga spel i appen! Varje
-                enkät och spel är underhållande. Jag kan varmt rekommendera den!
-                :) ”
-              </p>
-              <span className="testimonial-user">– Randy M.G.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Bästa panelen jag testat. Bra support och många
-                undersökningar.”
-              </p>
-              <span className="testimonial-user">– Erik L.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Trodde inte det var så enkelt att tjäna pengar på enkäter!”
-              </p>
-              <span className="testimonial-user">– Maria P.</span>
-            </div>
-          </div>
-        </div>
+        <RatingsSection />
 
         {/* IMAGES*/}
 
@@ -495,7 +500,54 @@ function Landing() {
       </div>
       <Footer />
       {/* QR Modal */}
-      <QRModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* BankID Registration Modal */}
+      <QRModal 
+        isOpen={isModalOpen} 
+        onClose={handleModalClose}
+        qrCodeUrl={qrCodeUrl}
+        isLoading={isLoading}
+        error={error || undefined}
+      />
+
+      {/* Mobile BankID handling */}
+      {isModalOpen && isPhoneDevice && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <button 
+              onClick={handleModalClose}
+              className="float-right text-gray-600 hover:text-gray-800 text-2xl"
+            >
+              ×
+            </button>
+            
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-bold mb-2">Registrera dig med BankID</h2>
+            </div>
+
+            {isSocialBrowserDetected ? (
+              <SocialBrowserWarning currentUrl={currentUrl} />
+            ) : (
+              <BankIDButton browserLink={browserLink} isLoading={isLoading} />
+            )}
+          </div>
+        </div>
+      )}
+      
+      {/* Cookies Consent Banner */}
+      <CookiesConsent 
+        onAccept={() => {
+          console.log('Cookies accepted');
+          setCookiesAccepted(true);
+          // Track that user accepted cookies
+          console.log('Cookies accepted');
+        }}
+        onDecline={() => {
+          console.log('Cookies declined');
+          setCookiesAccepted(false);
+          // Track that user declined cookies
+          console.log('Cookies declined');
+        }}
+      />
     </>
   );
 }

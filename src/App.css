@@ -532,6 +532,7 @@ body {
   box-sizing: border-box;
 }
 
+
 .about-form-btn {
   margin-top: 2rem;
   background: #23481e;
@@ -575,8 +576,7 @@ body {
   background: #ffffffde;
   border-radius: 2rem;
   padding: 2rem;
-  max-width: 320px;
-  min-width: 220px;
+  max-width: 100%;
   flex: 1 1 220px;
   display: flex;
   flex-direction: column;
@@ -1057,8 +1057,8 @@ body {
   animation-delay: 0s;
   width: 130px; /* Adjust as needed */
   height: 130px; /* Adjust as needed */
-  left: 20%;
-  top: 90%;
+  left: 50%;
+  top: 85%;
 }
 
 .game-icon-2 {
@@ -1075,15 +1075,15 @@ body {
   animation-delay: 1.7s;
   width: 160px; /* Adjust as needed */
   height: 160px; /* Adjust as needed */
-  left: 55%;
-  top: 70%;
+  left: 45%;
+  top: 20%;
 }
 
 
 .game-icon-4 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2.2s;
-  left: 40%;
+  left: 100%;
   top: 100%;
   z-index: 0;
 }
@@ -2311,14 +2311,13 @@ body {
 .live-earnings-counter {
   background: linear-gradient(135deg, #55b77e 0%, #a8ffc5 100%);
   border-radius: 2rem;
-
   padding: 2.5rem;
   margin: 3rem 0;
   box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.15);
   position: relative;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10rem;
 }
 
 .live-earnings-counter::before {
@@ -2958,6 +2957,48 @@ body {
     height: 160px;
   }
 }
+
+/* =====================
+   QR Modal Component
+   ===================== */
+
+   .modal-btn {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 1rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
+      transition: all 0.2s ease;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      min-width: 120px;
+      text-align: center;
+      display: inline-block;
+   }
+   
+   .modal-btn:hover {
+      box-shadow: 0 4px 12px 0 rgba(44, 62, 80, 0.15);
+      transform: translateY(-1px);
+   }
+   
+   .modal-btn:active {
+      transform: translateY(0);
+   }
+   
+   .modal-button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding: 0 1rem;
+   }
+
+
+
 
 /* =====================
    Scroll Chest Animation
