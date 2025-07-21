@@ -25,12 +25,16 @@ import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
+import SocialBrowserWarning from '../components/SocialBrowserWarning';
+import BankIDButton from '../components/BankIDButton';
 
 import ParticlesComponent from '../components/particlesComponent';
 import LiveEarningsCounter from '../components/LiveEarningsCounter';
 import RatingsSection from '../components/ratingsCompnent/RatingsSection';
 import CookiesConsent from '../components/cookies/CookiesConsent';
 import { useGA } from '../hooks/gtag';
+import { useBankID } from '../hooks/useBankID';
+import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 
 
 
@@ -43,11 +47,44 @@ function Landing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
+  
+  // BankID integration
+  const { qrCodeUrl, browserLink, isLoading, initialize, clearAllIntervals } = useBankID();
+  const isPhoneDevice = isPhone();
+  const isSocialBrowserDetected = isSocialBrowser();
+  const currentUrl = window.location.href;
 
   // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered =
     location.pathname.includes("/r/") ||
     location.pathname.includes("/register/");
+  
+  // Handle BankID registration button click
+  const handleBankIDRegistration = () => {
+    console.log("🔵 BankID registration button clicked!");
+    console.log("📱 Device details:", {
+      isPhoneDevice,
+      isSocialBrowserDetected,
+      currentUrl
+    });
+    
+    // Start BankID authentication
+    console.log("🚀 Initializing BankID authentication...");
+    initialize(isPhoneDevice);
+    
+    // Open modal (for desktop) or handle mobile flow
+    if (!isPhoneDevice || !isSocialBrowserDetected) {
+      console.log("🖥️ Opening modal for desktop or non-social mobile browser");
+      setIsModalOpen(true);
+    }
+  };
+  
+  // Handle modal close
+  const handleModalClose = () => {
+    console.log("❌ Modal closed - clearing intervals");
+    clearAllIntervals();
+    setIsModalOpen(false);
+  };
 
   // Extract referral code 
   const referralCode =
@@ -145,7 +182,7 @@ function Landing() {
                <div className="">
                 <button
                   className="appointment-btn"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleBankIDRegistration}
                 >
                   Registrera dig med BankID
                 </button>
@@ -463,7 +500,37 @@ function Landing() {
       </div>
       <Footer />
       {/* QR Modal */}
-      <QRModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* BankID Registration Modal */}
+      <QRModal 
+        isOpen={isModalOpen} 
+        onClose={handleModalClose}
+        qrCodeUrl={qrCodeUrl}
+        isLoading={isLoading}
+      />
+
+      {/* Mobile BankID handling */}
+      {isModalOpen && isPhoneDevice && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <button 
+              onClick={handleModalClose}
+              className="float-right text-gray-600 hover:text-gray-800 text-2xl"
+            >
+              ×
+            </button>
+            
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-bold mb-2">Registrera dig med BankID</h2>
+            </div>
+
+            {isSocialBrowserDetected ? (
+              <SocialBrowserWarning currentUrl={currentUrl} />
+            ) : (
+              <BankIDButton browserLink={browserLink} isLoading={isLoading} />
+            )}
+          </div>
+        </div>
+      )}
       
       {/* Cookies Consent Banner */}
       <CookiesConsent 

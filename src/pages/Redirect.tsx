@@ -33,7 +33,7 @@ const Redirect: React.FC = () => {
       if (platform === 'google') {
         window.location.href = 'https://play.google.com/store/apps/details?id=com.ebuno.swishpanelenfinal';
       } else if (platform === 'apple') {
-        window.location.href = 'https://apps.apple.com/app/sveapanelen'; // Replace with actual App Store URL
+        window.location.href = 'https://apps.apple.com/app/apple-store/id1617681550?pt=120111031&ct=direct&mt=8'; // Replace with actual App Store URL
       } else {
         navigate('/'); // Fallback to home
       }
