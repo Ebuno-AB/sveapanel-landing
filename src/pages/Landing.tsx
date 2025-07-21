@@ -34,10 +34,7 @@ import { useGA } from '../hooks/gtag';
 
 
 function Landing() {
-
-useGA();
-
-
+  const { trackPageView, trackEvent } = useGA();
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +42,7 @@ useGA();
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   // Check if user is registered (URL contains /r/{code})
@@ -504,11 +502,15 @@ useGA();
       <CookiesConsent 
         onAccept={() => {
           console.log('Cookies accepted');
-          // Initialize GA tracking if user accepts cookies
+          setCookiesAccepted(true);
+          // Track that user accepted cookies
+          trackEvent('cookie_consent', 'engagement', 'accepted');
         }}
         onDecline={() => {
           console.log('Cookies declined');
-          // Disable GA tracking if user declines
+          setCookiesAccepted(false);
+          // Track that user declined cookies
+          trackEvent('cookie_consent', 'engagement', 'declined');
         }}
       />
     </>

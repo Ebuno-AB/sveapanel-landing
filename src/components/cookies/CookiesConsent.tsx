@@ -16,7 +16,7 @@ const CookiesConsent: React.FC<CookiesConsentProps> = ({ onAccept, onDecline }) 
       // Show banner after a short delay for better UX
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 1000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -68,12 +68,12 @@ const CookiesConsent: React.FC<CookiesConsentProps> = ({ onAccept, onDecline }) 
           >
             Avböj alla
           </button>
-          <button 
+          {/* <button 
             className="cookies-btn cookies-btn-customize" 
             onClick={handleCustomize}
           >
             Anpassa
-          </button>
+          </button> */}
           <button 
             className="cookies-btn cookies-btn-accept" 
             onClick={handleAccept}
