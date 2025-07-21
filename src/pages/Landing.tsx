@@ -28,6 +28,7 @@ import QRModal from '../components/QRModal';
 
 import ParticlesComponent from '../components/particlesComponent';
 import LiveEarningsCounter from '../components/LiveEarningsCounter';
+import RatingsSection from '../components/ratingsCompnent/RatingsSection';
 import CookiesConsent from '../components/cookies/CookiesConsent';
 import { useGA } from '../hooks/gtag';
 
@@ -45,12 +46,12 @@ function Landing() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-  // Check if user is registered (URL contains /r/{code})
+  // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered =
     location.pathname.includes("/r/") ||
     location.pathname.includes("/register/");
 
-  // Extract referral code if present
+  // Extract referral code 
   const referralCode =
     location.pathname.match(/\/r\/([^\/]+)/)?.[1] ||
     location.pathname.match(/\/register\/([^\/]+)/)?.[1] ||
@@ -246,47 +247,7 @@ function Landing() {
           </div>
         </div>
         <LiveEarningsCounter />
-        <div className="ratings-section">
-          <h2 className="ratings-headline">
-            Vi har betalat ut mer än{" "}
-            <span className="highlight">2 000 000 kr</span> till våra
-            användare!
-          </h2>
-          <p className="ratings-desc">
-            SveaPanelen har tusentals nöjda användare och ett av de högsta
-            betygen i branschen.
-          </p>
-          <div className="ratings-summary">
-            <span className="ratings-value">4.7</span>
-            <span className="ratings-stars">★★★★</span>
-            <span className="ratings-stars-last">★</span>
-            <span className="ratings-outof">/ 5.0</span>
-            <span className="ratings-count">(2500+ omdömen)</span>
-          </div>
-          <div className="ratings-testimonials">
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Trovärdig, cashback och erbjuder roliga spel i appen! Varje
-                enkät och spel är underhållande. Jag kan varmt rekommendera den!
-                :) ”
-              </p>
-              <span className="testimonial-user">– Randy M.G.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Bästa panelen jag testat. Bra support och många
-                undersökningar.”
-              </p>
-              <span className="testimonial-user">– Erik L.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">
-                “Trodde inte det var så enkelt att tjäna pengar på enkäter!”
-              </p>
-              <span className="testimonial-user">– Maria P.</span>
-            </div>
-          </div>
-        </div>
+        <RatingsSection />
 
         {/* IMAGES*/}
 

@@ -532,6 +532,7 @@ body {
   box-sizing: border-box;
 }
 
+
 .about-form-btn {
   margin-top: 2rem;
   background: #23481e;
@@ -575,8 +576,8 @@ body {
   background: #ffffffde;
   border-radius: 2rem;
   padding: 2rem;
-  max-width: 320px;
-  min-width: 220px;
+  max-width: 100%;
+
   flex: 1 1 220px;
   display: flex;
   flex-direction: column;
@@ -1083,7 +1084,7 @@ body {
 .game-icon-4 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2.2s;
-  left: 40%;
+  left: 100%;
   top: 100%;
   z-index: 0;
 }
