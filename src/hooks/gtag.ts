@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // Google Analytics tracking ID
 const GA_TRACKING_ID = 'AW-764023269';
@@ -12,7 +12,7 @@ declare global {
 }
 
 // Initialize Google Analytics
-export const initGA = () => {
+const initGA = () => {
   try {
     // Check if already initialized
     if (typeof window.gtag === 'function') return;
@@ -47,32 +47,23 @@ export const initGA = () => {
 
 // Custom hook to use Google Analytics
 export const useGA = () => {
+
+
   useEffect(() => {
-    // Initialize GA if not already initialized
     if (!window.gtag) {
+      console.log('Initializing GA'); 
       initGA();
     }
   }, []);
 
-  // Function to track page views
-  const trackPageView = (page: string) => {
-    if (window.gtag) {
-      window.gtag('config', GA_TRACKING_ID, {
-        page_path: page
-      });
-    }
-  };
 
   // Function to track events
-  const trackEvent = (action: string, category: string, label?: string, value?: number) => {
+  const trackEvent = (action: string, data: object) => {
     if (window.gtag) {
-      window.gtag('event', action, {
-        event_category: category,
-        event_label: label,
-        value: value
-      });
+      console.log('Tracking event:', action, data);
+      window.gtag('event', action, data);
     }
   };
 
-  return { trackPageView, trackEvent };
+  return React.useMemo(() => ({ trackEvent }), []);
 };

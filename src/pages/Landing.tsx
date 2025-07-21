@@ -35,12 +35,10 @@ import { useGA } from '../hooks/gtag';
 
 
 function Landing() {
-  const { trackPageView, trackEvent } = useGA();
+  const { trackEvent } = useGA();
   
   const navigate = useNavigate();
   const location = useLocation();
-  const images = [globeImage, personalFormImage];
-  const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
@@ -116,18 +114,18 @@ function Landing() {
 
         <ParticlesComponent />
           <div className="custom-hero-content">
- 
+{/*  
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
 
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
-            <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" />
-            <img
+            <img src={gameIcon3} alt="Game" className="game-icon game-icon-3" /> */}
+            {/* <img
               src={icon1}
               alt="Game"
               className="game-icon game-icon-5"
               style={{ left: "30%", top: "10%", opacity: "0.8" }}
             />
-            <img src={icon2} alt="Game" className="game-icon game-icon-5" />
+            <img src={icon2} alt="Game" className="game-icon game-icon-5" /> */}
 
             {/* Left: Text */}
             <div className="custom-hero-left">
@@ -143,28 +141,36 @@ function Landing() {
               </p>
 
               {isRegistered ? (
+
+               <div className="">
+                <button
+                  className="appointment-btn"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Registrera dig med BankID
+                </button>
+                <p style={{ fontSize: "1rem" }}>
+                  Registrera dig för att få tillgång till våra tjänster{" "}
+                </p>
+              </div>
+              ) : (
+                
                 // Show app store buttons for registered users
                 <div className="custom-app-buttons">
-                  <button className="custom-app-btn google">
+                  <button 
+                    className="custom-app-btn google"
+                    onClick={() => navigate('/redirect/google')}
+                  >
                     <img src={googleImage} alt="Google" />
                     Google Play
                   </button>
-                  <button className="custom-app-btn apple">
+                  <button 
+                    className="custom-app-btn apple"
+                    onClick={() => navigate('/redirect/apple')}
+                  >
                     <img src={appleImage} alt="Apple" />
                     App Store
                   </button>
-                </div>
-              ) : (
-                <div className="">
-                  <button
-                    className="appointment-btn"
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    Registrera dig med BankID
-                  </button>
-                  <p style={{ fontSize: "1rem" }}>
-                    Registrera dig för att få tillgång till våra tjänster{" "}
-                  </p>
                 </div>
               )}
             </div>
@@ -465,13 +471,13 @@ function Landing() {
           console.log('Cookies accepted');
           setCookiesAccepted(true);
           // Track that user accepted cookies
-          trackEvent('cookie_consent', 'engagement', 'accepted');
+          console.log('Cookies accepted');
         }}
         onDecline={() => {
           console.log('Cookies declined');
           setCookiesAccepted(false);
           // Track that user declined cookies
-          trackEvent('cookie_consent', 'engagement', 'declined');
+          console.log('Cookies declined');
         }}
       />
     </>

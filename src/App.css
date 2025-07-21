@@ -577,7 +577,6 @@ body {
   border-radius: 2rem;
   padding: 2rem;
   max-width: 100%;
-
   flex: 1 1 220px;
   display: flex;
   flex-direction: column;
@@ -1058,8 +1057,8 @@ body {
   animation-delay: 0s;
   width: 130px; /* Adjust as needed */
   height: 130px; /* Adjust as needed */
-  left: 20%;
-  top: 90%;
+  left: 50%;
+  top: 85%;
 }
 
 .game-icon-2 {
@@ -1076,8 +1075,8 @@ body {
   animation-delay: 1.7s;
   width: 160px; /* Adjust as needed */
   height: 160px; /* Adjust as needed */
-  left: 55%;
-  top: 70%;
+  left: 45%;
+  top: 20%;
 }
 
 
@@ -2312,14 +2311,13 @@ body {
 .live-earnings-counter {
   background: linear-gradient(135deg, #55b77e 0%, #a8ffc5 100%);
   border-radius: 2rem;
-
   padding: 2.5rem;
   margin: 3rem 0;
   box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.15);
   position: relative;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10rem;
 }
 
 .live-earnings-counter::before {

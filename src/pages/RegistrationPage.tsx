@@ -1,11 +1,12 @@
 import '../App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import BackButton from '../components/backButton';
 import qrCode from '../assets/features/qr-code.png'
-import bankId from '../assets/bankId.svg'
+import { useGA } from '../hooks/gtag';
 
 
 const RegistrationPage: React.FC = () => {
+  
   return (
     <div className='registration-page'>
       <BackButton />
