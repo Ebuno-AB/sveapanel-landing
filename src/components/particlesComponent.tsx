@@ -57,7 +57,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
           particles: {
             color: {
                 //gold, purple
-              value: ["#FFD700", "#800080", "#ffffff"],
+              value: ["#FFFF"],
             },
             move: {
               direction: "top",
@@ -95,14 +95,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
                 minimumValue: 0.5,
               },
             },
-            twinkle: {
-              particles: {
-                enable: true,
-                color: "#a8ffc5",
-                frequency: 0.05,
-                opacity: 1,
-              },
-            },
+            
             
           },
           interactivity: {
