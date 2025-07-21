@@ -49,7 +49,7 @@ function Landing() {
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
   
   // BankID integration
-  const { qrCodeUrl, browserLink, isLoading, initialize, clearAllIntervals } = useBankID();
+  const { qrCodeUrl, browserLink, isLoading, error, initialize, clearAllIntervals } = useBankID();
   const isPhoneDevice = isPhone();
   const isSocialBrowserDetected = isSocialBrowser();
   const currentUrl = window.location.href;
@@ -506,6 +506,7 @@ function Landing() {
         onClose={handleModalClose}
         qrCodeUrl={qrCodeUrl}
         isLoading={isLoading}
+        error={error || undefined}
       />
 
       {/* Mobile BankID handling */}

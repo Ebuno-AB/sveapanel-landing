@@ -11,6 +11,7 @@ export const useBankID = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [browserLink, setBrowserLink] = useState<string | null>(null);
   const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [error, setError] = useState<{title: string; message: string} | null>(null);
   
   const orderRefRef = useRef<string | null>(null);
   const qrRefreshInterval = useRef<NodeJS.Timeout | null>(null);
@@ -61,19 +62,16 @@ export const useBankID = () => {
     });
   }, []);
 
-  // Show error/success messages
+  // Show error (custom modal) or success (SweetAlert)
   const showMessage = (type: 'error' | 'success', customMessage?: string) => {
     clearAllIntervals();
     if (isComplete && type === 'error') return;
 
     if (type === 'error') {
       const message = customMessage || 'Något gick fel. Prova igen.';
-      Swal.fire({
+      setError({
         title: 'Hoppsan!',
-        text: message,
-        confirmButtonText: 'Testa igen',
-      }).then((result) => {
-        if (result.isConfirmed) window.location.reload();
+        message: message
       });
     } else {
       const buttons = `
@@ -92,10 +90,41 @@ export const useBankID = () => {
     }
   };
 
+  // Clear error and retry authentication
+  const retryAuthentication = () => {
+    setError(null);
+    setIsLoading(true);
+    
+    // Reset counters
+    refreshCount.current = 0;
+    verifyCount.current = 0;
+    
+    beginAuthentication().then(success => {
+      if (success) {
+        // Restart verification interval
+        verifyInterval.current = startInterval(
+          verifyAuthentication, 
+          BANKID_CONFIG.INTERVALS.VERIFY, 
+          verifyCount
+        );
+        
+        // Restart QR refresh interval for desktop (assuming this was started initially)
+        if (!qrRefreshInterval.current) {
+          qrRefreshInterval.current = startInterval(
+            refreshQR, 
+            BANKID_CONFIG.INTERVALS.QR_REFRESH, 
+            refreshCount
+          );
+        }
+      }
+    });
+  };
+
   // Begin authentication
   const beginAuthentication = useCallback(async (): Promise<boolean> => {
     try {
       setIsLoading(true);
+      setError(null); // Clear any previous errors
       const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.BEGIN);
       
       if (!response.data) throw new Error('No data received');
@@ -208,6 +237,7 @@ export const useBankID = () => {
     browserLink,
     isLoading,
     isComplete,
+    error: error ? { ...error, onRetry: retryAuthentication } : null,
     initialize,
     clearAllIntervals,
   };
