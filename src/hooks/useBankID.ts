@@ -12,6 +12,7 @@ export const useBankID = () => {
   const [browserLink, setBrowserLink] = useState<string | null>(null);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [error, setError] = useState<{title: string; message: string} | null>(null);
+  const [success, setSuccess] = useState<{title: string; message: string; onClose?: () => void} | null>(null);
   
   const orderRefRef = useRef<string | null>(null);
   const qrRefreshInterval = useRef<NodeJS.Timeout | null>(null);
@@ -62,7 +63,7 @@ export const useBankID = () => {
     });
   }, []);
 
-  // Show error (custom modal) or success (SweetAlert)
+  // Show error (custom modal) or success (custom modal)
   const showMessage = (type: 'error' | 'success', customMessage?: string) => {
     clearAllIntervals();
     if (isComplete && type === 'error') return;
@@ -74,25 +75,21 @@ export const useBankID = () => {
         message: message
       });
     } else {
-      const buttons = `
-        <a href="${BANKID_CONFIG.APP_STORE_URLS.APPLE}" style="margin: 10px;">
-          <button class="swal2-confirm swal2-styled">App Store</button>
-        </a>
-        <a href="${BANKID_CONFIG.APP_STORE_URLS.ANDROID}" style="margin: 10px;">
-          <button class="swal2-confirm swal2-styled">Google Play</button>
-        </a>
-      `;
-      Swal.fire({
+      setSuccess({
         title: 'Grattis!',
-        html: `<p>Du har registrerats! Ladda ner appen:</p><div>${buttons}</div>`,
-        showConfirmButton: false,
+        message: 'Du har registrerats framgångsrikt med BankID! Ladda ner appen för att fortsätta.',
+        onClose: () => {
+          window.location.href = '/';
+        }
       });
+    
     }
   };
 
   // Clear error and retry authentication
   const retryAuthentication = () => {
     setError(null);
+    setSuccess(null);
     setIsLoading(true);
     
     // Reset counters
@@ -176,16 +173,17 @@ export const useBankID = () => {
       verifyCount.current++;
       console.log('Verifying authentication ' + verifyCount.current);
       const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.VERIFY_ORDER, {
-        kod: orderRefRef.current
+        order_ref: orderRefRef.current 
       });
-      
+      console.log('Verify response:', response);
       if (response.status === 'success') {
         setIsComplete(true);
         clearAllIntervals();
-        showMessage('success')
-
-        //where to redirect when authentication is complete?
-        window.location.href = '/';
+        showMessage('success');
+        console.log('Authentication successful');
+        
+        // Don't redirect immediately - let user see success message first
+        // window.location.href = '/';
       }
       // Continue polling for 'pending' or 'error' status
     } catch (error) {
@@ -238,6 +236,7 @@ export const useBankID = () => {
     isLoading,
     isComplete,
     error: error ? { ...error, onRetry: retryAuthentication } : null,
+    success,
     initialize,
     clearAllIntervals,
   };

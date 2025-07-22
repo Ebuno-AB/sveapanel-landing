@@ -49,7 +49,7 @@ function Landing() {
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
   
   // BankID integration
-  const { qrCodeUrl, browserLink, isLoading, error, initialize, clearAllIntervals } = useBankID();
+  const { qrCodeUrl, browserLink, isLoading, error, success, initialize, clearAllIntervals } = useBankID();
   const isPhoneDevice = isPhone();
   const isSocialBrowserDetected = isSocialBrowser();
   const currentUrl = window.location.href;
@@ -151,7 +151,7 @@ function Landing() {
 
         <ParticlesComponent />
           <div className="custom-hero-content">
-{/*  
+            {/*  
             <img src={gameIcon1} alt="Game" className="game-icon game-icon-1" />
 
             <img src={gameIcon2} alt="Game" className="game-icon game-icon-2" />
@@ -214,6 +214,7 @@ function Landing() {
             {/* Right: Phone mockup and cards */}
             <div className="custom-hero-right">
               <div className="custom-phone-stack">
+             
                 {/* Animated carousel for images */}
                 {/* {(() => {
                   const images = [globeImage];
@@ -242,6 +243,7 @@ function Landing() {
                 {/* <img src={candyCrush} alt="Card1" className="custom-card card1" />
                 <img src={candyCrush} alt="Card2" className="custom-card card2" />
                 <img src={candyCrush} alt="Card3" className="custom-card card3" /> */}
+
               </div>
             </div>
           </div>
@@ -507,6 +509,7 @@ function Landing() {
         qrCodeUrl={qrCodeUrl}
         isLoading={isLoading}
         error={error || undefined}
+        success={success || undefined}
       />
 
       {/* Mobile BankID handling */}
