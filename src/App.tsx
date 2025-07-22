@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Landing from './pages/Landing';
 import RegistrationPage from './pages/RegistrationPage';
 import Redirect from './pages/Redirect';
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/register/:code" element={<RegistrationPage />} />
-        <Route path="/r/:code" element={<RegistrationPage />} />
+        <Route path="/r/:code" element={<Landing />} />
         <Route path="/redirect/:platform" element={<Redirect />} />
         <Route path="/redirect/detect" element={<Redirect />} />
       </Routes>

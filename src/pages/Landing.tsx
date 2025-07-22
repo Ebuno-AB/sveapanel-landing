@@ -29,7 +29,7 @@ import { useBankID } from '../hooks/useBankID';
 import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
 import logo from '../assets/logo/logo.svg';
-
+import BankIdLogo from '../assets/BankID_logo.svg';
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -180,23 +180,24 @@ function Landing() {
             <div className="custom-hero-left">
               <span className="custom-welcome">Välkommen till</span>
               <h1 className="custom-title">
-                Betalda undersökningar
+                Betalda undersökningar.
                 <br />
-                Som du kan lita på
+                Som du kan lita på.
               </h1>
               <p className="custom-desc">
                 Vi är ett företag som hjälper dig att tjäna pengar på att svara
-                på enkäter!
+                på enkäter och spela spel!
               </p>
 
               {isRegistered ? (
 
                <div className="">
                 <button
-                  className="appointment-btn"
+                  className="custom-app-btn"
                   onClick={handleBankIDRegistration}
                 >
                   Registrera dig med BankID
+                  <img src={BankIdLogo} style={{width: '50px', height: 'auto', marginLeft: '8px'}} />
                 </button>
                 <p style={{ fontSize: "1rem" }}>
                   Registrera dig för att få tillgång till våra tjänster{" "}
@@ -207,7 +208,7 @@ function Landing() {
                 // Show app store buttons for registered users
                 <div className="custom-app-buttons">
                   <button 
-                    className="custom-app-btn google"
+                    className="custom-app-btn"
                     onClick={handleAppDownload}
                   >
                     
@@ -234,7 +235,7 @@ function Landing() {
             {/* Right: Phone mockup and cards */}
             <div className="custom-hero-right">
               {!isPhone() && (
-               <div>
+              
                   <div className="custom-phone-stack">
                   <img
                   src={globeImage}
@@ -242,7 +243,7 @@ function Landing() {
                   className={`fade-image ${fade ? "fade-in" : "fade-out"}`}
                 />
                 </div>
-               </div>
+              
               )}
             
             </div>
