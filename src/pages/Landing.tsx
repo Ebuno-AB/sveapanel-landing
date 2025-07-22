@@ -6,23 +6,16 @@ import logoImage from "../assets/logo.png";
 import appleImage from "../assets/apple.svg";
 import googleImage from "../assets/google.svg";
 
-
-import personalFormImage from '../assets/personal_form.svg';
 import Footer from '../components/footer';
 import mistplay1 from '../assets/mistplay-img1.png';
 import earn from '../assets/earn.png';
 import reward from '../assets/reward.png';
-import gameIcon1 from '../assets/dragon_city.png';
-import gameIcon2 from '../assets/arena.png';
-import gameIcon3 from '../assets/toonblast.png';
-import icon1 from '../assets/icon1.svg';
-import icon2 from '../assets/icon2.png';
 
 import gameCards from '../assets/features/gameCards.webp';
 import rewards from '../assets/features/rewards.png';
 import tokens from '../assets/features/tokens.png';
 import consoles from '../assets/features/consoles.png';
-import { Gamepad2, List, Gift, DollarSign, ChevronDown, Banknote} from 'lucide-react';
+import { Gamepad2, List, Gift, DollarSign} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
 import SocialBrowserWarning from '../components/SocialBrowserWarning';
@@ -56,11 +49,10 @@ function Landing() {
 
   // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered =
-    location.pathname.includes("/r/") ||
-    location.pathname.includes("/register/");
+    location.pathname.includes("/r/") 
   
   // Handle BankID registration button click
-  const handleBankIDRegistration = () => {
+  const handleBankIDRegistration = async () => {
     console.log("🔵 BankID registration button clicked!");
     console.log("📱 Device details:", {
       isPhoneDevice,
@@ -70,11 +62,18 @@ function Landing() {
     
     // Start BankID authentication
     console.log("🚀 Initializing BankID authentication...");
-    initialize(isPhoneDevice);
+    const returnedBrowserLink = await initialize(isPhoneDevice);
     
-    // Open modal (for desktop) or handle mobile flow
-    if (!isPhoneDevice || !isSocialBrowserDetected) {
-      console.log("🖥️ Opening modal for desktop or non-social mobile browser");
+    // For non-desktop devices, redirect to browserLink if available
+    if (isPhoneDevice && returnedBrowserLink) {
+      console.log("📱 Redirecting to BankID app via browserLink:", returnedBrowserLink);
+      window.location.href = returnedBrowserLink;
+      return;
+    }
+    
+    // Open modal for desktop devices
+    if (!isPhoneDevice) {
+      console.log("🖥️ Opening modal for desktop");
       setIsModalOpen(true);
     }
   };
@@ -85,12 +84,6 @@ function Landing() {
     clearAllIntervals();
     setIsModalOpen(false);
   };
-
-  // Extract referral code 
-  const referralCode =
-    location.pathname.match(/\/r\/([^\/]+)/)?.[1] ||
-    location.pathname.match(/\/register\/([^\/]+)/)?.[1] ||
-    null;
 
 
 
@@ -512,29 +505,7 @@ function Landing() {
         success={success || undefined}
       />
 
-      {/* Mobile BankID handling */}
-      {isModalOpen && isPhoneDevice && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <button 
-              onClick={handleModalClose}
-              className="float-right text-gray-600 hover:text-gray-800 text-2xl"
-            >
-              ×
-            </button>
-            
-            <div className="text-center mb-6">
-              <h2 className="text-xl font-bold mb-2">Registrera dig med BankID</h2>
-            </div>
-
-            {isSocialBrowserDetected ? (
-              <SocialBrowserWarning currentUrl={currentUrl} />
-            ) : (
-              <BankIDButton browserLink={browserLink} isLoading={isLoading} />
-            )}
-          </div>
-        </div>
-      )}
+      {/* Mobile BankID handling - removed since we now redirect directly */}
       
       {/* Cookies Consent Banner */}
       <CookiesConsent 

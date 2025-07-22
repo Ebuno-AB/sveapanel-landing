@@ -96,8 +96,8 @@ export const useBankID = () => {
     refreshCount.current = 0;
     verifyCount.current = 0;
     
-    beginAuthentication().then(success => {
-      if (success) {
+    beginAuthentication().then(result => {
+      if (result.success) {
         // Restart verification interval
         verifyInterval.current = startInterval(
           verifyAuthentication, 
@@ -118,7 +118,7 @@ export const useBankID = () => {
   };
 
   // Begin authentication
-  const beginAuthentication = useCallback(async (): Promise<boolean> => {
+  const beginAuthentication = useCallback(async (): Promise<{ success: boolean; browserLink: string | null }> => {
     try {
       setIsLoading(true);
       setError(null); // Clear any previous errors
@@ -136,12 +136,12 @@ export const useBankID = () => {
       }
       
       setIsLoading(false);
-      return true;
+      return { success: true, browserLink };
     } catch (error) {
       console.error('Begin error:', error);
       showMessage('error');
       setIsLoading(false);
-      return false;
+      return { success: false, browserLink: null };
     }
   }, []);
 
@@ -204,9 +204,9 @@ export const useBankID = () => {
   };
 
   // Initialize authentication
-  const initialize = useCallback(async (isPhoneDevice: boolean): Promise<void> => {
-    const success = await beginAuthentication();
-    if (!success) return;
+  const initialize = useCallback(async (isPhoneDevice: boolean): Promise<string | null> => {
+    const result = await beginAuthentication();
+    if (!result.success) return null;
     
     // Start verification polling
     verifyInterval.current = startInterval(
@@ -223,6 +223,9 @@ export const useBankID = () => {
         refreshCount
       );
     }
+    
+    // Return the browserLink for immediate use
+    return result.browserLink;
   }, [beginAuthentication, verifyAuthentication, refreshQR]);
 
   // Cleanup on unmount
