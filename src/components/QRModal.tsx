@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CheckCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import '../App.css'
 
 interface QRModalProps {

@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import BackButton from '../components/backButton';
 import SocialBrowserWarning from '../components/SocialBrowserWarning';
 import BankIDButton from '../components/BankIDButton';
-import QRModal from '../components/QRModal';
 import { useBankID } from '../hooks/useBankID';
 import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 
