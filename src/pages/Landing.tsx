@@ -212,7 +212,7 @@ function Landing() {
                   >
                     
                     Ladda ner appen
-                    <img src={logo} className="w-10 h-10" />
+                    <img src={logo} style={{width: '35px', height: '35px'}} />
                   </button>
                   {/* <button 
                     className="custom-app-btn google"
@@ -233,7 +233,7 @@ function Landing() {
             </div>
             {/* Right: Phone mockup and cards */}
             <div className="custom-hero-right">
-              <div className="custom-phone-stack">
+              {/* <div className="custom-phone-stack"> */}
              
                 {/* Animated carousel for images */}
                 {/* {(() => {
@@ -254,17 +254,17 @@ function Landing() {
                    
                   );
                 })()} */}
-                <img
+                {/* <img
                   src={globeImage}
                   alt="mobileImage"
                   className={`fade-image ${fade ? "fade-in" : "fade-out"}`}
-                />
+                /> */}
 
                 {/* <img src={candyCrush} alt="Card1" className="custom-card card1" />
                 <img src={candyCrush} alt="Card2" className="custom-card card2" />
                 <img src={candyCrush} alt="Card3" className="custom-card card3" /> */}
 
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </section>

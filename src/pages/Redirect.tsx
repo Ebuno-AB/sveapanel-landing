@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../components/redirectComponent/Redirect.css';
 import { useGA } from '../hooks/gtag';
+import '../components/redirectComponent/Redirect.css';
 
 const Redirect: React.FC = () => {
   const { platform } = useParams<{ platform: string }>();
@@ -80,7 +80,7 @@ const Redirect: React.FC = () => {
       } else {
         navigate('/'); // Fallback to home
       }
-    }, 3000);
+    }, 2500);
 
     return () => {
       clearInterval(progressInterval);
@@ -103,37 +103,16 @@ const Redirect: React.FC = () => {
   const targetPlatform = getTargetPlatform();
   const isGoogle = targetPlatform === 'google';
   const platformName = isGoogle ? 'Google Play' : 'App Store';
-  const platformColor = isGoogle ? '#4285F4' : '#007AFF';
   
   console.log('Final platform:', targetPlatform, 'isGoogle:', isGoogle, 'platformName:', platformName); // Debug log
 
   return (
-    <div className="redirect-container">
-      <div className="redirect-content">
-        <h1 className="redirect-title">Omdirigerar till {platformName}</h1>
-        <p className="redirect-subtitle">
-          Du kommer snart att omdirigeras till SveaPanelen appen
-        </p>
-
-        {/* Progress Bar */}
-        <div className="progress-container">
-          <div className="progress-bar">
-            <div 
-              className="progress-fill"
-              style={{ 
-                width: `${progress}%`,
-                backgroundColor: platformColor 
-              }}
-            />
-          </div>
-          <div className="progress-text">{Math.round(progress)}%</div>
-        </div>
-
-        {/* Loading Dots */}
-        <div className="loading-dots">
-          <div className="dot" style={{ backgroundColor: platformColor }} />
-          <div className="dot" style={{ backgroundColor: platformColor }} />
-          <div className="dot" style={{ backgroundColor: platformColor }} />
+    <div className="redirect-page">
+      <div className="pendulum-container">
+        <div className="pendulum">
+          <div className="pendulum-dot dot-1"></div>
+          <div className="pendulum-dot dot-2"></div>
+          <div className="pendulum-dot dot-3"></div>
         </div>
       </div>
     </div>
