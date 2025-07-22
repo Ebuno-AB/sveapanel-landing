@@ -6,17 +6,22 @@ import Redirect from './pages/Redirect';
 import { useGA } from './hooks/gtag';
 
 function App() {
-  useGA();
+  const { trackEvent } = useGA();
+
+  useEffect(() => {
+    trackEvent('page_view', {
+      page_path: window.location.pathname,
+    });
+  }, [trackEvent]);
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/r/:code" element={<Landing />} />
-        <Route path="/register/:code" element={<Landing />} />
-        <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/register/:code" element={<RegistrationPage />} />
+        <Route path="/r/:code" element={<RegistrationPage />} />
         <Route path="/redirect/:platform" element={<Redirect />} />
-       
-        {/* Add more routes here as needed */}
+        <Route path="/redirect/detect" element={<Redirect />} />
       </Routes>
     </Router>
   );

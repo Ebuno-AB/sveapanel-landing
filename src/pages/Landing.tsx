@@ -27,6 +27,7 @@ import CookiesConsent from '../components/cookies/CookiesConsent';
 import { useGA } from '../hooks/gtag';
 import { useBankID } from '../hooks/useBankID';
 import { isPhone, isSocialBrowser } from '../utils/browserDetection';
+import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
 
 
 
@@ -40,6 +41,7 @@ function Landing() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] = useState(false);
   
   // BankID integration
   const { qrCodeUrl, browserLink, isLoading, error, success, initialize, clearAllIntervals } = useBankID();
@@ -88,6 +90,19 @@ function Landing() {
     setIsModalOpen(false);
   };
 
+  const handleAppDownload = () => {
+    // Check if user is on desktop
+    const isDesktop = !isPhone();
+    
+    if (isDesktop) {
+      // Show QR code modal for desktop users
+      setIsAppDownloadQRModalOpen(true);
+    } else {
+      // Direct redirect for mobile users
+      const detectedPlatform = isPhone() ? 'detect' : 'google';
+      navigate(`/redirect/${detectedPlatform}`);
+    }
+  };
 
 
   // Check for success parameter in URL (for mobile redirects)
@@ -193,14 +208,14 @@ function Landing() {
                 <div className="custom-app-buttons">
                   <button 
                     className="custom-app-btn google"
-                    onClick={() => navigate('/redirect/google')}
+                    onClick={handleAppDownload}
                   >
                     <img src={googleImage} alt="Google" />
                     Google Play
                   </button>
                   <button 
                     className="custom-app-btn apple"
-                    onClick={() => navigate('/redirect/apple')}
+                    onClick={handleAppDownload}
                   >
                     <img src={appleImage} alt="Apple" />
                     App Store
@@ -524,6 +539,12 @@ function Landing() {
           message: 'Du har registrerats framgångsrikt med BankID! Du kan nu ladda ner appen för att börja tjäna pengar.',
           onClose: () => setShowSuccessModal(false)
         }}
+      />
+
+      {/* App Download QR Modal */}
+      <AppDownloadQRModal 
+        isOpen={isAppDownloadQRModalOpen} 
+        onClose={() => setIsAppDownloadQRModalOpen(false)}
       />
 
       {/* Mobile BankID handling - removed since we now redirect directly */}
