@@ -113,7 +113,7 @@ const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }
             },
             modes: {
               repulse: {
-                distance: 200,
+                distance: 20,
                 duration: 0.6,
                 factor: 10,
               },

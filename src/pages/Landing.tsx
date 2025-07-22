@@ -345,7 +345,7 @@ function Landing() {
             <div className="feature-graphics">
 
               <div className="reward-cards">
-              <img src={rewards} style={{width: '60%', height: '60%'}}/>
+              <img src={rewards} style={{width: '50%'}}/>
               </div>
 
             </div>
@@ -368,7 +368,7 @@ function Landing() {
             <div className="feature-graphics">
               <div className="reward-cards">
 
-              <img src={tokens} style={{width: '60%', height: '60%'}}/>
+              <img src={tokens} style={{width: '50%'}}/>
 
               </div>
             </div>

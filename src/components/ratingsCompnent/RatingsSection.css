@@ -19,7 +19,7 @@
 }
 
 .ratings-headline .highlight {
-  background: linear-gradient(135deg, #55b77e, #10b981);
+  background: linear-gradient(135deg, #55b77e, #3e895d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -80,12 +80,12 @@
 }
 
 .reviews-platform.apple .platform-icon {
-  background: linear-gradient(135deg, #a8ffc5, #55b77e);
+  background: linear-gradient(135deg, #000000, #333333);
   color: white;
 }
 
 .reviews-platform.google .platform-icon {
-  background: linear-gradient(135deg, #a8ffc5, #55b77e);
+  background: linear-gradient(135deg, #ffffff, #d4d2d2);
   color: white;
 }
 

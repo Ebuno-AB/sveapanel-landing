@@ -520,7 +520,7 @@ body {
    About Form Section
    ===================== */
 .about-form {
-  width: 100%;
+  width: 80%;
   border-radius: 2rem;
   max-width: 100rem;
   margin: 4rem auto 0 auto;
@@ -584,6 +584,7 @@ body {
   justify-content: center;
   box-sizing: border-box;
   margin-bottom: 1rem;
+  margin-top: 1.5rem;
 }
 
 .info-title {
@@ -1829,7 +1830,8 @@ body {
     margin: 0 auto;
   }
 
-  .features-section {
+  
+  eatures-section {
     padding: 2rem 1rem;
   }
 
@@ -2078,8 +2080,11 @@ body {
   }
   .about-form-desc {
     font-size: 0.95rem;
+    
+
   }
   .info-card {
+    margin-top: 1rem;
     padding: 1rem;
     width: 80vw;
   }
