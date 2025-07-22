@@ -138,18 +138,7 @@ function Landing() {
               />
             </Link>
           </div>
-          <nav className="nav">
-            <a href="#services" className="nav-link">
-              Tjänster
-            </a>
-            <button
-              className="appointment-btn"
-              aria-label="Boka ett möte"
-              onClick={() => navigate("/register")}
-            >
-              Registrera dig
-            </button>
-          </nav>
+          
         </header>
 
 
@@ -429,14 +418,20 @@ function Landing() {
               </h3>
             </div>
           </div>
-          <button className="about-form-btn">Läs mer</button>
+{/* navigate to the foldable cards section below the about form */}
+          <button className="about-form-btn" onClick={() => {
+            const foldableCardsSection = document.getElementById('foldable-cards-section');
+            if (foldableCardsSection) {
+              foldableCardsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}>Läs mer</button>
         </div>
 
-        <div className="foldable-cards-section-margin">
+        <div className="foldable-cards-section-margin" id="foldable-cards-section">
           <h2 className="foldable-cards-section-title">Vanliga frågor</h2>
           {/* Foldable Cards Section */}
           <div className="foldable-cards-section">
-            <FoldableCard title="Hur fungerar det?" defaultOpen={false}>
+            <FoldableCard title="Hur fungerar det?" defaultOpen={true}>
               <p>
                 Du registrerar dig, svarar på enkäter och tjänar pengar direkt
                 via Swish. Det är så enkelt!

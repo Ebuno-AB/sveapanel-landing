@@ -2080,8 +2080,8 @@ body {
     font-size: 0.95rem;
   }
   .info-card {
-    padding: 0.7rem 0.2rem;
-    width: 85vw;
+    padding: 1rem;
+    width: 80vw;
   }
  
 }
@@ -2437,7 +2437,7 @@ body {
    ===================== */
 
 .foldable-cards-section-margin {
-  width: 70%;
+  width: 90%;
 }
 
 .foldable-card {
