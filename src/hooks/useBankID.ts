@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import QRCode from 'qrcode';
-import Swal from 'sweetalert2'; // for error messages
 import { BANKID_CONFIG, getApiUrl } from '../config/bankid';
 
 
@@ -87,7 +86,7 @@ export const useBankID = () => {
   };
 
   // Clear error and retry authentication
-  const retryAuthentication = () => {
+  const retryAuthentication = (isPhoneDevice?: boolean) => {
     setError(null);
     setSuccess(null);
     setIsLoading(true);
@@ -98,15 +97,15 @@ export const useBankID = () => {
     
     beginAuthentication().then(result => {
       if (result.success) {
-        // Restart verification interval
+        // Restart verification interval with device type
         verifyInterval.current = startInterval(
-          verifyAuthentication, 
+          () => verifyAuthentication(isPhoneDevice), 
           BANKID_CONFIG.INTERVALS.VERIFY, 
           verifyCount
         );
         
         // Restart QR refresh interval for desktop (assuming this was started initially)
-        if (!qrRefreshInterval.current) {
+        if (!qrRefreshInterval.current && !isPhoneDevice) {
           qrRefreshInterval.current = startInterval(
             refreshQR, 
             BANKID_CONFIG.INTERVALS.QR_REFRESH, 
@@ -166,7 +165,7 @@ export const useBankID = () => {
   }, []);
 
   // Verify authentication
-  const verifyAuthentication = useCallback(async (): Promise<void> => {
+  const verifyAuthentication = useCallback(async (isPhoneDevice?: boolean): Promise<void> => {
     if (isComplete || !orderRefRef.current) return;
     
     try {
@@ -179,11 +178,16 @@ export const useBankID = () => {
       if (response.status === 'success') {
         setIsComplete(true);
         clearAllIntervals();
-        showMessage('success');
-        console.log('Authentication successful');
         
-        // Don't redirect immediately - let user see success message first
-        // window.location.href = '/';
+        // For mobile devices, redirect to landing page with success message
+        if (isPhoneDevice) {
+          console.log('📱 Mobile authentication successful - redirecting to landing page');
+          window.location.href = '/?registration=success';
+        } else {
+          // For desktop, show success message in modal
+          showMessage('success');
+        }
+        console.log('Authentication successful');
       }
       // Continue polling for 'pending' or 'error' status
     } catch (error) {
@@ -208,9 +212,9 @@ export const useBankID = () => {
     const result = await beginAuthentication();
     if (!result.success) return null;
     
-    // Start verification polling
+    // Start verification polling with device type
     verifyInterval.current = startInterval(
-      verifyAuthentication, 
+      () => verifyAuthentication(isPhoneDevice), 
       BANKID_CONFIG.INTERVALS.VERIFY, 
       verifyCount
     );

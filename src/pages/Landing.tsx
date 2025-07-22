@@ -18,8 +18,7 @@ import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
-import SocialBrowserWarning from '../components/SocialBrowserWarning';
-import BankIDButton from '../components/BankIDButton';
+
 
 import ParticlesComponent from '../components/particlesComponent';
 import LiveEarningsCounter from '../components/LiveEarningsCounter';
@@ -39,6 +38,7 @@ function Landing() {
   const [fade, setFade] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
   
   // BankID integration
@@ -64,11 +64,14 @@ function Landing() {
     console.log("🚀 Initializing BankID authentication...");
     const returnedBrowserLink = await initialize(isPhoneDevice);
     
-    // For non-desktop devices, redirect to browserLink if available
+    // For non-desktop devices, redirect to browserLink if available. 
+    // for successful registrations, redirect to landing page "/ " with a success message
+
     if (isPhoneDevice && returnedBrowserLink) {
       console.log("📱 Redirecting to BankID app via browserLink:", returnedBrowserLink);
       window.location.href = returnedBrowserLink;
       return;
+      
     }
     
     // Open modal for desktop devices
@@ -86,6 +89,16 @@ function Landing() {
   };
 
 
+
+  // Check for success parameter in URL (for mobile redirects)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('registration') === 'success') {
+      setShowSuccessModal(true);
+      // Remove the parameter from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -138,6 +151,8 @@ function Landing() {
             </button>
           </nav>
         </header>
+
+
 
         {/* Centered container for the hero section */}
         <section className="custom-hero fade-in">
@@ -503,6 +518,17 @@ function Landing() {
         isLoading={isLoading}
         error={error || undefined}
         success={success || undefined}
+      />
+
+      {/* Success Modal for Mobile Registration */}
+      <QRModal 
+        isOpen={showSuccessModal} 
+        onClose={() => setShowSuccessModal(false)}
+        success={{
+          title: 'Registrering lyckades!',
+          message: 'Du har registrerats framgångsrikt med BankID! Du kan nu ladda ner appen för att börja tjäna pengar.',
+          onClose: () => setShowSuccessModal(false)
+        }}
       />
 
       {/* Mobile BankID handling - removed since we now redirect directly */}
