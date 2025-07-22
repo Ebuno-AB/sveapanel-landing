@@ -7,7 +7,7 @@ export const BANKID_CONFIG = {
   ENDPOINTS: {
     BEGIN: '/begin',
     UPDATE_QR: '/updateQR', 
-    VERIFY_ORDER: '/verifyOrder'
+    VERIFY_ORDER: '/verifyOrder' 
   },
   
   // App store URLs for success page
