@@ -28,7 +28,7 @@ import { useGA } from '../hooks/gtag';
 import { useBankID } from '../hooks/useBankID';
 import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
-
+import logo from '../assets/logo/logo.svg';
 
 
 function Landing() {
@@ -210,6 +210,14 @@ function Landing() {
                     className="custom-app-btn google"
                     onClick={handleAppDownload}
                   >
+                    
+                    Ladda ner appen
+                    <img src={logo} className="w-10 h-10" />
+                  </button>
+                  {/* <button 
+                    className="custom-app-btn google"
+                    onClick={handleAppDownload}
+                  >
                     <img src={googleImage} alt="Google" />
                     Google Play
                   </button>
@@ -219,7 +227,7 @@ function Landing() {
                   >
                     <img src={appleImage} alt="Apple" />
                     App Store
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
