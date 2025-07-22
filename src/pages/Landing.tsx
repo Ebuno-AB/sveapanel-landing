@@ -233,38 +233,18 @@ function Landing() {
             </div>
             {/* Right: Phone mockup and cards */}
             <div className="custom-hero-right">
-              {/* <div className="custom-phone-stack"> */}
-             
-                {/* Animated carousel for images */}
-                {/* {(() => {
-                  const images = [globeImage];
-                  const [index, setIndex] = React.useState(0);
-                  const [fade, setFade] = React.useState(true);
-                  React.useEffect(() => {
-                    const interval = setInterval(() => {
-                      setFade(false);
-                      setTimeout(() => {
-                        setIndex((prev) => (prev + 1) % images.length);  
-                        setFade(true);
-                      }, 600); // match fade-out duration
-                    }, 5000);
-                    return () => clearInterval(interval);
-                  }, []);
-                  return (
-                   
-                  );
-                })()} */}
-                {/* <img
+              {!isPhone() && (
+               <div>
+                  <div className="custom-phone-stack">
+                  <img
                   src={globeImage}
                   alt="mobileImage"
                   className={`fade-image ${fade ? "fade-in" : "fade-out"}`}
-                /> */}
-
-                {/* <img src={candyCrush} alt="Card1" className="custom-card card1" />
-                <img src={candyCrush} alt="Card2" className="custom-card card2" />
-                <img src={candyCrush} alt="Card3" className="custom-card card3" /> */}
-
-              {/* </div> */}
+                />
+                </div>
+               </div>
+              )}
+            
             </div>
           </div>
         </section>
