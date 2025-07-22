@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import { CheckCircle, X } from 'lucide-react';
 import '../App.css'
 
 interface QRModalProps {
@@ -12,9 +12,14 @@ interface QRModalProps {
     message: string;
     onRetry?: () => void;
   };
+  success?: {
+    title: string;
+    message: string;
+    onClose?: () => void;
+  };
 }
 
-const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading = false, error }) => {
+const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading = false, error, success }) => {  
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -44,9 +49,11 @@ const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading
         </button>
         
         <div className="modal-header">
-          <h2 className="modal-title">{error ? error.title : 'Registrera dig med BankID'}</h2>
-          <p className="modal-subtitle">
-            {error ? error.message : 'Skanna QR-koden med BankID för att registrera dig'}
+          <h2 className="modal-title">
+            {error ? error.title : success ? success.title : 'Registrera dig med BankID'}
+          </h2>
+           <p className="modal-subtitle">
+            {error ? error.message : success ? success.message : 'Skanna QR-koden med BankID för att registrera dig'}
           </p>
         </div>
         
@@ -70,6 +77,18 @@ const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading
                 <button
                   onClick={onClose}
                   className="modal-btn" 
+                >
+                  Stäng
+                </button>
+              </div>
+            </div>
+          ) : success ? (
+            // Success State
+            <div className="text-center p-8">
+              <div className="modal-button-container">
+                <button
+                  onClick={success.onClose || onClose}
+                  className="modal-btn bg-green-600 hover:bg-green-700"
                 >
                   Stäng
                 </button>
