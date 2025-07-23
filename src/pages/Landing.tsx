@@ -394,10 +394,10 @@ function Landing() {
         {/* ABOUT FORM */}
         <div className="about-form">
           <h2 className="about-form-title">Vad är betalda undersökningar?</h2>
-          <p className="about-form-desc">
+          {/* <p className="about-form-desc">
             Vi är ett företag som hjälper dig att tjäna pengar på att svara på
             enkäter!
-          </p>
+          </p> */}
 
           <div className="info-container">
             <div className="info-card">
@@ -435,7 +435,7 @@ function Landing() {
           <h2 className="foldable-cards-section-title">Vanliga frågor</h2>
           {/* Foldable Cards Section */}
           <div className="foldable-cards-section">
-            <FoldableCard title="Hur fungerar det?" defaultOpen={true}>
+            <FoldableCard title="Hur fungerar det?" defaultOpen={false}>
               <p>
                 Du registrerar dig, svarar på enkäter och tjänar pengar direkt
                 via Swish. Det är så enkelt!

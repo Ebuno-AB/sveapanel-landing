@@ -1,3 +1,5 @@
+/* use the font Cereal */
+
 .ratings-section {
   padding: 80px 20px;
   max-width: 1200px;
@@ -15,7 +17,7 @@
   color: #1f2937;
   margin-bottom: 16px;
   line-height: 1.2;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .ratings-headline .highlight {
@@ -27,11 +29,11 @@
 
 .ratings-desc {
   font-size: 1.125rem;
-  color: #6b7280;
+  color: #6b7280; 
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .platforms-container {
@@ -99,7 +101,7 @@
   font-weight: 600;
   color: #1f2937;
   margin: 0 0 8px 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .platform-rating {
@@ -113,7 +115,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #1f2937;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .star-rating {
@@ -188,7 +190,7 @@
   color: #4b5563;
   margin: 0;
   font-style: italic;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Responsive Design */
