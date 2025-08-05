@@ -256,9 +256,7 @@ function Landing() {
       
       {/* Services Section - now outside landing-root for white background */}
       <div className="services-section">
-       
-        <h2 className="services-heading">
-          
+        <h2 className="services-heading">       
           Tjäna pengar med <br />{" "}
           <span className="text-black">SveaPanelen</span>
         </h2>
@@ -423,12 +421,7 @@ function Landing() {
             </div>
           </div>
 {/* navigate to the foldable cards section below the about form */}
-          <button className="about-form-btn" onClick={() => {
-            const foldableCardsSection = document.getElementById('foldable-cards-section');
-            if (foldableCardsSection) {
-              foldableCardsSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}>Läs mer</button>
+          
         </div>
 
         <div className="foldable-cards-section-margin" id="foldable-cards-section">

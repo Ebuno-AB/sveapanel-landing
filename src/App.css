@@ -521,7 +521,7 @@ body {
    About Form Section
    ===================== */
 .about-form {
-  width: 80%;
+  width: 70%;
   border-radius: 2rem;
   max-width: 100rem;
   margin: 4rem auto 0 auto;
@@ -534,14 +534,7 @@ body {
 }
 
 
-.about-form-btn {
-  margin-top: 2rem;
-  background: #23481e;
-  color: #fff;
-  border: none;
-  border-radius: 2rem;
-  padding: 0.8rem 2.2rem;
-}
+
 
 .about-form-desc {
   font-size: 1.2rem;
@@ -551,10 +544,11 @@ body {
 }
 
 .about-form-title {
+
   font-size: 2rem;
   font-weight: 700;
   color: #23481e;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   text-align: center;
 }
 
@@ -1873,6 +1867,10 @@ body {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
+  .services-section {
+    margin-top: -10rem;
+  }
+  
   .custom-hero {
     width: 95%;
     min-height: 380px;
@@ -2072,6 +2070,9 @@ body {
   }
 }
 @media (max-width: 500px) {
+  .logo-container {
+    margin-top: 1rem;
+  }
   .about-form {
     padding: .5rem 0.5rem;
     max-width: 90vw;
@@ -2441,7 +2442,7 @@ s  .info-card {
    ===================== */
 
 .foldable-cards-section-margin {
-  width: 90%;
+  width: 70%;
 }
 
 .foldable-card {
