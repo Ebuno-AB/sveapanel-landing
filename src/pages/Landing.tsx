@@ -31,6 +31,8 @@ import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
 import logo from '../assets/logo/logo.svg';
 import BankIdLogo from '../assets/BankID_logo.svg';
+import FormImg from '../assets/forms.png';
+import writingBird from '../assets/writingBird.png';
 
 
 function Landing() {
@@ -339,7 +341,7 @@ function Landing() {
             </div>
             <div className="feature-graphics">
               <div className="game-icons">
-                <img src={consoles} />
+                <img src={writingBird} />
               </div>
             </div>
           </div>
@@ -393,41 +395,47 @@ function Landing() {
 
         {/* ABOUT FORM */}
         <div className="about-form">
-          <h2 className="about-form-title">Vad är betalda undersökningar?</h2>
-          {/* <p className="about-form-desc">
-            Vi är ett företag som hjälper dig att tjäna pengar på att svara på
-            enkäter!
-          </p> */}
+          <div className="about-form-header">
+            <h2 className="about-form-title">Vanliga frågor om betalda undersökningar</h2>
+            <p className="about-form-subtitle">
+              Här får du svar på dina vanligaste frågor om hur du tjänar pengar genom att svara på enkäter
+            </p>
+          </div>
 
           <div className="info-container">
             <div className="info-card">
-              <h3 className="info-title">Vad brukar belöningarna ligga på?</h3>
-              <h3 className="info-desc">
-                {" "}
-                Belöningarna brukar ligga runt 1-50kr per enkät.
-              </h3>
+             
+              <div className="info-card-content">
+                <h3 className="info-title">Vad brukar belöningarna ligga på?</h3>
+                <p className="info-desc">
+                  Belöningarna brukar ligga runt 1-50kr per enkät, beroende på längd och komplexitet.
+                </p>
+              </div>
             </div>
             <div className="info-card">
-              <h3 className="info-title">Hur långa är de?</h3>
-              <h3 className="info-desc">
-                {" "}
-                Undersökningarna är från 1-25 minuter långa.
-              </h3>
+            
+              <div className="info-card-content">
+                <h3 className="info-title">Hur långa är undersökningarna?</h3>
+                <p className="info-desc">
+                  Undersökningarna är från 1-25 minuter långa, så du kan välja vad som passar dig bäst.
+                </p>
+              </div>
             </div>
             <div className="info-card">
-              <h3 className="info-title">Hur får jag pengarna?</h3>
-              <h3 className="info-desc">
-                {" "}
-                Du får pengar direkt via Swish, utan uttagsgränser.
-              </h3>
+            
+              <div className="info-card-content">
+                <h3 className="info-title">Hur får jag pengarna?</h3>
+                <p className="info-desc">
+                  Du får pengar direkt via Swish, utan uttagsgränser eller dolda avgifter.
+                </p>
+              </div>
             </div>
           </div>
-{/* navigate to the foldable cards section below the about form */}
           
         </div>
 
         <div className="foldable-cards-section-margin" id="foldable-cards-section">
-          <h2 className="foldable-cards-section-title">Vanliga frågor</h2>
+          <h3 className="foldable-cards-section-title">Frågor och svar</h3>
           {/* Foldable Cards Section */}
           <div className="foldable-cards-section">
             <FoldableCard title="Hur fungerar det?" defaultOpen={false}>

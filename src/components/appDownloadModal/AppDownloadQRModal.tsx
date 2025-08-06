@@ -79,7 +79,7 @@ const AppDownloadQRModal: React.FC<AppDownloadQRModalProps> = ({ isOpen, onClose
               
             </div>
             <p className="store-note">
-              Appen kommer automatiskt att öppnas i rätt app store baserat på din enhet
+              Appen kommer automatiskt att öppnas i rätt butik baserat på din enhet
             </p>
           </div>
         </div>

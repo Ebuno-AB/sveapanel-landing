@@ -57,13 +57,22 @@
 
 .platform-header {
   margin-bottom: 32px;
+  margin-left: 30px;
+
+  
 }
 
 .platform-info {
   display: flex;
   align-items: center;
-  gap: 16px;
   justify-content: flex-start;
+}
+
+.platform-name-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .platform-icon {
@@ -95,7 +104,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 8px 0;
+  margin: 0;
   font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -218,6 +227,11 @@
     gap: 12px;
   }
 
+  .platform-name-container {
+    justify-content: center;
+    width: 100%;
+  }
+
   .platform-details {
     text-align: center;
     width: 100%;
@@ -242,6 +256,10 @@
   .platform-icon {
     width: 40px;
     height: 40px;
+  }
+
+  .platform-name-container {
+    gap: 8px;
   }
 
   .platform-name {

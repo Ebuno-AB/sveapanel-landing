@@ -56,13 +56,13 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({ platform, rating, rev
     <div>
       <div className="platform-header">
         <div className="platform-info">
-          <div className="platform-icon">
-            {isApple ? <AppleIcon /> : <GoogleIcon />}
-          </div>
           <div className="platform-details">
-            <h3 className="platform-name">
-              {isApple ? 'App Store' : 'Google Play'}
-            </h3>
+            <div className="platform-name-container">
+              <h3 className="platform-name">
+                {isApple ? 'App Store' : 'Google Play'}
+              </h3>
+              {isApple ? <AppleIcon /> : <GoogleIcon />}
+            </div>
             <div className="platform-rating">
               <span className="rating-value">{rating.toFixed(1)}</span>
               <StarRating rating={rating} />
@@ -135,7 +135,7 @@ const RatingsSection: React.FC = () => {
       <div className="ratings-header">
         <h2 className="ratings-headline">
           Vi har betalat ut mer än{" "}
-          <span className="highlight">2 000 000 kr</span> till våra
+          <span className="highlight">2 000 000 kr</span> <br/> till våra
           användare!
         </h2>
         <p className="ratings-desc">
