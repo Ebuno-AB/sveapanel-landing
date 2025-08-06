@@ -355,7 +355,6 @@ body {
    ===================== */
 .services-section {
   background: #fff;
-  width: 100%;
   padding: 4rem 0 4rem 0;
   display: flex;
   flex-direction: column;
@@ -923,8 +922,8 @@ body {
 }
 
 .card-img {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
 
 
@@ -1108,7 +1107,7 @@ body {
   margin: 4rem auto 0 auto;
   padding: 3rem 2.5rem 2.5rem 2.5rem;
   max-width: 900px;
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2163,7 +2162,7 @@ s  .info-card {
 .features-section {
   background: #fff;
   padding: 4rem 0;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 

@@ -3,21 +3,22 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import globeImage from "../assets/image.png";
 import logoImage from "../assets/logo.png";
-import appleImage from "../assets/apple.svg";
-import googleImage from "../assets/google.svg";
+
 
 import Footer from '../components/footer';
-import mistplay1 from '../assets/mistplay-img1.png';
-import earn from '../assets/earn.png';
-import reward from '../assets/reward.png';
+import rewardBird from '../assets/rewardBird.png';
+import marioBird from '../assets/marioBird.png';
 
-import gameCards from '../assets/features/gameCards.webp';
+
+
+import gameCards from '../assets/gamess.svg';
 import rewards from '../assets/features/rewards.png';
 import tokens from '../assets/features/tokens.png';
 import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
+import gameBird from '../assets/gameBird.png';
 
 
 import ParticlesComponent from '../components/particlesComponent';
@@ -30,6 +31,7 @@ import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
 import logo from '../assets/logo/logo.svg';
 import BankIdLogo from '../assets/BankID_logo.svg';
+
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -266,7 +268,7 @@ function Landing() {
 
         <div className="cards-container">
           <div className="card">
-            <img src={mistplay1} alt="Game" className="card-img" />
+            <img src={gameBird} alt="Game" className="card-img" />
             <div className="card-text">Spela och tjäna poäng!</div>
             <p>
               Lorem ipsum dolor sit amet consectetur <br />
@@ -274,7 +276,7 @@ function Landing() {
             </p>
           </div>
           <div className="card">
-            <img src={earn} alt="Game" className="card-img" />
+            <img src={marioBird} alt="Game" className="card-img" />
             <div className="card-text">Upptäck nya spel!</div>
             <p>
               Lorem ipsum dolor sit amet consectetur <br />
@@ -282,7 +284,7 @@ function Landing() {
             </p>
           </div>
           <div className="card">
-            <img src={reward} alt="Game" className="card-img" />
+            <img src={rewardBird} alt="Game" className="card-img" />
             <div className="card-text">Få belöningar direkt!</div>
             <p>
               Lorem ipsum dolor sit amet consectetur <br />
