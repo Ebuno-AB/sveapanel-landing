@@ -268,7 +268,7 @@ function Landing() {
 
         <div className="cards-container">
           <div className="card">
-            <img src={gameBird} alt="Game" className="card-img" />
+            <img src={gameBird} alt="Game" className="card-img" style={{width: '130px', height: '130px'}} />
             <div className="card-text">Spela och tjäna poäng!</div>
             <p>
               Lorem ipsum dolor sit amet consectetur <br />

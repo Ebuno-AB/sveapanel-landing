@@ -53,7 +53,7 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({ platform, rating, rev
   const isApple = platform === 'apple';
   
   return (
-    <div className={`reviews-platform ${platform}`}>
+    <div>
       <div className="platform-header">
         <div className="platform-info">
           <div className="platform-icon">
