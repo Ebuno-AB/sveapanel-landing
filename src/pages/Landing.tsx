@@ -6,19 +6,20 @@ import logoImage from "../assets/logo.png";
 
 
 import Footer from '../components/footer';
-import rewardBird from '../assets/rewardBird.png';
+import rewardBird from '../assets/moneyBird.png';
 import marioBird from '../assets/marioBird.png';
 
 
 
-import gameCards from '../assets/gamess.svg';
+import gameCards from '../assets/games.png';
 import rewards from '../assets/features/rewards.png';
 import tokens from '../assets/features/tokens.png';
-import consoles from '../assets/features/consoles.png';
 import { Gamepad2, List, Gift, DollarSign} from 'lucide-react';
 import FoldableCard from '../components/FoldableCard';
 import QRModal from '../components/QRModal';
 import gameBird from '../assets/gameBird.png';
+import FormImg from '../assets/form.png';
+
 
 
 import ParticlesComponent from '../components/particlesComponent';
@@ -31,8 +32,7 @@ import { isPhone, isSocialBrowser } from '../utils/browserDetection';
 import AppDownloadQRModal from '../components/appDownloadModal/AppDownloadQRModal';
 import logo from '../assets/logo/logo.svg';
 import BankIdLogo from '../assets/BankID_logo.svg';
-import FormImg from '../assets/forms.png';
-import writingBird from '../assets/writingBird.png';
+import money from '../assets/bzzniss.png';
 
 
 function Landing() {
@@ -320,7 +320,7 @@ function Landing() {
             </div>
             <div className="feature-graphics">
               <div className="game-icons">
-                <img src={gameCards} />
+                <img src={gameCards} style={{width: '80%'}}/>
               </div>
             </div>
           </div>
@@ -341,7 +341,7 @@ function Landing() {
             </div>
             <div className="feature-graphics">
               <div className="game-icons">
-                <img src={writingBird} />
+                <img src={FormImg} />
               </div>
             </div>
           </div>
@@ -351,7 +351,7 @@ function Landing() {
             <div className="feature-graphics">
 
               <div className="reward-cards">
-              <img src={rewards} style={{width: '50%'}}/>
+              <img src={money} />
               </div>
 
             </div>
