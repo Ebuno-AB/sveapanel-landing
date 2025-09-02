@@ -2,47 +2,47 @@
    Font Imports
    ===================== */
 /* Fallback to Inter for other weights until you have more Cereal font files */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap");
 
 /* =====================
    Font Declarations
    ===================== */
 /* Airbnb Cereal Font - All Weights */
 @font-face {
-  font-family: 'Cereal';
-  src: url('./assets/fonts/Cereal/AirbnbCereal_W_Lt.otf') format('opentype');
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Lt.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Cereal';
-  src: url('./assets/fonts/Cereal/AirbnbCereal_W_Md.otf') format('opentype');
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Md.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Cereal';
-  src: url('./assets/fonts/Cereal/AirbnbCereal_W_Bd.otf') format('opentype');
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Bd.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Cereal';
-  src: url('./assets/fonts/Cereal/AirbnbCereal_W_XBd.otf') format('opentype');
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_XBd.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Cereal';
-  src: url('./assets/fonts/Cereal/AirbnbCereal_W_Blk.otf') format('opentype');
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Blk.otf") format("opentype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -55,14 +55,15 @@
 html {
   overflow-x: hidden;
   width: 100%;
+  background: black;
 }
 
 body {
-  background: #fff;
-  align-items: center;     
-  justify-content: center;  
+  background: #000;
+  align-items: center;
+  justify-content: center;
   margin: 0;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
   color: #244260;
   font-size: 18px;
   font-weight: 400;
@@ -245,7 +246,7 @@ body {
   width: 100%;
   background: #fff;
   border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.1);
   margin: 3rem auto 0 auto;
   padding: 3rem 2.5rem 2.5rem 2.5rem;
   max-width: 900px;
@@ -297,7 +298,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.1);
   margin-bottom: 1.2rem;
   position: absolute;
   top: -1.3rem;
@@ -339,7 +340,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.01em;
   cursor: pointer;
-  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.1);
   transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
   margin-top: 0.5rem;
 }
@@ -389,9 +390,9 @@ body {
 }
 
 .service-card {
-  background: #a8ffc5;;
+  background: #a8ffc5;
   border-radius: 24px;
-  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.1);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -505,12 +506,12 @@ body {
 }
 
 .highlight {
-  color: #00CCA3;
+  color: #00cca3;
 }
 
 .swish-img {
   width: 200px;
-  height: 200px;  
+  height: 200px;
   object-fit: contain;
   border-radius: 2rem;
   background: #f9fff9;
@@ -571,23 +572,22 @@ body {
 .info-card:nth-child(odd) {
   background: #a8ffc5;
   border-radius: 24px;
-  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.1);
   display: flex;
   flex-direction: row;
- 
+
   padding: 2.5rem 2.5rem 2.2rem 2.5rem;
   max-width: 1000px;
   width: 100%;
   min-height: 200px;
   gap: 2.2rem;
   transition: transform 0.3s, box-shadow 0.3s;
-
 }
 
 .info-card:nth-child(even) {
   background: #a8ffc5;
   border-radius: 24px;
-  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.1);
   display: flex;
   flex-direction: row;
 
@@ -652,8 +652,8 @@ body {
 }
 
 .fade-image {
-  width: 600px;        
-  height: 600px;      
+  width: 600px;
+  height: 600px;
   object-fit: contain;
   display: block;
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -681,7 +681,7 @@ body {
   min-height: 420px;
   background: linear-gradient(120deg, #55b77e 0%, #a8ffc5 100%);
   border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.1);
   display: flex;
   align-items: center;
   overflow: visible;
@@ -690,8 +690,14 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(40px);}
-  to { opacity: 1; transform: none;}
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .custom-hero-content {
@@ -723,7 +729,7 @@ body {
 }
 
 .custom-title {
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.7rem;
   font-weight: 900;
   margin-bottom: 2.2rem;
@@ -733,7 +739,7 @@ body {
   /* color: #23481e; */
 }
 .custom-desc {
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 2.2rem;
@@ -841,7 +847,11 @@ body {
 }
 
 @media (max-width: 1200px) {
-  .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
+  .landing-header,
+  .landing-main,
+  .services-cards,
+  .custom-hero,
+  .cards-container {
     max-width: 90vw;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -851,7 +861,11 @@ body {
   }
 }
 @media (max-width: 900px) {
-  .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
+  .landing-header,
+  .landing-main,
+  .services-cards,
+  .custom-hero,
+  .cards-container {
     max-width: 90vw;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -903,9 +917,6 @@ body {
     margin-right: 0;
     transform: none;
   }
-  
-
-
 }
 
 /* =====================
@@ -952,8 +963,6 @@ body {
 }
 
 .card {
-
-
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -967,7 +976,6 @@ body {
   width: 150px;
   height: 150px;
   object-fit: contain;
-
 
   margin-bottom: 1rem;
 }
@@ -1009,13 +1017,16 @@ body {
   gap: 0.7rem;
 }
 
-.footer-section h3, .footer-section h4 {
+.footer-section h3,
+.footer-section h4 {
   color: #23481e;
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
-.footer-section p, .footer-section a, .footer-section li {
+.footer-section p,
+.footer-section a,
+.footer-section li {
   color: #23481e;
   font-size: 1rem;
   opacity: 0.9;
@@ -1030,13 +1041,15 @@ body {
   gap: 0.3rem;
 }
 
-.footer-link, .footer-links a {
+.footer-link,
+.footer-links a {
   color: #23481e;
   text-decoration: underline;
   transition: color 0.2s;
 }
 
-.footer-link:hover, .footer-links a:hover {
+.footer-link:hover,
+.footer-links a:hover {
   color: #5ecb8b;
 }
 
@@ -1056,7 +1069,6 @@ body {
     max-width: 90vw;
   }
 }
-
 
 @media (max-width: 800px) {
   .footer-content.grid {
@@ -1084,9 +1096,15 @@ body {
 }
 
 @keyframes float {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-24px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-24px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .game-icon-1 {
@@ -1116,7 +1134,6 @@ body {
   top: 20%;
 }
 
-
 .game-icon-4 {
   animation: float 6s ease-in-out infinite;
   animation-delay: 2.2s;
@@ -1134,8 +1151,6 @@ body {
   top: 20%;
   z-index: 0;
 }
-  
-
 
 /* =====================
    Ratings/Proof Section
@@ -1183,7 +1198,7 @@ body {
   margin-bottom: 2.2rem;
   background: #fff;
   border-radius: 1.5rem;
-  box-shadow: 0 2px 16px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 2px 16px 0 rgba(44, 62, 80, 0.1);
   padding: 0.7rem 2.2rem;
   border: 1px solid #f7b50022;
   transition: box-shadow 0.2s;
@@ -1196,7 +1211,8 @@ body {
   font-weight: 900;
   margin-right: 0.2rem;
 }
-.ratings-stars, .ratings-stars-last {
+.ratings-stars,
+.ratings-stars-last {
   color: #f7b500;
   font-size: 2.1rem;
   display: inline-block;
@@ -1211,8 +1227,14 @@ body {
   margin-right: 0.9em;
 }
 @keyframes star-glow {
-  0% { color: #f7b500; text-shadow: 0 0 0 #f7b50044; }
-  100% { color: #ffd700; text-shadow: 0 0 8px #ffd70088; }
+  0% {
+    color: #f7b500;
+    text-shadow: 0 0 0 #f7b50044;
+  }
+  100% {
+    color: #ffd700;
+    text-shadow: 0 0 8px #ffd70088;
+  }
 }
 .ratings-outof {
   font-size: 1.2rem;
@@ -1235,7 +1257,7 @@ body {
 .testimonial-card {
   background: linear-gradient(120deg, #fff 80%);
   border-radius: 1.2rem;
-  box-shadow: 0 2px 12px 0 rgba(44, 62, 80, 0.10);
+  box-shadow: 0 2px 12px 0 rgba(44, 62, 80, 0.1);
   padding: 1.2rem 1.5rem;
   max-width: 260px;
   min-width: 180px;
@@ -1272,36 +1294,37 @@ body {
     width: 95%;
     margin: 3rem auto 0 auto;
   }
-  
+
   .ratings-headline {
     font-size: 1.8rem;
   }
-  
+
   .ratings-desc {
     font-size: 1rem;
     max-width: 100%;
   }
-  
+
   .ratings-summary {
     padding: 0.5rem 1.5rem;
     font-size: 1.3rem;
   }
-  
+
   .ratings-value {
     font-size: 2.2rem;
   }
-  
-  .ratings-stars, .ratings-stars-last {
+
+  .ratings-stars,
+  .ratings-stars-last {
     font-size: 1.8rem;
   }
-  
+
   .ratings-testimonials {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
     width: 100%;
   }
-  
+
   .testimonial-card {
     max-width: 100%;
     min-width: auto;
@@ -1316,51 +1339,52 @@ body {
     margin: 2rem auto 0 auto;
     border-radius: 1.5rem;
   }
-  
+
   .ratings-headline {
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
-  
+
   .ratings-desc {
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .ratings-summary {
     padding: 0.4rem 1rem;
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .ratings-value {
     font-size: 1.8rem;
   }
-  
-  .ratings-stars, .ratings-stars-last {
+
+  .ratings-stars,
+  .ratings-stars-last {
     font-size: 1.5rem;
   }
-  
+
   .ratings-outof {
     font-size: 1rem;
   }
-  
+
   .ratings-count {
     font-size: 0.9rem;
   }
-  
+
   .ratings-testimonials {
     gap: 0.75rem;
   }
-  
+
   .testimonial-card {
     padding: 1rem;
   }
-  
+
   .testimonial-text {
     font-size: 0.95rem;
   }
-  
+
   .testimonial-user {
     font-size: 0.9rem;
   }
@@ -1373,42 +1397,41 @@ body {
     margin: 1.5rem auto 0 auto;
     border-radius: 1rem;
   }
-  
+
   .ratings-headline {
     font-size: 1.3rem;
   }
-  
+
   .ratings-desc {
     font-size: 0.85rem;
   }
-  
+
   .ratings-summary {
     padding: 0.3rem 0.75rem;
     font-size: 1rem;
   }
-  
+
   .ratings-value {
     font-size: 1.5rem;
   }
-  
-  .ratings-stars, .ratings-stars-last {
+
+  .ratings-stars,
+  .ratings-stars-last {
     font-size: 1.3rem;
   }
-  
+
   .testimonial-card {
     padding: 0.75rem;
   }
-  
+
   .testimonial-text {
     font-size: 0.9rem;
   }
-  
+
   .testimonial-user {
     font-size: 0.85rem;
   }
 }
-
-
 
 /* =====================
    Responsive Adjustments
@@ -1438,7 +1461,7 @@ body {
     height: auto;
   }
 
-  .custom-hero {  
+  .custom-hero {
     width: 95%;
     min-height: 380px;
     border-radius: 2rem;
@@ -1707,49 +1730,45 @@ body {
    Game Icons
    ===================== */
 .game-icon {
-    width: 100px;
-    height: auto;
+  width: 100px;
+  height: auto;
+}
+.game-icon-1 {
+  width: 150px;
+  height: auto;
+}
+.game-icon-2 {
+  width: 150px;
+  height: auto;
+}
+.game-icon-3 {
+  width: 150px;
+  height: auto;
+}
 
-  }
-  .game-icon-1 {
-    width: 150px;
-    height: auto;
-  }
-  .game-icon-2 {
-    width: 150px;
-    height: auto;
-  }
-  .game-icon-3 {
-    width: 150px;
-    height: auto;
-  }
-  
-  
+.spline-img {
+  margin-top: 4rem;
+  width: 80%;
+  height: auto;
+}
 
-  .spline-img {
-    margin-top: 4rem;
-    width: 80%;
-    height: auto;
-  }
+.services-cards {
+  width: 80%;
+}
 
-  .services-cards {
-    width: 80%;
-  }
+.service-card {
+  flex-direction: column !important;
+  text-align: center;
+}
 
-  .service-card {
-    flex-direction: column !important;
-    text-align: center;
-  }
+.service-img {
+  width: 150px;
+  height: auto;
+}
 
-  .service-img {
-    width: 150px;
-    height: auto;
-  }
-
-  .service-content {
-    width: 100%;
-  }
-
+.service-content {
+  width: 100%;
+}
 
 /* =====================
    Custom Hero Responsive Styles
@@ -1761,11 +1780,11 @@ body {
     font-size: 16px;
     overflow-x: hidden;
   }
-  
+
   html {
     overflow-x: hidden;
   }
-  
+
   .custom-hero-content {
     flex-direction: column;
     align-items: center;
@@ -1808,7 +1827,9 @@ body {
     line-height: 1.4;
   }
 
-  .experts-btn, .appointment-btn, .bankid-btn {
+  .experts-btn,
+  .appointment-btn,
+  .bankid-btn {
     padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
     width: 100%;
@@ -1866,7 +1887,6 @@ body {
     margin: 0 auto;
   }
 
-  
   eatures-section {
     padding: 2rem 1rem;
   }
@@ -1903,7 +1923,10 @@ body {
 }
 
 @media (max-width: 500px) {
-  .landing-header, .landing-main, .services-cards, .cards-container {
+  .landing-header,
+  .landing-main,
+  .services-cards,
+  .cards-container {
     max-width: 95%;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -1911,84 +1934,86 @@ body {
   .services-section {
     margin-top: -10rem;
   }
-  
+
   .custom-hero {
     width: 95%;
     min-height: 380px;
     border-radius: 2rem;
-    margin-bottom:  15rem;
+    margin-bottom: 15rem;
   }
-  
+
   .landing-header {
     padding: 0.75rem;
   }
-  
+
   .landing-title {
     font-size: 1.4rem;
   }
-  
+
   .landing-subtitle,
   .landing-subtitle-muted {
     font-size: 0.85rem;
   }
-  
-  .experts-btn, .appointment-btn, .bankid-btn {
+
+  .experts-btn,
+  .appointment-btn,
+  .bankid-btn {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
     max-width: 200px;
   }
-  
+
   .steps-list {
     gap: 1rem;
   }
-  
+
   .step {
     padding: 0.75rem;
   }
-  
+
   .service-card {
     padding: 1rem;
   }
-  
+
   .service-img {
     width: 60px;
     height: 60px;
   }
-  
+
   .cards-container {
     gap: 0.75rem;
   }
-  
+
   .card-content {
     padding: 0.75rem;
   }
-  
+
   .card-text {
     font-size: 0.85rem;
   }
-  
+
   .about-form {
     width: 95%;
     padding: 1rem;
   }
-  
+
   .features-section {
     padding: 1.5rem 0.75rem;
   }
-  
+
   .feature-title {
     font-size: 1.2rem;
   }
-  
+
   .feature-description {
     font-size: 0.9rem;
   }
-  
+
   .game-icon-item {
     width: 50px;
     height: 50px;
   }
-  
+
   .reward-card {
     max-width: 200px;
   }
@@ -1998,50 +2023,56 @@ body {
   body {
     overflow-x: hidden;
   }
-  
+
   html {
     overflow-x: hidden;
   }
-  
-  .landing-header, .landing-main, .services-cards, .custom-hero, .cards-container {
+
+  .landing-header,
+  .landing-main,
+  .services-cards,
+  .custom-hero,
+  .cards-container {
     max-width: 100%;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     overflow-x: hidden;
   }
-  
+
   .landing-title {
     font-size: 1.2rem;
   }
-  
+
   .landing-subtitle,
   .landing-subtitle-muted {
     font-size: 0.8rem;
   }
-  
-  .experts-btn, .appointment-btn, .bankid-btn {
+
+  .experts-btn,
+  .appointment-btn,
+  .bankid-btn {
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
     max-width: 180px;
   }
-  
+
   .service-card {
     padding: 0.75rem;
   }
-  
+
   .service-img {
     width: 50px;
     height: 50px;
   }
-  
+
   .card-content {
     padding: 0.5rem;
   }
-  
+
   .card-text {
     font-size: 0.8rem;
   }
-  
+
   .about-form-header {
     padding: 0 0.5rem;
     margin-bottom: 2rem;
@@ -2073,24 +2104,24 @@ body {
   .info-desc {
     font-size: 0.95rem;
   }
-  
+
   .feature-title {
     font-size: 1.1rem;
   }
-  
+
   .feature-description {
     font-size: 0.8rem;
   }
-  
+
   .game-icon-item {
     width: 40px;
     height: 40px;
   }
-  
+
   .reward-card {
     max-width: 180px;
   }
-  
+
   .back-button {
     top: 0.5rem;
     left: 0.5rem;
@@ -2209,7 +2240,7 @@ body {
   border: 1px solid #e0e0e0;
   border-radius: 1rem;
   padding: 0.7rem 1.2rem;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
@@ -2315,7 +2346,7 @@ body {
 .feature-header {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #6B7280;
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 0.5rem;
@@ -2324,14 +2355,14 @@ body {
 .feature-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1F2937;
+  color: #1f2937;
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
 .feature-description {
   font-size: 1.1rem;
-  color: #6B7280;
+  color: #6b7280;
   line-height: 1.6;
   margin: 0;
 }
@@ -2401,7 +2432,6 @@ body {
   z-index: 2;
 }
 
-
 @media (max-width: 500px) {
   .back-button {
     top: 0.8rem;
@@ -2414,7 +2444,7 @@ body {
 /* =====================
    Live Earnings Counter
    ===================== */
-  
+
 .live-earnings-counter {
   background: linear-gradient(135deg, #55b77e 0%, #a8ffc5 100%);
   border-radius: 2rem;
@@ -2428,13 +2458,17 @@ body {
 }
 
 .live-earnings-counter::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   pointer-events: none;
 }
 
@@ -2463,7 +2497,7 @@ body {
 }
 
 .counter-value {
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
   color: #23481e;
@@ -2492,51 +2526,51 @@ body {
     padding: 2rem;
     margin: 2rem 0;
   }
-  
+
   .counter-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  
+
   .counter-item {
     padding: 1.2rem;
   }
-  
+
   .counter-icon {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .counter-value {
     font-size: 1.5rem;
   }
-  
+
   .counter-label {
     font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .live-earnings-counter {  
+  .live-earnings-counter {
     margin-bottom: 5rem;
   }
   .counter-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .counter-item {
     padding: 1rem;
   }
-  
+
   .counter-icon {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .counter-value {
     font-size: 1.3rem;
   }
-  
+
   .counter-label {
     font-size: 0.75rem;
   }
@@ -2550,7 +2584,6 @@ body {
   width: 60%;
 }
 .foldable-cards-section-title {
-
   color: #23481e;
 }
 
@@ -2564,8 +2597,6 @@ body {
   border: 1px solid #e5e7eb;
   position: relative;
   z-index: 1;
-
-  
 }
 
 .foldable-card:hover {
@@ -2646,16 +2677,16 @@ body {
   .foldable-card-header {
     padding: 1.2rem;
   }
-  
+
   .foldable-card-title {
     font-size: 1rem;
   }
-  
+
   .foldable-card-body {
     padding: 1.2rem;
     font-size: 0.9rem;
   }
-  
+
   .foldable-cards-section-margin {
     margin-top: 5rem;
   }
@@ -2665,16 +2696,16 @@ body {
   .foldable-card-header {
     padding: 1rem;
   }
-  
+
   .foldable-card-title {
     font-size: 0.95rem;
   }
-  
+
   .foldable-card-body {
     padding: 1rem;
     font-size: 0.85rem;
   }
-  
+
   .foldable-cards-section-margin {
     margin-top: 3rem;
   }
@@ -2684,22 +2715,20 @@ body {
   .foldable-card-header {
     padding: 0.75rem;
   }
-  
+
   .foldable-card-title {
     font-size: 0.9rem;
   }
-  
+
   .foldable-card-body {
     padding: 0.75rem;
     font-size: 0.8rem;
   }
-  
+
   .foldable-cards-section-margin {
     margin-top: 2rem;
   }
 }
-
-
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -2708,11 +2737,11 @@ body {
     gap: 3rem;
     text-align: center;
   }
-  
+
   .feature-content {
     max-width: 100%;
   }
-  
+
   .feature-title {
     font-size: 2rem;
   }
@@ -2722,37 +2751,34 @@ body {
   .features-section {
     padding: 2rem 0;
   }
-  
+
   .feature-block {
     padding: 0 1rem;
     gap: 2rem;
   }
-  
+
   .feature-title {
     font-size: 1.8rem;
   }
-  
+
   .feature-description {
     font-size: 1rem;
   }
-  
+
   .game-icons {
     gap: 0.8rem;
   }
-  
+
   .game-icon-item {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
   }
-  
+
   .reward-card {
     width: 60px;
     height: 40px;
     font-size: 1.2rem;
   }
-
-
-
 }
 
 /* =====================
@@ -2774,14 +2800,14 @@ body {
   font-weight: 700;
   color: #23481e;
   margin-bottom: 1rem;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
 }
 
 .registration-page p {
   font-size: 1.2rem;
 
   margin-bottom: 3rem;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
 }
 
 .qr-code-container {
@@ -2789,7 +2815,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  padding: 2rem;  
+  padding: 2rem;
   border-radius: 1.5rem;
   max-width: 400px;
   width: 100%;
@@ -2805,23 +2831,20 @@ body {
   padding: 1rem;
 }
 
-
-
-  
 /* Responsive adjustments */
 @media (max-width: 700px) {
   .registration-page {
     padding: 1rem;
   }
-  
+
   .registration-page h1 {
     font-size: 2rem;
   }
-  
+
   .registration-page p {
     font-size: 1rem;
   }
-  
+
   .qr-code-img {
     width: 300px;
     height: 300px;
@@ -2832,7 +2855,7 @@ body {
   .registration-page h1 {
     font-size: 1.8rem;
   }
-  
+
   .qr-code-img {
     width: 120px;
     height: 120px;
@@ -2845,7 +2868,6 @@ body {
   object-fit: contain;
   align-self: right;
   margin-left: 10px;
-
 }
 
 /* =====================
@@ -2907,14 +2929,14 @@ body {
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.5rem;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
 }
 
 .modal-subtitle {
   font-size: 0.9rem;
   color: #6b7280;
   margin: 0;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
 }
 
 .modal-body {
@@ -2954,10 +2976,8 @@ body {
   text-align: center;
   margin: 0;
   font-weight: 400;
-  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
 }
-
-
 
 @keyframes modalFadeIn {
   from {
@@ -2986,23 +3006,23 @@ body {
     max-width: none;
     margin: 1rem;
   }
-  
+
   .modal-header {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
   }
-  
+
   .modal-title {
     font-size: 1.4rem;
   }
-  
+
   .modal-body {
     padding: 1rem 1.5rem 1.5rem 1.5rem;
   }
-  
+
   .qr-code-modal-container {
     padding: 1.5rem;
   }
-  
+
   .qr-code-modal-container .qr-code-img {
     width: 200px;
     height: 200px;
@@ -3014,41 +3034,41 @@ body {
     width: 98%;
     margin: 0.5rem;
   }
-  
+
   .modal-header {
     padding: 1rem 1rem 0.5rem 1rem;
   }
-  
+
   .modal-title {
     font-size: 1.2rem;
   }
-  
+
   .modal-subtitle {
     font-size: 0.8rem;
   }
-  
+
   .modal-body {
     padding: 0.5rem 1rem 1rem 1rem;
   }
-  
+
   .qr-code-modal-container {
     padding: 1rem;
     gap: 1rem;
   }
-  
+
   .qr-code-placeholder-modal {
     padding: 1rem;
   }
-  
+
   .qr-code-modal-container .qr-code-img {
     width: 180px;
     height: 180px;
   }
-  
+
   .qr-code-modal-text {
     font-size: 0.8rem;
   }
-  
+
   .modal-close-btn {
     top: 0.5rem;
     right: 0.5rem;
@@ -3064,7 +3084,7 @@ body {
     height: 100vh;
     max-height: 100vh;
   }
-  
+
   .qr-code-modal-container .qr-code-img {
     width: 160px;
     height: 160px;
@@ -3075,43 +3095,40 @@ body {
    QR Modal Component
    ===================== */
 
-   .modal-btn {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 1rem;
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
-      transition: all 0.2s ease;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #1a1a1a;
-      min-width: 120px;
-      text-align: center;
-      display: inline-block;
-   }
-   
-   .modal-btn:hover {
-      box-shadow: 0 4px 12px 0 rgba(44, 62, 80, 0.15);
-      transform: translateY(-1px);
-   }
-   
-   .modal-btn:active {
-      transform: translateY(0);
-   }
-   
-   .modal-button-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      padding: 0 1rem;
-   }
+.modal-btn {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  min-width: 120px;
+  text-align: center;
+  display: inline-block;
+}
 
+.modal-btn:hover {
+  box-shadow: 0 4px 12px 0 rgba(44, 62, 80, 0.15);
+  transform: translateY(-1px);
+}
 
+.modal-btn:active {
+  transform: translateY(0);
+}
 
+.modal-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
 
 /* =====================
    Scroll Chest Animation
@@ -3170,7 +3187,3 @@ body {
     height: 60px;
   }
 }
-
-
-
-

@@ -1,0 +1,31 @@
+.floaty {
+  display: inline-block;
+  animation: float 3s ease-in-out infinite alternate;
+  will-change: transform; /* performance hint */
+}
+.floaty2 {
+  display: inline-block;
+  animation: float 2s ease-in-out infinite alternate;
+  will-change: transform; /* performance hint */
+}
+
+@keyframes float {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -12px, 0);
+  } /* amplitude */
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floaty {
+    animation: none;
+  }
+}
+
+html,
+body {
+  background-color: "black !important";
+}
