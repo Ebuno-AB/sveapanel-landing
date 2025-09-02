@@ -3,21 +3,9 @@ import "../styles/BlobStyles.css";
 
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import globeImage from "../assets/image.png";
-import logoImage from "../assets/logo.png";
-
-import Footer from "../components/footer";
-import rewardBird from "../assets/moneyBird.png";
-import marioBird from "../assets/marioBird.png";
-
-import gameCards from "../assets/games.png";
-import rewards from "../assets/features/rewards.png";
-import tokens from "../assets/features/tokens.png";
 import { Gamepad2, List, Gift, DollarSign } from "lucide-react";
 import FoldableCard from "../components/FoldableCard";
 import QRModal from "../components/QRModal";
-import gameBird from "../assets/gameBird.png";
-import FormImg from "../assets/form.png";
 
 import ParticlesComponent from "../components/particlesComponent";
 import LiveEarningsCounter from "../components/LiveEarningsCounter";
@@ -27,11 +15,9 @@ import { useGA } from "../hooks/gtag";
 import { useBankID } from "../hooks/useBankID";
 import { isPhone, isSocialBrowser } from "../utils/browserDetection";
 import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModal";
-import logo from "../assets/logo/logo.svg";
-import BankIdLogo from "../assets/BankID_logo.svg";
-import money from "../assets/bzzniss.png";
 
 import MovingBlurryBlobsBare from "../components/BlurryBlobBackground";
+import Footer from "../components/footer";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -178,6 +164,7 @@ function Landing() {
         <h2>Hej</h2>
         <h2>Hej</h2>
       </div>
+      <Footer />
     </>
   );
 }
@@ -358,7 +345,7 @@ const Hero = ({
                   >
                     Registrera dig med BankID
                     <img
-                      src={BankIdLogo}
+                      src="/assets/BankID_logo.svg"
                       style={{
                         width: "50px",
                         height: "auto",
@@ -378,7 +365,7 @@ const Hero = ({
                     onClick={handleAppDownload}
                   >
                     Ladda ner appen
-                    <img src={logo} style={{ width: "35px", height: "35px" }} />
+                    <img src="/assets/logo/logo.svg" style={{ width: "35px", height: "35px" }} />
                   </button>
                 </div>
               )}
@@ -396,14 +383,14 @@ const Hero = ({
                 }}
               >
                 <img
-                  src={"/src/assets/googleplay.png"}
+                  src="/assets/googleplay.png"
                   alt="Google"
                   style={{ height: 50 }}
                 />
                 &nbsp;
                 <img
-                  src={"/src/assets/appstore.png"}
-                  alt="Google"
+                  src="/assets/appstore.png"
+                  alt="Apple"
                   style={{ height: 52, marginLeft: 10 }}
                 />
               </div>
@@ -421,11 +408,11 @@ const Hero = ({
               style={{ height: "550px", width: "400px", position: "relative" }}
             >
               <img
-                src={"/src/assets/sveamodel.png"}
+                src="/assets/sveamodel.png"
                 style={{ height: "550px" }}
               />
               <img
-                src="/src/assets/conf1.avif"
+                src="/assets/conf1.avif"
                 className="floaty"
                 style={{
                   height: "100px",
@@ -436,7 +423,7 @@ const Hero = ({
               />
               <img
                 className="floaty"
-                src="/src/assets/conf2.avif"
+                src="/assets/conf2.avif"
                 style={{
                   height: "110px",
                   position: "absolute",
@@ -446,7 +433,7 @@ const Hero = ({
               />
               <img
                 className="floaty"
-                src="/src/assets/conf3.avif"
+                src="/assets/conf3.avif"
                 style={{
                   height: "110px",
                   position: "absolute",
@@ -455,10 +442,16 @@ const Hero = ({
                 }}
               />
             </div>
+     
           </div>
         </div>
       </div>
+      
     </div>
+    
+    
+    
+   
   );
 };
 
@@ -499,7 +492,7 @@ const TopNav = () => {
           }}
         >
           <img
-            src={logoImage}
+            src="/assets/logo.png"
             alt="Sveapanelen logo"
             style={{
               height: 30,
@@ -507,14 +500,17 @@ const TopNav = () => {
             }}
           />
         </div>
-
+    
         <div>
           <button style={{ marginLeft: 10 }}>Ladda ner</button>
         </div>
       </div>
+    
     </div>
+    
   );
 };
+
 
 export default Landing;
 
