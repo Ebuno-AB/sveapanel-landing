@@ -21,7 +21,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(1200px 600px at 10% 20%, #0fd4a8 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #0aa0b0 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #153f6a 0%, #0b2f45 60%)",
+            "radial-gradient(1200px 600px at 10% 20%, #0fd4a8 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #0aa0b0 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #1e67b0ff 0%, #0168adff 60%)",
         }}
       />
 
@@ -121,7 +121,7 @@ function AnimatedBlob({
           borderRadius: "9999px",
           background: `radial-gradient(circle at 30% 30%, ${colorA} 0%, ${colorB} 45%, transparent 60%)`,
           // heavy blur
-          filter: "blur(120px)",
+          filter: "blur(80px)",
           opacity: 0.95,
         }}
       />

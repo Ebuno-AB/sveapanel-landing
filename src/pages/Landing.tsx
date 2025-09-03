@@ -725,63 +725,49 @@ const FeatureCard = ({
 };
 
 const TopNav = ({ handleAppDownload }: { handleAppDownload: () => void }) => {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: "20px",
-        left: 0,
-        width: "100%",
-        height: "60px",
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
-          backdropFilter: "blur(10px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 20px",
-          // marginLeft: "80px",
-          // marginRight: "80px",
-          height: "60px",
-          margin: "0px 100px",
-          borderRadius: "25px",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
+  return (
+    <nav className="modern-topnav">
+      <div className="topnav-container">
+        {/* Logo */}
+        <div className="topnav-logo">
           <img
-            src="/assets/logo.png"
-            alt="Sveapanelen logo"
-            style={{
-              height: 30,
-              marginRight: 10,
-            }}
+            src="/logo.png"
+            alt="SveaPanelen logo"
+            className="topnav-logo-img"
           />
+          <span className="topnav-brand">SveaPanelen</span>
         </div>
-    
-        <div>
+        
+        {/* Navigation Links */}
+        <div className="topnav-links">
           <button 
-            style={{ marginLeft: 10 }}
-            onClick={handleAppDownload}
+            className="topnav-link"
+            onClick={() => scrollToSection('about-section')}
           >
-            Ladda ner
+            Om oss
+          </button>
+          <button 
+            className="topnav-link"
+            onClick={() => scrollToSection('faq-section')}
+          >
+            Vanliga frågor
+          </button>
+          <button 
+            className="topnav-link"
+            onClick={() => scrollToSection('contact-section')}
+          >
+            Kontakt
           </button>
         </div>
       </div>
-    
-    </div>
-    
+    </nav>
   );
 };
 
