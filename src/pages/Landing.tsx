@@ -18,6 +18,7 @@ import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModa
 
 import MovingBlurryBlobsBare from "../components/BlurryBlobBackground";
 import Footer from "../components/footer";
+import FAQ from "../components/FAQ";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -30,6 +31,7 @@ function Landing() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
+  
     useState(false);
 
   // BankID integration
@@ -205,16 +207,18 @@ function Landing() {
         handleGooglePlayClick={handleGooglePlayClick}
         handleAppStoreClick={handleAppStoreClick}
       />
-      <InfoSection />
-      
-      {/* Ratings Section - Customer Reviews and Trust */}
+      {/* Unified Background for InfoSection and RatingsSection with seamless transition */}
       <div
         style={{
-          background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
-          padding: "80px 20px",
+          background: "linear-gradient(to bottom, #000000 0%, #0f1031 15%, #2D65D7 45%, #0B1A30 100%)",
         }}
       >
-        <RatingsSection />
+        <InfoSection />
+        
+        {/* Ratings Section - Customer Reviews and Trust */}
+        <div style={{ padding: "80px 20px" }}>
+          <RatingsSection />
+        </div>
       </div>
       
       <div
@@ -280,6 +284,10 @@ function Landing() {
           />
         </div>
       </div>
+      
+      {/* FAQ Section */}
+      <FAQ />
+      
       <Footer />
 
       {/* QR Modal */}
@@ -338,7 +346,6 @@ const InfoSection = () => {
   return (
     <div
       style={{
-        background: "linear-gradient(to bottom, #2D65D7 0%, #0B1A30 100%)",
         padding: "80px 40px",
         textAlign: "center",
       }}
@@ -522,7 +529,7 @@ const Hero = ({
                       }}
                     />
                   </button>
-                  <p style={{ fontSize: "1rem" }}>
+                  <p style={{ fontSize: "1rem", color: "white" }}>
                     Registrera dig för att få tillgång till våra tjänster{" "}
                   </p>
                 </div>
