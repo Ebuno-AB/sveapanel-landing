@@ -89,6 +89,14 @@ function Landing() {
   };
 
   const handleAppDownload = () => {
+    // Track app download attempt
+    if (cookiesAccepted) {
+      trackEvent("app_download_click", {
+        platform: "general",
+        device_type: isPhone() ? "mobile" : "desktop",
+      });
+    }
+
     // Check if user is on desktop
     const isDesktop = !isPhone();
 
@@ -102,15 +110,67 @@ function Landing() {
     }
   };
 
+  const handleGooglePlayClick = () => {
+    // Track Google Play download attempt
+    if (cookiesAccepted) {
+      trackEvent("app_download_click", {
+        platform: "google_play",
+        device_type: isPhone() ? "mobile" : "desktop",
+      });
+    }
+
+    const isDesktop = !isPhone();
+    if (isDesktop) {
+      setIsAppDownloadQRModalOpen(true);
+    } else {
+      navigate('/redirect/google');
+    }
+  };
+
+  const handleAppStoreClick = () => {
+    // Track App Store download attempt
+    if (cookiesAccepted) {
+      trackEvent("app_download_click", {
+        platform: "app_store",
+        device_type: isPhone() ? "mobile" : "desktop",
+      });
+    }
+
+    const isDesktop = !isPhone();
+    if (isDesktop) {
+      setIsAppDownloadQRModalOpen(true);
+    } else {
+      navigate('/redirect/apple');
+    }
+  };
+
   // Check for success parameter in URL (for mobile redirects)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("registration") === "success") {
       setShowSuccessModal(true);
+      // Track successful registration
+      if (cookiesAccepted) {
+        trackEvent("registration_completed", {
+          method: "bankid",
+          source: "mobile_redirect",
+        });
+      }
       // Remove the parameter from URL
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, []);
+  }, [cookiesAccepted, trackEvent]);
+
+  // Track page view when cookies are accepted
+  useEffect(() => {
+    if (cookiesAccepted) {
+      trackEvent("page_view", {
+        page: "landing",
+        user_type: isRegistered ? "registered" : "unregistered",
+        device_type: isPhoneDevice ? "mobile" : "desktop",
+      });
+    }
+  }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -137,34 +197,139 @@ function Landing() {
 
   return (
     <>
-      <TopNav />
+      <TopNav handleAppDownload={handleAppDownload} />
       <Hero
         isRegistered={isRegistered}
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
+        handleGooglePlayClick={handleGooglePlayClick}
+        handleAppStoreClick={handleAppStoreClick}
       />
       <InfoSection />
+      
+      {/* Ratings Section - Customer Reviews and Trust */}
+      <div
+        style={{
+          background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
+          padding: "80px 20px",
+        }}
+      >
+        <RatingsSection />
+      </div>
+      
       <div
         style={{
           background:
             "linear-gradient(180deg, #E5A3FF 0%, #FF9B9B 50%, #FFB56B 100%)",
-          padding: "50px 20px",
+          padding: "80px 20px",
           textAlign: "center",
           minHeight: "100vh",
         }}
       >
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
-        <h2>Hej</h2>
+        <h2
+          style={{
+            color: "white",
+            fontSize: 42,
+            fontWeight: "bold",
+            marginBottom: 20,
+            maxWidth: "800px",
+            margin: "0 auto 60px auto",
+          }}
+        >
+          Allt du behöver för att tjäna pengar
+        </h2>
+        <p
+          style={{
+            color: "white",
+            opacity: 0.9,
+            fontSize: 18,
+            marginBottom: 60,
+            maxWidth: "600px",
+            margin: "0 auto 60px auto",
+          }}
+        >
+          För alla grupper i ditt liv
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            gap: 30,
+            flexWrap: "wrap",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
+          <FeatureCard
+            title="Starta en enkät"
+            description="Få feedback från din grupp med en snabb enkät - offentlig eller privat"
+    
+          />
+          <FeatureCard
+            title="Tjäna belöningar"
+            description="Träffa folk i en grupp eller ring någon direkt för att få poäng"
+      
+          />
+          <FeatureCard
+            title="SMS-läge"
+            description="Lägg till medlemmar med bara deras telefon och de kan gå med i din grupp utan att behöva ladda ner appen"
+
+          />
+        </div>
       </div>
       <Footer />
+
+      {/* QR Modal */}
+      {/* BankID Registration Modal */}
+      <QRModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        qrCodeUrl={qrCodeUrl}
+        isLoading={isLoading}
+        error={error || undefined}
+        success={success || undefined}
+      />
+
+      {/* Success Modal for Mobile Registration */}
+      <QRModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        success={{
+          title: "Registrering lyckades!",
+          message:
+            "Du har registrerats framgångsrikt med BankID! Du kan nu ladda ner appen för att börja tjäna pengar.",
+          onClose: () => setShowSuccessModal(false),
+        }}
+      />
+
+      {/* App Download QR Modal */}
+      <AppDownloadQRModal
+        isOpen={isAppDownloadQRModalOpen}
+        onClose={() => setIsAppDownloadQRModalOpen(false)}
+      />
+
+      {/* Cookies Consent Banner */}
+      <CookiesConsent
+        onAccept={() => {
+          console.log("Cookies accepted");
+          setCookiesAccepted(true);
+          // Track that user accepted cookies and enable GA
+          trackEvent("cookie_consent", {
+            consent_type: "accepted",
+          });
+        }}
+        onDecline={() => {
+          console.log("Cookies declined");
+          setCookiesAccepted(false);
+          // Track that user declined cookies (this will be the last tracked event)
+          trackEvent("cookie_consent", {
+            consent_type: "declined",
+          });
+        }}
+      />
     </>
   );
 }
@@ -262,12 +427,16 @@ const CardSection = ({
 
 const Hero = ({
   isRegistered,
-  handleBankIDRegistration = () => {},
-  handleAppDownload = () => {},
+  handleBankIDRegistration,
+  handleAppDownload,
+  handleGooglePlayClick,
+  handleAppStoreClick,
 }: {
   isRegistered: boolean;
   handleBankIDRegistration: () => void;
   handleAppDownload: () => void;
+  handleGooglePlayClick: () => void;
+  handleAppStoreClick: () => void;
 }) => {
   return (
     <div
@@ -369,30 +538,70 @@ const Hero = ({
                   </button>
                 </div>
               )}
-              <hr
-                style={{
-                  marginTop: 20,
-                  marginBottom: 20,
-                  borderWidth: "0.5px",
-                  opacity: 0.0,
-                }}
-              />
               <div
                 style={{
-                  flexDirection: "row",
+                  marginTop: 30,
+                  marginBottom: 20,
                 }}
               >
-                <img
-                  src="/assets/googleplay.png"
-                  alt="Google"
-                  style={{ height: 50 }}
-                />
-                &nbsp;
-                <img
-                  src="/assets/appstore.png"
-                  alt="Apple"
-                  style={{ height: 52, marginLeft: 10 }}
-                />
+                <p 
+                  style={{ 
+                    color: "white", 
+                    opacity: 0.8, 
+                    fontSize: "0.9rem",
+                    marginBottom: 15,
+                    fontWeight: "300"
+                  }}
+                >
+                  Tillgänglig på
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 15,
+                  }}
+                >
+                  <img
+                    src="/assets/googleplay.png"
+                    alt="Ladda ner på Google Play"
+                    style={{ 
+                      height: 50,      
+                      borderRadius: 8,
+                      cursor: 'pointer',
+                      transition: "transform 0.2s ease, opacity 0.2s ease",
+                    }}
+                    onClick={handleGooglePlayClick}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.05)";
+                      e.currentTarget.style.opacity = "0.9";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                      e.currentTarget.style.opacity = "1";
+                    }}
+                  />
+                  <img
+                    src="/assets/appstore.png"
+                    alt="Ladda ner på App Store"
+                    style={{ 
+                      height: 52, 
+                      borderRadius: 8,
+                      cursor: 'pointer',
+                      transition: "transform 0.2s ease, opacity 0.2s ease",
+                    }}
+                    onClick={handleAppStoreClick}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.05)";
+                      e.currentTarget.style.opacity = "0.9";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                      e.currentTarget.style.opacity = "1";
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -455,7 +664,67 @@ const Hero = ({
   );
 };
 
-const TopNav = () => {
+const FeatureCard = ({
+  title,
+  description,
+
+}: {
+  title: string;
+  description: string;
+
+}) => {
+  return (
+    <div
+      style={{
+        flex: "0 1 350px",
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderRadius: 20,
+        padding: 40,
+        margin: "10px",
+        textAlign: "left",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        minHeight: "200px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+      }}
+    >
+      <div
+        style={{
+          fontSize: 32,
+          marginBottom: 20,
+        }}
+      >
+
+      </div>
+      <h3
+        style={{
+          color: "#333",
+          fontSize: 22,
+          fontWeight: "bold",
+          marginBottom: 15,
+          lineHeight: "1.3",
+        }}
+      >
+        {title}
+      </h3>
+      <p
+        style={{
+          color: "#666",
+          fontSize: 16,
+          lineHeight: "1.5",
+          opacity: 0.8,
+        }}
+      >
+        {description}
+      </p>
+    </div>
+  );
+};
+
+const TopNav = ({ handleAppDownload }: { handleAppDownload: () => void }) => {
   return (
     <div
       style={{
@@ -502,7 +771,12 @@ const TopNav = () => {
         </div>
     
         <div>
-          <button style={{ marginLeft: 10 }}>Ladda ner</button>
+          <button 
+            style={{ marginLeft: 10 }}
+            onClick={handleAppDownload}
+          >
+            Ladda ner
+          </button>
         </div>
       </div>
     
