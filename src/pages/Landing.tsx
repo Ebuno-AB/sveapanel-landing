@@ -186,7 +186,7 @@ function Landing() {
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-          background: "#7e9bd6ff",
+          background: "linear-gradient(135deg, #6b8de3 0%, #eeecf4ff 100%)",
         }}
       >
         <InfoSection />
@@ -260,7 +260,11 @@ function Landing() {
               justifyContent: "center",
               minWidth: "600px",
             }}
+
+          
           >
+            {/* image */}
+            <img src="/public/assets/games.png" alt="Feature Image" style={{ maxWidth: "30%", borderRadius: "12px" }} />
             <ModernFeatureCard
               icon="�"
               title="Starta en enkät"
