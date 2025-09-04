@@ -29,7 +29,6 @@ function Landing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const splineRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
   
     useState(false);
@@ -174,29 +173,6 @@ function Landing() {
     }
   }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
 
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in");
-          } else {
-            entry.target.classList.remove("fade-in");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    splineRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-    return () => {
-      splineRefs.current.forEach((el) => {
-        if (el) observer.unobserve(el);
-      });
-    };
-  }, []);
-
   return (
     <>
       <TopNav handleAppDownload={handleAppDownload} />
@@ -207,81 +183,146 @@ function Landing() {
         handleGooglePlayClick={handleGooglePlayClick}
         handleAppStoreClick={handleAppStoreClick}
       />
-      {/* Unified Background for InfoSection and RatingsSection with seamless transition */}
+      {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-          background: "linear-gradient(to bottom, #000000 0%, #0f1031 15%, #2D65D7 45%, #0B1A30 100%)",
+          background: "#7e9bd6ff",
         }}
       >
         <InfoSection />
         
         {/* Ratings Section - Customer Reviews and Trust */}
-        <div style={{ padding: "80px 20px" }}>
+        <div style={{ padding: "50px 30px" }}>
           <RatingsSection />
         </div>
       </div>
       
       <div
         style={{
-          background:
-            "linear-gradient(180deg, #E5A3FF 0%, #FF9B9B 50%, #FFB56B 100%)",
-          padding: "80px 20px",
-          textAlign: "center",
-          minHeight: "100vh",
+          background: "linear-gradient(135deg, #ff6b9d 0%, #ffa8cc 50%, #c8a8ff 100%)",
+          padding: "80px 40px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <h2
-          style={{
-            color: "white",
-            fontSize: 42,
-            fontWeight: "bold",
-            marginBottom: 20,
-            maxWidth: "800px",
-            margin: "0 auto 60px auto",
-          }}
-        >
-          Allt du behöver för att tjäna pengar
-        </h2>
-        <p
-          style={{
-            color: "white",
-            opacity: 0.9,
-            fontSize: 18,
-            marginBottom: 60,
-            maxWidth: "600px",
-            margin: "0 auto 60px auto",
-          }}
-        >
-          För alla grupper i ditt liv
-        </p>
-
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            gap: 30,
-            flexWrap: "wrap",
-            maxWidth: "1200px",
+            maxWidth: "1400px",
             margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            gap: "60px",
+            flexWrap: "wrap",
           }}
         >
-          <FeatureCard
-            title="Starta en enkät"
-            description="Få feedback från din grupp med en snabb enkät - offentlig eller privat"
-    
-          />
-          <FeatureCard
-            title="Tjäna belöningar"
-            description="Träffa folk i en grupp eller ring någon direkt för att få poäng"
-      
-          />
-          <FeatureCard
-            title="SMS-läge"
-            description="Lägg till medlemmar med bara deras telefon och de kan gå med i din grupp utan att behöva ladda ner appen"
+          {/* Left side - Text content */}
+          <div
+            style={{
+              flex: "1",
+              minWidth: "300px",
+              textAlign: "left",
+              paddingRight: "20px",
+            }}
+          >
+            <h2
+              style={{
+                color: "white",
+                fontSize: "52px",
+                fontWeight: "700",
+                lineHeight: "1.2",
+                marginBottom: "24px",
+                textShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              }}
+            >
+              Allt du behöver för att tjäna pengar
+            </h2>
+            <p
+              style={{
+                color: "white",
+                opacity: 0.95,
+                fontSize: "24px",
+                fontWeight: "400",
+                lineHeight: "1.4",
+                marginBottom: "0",
+              }}
+            >
+              För alla grupper i ditt liv
+            </p>
+          </div>
 
-          />
+          {/* Right side - Feature cards */}
+          <div
+            style={{
+              flex: "2",
+              display: "flex",
+              gap: "24px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              minWidth: "600px",
+            }}
+          >
+            <ModernFeatureCard
+              icon="�"
+              title="Starta en enkät"
+              description="Få feedback från din grupp med en snabb enkät - offentlig eller privat"
+              mockupContent={
+                <div style={{ padding: "16px", backgroundColor: "#f8f9fa", borderRadius: "12px", fontSize: "14px" }}>
+                  <div style={{ fontWeight: "600", marginBottom: "8px" }}>Enkätpanel 2024</div>
+                  <div style={{ color: "#666", marginBottom: "12px" }}>Aktiva enkäter</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ width: "24px", height: "24px", borderRadius: "6px", backgroundColor: "#4caf50" }}></div>
+                      <span style={{ fontWeight: "500" }}>Produkttest - 25kr</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ width: "24px", height: "24px", borderRadius: "6px", backgroundColor: "#2196f3" }}></div>
+                      <span style={{ fontWeight: "500" }}>Konsumentvanor - 15kr</span>
+                    </div>
+                  </div>
+                </div>
+              }
+            />
+            
+            <ModernFeatureCard
+              icon="�"
+              title="Tjäna belöningar"
+              description="Samla poäng och få belöningar direkt via Swish"
+              mockupContent={
+                <div style={{ padding: "16px", backgroundColor: "#4caf50", borderRadius: "12px", color: "white" }}>
+                  <div style={{ fontSize: "12px", opacity: 0.9 }}>BELÖNING</div>
+                  <div style={{ fontSize: "20px", fontWeight: "700" }}>250kr</div>
+                  <div style={{ fontSize: "16px", fontWeight: "600", marginTop: "8px" }}>Enkäter slutförda</div>
+                  <div style={{ fontSize: "12px", opacity: 0.9 }}>Via Swish • Inga avgifter</div>
+                  <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
+                    <button style={{ backgroundColor: "rgba(255,255,255,0.2)", border: "none", borderRadius: "20px", padding: "6px 12px", color: "white", fontSize: "12px" }}>Ta ut nu</button>
+                    <button style={{ backgroundColor: "rgba(255,255,255,0.2)", border: "none", borderRadius: "20px", padding: "6px 12px", color: "white", fontSize: "12px" }}>Spara mer</button>
+                  </div>
+                </div>
+              }
+            />
+            
+            <ModernFeatureCard
+              icon="�"
+              title="Spela spel"
+              description="Testa nya spel och tjäna extra poäng när du spelar"
+              mockupContent={
+                <div style={{ padding: "16px", backgroundColor: "#f8f9fa", borderRadius: "12px", fontSize: "14px" }}>
+                  <div style={{ fontWeight: "600", marginBottom: "12px" }}>Vilka spel vill du testa?</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px", backgroundColor: "#e3f2fd", borderRadius: "6px" }}>
+                      <span>🎮 Puzzle Games</span>
+                      <span style={{ fontSize: "12px", color: "#666" }}>10kr/tim</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px", backgroundColor: "#fff3e0", borderRadius: "6px" }}>
+                      <span>🏆 Strategy Games</span>
+                      <span style={{ fontSize: "12px", color: "#666" }}>15kr/tim</span>
+                    </div>
+                  </div>
+                  <div style={{ marginTop: "12px", fontSize: "12px", color: "#666" }}>Börja spela • Tjäna direkt</div>
+                </div>
+              }
+            />
+          </div>
         </div>
       </div>
       
@@ -346,7 +387,7 @@ const InfoSection = () => {
   return (
     <div
       style={{
-        padding: "80px 40px",
+        padding: "60px 40px",
         textAlign: "center",
       }}
     >
@@ -355,7 +396,7 @@ const InfoSection = () => {
           color: "white",
           fontSize: 36,
           fontWeight: "bold",
-          marginBottom: 60,
+          marginBottom: 40,
         }}
       >
         Tre enkla steg till att tjäna pengar
@@ -415,7 +456,7 @@ const CardSection = ({
           padding: 20,
           borderRadius: 16,
           width: "100%",
-          height: 220,
+          height: 180,
           boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
           marginBottom: 20,
         }}
@@ -671,6 +712,78 @@ const Hero = ({
   );
 };
 
+const ModernFeatureCard = ({
+  icon,
+  title,
+  description,
+  mockupContent,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+  mockupContent: React.ReactNode;
+}) => {
+  return (
+    <div
+      style={{
+        backgroundColor: "white",
+        borderRadius: "24px",
+        padding: "24px",
+        width: "320px",
+        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-4px)";
+        e.currentTarget.style.boxShadow = "0 25px 50px rgba(0, 0, 0, 0.15)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.1)";
+      }}
+    >
+      {/* Header with icon and title */}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <span style={{ fontSize: "24px" }}>{icon}</span>
+        <h3
+          style={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#1a1a1a",
+            margin: "0",
+            lineHeight: "1.2",
+          }}
+        >
+          {title}
+        </h3>
+      </div>
+
+      {/* Description */}
+      <p
+        style={{
+          fontSize: "16px",
+          color: "#666",
+          lineHeight: "1.5",
+          margin: "0",
+          fontWeight: "400",
+        }}
+      >
+        {description}
+      </p>
+
+      {/* Mockup content */}
+      <div style={{ marginTop: "8px" }}>
+        {mockupContent}
+      </div>
+    </div>
+  );
+};
+
 const FeatureCard = ({
   title,
   description,
@@ -692,7 +805,7 @@ const FeatureCard = ({
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
         backdropFilter: "blur(10px)",
         border: "1px solid rgba(255, 255, 255, 0.2)",
-        minHeight: "200px",
+        minHeight: "160px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
