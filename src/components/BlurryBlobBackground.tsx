@@ -12,7 +12,7 @@ export default function MovingBlurryBlobsBare() {
         width: "100%",
         overflow: "hidden",
         borderRadius: 0,
-        backgroundColor: "#395BD7",
+        backgroundColor: "#7dd3fc",
       }}
     >
       {/* Base gradient so blobs have something to blend with */}
@@ -21,7 +21,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(1200px 600px at 10% 20%, #0fd4a8 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #0aa0b0 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #b01e8eff 0%, #024a7aff 40%)",
+            "radial-gradient(1200px 600px at 10% 20%, #60a5fa 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #34d399 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #f472b6 0%, #a78bfa 40%)",
         }}
       />
 
@@ -35,29 +35,29 @@ export default function MovingBlurryBlobsBare() {
       >
         <AnimatedBlob
           size={900}
-          colorA="black"
-          colorB="red"
+          colorA="#38bdf8"
+          colorB="#06b6d4"
           initial={{ x: -300, y: 150, scale: 1.0 }}
           animate={{ x: 350, y: 0, scale: 1.15 }}
-          duration={26}
+          duration={12}
         />
         <AnimatedBlob
           size={800}
-          colorA="#123456"
-          colorB="#456789"
+          colorA="#10b981"
+          colorB="#3b82f6"
           initial={{ x: 500, y: 300, scale: 1.0 }}
           animate={{ x: 50, y: -120, scale: 1.2 }}
-          duration={32}
-          delay={-4}
+          duration={15}
+          delay={-2}
         />
         <AnimatedBlob
           size={950}
-          colorA="#000"
-          colorB="#888"
+          colorA="#ec4899"
+          colorB="#8b5cf6"
           initial={{ x: -200, y: 450, scale: 1.1 }}
           animate={{ x: 600, y: 380, scale: 0.95 }}
-          duration={38}
-          delay={-8}
+          duration={18}
+          delay={-4}
         />
       </div>
 
@@ -67,7 +67,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          opacity: 0.035,
+          opacity: 0.015,
           backgroundImage: `url('data:image/svg+xml;utf8,${encodeURIComponent(
             grain
           )}')`,
@@ -121,8 +121,8 @@ function AnimatedBlob({
           borderRadius: "9999px",
           background: `radial-gradient(circle at 30% 30%, ${colorA} 0%, ${colorB} 45%, transparent 60%)`,
           // heavy blur
-          filter: "blur(80px)",
-          opacity: 0.95,
+          filter: "blur(50px)",
+          opacity: 0.7,
         }}
       />
     </motion.div>

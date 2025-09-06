@@ -265,6 +265,7 @@ function Landing() {
           >
             {/* image */}
             <img src="/public/assets/games.png" alt="Feature Image" style={{ maxWidth: "30%", borderRadius: "12px" }} />
+
             <ModernFeatureCard
               icon="�"
               title="Starta en enkät"
@@ -273,21 +274,26 @@ function Landing() {
                 <div style={{ padding: "16px", backgroundColor: "#f8f9fa", borderRadius: "12px", fontSize: "14px" }}>
                   <div style={{ fontWeight: "600", marginBottom: "8px" }}>Enkätpanel 2024</div>
                   <div style={{ color: "#666", marginBottom: "12px" }}>Aktiva enkäter</div>
+                  
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "24px", height: "24px", borderRadius: "6px", backgroundColor: "#4caf50" }}></div>
                       <span style={{ fontWeight: "500" }}>Produkttest - 25kr</span>
                     </div>
+                    
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "24px", height: "24px", borderRadius: "6px", backgroundColor: "#2196f3" }}></div>
                       <span style={{ fontWeight: "500" }}>Konsumentvanor - 15kr</span>
                     </div>
                   </div>
+                  
                 </div>
+                
               }
+              
             />
-            
-            <ModernFeatureCard
+                        <img src="/public/assets/formulär.svg" alt="Feature Image" style={{ width: "80%" }} />
+            {/* <ModernFeatureCard
               icon="�"
               title="Tjäna belöningar"
               description="Samla poäng och få belöningar direkt via Swish"
@@ -325,8 +331,9 @@ function Landing() {
                   <div style={{ marginTop: "12px", fontSize: "12px", color: "#666" }}>Börja spela • Tjäna direkt</div>
                 </div>
               }
-            />
+            /> */}
           </div>
+          
         </div>
       </div>
       
