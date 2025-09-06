@@ -187,7 +187,7 @@ function Landing() {
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-          background: "linear-gradient(135deg, #6b8de3 0%, #eeecf4ff 100%)",
+           background: "linear-gradient(135deg, #866bffff 0%, #bfa8ffff 50%, #c8a8ff 100%)",
         }}
       >
         <InfoSection />
@@ -341,6 +341,7 @@ function Landing() {
       {/* FAQ Section */}
       <FAQ />
       
+
       <Footer />
 
       {/* QR Modal */}
@@ -759,12 +760,13 @@ const TopNav = ({ handleAppDownload }: { handleAppDownload: () => void }) => {
           >
             Vanliga frågor
           </button>
-          <button 
+            <button 
             className="topnav-link"
-            onClick={() => scrollToSection('contact-section')}
-          >
+            onClick={() => scrollToSection('footer')}
+            >
             Kontakt
-          </button>
+            </button>
+    
         </div>
       </div>
     </nav>

@@ -3,7 +3,7 @@ import '../App.css';
 
 export default function Footer() {
   return (
-    <footer className="modern-footer">
+    <footer id="footer" className="modern-footer">
       <div className="footer-main">
         {/* Left side - Logo and Company info */}
         <div className="footer-left">
