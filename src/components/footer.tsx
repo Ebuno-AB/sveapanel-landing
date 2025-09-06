@@ -36,8 +36,12 @@ export default function Footer() {
               </svg>
             </a>
           </div>
+          {/* add link to pollflow.io  below the icons*/}
+          
         </div>
+        
       </div>
+      
 
       {/* Bottom section - Legal links */}
       <div className="footer-bottom">
@@ -47,6 +51,7 @@ export default function Footer() {
           <a href="/developers" className="footer-link">Developers</a>
           <a href="/terms" className="footer-link">Terms</a>
           <a href="/privacy" className="footer-link">Privacy & Cookies</a>
+          <a href="https://pollflow.io" className="footer-link" target="https://pollflow.io" rel="noopener noreferrer">PollFlow</a>
         </div>
         <div className="footer-copyright">
           <span>© {new Date().getFullYear()} SveaPanelen. All rights reserved.</span>
