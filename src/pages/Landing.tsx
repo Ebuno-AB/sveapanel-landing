@@ -18,8 +18,9 @@ import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModa
 
 import MovingBlurryBlobsBare from "../components/BlurryBlobBackground";
 import Footer from "../components/footer";
-import FAQ from "../components/FAQ";
+import FAQ from "../components/faq/FAQ";
 import { ModernFeatureCard } from "../components/ModernFeatureCard";
+import SurveyCards from "../components/surveyCards/SurveyCards";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -198,7 +199,7 @@ function Landing() {
         </div>
       </div>
       
-      <div
+       <div
         style={{
           background: "linear-gradient(135deg, #ff6b9d 0%, #ffa8cc 50%, #c8a8ff 100%)",
           padding: "80px 40px",
@@ -214,6 +215,7 @@ function Landing() {
             alignItems: "center",
             gap: "60px",
             flexWrap: "wrap",
+            marginLeft: "5rem",
           }}
         >
           {/* Left side - Text content */}
@@ -235,7 +237,7 @@ function Landing() {
                 textShadow: "0 2px 10px rgba(0,0,0,0.1)",
               }}
             >
-              Allt du behöver för att tjäna pengar
+              Svara på formulär och tjäna pengar
             </h2>
             <p
               style={{
@@ -247,7 +249,7 @@ function Landing() {
                 marginBottom: "0",
               }}
             >
-              För alla grupper i ditt liv
+              För alla stunder i ditt liv
             </p>
           </div>
 
@@ -260,25 +262,99 @@ function Landing() {
               flexWrap: "wrap",
               justifyContent: "center",
               minWidth: "600px",
+              minHeight: "550px",
             }}
-
-          
           >
-            {/* image */}
-            <img src="/public/assets/games.png" alt="Feature Image" style={{ maxWidth: "30%", borderRadius: "12px" }} />
-
           
-                        <img src="/public/assets/formulär.svg" alt="Feature Image" style={{ width: "70%"}} />
-           
+            {/* image */}
+            <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "30%", height: "30%" }} />
+
+           {/*  <img src="/public/assets/formulär.svg" alt="Feature Image" style={{ width: "70%"}} /> */}
+         
       
           </div>
           
         </div>
       </div>
+      <div
+        style={{
+          background: "linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)",
+          padding: "80px 40px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "vw",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            gap: "60px",
+            flexWrap: "wrap",
+            marginLeft: "5rem",
+          }}
+        >
+          {/* Left side - Text content */}
+          <div
+            style={{
+              flex: "1",
+              minWidth: "300px",
+              textAlign: "left",
+              paddingRight: "20px",
+            }}
+          >
+            <h2
+              style={{
+                color: "white",
+                fontSize: "52px",
+                fontWeight: "700",
+                lineHeight: "1.2",
+                marginBottom: "24px",
+                textShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              }}
+            >
+              Svara på formulär och tjäna pengar
+            </h2>
+            <p
+              style={{
+                color: "white",
+                opacity: 0.95,
+                fontSize: "24px",
+                fontWeight: "400",
+                lineHeight: "1.4",
+                marginBottom: "0",
+              }}
+            >
+              För alla stunder i ditt liv
+            </p>
+          </div>
+
+          {/* Right side - Feature cards */}
+          <div
+            style={{
+              flex: "2",
+              display: "flex",
+              gap: "24px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              minWidth: "600px",
+              minHeight : "550px",
+            }}
+          >
+            {/* text */}
+     
+              <SurveyCards />     
+      
+          </div>
+          
+        </div>
+      </div>
+
+      
       
       {/* FAQ Section */}
       <FAQ />
-      
 
       <Footer />
 

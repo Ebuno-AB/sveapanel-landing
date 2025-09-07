@@ -146,7 +146,7 @@ const faqData: FAQItem[] = [
 ];
 
 const FAQ: React.FC = () => {
-  const [expandedItems, setExpandedItems] = useState<string[]>(['1']); // First item expanded by default
+  const [expandedItems, setExpandedItems] = useState<string[]>([]); // First item expanded by default
 
   const toggleItem = (id: string) => {
     setExpandedItems(prev => 
