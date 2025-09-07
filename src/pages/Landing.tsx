@@ -1,14 +1,10 @@
 import "../App.css";
 import "../styles/BlobStyles.css";
 
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Gamepad2, List, Gift, DollarSign } from "lucide-react";
-import FoldableCard from "../components/FoldableCard";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import QRModal from "../components/QRModal";
 
-import ParticlesComponent from "../components/particlesComponent";
-import LiveEarningsCounter from "../components/LiveEarningsCounter";
 import RatingsSection from "../components/ratingsCompnent/RatingsSection";
 import CookiesConsent from "../components/cookies/CookiesConsent";
 import { useGA } from "../hooks/gtag";
@@ -19,8 +15,9 @@ import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModa
 import MovingBlurryBlobsBare from "../components/BlurryBlobBackground";
 import Footer from "../components/footer";
 import FAQ from "../components/faq/FAQ";
-import { ModernFeatureCard } from "../components/ModernFeatureCard";
+
 import SurveyCards from "../components/surveyCards/SurveyCards";
+import MarioInline from "../components/LevelGame";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -207,7 +204,9 @@ function Landing() {
           overflow: "hidden",
         }}
       >
+        
         <div
+        
           style={{
             maxWidth: "vw",
             margin: "0 auto",
@@ -251,27 +250,54 @@ function Landing() {
             >
               För alla stunder i ditt liv
             </p>
+            
           </div>
-
-          {/* Right side - Feature cards */}
+   <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "20%", height: "20%" }} />
+          {/* Right side - Interactive Game */}
           <div
             style={{
               flex: "2",
               display: "flex",
-              gap: "24px",
-              flexWrap: "wrap",
+              flexDirection: "column",
               justifyContent: "center",
-              minWidth: "600px",
-              minHeight: "550px",
+              alignItems: "center",
+              minWidth: "500px",
+              height: "400px",
+              minHeight: "400px",
+              maxHeight: "400px",
+              gap: "30px"
             }}
           >
-          
-            {/* image */}
-            <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "30%", height: "30%" }} />
+            {/* Game Component */}
+            <div style={{ 
+              width: "100%", 
+              maxWidth: "480px",
+              height: "280px"
+            }}>
 
-           {/*  <img src="/public/assets/formulär.svg" alt="Feature Image" style={{ width: "70%"}} /> */}
-         
+        {/* <MarioInline tiles={5} height={120} maxWidth={420} showHud={false} showTip={false} /> */}
+
+
       
+          
+
+            </div>
+            
+            {/* Descriptive text */}
+            <p
+              style={{
+                color: "white",
+                opacity: 0.85,
+                fontSize: "16px",
+                fontWeight: "400",
+                lineHeight: "1.5",
+                textAlign: "center",
+                maxWidth: "350px",
+                fontFamily: '"Cereal", system-ui, Arial, sans-serif'
+              }}
+            >
+              Klicka på nästa nivå för att hoppa framåt och tjäna belöningar!
+            </p>
           </div>
           
         </div>
@@ -284,6 +310,7 @@ function Landing() {
           overflow: "hidden",
         }}
       >
+        <img src="/assets/gameCards.webp" alt="" />
         <div
           style={{
             maxWidth: "vw",
@@ -342,10 +369,10 @@ function Landing() {
               minHeight : "550px",
             }}
           >
-            {/* text */}
-     
-              <SurveyCards />     
-      
+
+          
+              <SurveyCards />
+
           </div>
           
         </div>

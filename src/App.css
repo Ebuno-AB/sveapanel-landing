@@ -632,13 +632,14 @@ body {
 }
 
 .hero-title {
-  font-size: 50px;
+  font-size: 4rem;
   color: #fff;
   margin: 0 0 8px 0;
 }
 
 .hero-sub {
   color: #fff;
+  font-size: 1.8rem;
   font-weight: 400;
   margin: 0 0 16px 0;
 }
