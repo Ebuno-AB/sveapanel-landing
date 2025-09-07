@@ -208,7 +208,7 @@ function Landing() {
       >
         <div
           style={{
-            maxWidth: "1400px",
+            maxWidth: "vw",
             margin: "0 auto",
             display: "flex",
             alignItems: "center",

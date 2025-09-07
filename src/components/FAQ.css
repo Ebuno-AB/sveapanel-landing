@@ -171,11 +171,17 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .faq-container {
+    max-width: 85%;
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .faq-section {
     padding: 60px 16px;
     min-height: auto;
+
   }
 
   .faq-title {
@@ -183,7 +189,7 @@
   }
 
   .faq-container {
-    max-width: 100%;
+    max-width: 80%;
   }
 
   .faq-list {
