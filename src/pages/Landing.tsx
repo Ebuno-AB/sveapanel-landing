@@ -423,7 +423,6 @@ const CardSection = ({
     </div>
   );
 };
-
 const Hero = ({
   isRegistered,
   handleBankIDRegistration,
@@ -438,143 +437,47 @@ const Hero = ({
   handleAppStoreClick: () => void;
 }) => {
   return (
-    <div
-      style={{
-        flex: 1,
-        position: "relative",
-        top: 0,
-        left: 0,
-        minHeight: "100vh",
-        minWidth: "100vw",
-        backgroundColor: "black",
-        overflow: "hidden",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <div className="hero">
       <MovingBlurryBlobsBare />
-      <div
-        style={{
-          zIndex: 1,
-          position: "absolute",
-          flex: 1,
-          top: "0px",
-          width: "100%",
-          height: "100%",
-          left: "0px",
 
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            width: "90%",
-            maxWidth: "1200px",
-            flexDirection: window.innerWidth <= 768 ? "column" : "row",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: window.innerWidth <= 768 ? "40px" : "0",
-          }}
-        >
-          <div
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: window.innerWidth <= 768 ? "center" : "left",
-              padding: window.innerWidth <= 768 ? "0 20px" : "0",
-            }}
-          > 
-            <h1
-              style={{
-                fontSize: 50,
-                color: "white",
-              }}
-            >
-              Bli belönad för dina åsikter
-            </h1>
-            <h3
-              style={{
-                fontWeight: "normal",
-                color: "white",
-              }}
-            >
-              Bli en av våra{" "}
-              <span style={{ fontWeight: "bold", color: "#00CCA3" }}>
-                200 000+
-              </span>{" "}
-              användare som tjänar pengar på enkäter och spel
+      <div className="hero-overlay">
+        <div className="hero-inner">
+          {/* Left: copy */}
+          <div className="hero-col hero-copy">
+            <h1 className="hero-title">Bli belönad för dina åsikter</h1>
+            <h3 className="hero-sub">
+              Bli en av våra <span className="accent">200 000+</span> användare som
+              tjänar pengar på enkäter och spel
             </h3>
+
             <div>
               {isRegistered ? (
-                <div className="">
-                  <button
-                    className="custom-app-btn"
-                    onClick={handleBankIDRegistration}
-                  >
+                <div>
+                  <button className="custom-app-btn" onClick={handleBankIDRegistration}>
                     Registrera dig med BankID
                     <img
                       src="/assets/BankID_logo.svg"
-                      style={{
-                        width: "50px",
-                        height: "auto",
-                        marginLeft: "8px",
-                      }}
+                      style={{ width: 50, height: "auto", marginLeft: 8 }}
                     />
                   </button>
-                  <p style={{ fontSize: "1rem", color: "white" }}>
-                    Registrera dig för att få tillgång till våra tjänster{" "}
-                  </p>
+                  <p className="hero-note">Registrera dig för att få tillgång till våra tjänster</p>
                 </div>
               ) : (
-                // Show app store buttons for registered users
                 <div className="custom-app-buttons">
-                  <button
-                    className="custom-app-btn"
-                    onClick={handleAppDownload}
-                  >
+                  <button className="custom-app-btn" onClick={handleAppDownload}>
                     Ladda ner appen
-                    <img src="/assets/logo/logo.svg" style={{ width: "35px", height: "35px" }} />
+                    <img src="/assets/logo/logo.svg" style={{ width: 35, height: 35 }} />
                   </button>
                 </div>
               )}
-              <div
-                style={{
-                  marginTop: 30,
-                  marginBottom: 20,
-                }}
-              >
-                <p 
-                  style={{ 
-                    color: "white", 
-                    opacity: 0.8, 
-                    fontSize: "0.9rem",
-                    marginBottom: 15,
-                    fontWeight: "300"
-                  }}
-                >
-                  Tillgänglig på
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 15,
-                  }}
-                >
+
+              <div className="stores">
+                <p className="stores-label">Tillgänglig på</p>
+                <div className="stores-row">
                   <img
                     src="/assets/googleplay.png"
                     alt="Ladda ner på Google Play"
-                    style={{ 
-                      height: 50,      
-                      borderRadius: 8,
-                      cursor: 'pointer',
-                      transition: "transform 0.2s ease, opacity 0.2s ease",
-                    }}
+                    className="store-badge"
                     onClick={handleGooglePlayClick}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";
@@ -588,12 +491,7 @@ const Hero = ({
                   <img
                     src="/assets/appstore.png"
                     alt="Ladda ner på App Store"
-                    style={{ 
-                      height: 52, 
-                      borderRadius: 8,
-                      cursor: 'pointer',
-                      transition: "transform 0.2s ease, opacity 0.2s ease",
-                    }}
+                    className="store-badge"
                     onClick={handleAppStoreClick}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";
@@ -608,62 +506,19 @@ const Hero = ({
               </div>
             </div>
           </div>
-          <div
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              display: "flex",
-            }}
-          >
-            <div
-              style={{ height: "550px", width: "400px", position: "relative" }}
-            >
-              <img
-                src="/assets/sveamodel.png"
-                style={{ height: "550px" }}
-              />
-              <img
-                src="/assets/conf1.avif"
-                className="floaty"
-                style={{
-                  height: "100px",
-                  position: "absolute",
-                  top: 20,
-                  left: 0,
-                }}
-              />
-              <img
-                className="floaty"
-                src="/assets/conf2.avif"
-                style={{
-                  height: "110px",
-                  position: "absolute",
-                  top: 120,
-                  right: 20,
-                }}
-              />
-              <img
-                className="floaty"
-                src="/assets/conf3.avif"
-                style={{
-                  height: "110px",
-                  position: "absolute",
-                  bottom: 60,
-                  right: 20,
-                }}
-              />
+
+          {/* Right: visuals */}
+          <div className="hero-col hero-visual">
+            <div className="phone-wrap">
+              <img src="/assets/sveamodel.png" className="phone-img" />
+              <img src="/assets/conf1.avif" className="floaty badge badge-1" />
+              <img src="/assets/conf2.avif" className="floaty badge badge-2" />
+              <img src="/assets/conf3.avif" className="floaty badge badge-3" />
             </div>
-     
           </div>
         </div>
       </div>
-      
     </div>
-    
-    
-    
-   
   );
 };
 
