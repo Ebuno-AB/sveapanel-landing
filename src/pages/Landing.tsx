@@ -1,4 +1,5 @@
 import "../App.css";
+import "../components/bankModal/BankModal.css"
 import "../styles/BlobStyles.css";
 
 import { useState, useEffect } from "react";
@@ -51,8 +52,8 @@ function Landing() {
 
   // Handle BankID registration button click
   const handleBankIDRegistration = async () => {
-    console.log("🔵 BankID registration button clicked!");
-    console.log("📱 Device details:", {
+    console.log("BankID registration button clicked!");
+    console.log("Device details:", {
       isPhoneDevice,
       isSocialBrowserDetected,
       currentUrl,

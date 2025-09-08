@@ -1,0 +1,276 @@
+
+/* =====================
+   Modal Component
+   ===================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.modal-close-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.modal-header {
+  padding: 1.5rem 2rem 1rem 2rem;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
+}
+
+.modal-body {
+  padding: 1rem 2rem 2rem 2rem;
+  background: #ffffff;
+}
+
+.qr-code-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.qr-code-placeholder-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+
+
+
+
+
+}
+
+.qr-code-modal-container .qr-code-img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.qr-code-modal-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  font-weight: 400;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
+
+
+
+
+
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: 1rem;
+  }
+
+  .modal-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-body {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+  }
+
+
+  .qr-code-modal-container {
+    padding: 1.5rem;
+
+
+  }
+
+  .qr-code-modal-container .qr-code-img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-content {
+    width: 98%;
+    margin: 0.5rem;
+  }
+
+  .modal-header {
+    padding: 1rem 1rem 0.5rem 1rem;
+
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.8rem;
+  }
+
+
+  .modal-body {
+    padding: 0.5rem 1rem 1rem 1rem;
+
+  }
+
+  .qr-code-modal-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .qr-code-placeholder-modal {
+    padding: 1rem;
+  }
+
+  .qr-code-modal-container .qr-code-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .qr-code-modal-text {
+    font-size: 0.8rem;
+  }
+
+  .modal-close-btn {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-content {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .qr-code-modal-container .qr-code-img {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* =====================
+   QR Modal Component
+   ===================== */
+
+.modal-btn {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  min-width: 120px;
+  text-align: center;
+  display: inline-block;
+}
+
+.modal-btn:hover {
+  box-shadow: 0 4px 12px 0 rgba(44, 62, 80, 0.15);
+  transform: translateY(-1px);
+}
+
+.modal-btn:active {
+  transform: translateY(0);
+}
+
+.modal-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
