@@ -252,54 +252,8 @@ function Landing() {
             </p>
             
           </div>
-   <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "20%", height: "20%" }} />
-          {/* Right side - Interactive Game */}
-          <div
-            style={{
-              flex: "2",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: "500px",
-              height: "400px",
-              minHeight: "400px",
-              maxHeight: "400px",
-              gap: "30px"
-            }}
-          >
-            {/* Game Component */}
-            <div style={{ 
-              width: "100%", 
-              maxWidth: "480px",
-              height: "280px"
-            }}>
+   <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "20%", height: "20%", marginRight: "10rem" }} />
 
-        {/* <MarioInline tiles={5} height={120} maxWidth={420} showHud={false} showTip={false} /> */}
-
-
-      
-          
-
-            </div>
-            
-            {/* Descriptive text */}
-            <p
-              style={{
-                color: "white",
-                opacity: 0.85,
-                fontSize: "16px",
-                fontWeight: "400",
-                lineHeight: "1.5",
-                textAlign: "center",
-                maxWidth: "350px",
-                fontFamily: '"Cereal", system-ui, Arial, sans-serif'
-              }}
-            >
-              Klicka på nästa nivå för att hoppa framåt och tjäna belöningar!
-            </p>
-          </div>
-          
         </div>
       </div>
       <div

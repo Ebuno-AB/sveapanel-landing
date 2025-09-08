@@ -20,18 +20,18 @@
 .ratings-headline {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #1f2937;
+  color: #ffffff;
   margin-bottom: 16px;
   line-height: 1.2;
   font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  background: white; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .ratings-headline .highlight {
-  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  background: #02faa7;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -46,14 +46,14 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  background: #10b981;
   border-radius: 2px;
   opacity: 0.3;
 }
 
 .ratings-desc {
   font-size: 1.05rem;
-  color: #6b7280; 
+  color: #ffffff; 
   max-width: 600px;
   margin: 0 auto 16px auto;
   line-height: 1.6;
