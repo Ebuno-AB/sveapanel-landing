@@ -12,7 +12,7 @@ import { useBankID } from "../hooks/useBankID";
 import { isPhone, isSocialBrowser } from "../utils/browserDetection";
 import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModal";
 import Hero from "../components/heroSection/HeroSection";
-import Footer from "../components/footer";
+import Footer from "../components/footer/footer";
 import FAQ from "../components/faq/FAQ";
 
 import SurveyCards from "../components/surveyCards/SurveyCards";
