@@ -733,7 +733,7 @@ body {
 /* Float animation you already had via .floaty, keep as-is */
 
 /* --- RESPONSIVE: stack to column on small screens --- */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .hero {
     min-height: 100vh;
     height: auto;              /* Allow hero to grow taller than viewport */

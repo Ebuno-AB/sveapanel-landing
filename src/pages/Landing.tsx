@@ -17,14 +17,14 @@ import Footer from "../components/footer";
 import FAQ from "../components/faq/FAQ";
 
 import SurveyCards from "../components/surveyCards/SurveyCards";
-import MarioInline from "../components/LevelGame";
+import InfoSection from "../components/infoSection/InfoSection";
+import FeatureSection from "../components/featureSection/FeatureSection";
 
 function Landing() {
   const { trackEvent } = useGA();
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [fade, setFade] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -196,141 +196,24 @@ function Landing() {
         </div>
       </div>
       
-       <div
-        style={{
-          background: "linear-gradient(135deg, #ff6b9d 0%, #ffa8cc 50%, #c8a8ff 100%)",
-          padding: "80px 40px",
-          position: "relative",
-          overflow: "hidden",
-        }}
+      {/* First Feature Section - Games */}
+      <FeatureSection
+        background="linear-gradient(135deg, #ff6b9d 0%, #ffa8cc 50%, #c8a8ff 100%)"
+        title="Svara på formulär och tjäna pengar"
+        description="För alla stunder i ditt liv"
+        image="/assets/games.png"
+        imageAlt="Spel och belöningar"
+      />
+
+      {/* Second Feature Section - Survey Cards */}
+      <FeatureSection
+        background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
+        title="Svara på formulär och tjäna pengar"
+        description="För alla stunder i ditt liv"
+        backgroundImage="/assets/gameCards.webp"
       >
-        
-        <div
-        
-          style={{
-            maxWidth: "vw",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            gap: "60px",
-            flexWrap: "wrap",
-            marginLeft: "5rem",
-          }}
-        >
-          {/* Left side - Text content */}
-          <div
-            style={{
-              flex: "1",
-              minWidth: "300px",
-              textAlign: "left",
-              paddingRight: "20px",
-            }}
-          >
-            <h2
-              style={{
-                color: "white",
-                fontSize: "52px",
-                fontWeight: "700",
-                lineHeight: "1.2",
-                marginBottom: "24px",
-                textShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              }}
-            >
-              Svara på formulär och tjäna pengar
-            </h2>
-            <p
-              style={{
-                color: "white",
-                opacity: 0.95,
-                fontSize: "24px",
-                fontWeight: "400",
-                lineHeight: "1.4",
-                marginBottom: "0",
-              }}
-            >
-              För alla stunder i ditt liv
-            </p>
-            
-          </div>
-   <img src="/public/assets/games.png" alt="Feature Image" style={{ width: "20%", height: "20%", marginRight: "10rem" }} />
-
-        </div>
-      </div>
-      <div
-        style={{
-          background: "linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)",
-          padding: "80px 40px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <img src="/assets/gameCards.webp" alt="" />
-        <div
-          style={{
-            maxWidth: "vw",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            gap: "60px",
-            flexWrap: "wrap",
-            marginLeft: "5rem",
-          }}
-        >
-          {/* Left side - Text content */}
-          <div
-            style={{
-              flex: "1",
-              minWidth: "300px",
-              textAlign: "left",
-              paddingRight: "20px",
-            }}
-          >
-            <h2
-              style={{
-                color: "white",
-                fontSize: "52px",
-                fontWeight: "700",
-                lineHeight: "1.2",
-                marginBottom: "24px",
-                textShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              }}
-            >
-              Svara på formulär och tjäna pengar
-            </h2>
-            <p
-              style={{
-                color: "white",
-                opacity: 0.95,
-                fontSize: "24px",
-                fontWeight: "400",
-                lineHeight: "1.4",
-                marginBottom: "0",
-              }}
-            >
-              För alla stunder i ditt liv
-            </p>
-          </div>
-
-          {/* Right side - Feature cards */}
-          <div
-            style={{
-              flex: "2",
-              display: "flex",
-              gap: "24px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              minWidth: "600px",
-              minHeight : "550px",
-            }}
-          >
-
-          
-              <SurveyCards />
-
-          </div>
-          
-        </div>
-      </div>
+        <SurveyCards />
+      </FeatureSection>
 
       
       
@@ -391,95 +274,7 @@ function Landing() {
   );
 }
 
-const InfoSection = () => {
-  return (
-    <div
-      style={{
-        padding: "60px 40px",
-        textAlign: "center",
-      }}
-    >
-      <h2
-        style={{
-          color: "white",
-          fontSize: 36,
-          fontWeight: "bold",
-          marginBottom: 40,
-        }}
-      >
-        Tre enkla steg till att tjäna pengar
-      </h2>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: 40,
-          flexWrap: "wrap",
-          margin: "-20px",
-        }}
-      >
-        <CardSection
-          title="Svara på enkäter"
-          description="Hjälp företag och myndigheter genom att dela din åsikt"
-        />
-        <CardSection
-          title="Bjud in vänner"
-          description="Få bonusar när du tipsar andra om tjänsten"
-        />
-        <CardSection
-          title="Tjäna pengar"
-          description="Lös uppgifter och se dina belöningar växa"
-        />
-      </div>
-    </div>
-  );
-};
-
-const CardSection = ({
-  title = "",
-  description = "",
-}: {
-  title: string;
-  description: string;
-}) => {
-  return (
-    <div
-      style={{
-        flex: "0 1 280px",
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        margin: "20px",
-      }}
-    >
-      <h3 style={{ color: "white", marginBottom: 20 }}>{title}</h3>
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 20,
-          borderRadius: 16,
-          width: "100%",
-          height: 180,
-          boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
-          marginBottom: 20,
-        }}
-      ></div>
-      <p
-        style={{
-          color: "white",
-          opacity: 0.7,
-        }}
-      >
-        {description}
-      </p>
-    </div>
-  );
-};
 const Hero = ({
   isRegistered,
   handleBankIDRegistration,
