@@ -35,8 +35,8 @@ export default function MovingBlurryBlobsBare() {
       >
         <AnimatedBlob
           size={900}
-          colorA="#38bdf8"
-          colorB="#06b6d4"
+          colorA="#2a93c0ff"
+          colorB="#028da6ff"
           initial={{ x: -300, y: 150, scale: 1.0 }}
           animate={{ x: 350, y: 0, scale: 1.15 }}
           duration={12}
@@ -52,8 +52,8 @@ export default function MovingBlurryBlobsBare() {
         />
         <AnimatedBlob
           size={950}
-          colorA="#ec4899"
-          colorB="#8b5cf6"
+          colorA="#962d61ff"
+          colorB="#543896ff"
           initial={{ x: -200, y: 450, scale: 1.1 }}
           animate={{ x: 600, y: 380, scale: 0.95 }}
           duration={18}
@@ -79,8 +79,8 @@ export default function MovingBlurryBlobsBare() {
 
 function AnimatedBlob({
   size = 800,
-  colorA = "#ff00ff",
-  colorB = "#00ffff",
+  colorA = "#9d009dff",
+  colorB = "#018989ff",
   initial,
   animate,
   duration = 30,

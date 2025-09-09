@@ -10,6 +10,7 @@ interface FeatureSectionProps {
   imageAlt?: string;
   children?: React.ReactNode;
   className?: string;
+  interactive?: boolean;
 }
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({
@@ -20,7 +21,8 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
   image,
   imageAlt = "",
   children,
-  className = ""
+  className = "",
+  interactive = false
 }) => {
   return (
     <div 
@@ -60,7 +62,13 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
             {children}
           </div>
         ) : null}
+         {interactive && (
+        <div className="feature-section-interactive">
+          {children}
+        </div>
+      )}
       </div>
+     
     </div>
   );
 };

@@ -48,6 +48,26 @@
   font-display: swap;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+ 
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
 /* =====================
    Global Styles
    ===================== */

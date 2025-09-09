@@ -20,6 +20,8 @@ import FAQ from "../components/faq/FAQ";
 import SurveyCards from "../components/surveyCards/SurveyCards";
 import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
+import flappyGame from "../components/flappyGame";
+import FlappyGame from "../components/flappyGame";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -186,7 +188,7 @@ function Landing() {
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-           background: "linear-gradient(135deg, #866bffff 0%, #bfa8ffff 50%, #c8a8ff 100%)",
+           background: "linear-gradient(135deg, #6a55cbff 0%, #9683caff 50%, #967dc1ff 100%)",
         }}
       >
         <InfoSection />
@@ -199,12 +201,17 @@ function Landing() {
       
       {/* First Feature Section - Games */}
       <FeatureSection
-        background="linear-gradient(135deg, #ff6b9d 0%, #ffa8cc 50%, #c8a8ff 100%)"
+        background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
         title="Svara på formulär och tjäna pengar"
         description="För alla stunder i ditt liv"
         image="/assets/games.png"
         imageAlt="Spel och belöningar"
-      />
+        interactive={true}
+      >
+        <FlappyGame />
+      </FeatureSection>
+        
+
 
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
