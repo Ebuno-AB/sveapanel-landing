@@ -18,12 +18,9 @@
 }
 
 .ratings-headline {
-  font-size: 2.6rem;
-  font-weight: 800;
+  /* Uses h2 styling from App.css */
   color: #ffffff;
   margin-bottom: 16px;
-  line-height: 1.2;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
   background: white; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -176,10 +173,8 @@
 }
 
 .platform-name {
-  font-size: 1.25rem;
-  font-weight: 700;
+  /* Uses h4 styling from App.css */
   color: #1f2937;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .platform-rating {
@@ -196,10 +191,8 @@
 }
 
 .rating-value {
-  font-size: 1.5rem;
-  font-weight: 800;
+  /* Uses h4 styling from App.css */
   color: #1f2937;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -307,10 +300,8 @@
     padding: 45px 16px;
   }
 
-  .ratings-headline {
-    font-size: 1.9rem;
-  }
-
+  /* Ratings headline and description now use responsive styles from App.css */
+  
   .ratings-desc {
     font-size: 1rem;
   }
@@ -371,13 +362,7 @@
     gap: 10px;
   }
 
-  .platform-name {
-    font-size: 1.1rem;
-  }
-
-  .rating-value {
-    font-size: 1.3rem;
-  }
+  /* Platform name and rating value now use responsive styles from App.css */
 
   .star {
     font-size: 1.1rem;

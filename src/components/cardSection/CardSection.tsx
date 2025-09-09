@@ -12,9 +12,9 @@ const CardSection: React.FC<CardSectionProps> = ({
 }) => {
   return (
     <div className="card-section">
-      <h3 className="card-section-title">
+      <h4 className="card-section-title">
         {title}
-      </h3>
+      </h4>
       <div className="card-section-placeholder"></div>
       <p className="card-section-description">
         {description}

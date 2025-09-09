@@ -36,14 +36,14 @@
 }
 
 .hero-title {
-  font-size: 4rem;
+  /* Uses h1 styling from App.css - no need to override font-size */
   color: #fff;
   margin: 0 0 8px 0;
 }
 
 .hero-sub {
   color: #fff;
-  font-size: 1.8rem;
+  /* Uses h3 styling from App.css - no need to override font-size */
   font-weight: 400;
   margin: 0 0 16px 0;
 }
@@ -175,7 +175,7 @@
   }
   
   .hero-title {
-    font-size: 36px;
+    /* Uses responsive h1 styling from App.css */
     line-height: 1.2;
     margin-bottom: 16px;
     color: #fff !important;    /* Force white color */
@@ -228,9 +228,7 @@
     min-height: calc(100vh - 130px);
   }
   
-  .hero-title {
-    font-size: 28px;           /* Smaller title on very small screens */
-  }
+  /* Hero title now uses responsive h1 styling from App.css */
   
   .store-badge { 
     height: 44px; 

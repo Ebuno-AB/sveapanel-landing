@@ -31,24 +31,7 @@ body {
   background-color: "black !important";
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-h2 {
-  font-size: 2.5em;
-  line-height: 1.1;
-}
-
-h3 {
-  font-size: 1.5em;
-  line-height: 1.1;
-}
-
-h1 {
-  font-size: 1.5em;
-  line-height: 1.1;
-}
+/* Headers now standardized in App.css - removing conflicting styles */
 
 button {
   border-radius: 8px;

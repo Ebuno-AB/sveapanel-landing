@@ -58,9 +58,9 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({ platform, rating, rev
         <div className="platform-info">
           <div className="platform-details">
             <div className="platform-name-container">
-              <h3 className="platform-name">
+              <h4 className="platform-name">
                 {isApple ? 'App Store' : 'Google Play'}
-              </h3>
+              </h4>
               {isApple ? <AppleIcon /> : <GoogleIcon />}
             </div>
             <div className="platform-rating">

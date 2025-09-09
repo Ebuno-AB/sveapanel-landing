@@ -22,8 +22,7 @@
 
 .feature-section-title {
   color: white;
-  font-size: clamp(28px, 6vw, 52px);
-  font-weight: 700;
+  /* Uses h2 styling from App.css for consistent sizing */
   line-height: 1.2;
   margin-bottom: clamp(16px, 3vw, 24px);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);

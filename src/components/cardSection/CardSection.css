@@ -13,8 +13,7 @@
 .card-section-title {
   color: white;
   margin-bottom: clamp(15px, 2vw, 20px);
-  font-size: clamp(16px, 2.5vw, 18px);
-  font-weight: 600;
+  /* Uses h4 styling from App.css for consistent sizing */
   line-height: 1.3;
 }
 
