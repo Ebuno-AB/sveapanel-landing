@@ -8,23 +8,25 @@ const BIRD_IMAGE_URL = "/assets/flappysvea.svg"; // SVG bird image
 /**
  * -------- Game tuning --------
  */
-const GAME_W = 400;
-const GAME_H = 800;
-const GROUND_H = 120;
-const VIEW_H = GAME_H - GROUND_H;
+// Base dimensions - will be calculated responsively
+let GAME_W = 700; // Double width for much wider gameplay
+let GAME_H = 500;
+let GROUND_H = 120;
+let VIEW_H = GAME_H - GROUND_H;
 
-const GRAVITY = 1700; // px/s^2
-const JUMP_VELOCITY = -420; // px/s
+// Game constants that will be calculated based on screen size
+let GRAVITY = 1700; // px/s^2
+let JUMP_VELOCITY = -420; // px/s
 const MAX_DROP_ANGLE = 80; // degrees
 const MAX_RISE_ANGLE = -25; // degrees
-const PIPE_W = 70;
-const PIPE_GAP_MIN = 140;
-const PIPE_GAP_MAX = 180;
-const PIPE_HOLE_MIN = 80; // min top margin
-const PIPE_HOLE_MAX = VIEW_H - 80;
-const PIPE_SPAWN_DIST = 240; // px between pipes
-const PIPE_SPEED_BASE = 160; // px/s (will scale with score)
-const HITBOX_R = 16; // circle radius for collisions
+let PIPE_W = 70;
+let PIPE_GAP_MIN = 140;
+let PIPE_GAP_MAX = 180;
+let PIPE_HOLE_MIN = 80; // min top margin
+let PIPE_HOLE_MAX = VIEW_H - 80;
+let PIPE_SPAWN_DIST = 240; // px between pipes
+let PIPE_SPEED_BASE = 160; // px/s (will scale with score)
+let HITBOX_R = 16; // circle radius for collisions
 
 export default function FlappyBirdCanvas({
   onPointGained = () => {},
@@ -34,6 +36,61 @@ export default function FlappyBirdCanvas({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const [dimensions, setDimensions] = useState({ width: GAME_W, height: GAME_H, displaySize: 500, displayWidth: 1400 });
+
+  // Calculate responsive dimensions
+  const calculateDimensions = () => {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Calculate dimensions with wider aspect ratio (7:5)
+    let maxWidth, maxHeight;
+    
+    if (viewportWidth < 789) { // Mobile
+      maxWidth = Math.min(viewportWidth * 0.95, 500);
+      maxHeight = Math.min(viewportHeight * 0.5, 360);
+    } else if (viewportWidth < 1024) { // Tablet
+      maxWidth = Math.min(viewportWidth * 0.85, 700);
+      maxHeight = Math.min(viewportHeight * 0.6, 500);
+    } else { // Desktop
+      maxWidth = Math.min(viewportWidth * 0.7, 840);
+      maxHeight = Math.min(viewportHeight * 0.7, 600);
+    }
+    
+    // Maintain 7:5 aspect ratio (width:height)
+    const aspectRatio = 7 / 5;
+    let displayWidth = maxWidth;
+    let displayHeight = displayWidth / aspectRatio;
+    
+    // If height exceeds limit, scale down proportionally
+    if (displayHeight > maxHeight) {
+      displayHeight = maxHeight;
+      displayWidth = displayHeight * aspectRatio;
+    }
+    
+    // Calculate scale factor based on base height of 500px
+    const scaleFactor = displayHeight / 500;
+    
+    // Update global constants with scaling
+    GAME_W = 700; // Keep internal resolution constant - wider
+    GAME_H = 500;
+    GROUND_H = GAME_H * 0.15; // 15% of height for ground
+    VIEW_H = GAME_H - GROUND_H;
+    
+    // Scale game physics and elements proportionally
+    GRAVITY = 1700 * scaleFactor;
+    JUMP_VELOCITY = -420 * scaleFactor;
+    PIPE_W = 70 * scaleFactor;
+    PIPE_GAP_MIN = 140 * scaleFactor;
+    PIPE_GAP_MAX = 180 * scaleFactor;
+    PIPE_HOLE_MIN = 80 * scaleFactor;
+    PIPE_HOLE_MAX = VIEW_H - (80 * scaleFactor);
+    PIPE_SPAWN_DIST = 240 * scaleFactor;
+    PIPE_SPEED_BASE = 160 * scaleFactor;
+    HITBOX_R = 16 * scaleFactor;
+    
+    return { width: GAME_W, height: GAME_H, displaySize: displayHeight, displayWidth };
+  };
 
   // persistent game state
   const stateRef = useRef<{
@@ -139,6 +196,9 @@ export default function FlappyBirdCanvas({
       if (e.code === "Space" || e.key === " ") {
         e.preventDefault();
         jump();
+      } else if (e.code === "Tab") {
+        // Prevent Tab from affecting the game
+        e.preventDefault();
       }
     };
     const onClick = () => jump();
@@ -150,6 +210,20 @@ export default function FlappyBirdCanvas({
       window.removeEventListener("mousedown", onClick);
       window.removeEventListener("touchstart", onClick);
     };
+  }, []);
+
+  // Responsive resize effect
+  useEffect(() => {
+    const handleResize = () => {
+      const newDimensions = calculateDimensions();
+      setDimensions(newDimensions);
+    };
+
+    // Set initial dimensions
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // asset load
@@ -172,7 +246,7 @@ export default function FlappyBirdCanvas({
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dimensions]);
 
   // main loop
   const loop = (now: number) => {
@@ -218,12 +292,14 @@ export default function FlappyBirdCanvas({
       }
 
       // move pipes & scoring
+      const birdX = GAME_W * 0.2; // Bird at 20% from left edge
       for (const p of s.pipes) {
         p.x -= speed * dt;
-        if (!p.passed && p.x + PIPE_W < 80) {
+        if (!p.passed && p.x + PIPE_W < birdX) {
           p.passed = true;
           s.score += 1;
           s.money += 10;
+          console.log("Bird passed through pipe - calling onPointGained()");
           onPointGained();
           setUi((u) => ({ ...u, score: s.score, money: s.money }));
           // small celebration burst
@@ -234,7 +310,6 @@ export default function FlappyBirdCanvas({
       s.pipes = s.pipes.filter((p) => p.x > -PIPE_W - 10);
 
       // collisions (circle vs rects)
-      const birdX = 80;
       const r = HITBOX_R;
       const hitGround = s.birdY + r > VIEW_H || s.birdY - r < 0;
       const hitPipe = s.pipes.some((p) => {
@@ -304,8 +379,8 @@ export default function FlappyBirdCanvas({
 
     // pipes
     for (const p of s.pipes) {
-      drawPipe(ctx, p.x, 0, PIPE_W, p.top);
-      drawPipe(ctx, p.x, p.top + p.gap, PIPE_W, VIEW_H - (p.top + p.gap));
+      drawPipe(ctx, p.x, 0, PIPE_W, p.top, true); // top pipe - cap at bottom
+      drawPipe(ctx, p.x, p.top + p.gap, PIPE_W, VIEW_H - (p.top + p.gap), false); // bottom pipe - cap at top
     }
 
     // ground
@@ -318,7 +393,7 @@ export default function FlappyBirdCanvas({
     ctx.save();
     const shakeX = (Math.random() - 0.5) * shakeAmt;
     const shakeY = (Math.random() - 0.5) * shakeAmt;
-    const bx = 80 + shakeX;
+    const bx = GAME_W * 0.2 + shakeX; // Bird at 20% from left edge
     const by = s.birdY + shakeY;
     ctx.translate(bx, by);
     ctx.rotate((s.angle * Math.PI) / 180);
@@ -337,13 +412,16 @@ export default function FlappyBirdCanvas({
       drawScore(ctx, s.score);
       // floating +$10 briefly near the bird when scoring (based on shake trigger)
       if (s.shakeT > 0.25) {
-        ctx.font = "bold 16px Impact, Arial Black, sans-serif";
+        const fontSize = Math.max(12, GAME_W * 0.032);
+        const offsetX = GAME_W * 0.052;
+        const offsetY = GAME_H * 0.052;
+        ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
         ctx.fillStyle = "#FFD54A";
         ctx.strokeStyle = "#000";
-        ctx.lineWidth = 3;
+        ctx.lineWidth = Math.max(2, GAME_W * 0.006);
         ctx.textAlign = "center";
-        ctx.strokeText("+$10", bx + 26, by - 26);
-        ctx.fillText("+$10", bx + 26, by - 26);
+        ctx.strokeText("+$10", bx + offsetX, by - offsetY);
+        ctx.fillText("+$10", bx + offsetX, by - offsetY);
       }
     }
 
@@ -381,7 +459,8 @@ export default function FlappyBirdCanvas({
     x: number,
     y: number,
     w: number,
-    h: number
+    h: number,
+    isTopPipe: boolean = false
   ) => {
     // body
     const grad = ctx.createLinearGradient(x, y, x + w, y);
@@ -392,9 +471,19 @@ export default function FlappyBirdCanvas({
     ctx.lineWidth = 2;
     ctx.fillRect(x, y, w, h);
     ctx.strokeRect(x, y, w, h);
-    // cap
-    ctx.fillRect(x - 4, y + (h > 0 ? -2 : 0), w + 8, 24);
-    ctx.strokeRect(x - 4, y + (h > 0 ? -2 : 0), w + 8, 24);
+    
+    // cap positioning
+    let capY;
+    if (isTopPipe) {
+      // For top pipe, put cap at the bottom (y + h - 24)
+      capY = y + h - 24;
+    } else {
+      // For bottom pipe, put cap at the top (y - 2)
+      capY = y - 2;
+    }
+    
+    ctx.fillRect(x - 4, capY, w + 8, 24);
+    ctx.strokeRect(x - 4, capY, w + 8, 24);
   };
 
   const drawGround = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
@@ -423,7 +512,7 @@ export default function FlappyBirdCanvas({
     flyFrame: number
   ) => {
     const img = imgRef.current;
-    const target = 48; // on-canvas size of the bird
+    const target = GAME_W * 0.096; // on-canvas size of the bird (proportional to canvas size)
 
     if (img && img.complete && img.naturalHeight !== 0) {
       // Use SVG bird image
@@ -444,7 +533,7 @@ export default function FlappyBirdCanvas({
       ctx.restore();
     } else {
       // Fallback: draw a simple bird shape
-      const size = 24;
+      const size = GAME_W * 0.048; // Proportional to canvas size
       ctx.save();
 
       // Bird body (circle)
@@ -498,43 +587,48 @@ export default function FlappyBirdCanvas({
   };
 
   const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
-    ctx.font = "bold 48px Impact, Arial Black, sans-serif";
+    const fontSize = Math.max(24, GAME_W * 0.096); // Responsive font size
+    ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = 6;
+    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
     ctx.textAlign = "center";
-    ctx.strokeText(String(score), GAME_W / 2, 70);
-    ctx.fillText(String(score), GAME_W / 2, 70);
+    const yPos = GAME_H * 0.14; // 14% from top
+    ctx.strokeText(String(score), GAME_W / 2, yPos);
+    ctx.fillText(String(score), GAME_W / 2, yPos);
   };
 
   const drawCenterText = (
     ctx: CanvasRenderingContext2D,
     text: string,
-    size: number
+    baseFontSize: number
   ) => {
-    ctx.font = `bold ${size}px Impact, Arial Black, sans-serif`;
+    const fontSize = Math.max(20, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
+    ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = 8;
+    ctx.lineWidth = Math.max(4, GAME_W * 0.016);
     ctx.textAlign = "center";
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - 40);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 - 40);
+    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
+    ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
   };
 
   const drawSubText = (
     ctx: CanvasRenderingContext2D,
     text: string,
-    size: number,
+    baseFontSize: number,
     offset = 0,
     color = "#fff"
   ) => {
-    ctx.font = `bold ${size}px Arial, sans-serif`;
+    const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
+    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
     ctx.fillStyle = color;
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = 4;
+    ctx.lineWidth = Math.max(2, GAME_W * 0.008);
     ctx.textAlign = "center";
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + offset);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 + offset);
+    const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
+    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
+    ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
   };
 
   const drawBoard = (
@@ -543,28 +637,35 @@ export default function FlappyBirdCanvas({
     best: number,
     money: number
   ) => {
-    const w = 260;
-    const h = 160;
+    const w = GAME_W * 0.52; // 52% of canvas width
+    const h = GAME_H * 0.32; // 32% of canvas height
     const x = GAME_W / 2 - w / 2;
-    const y = GAME_H / 2 - h / 2 + 14;
+    const y = GAME_H / 2 - h / 2 + GAME_H * 0.028;
+    const cornerRadius = Math.max(8, GAME_W * 0.028);
+    
     ctx.fillStyle = "#FFE082";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = 6;
-    roundRect(ctx, x, y, w, h, 14, true, true);
+    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
+    roundRect(ctx, x, y, w, h, cornerRadius, true, true);
+    
+    const smallFont = Math.max(12, GAME_W * 0.036);
+    const mediumFont = Math.max(16, GAME_W * 0.052);
+    const largeFont = Math.max(20, GAME_W * 0.056);
+    
     ctx.fillStyle = "#000";
-    ctx.font = "bold 18px Arial";
-    ctx.fillText("Score", x + 60, y + 36);
-    ctx.font = "bold 28px Arial";
-    ctx.fillText(String(score), x + 60, y + 68);
-    ctx.font = "bold 18px Arial";
-    ctx.fillText("Best", x + w - 60, y + 36);
-    ctx.font = "bold 28px Arial";
-    ctx.fillText(String(best), x + w - 60, y + 68);
+    ctx.font = `bold ${smallFont}px Arial`;
+    ctx.fillText("Score", x + w * 0.23, y + h * 0.225);
+    ctx.font = `bold ${mediumFont}px Arial`;
+    ctx.fillText(String(score), x + w * 0.23, y + h * 0.425);
+    ctx.font = `bold ${smallFont}px Arial`;
+    ctx.fillText("Best", x + w * 0.77, y + h * 0.225);
+    ctx.font = `bold ${mediumFont}px Arial`;
+    ctx.fillText(String(best), x + w * 0.77, y + h * 0.425);
     ctx.fillStyle = "#0a7b33";
-    ctx.font = "bold 18px Arial";
-    ctx.fillText("Money", x + w / 2, y + 106);
-    ctx.font = "bold 26px Arial";
-    ctx.fillText(`$${money}`, x + w / 2, y + 136);
+    ctx.font = `bold ${smallFont}px Arial`;
+    ctx.fillText("Money", x + w / 2, y + h * 0.66);
+    ctx.font = `bold ${largeFont}px Arial`;
+    ctx.fillText(`$${money}`, x + w / 2, y + h * 0.85);
   };
 
   const roundRect = (
@@ -591,18 +692,21 @@ export default function FlappyBirdCanvas({
   const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex items-center justify-center w-full py-8">
       <canvas
         ref={canvasRef}
-        width={GAME_W}
-        height={GAME_H}
+        width={dimensions.width}
+        height={dimensions.height}
         style={{
-          width: GAME_W,
-          height: GAME_H,
+          width: `${dimensions.displayWidth}px`,
+          height: `${dimensions.displaySize}px`,
+          maxWidth: "calc(100vw - 2rem)",
+          maxHeight: "calc(100vh - 4rem)",
           borderRadius: 12,
           background: "#000",
           cursor: "pointer",
           display: "block",
+          imageRendering: "auto",
         }}
         onClick={() => {
           const s = stateRef.current;

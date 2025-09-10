@@ -24,6 +24,9 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
   className = "",
   interactive = false
 }) => {
+  // Check if we have content to display
+  const hasContent = title || description;
+  
   return (
     <div 
       className={`feature-section ${className}`}
@@ -37,16 +40,18 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
         />
       )}
       
-      <div className="feature-section-container">
-        {/* Left side - Text content */}
-        <div className="feature-section-content">
-          <h2 className="feature-section-title">
-            {title}
-          </h2>
-          <p className="feature-section-description">
-            {description}
-          </p>
-        </div>
+      <div className={`feature-section-container ${!hasContent && interactive ? 'full-width' : ''}`}>
+        {/* Left side - Text content (only show if there's content) */}
+        {hasContent && (
+          <div className="feature-section-content">
+            <h2 className="feature-section-title">
+              {title}
+            </h2>
+            <p className="feature-section-description">
+              {description}
+            </p>
+          </div>
+        )}
 
         {/* Right side - Visual content */}
         {image ? (
@@ -57,16 +62,17 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
               className="feature-section-image"
             />
           </div>
-        ) : children ? (
+        ) : children && !interactive ? (
           <div className="feature-section-cards">
             {children}
           </div>
         ) : null}
-         {interactive && (
-        <div className="feature-section-interactive">
-          {children}
-        </div>
-      )}
+        
+        {interactive && (
+          <div className="feature-section-interactive">
+            {children}
+          </div>
+        )}
       </div>
      
     </div>

@@ -229,10 +229,12 @@ function Landing() {
       </FeatureSection>
 
       <FeatureSection background={""} title={""} description={""}>
-        <FlappyGame  onPointGained={() => {
-            handleEarn(10);
-          }}
-        />
+   
+          <FlappyGame  onPointGained={() => {
+              handleEarn(10);
+            }}
+          />
+
       </FeatureSection>
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection

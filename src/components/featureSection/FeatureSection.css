@@ -73,11 +73,32 @@
   z-index: 0;
 }
 
+.feature-section-interactive {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  width: 100%;
+}
+
 .feature-section-content,
 .feature-section-visual,
-.feature-section-cards {
+.feature-section-cards,
+.feature-section-interactive {
   position: relative;
   z-index: 1;
+}
+
+/* Full width layout for interactive-only sections */
+.feature-section-container.full-width {
+  justify-content: center;
+}
+
+.feature-section-container.full-width .feature-section-interactive {
+  flex: 1;
+  width: 100%;
+  max-width: none;
 }
 
 /* Mobile responsive */
