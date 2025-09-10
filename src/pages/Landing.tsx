@@ -21,6 +21,7 @@ import SurveyCards from "../components/surveyCards/SurveyCards";
 import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyGame";
+import branch from "branch-sdk";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -57,6 +58,12 @@ function Landing() {
 
   // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered = location.pathname.includes("/r/");
+
+  useEffect(() => {
+      branch.init("key_live_iwbeLcb4ikSelTXhyZCFWkijxqlOtyRk", {}, (err: branch.BranchError, data: branch.SessionData | null) => {
+        console.log("Branch init", err, data);
+      });
+  }, []);
 
   // Handle BankID registration button click
   const handleBankIDRegistration = async () => {
