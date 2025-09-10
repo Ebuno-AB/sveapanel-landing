@@ -116,7 +116,11 @@ const CoinBurst: React.FC<{ amount: number }> = ({ amount }) => {
   );
 };
 
-const SurveyCards: React.FC = () => {
+interface SurveyCardsProps {
+  onEarn?: (amount: number) => void;
+}
+
+const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
   const [total, setTotal] = useState(0);
   const [bump, setBump] = useState(false);
 
@@ -127,6 +131,9 @@ const SurveyCards: React.FC = () => {
     });
     setBump(true);
     setTimeout(() => setBump(false), 400);
+    
+    // Also call the external onEarn prop to update the top nav money counter
+    onEarnProp?.(amount);
   };
 
   return (
@@ -134,6 +141,8 @@ const SurveyCards: React.FC = () => {
       <div className={`earnings-badge ${bump ? "is-bump" : ""}`}>
         Saldo: <strong>{total.toString().replace(".", ",")} kr</strong>
       </div>
+
+
 
       <div className="sc-wrap">
         <PriceCard minutes={8} price={25.3} rating={3.5} onEarn={handleEarn} />

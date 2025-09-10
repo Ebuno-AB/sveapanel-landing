@@ -1,6 +1,7 @@
 import React from "react";
 import "./HeroSection.css";
 import MovingBlurryBlobsBare from "../BlurryBlobBackground";
+import MoneyCounter from "../moneyCounter";
 
 interface HeroProps {
     isRegistered: boolean;
@@ -20,9 +21,11 @@ const HeroSection: React.FC<HeroProps> = ({
 return (
     <div className="hero">
       <MovingBlurryBlobsBare />
-
+     
       <div className="hero-overlay">
+        
         <div className="hero-inner">
+      
           {/* Left: copy */}
           <div className="hero-col hero-copy">
             <h1 className="hero-title">Bli belönad för dina åsikter</h1>

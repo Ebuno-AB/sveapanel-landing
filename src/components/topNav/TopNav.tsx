@@ -1,12 +1,14 @@
 
+import MoneyCounter from '../moneyCounter';
 import './TopNav.css';
 import React from 'react';
 
 interface TopNavProps {
   handleAppDownload: () => void;
+  moneyValue?: number;
 }
 
-const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
+const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -29,13 +31,11 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
         
         {/* Navigation Links */}
         <div className="topnav-links">
-          <button 
-            className="topnav-link"
-            onClick={() => scrollToSection('about-section')}
-          >
-            Om oss
-          </button>
-          <button 
+          <div style={{ position: 'fixed', top: '100px', right: '0px', zIndex: 1001 }}>
+            <MoneyCounter value={moneyValue} />
+          </div>
+
+          <button
             className="topnav-link"
             onClick={() => scrollToSection('faq-section')}
           >
@@ -47,6 +47,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
             >
             Kontakt
             </button>
+            
     
         </div>
       </div>

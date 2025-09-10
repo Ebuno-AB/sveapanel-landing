@@ -20,7 +20,6 @@ import FAQ from "../components/faq/FAQ";
 import SurveyCards from "../components/surveyCards/SurveyCards";
 import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
-import flappyGame from "../components/flappyGame";
 import FlappyGame from "../components/flappyGame";
 
 function Landing() {
@@ -34,6 +33,14 @@ function Landing() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
   
     useState(false);
+
+  // Money counter state for survey earnings
+  const [totalEarnings, setTotalEarnings] = useState(0);
+
+  // Handle earning money from survey cards
+  const handleEarn = (amount: number) => {
+    setTotalEarnings((prev) => parseFloat((prev + amount).toFixed(1)));
+  };
 
   // BankID integration
   const {
@@ -177,8 +184,12 @@ function Landing() {
 
   return (
     <>
-      <TopNav handleAppDownload={handleAppDownload} />
+      <TopNav handleAppDownload={handleAppDownload} moneyValue={totalEarnings} />
+
+   
+
       <Hero
+      
         isRegistered={isRegistered}
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
@@ -220,7 +231,7 @@ function Landing() {
         description="För alla stunder i ditt liv"
         backgroundImage="/assets/gameCards.webp"
       >
-        <SurveyCards />
+        <SurveyCards onEarn={handleEarn} />
       </FeatureSection>
 
       
