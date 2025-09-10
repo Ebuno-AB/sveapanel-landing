@@ -195,15 +195,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
             >
               Kontakt
             </button>
-            <button
-              className="mobile-menu-cta"
-              onClick={() => {
-                handleAppDownload();
-                closeMenu();
-              }}
-            >
-              Ladda ner app
-            </button>
+          
           </div>
         </div>
       )}
