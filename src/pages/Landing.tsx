@@ -1,5 +1,5 @@
 import "../App.css";
-import "../components/bankModal/BankModal.css"
+import "../components/bankModal/BankModal.css";
 import "../styles/BlobStyles.css";
 
 import { useState, useEffect } from "react";
@@ -31,7 +31,6 @@ function Landing() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
-  
     useState(false);
 
   // Money counter state for survey earnings
@@ -133,7 +132,7 @@ function Landing() {
     if (isDesktop) {
       setIsAppDownloadQRModalOpen(true);
     } else {
-      navigate('/redirect/google');
+      navigate("/redirect/google");
     }
   };
 
@@ -150,7 +149,7 @@ function Landing() {
     if (isDesktop) {
       setIsAppDownloadQRModalOpen(true);
     } else {
-      navigate('/redirect/apple');
+      navigate("/redirect/apple");
     }
   };
 
@@ -184,12 +183,12 @@ function Landing() {
 
   return (
     <>
-      <TopNav handleAppDownload={handleAppDownload} moneyValue={totalEarnings} />
-
-   
+      <TopNav
+        handleAppDownload={handleAppDownload}
+        moneyValue={totalEarnings}
+      />
 
       <Hero
-      
         isRegistered={isRegistered}
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
@@ -199,17 +198,18 @@ function Landing() {
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-           background: "linear-gradient(135deg, #6a55cbff 0%, #9683caff 50%, #967dc1ff 100%)",
+          background:
+            "linear-gradient(135deg, #6a55cbff 0%, #9683caff 50%, #967dc1ff 100%)",
         }}
       >
         <InfoSection />
-        
+
         {/* Ratings Section - Customer Reviews and Trust */}
         <div style={{ padding: "50px 30px" }}>
           <RatingsSection />
         </div>
       </div>
-      
+
       {/* First Feature Section - Games */}
       <FeatureSection
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
@@ -219,10 +219,12 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
       >
-        <FlappyGame />
+        <FlappyGame
+          onPointGained={() => {
+            handleEarn(10);
+          }}
+        />
       </FeatureSection>
-        
-
 
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
@@ -234,8 +236,6 @@ function Landing() {
         <SurveyCards onEarn={handleEarn} />
       </FeatureSection>
 
-      
-      
       {/* FAQ Section */}
       <FAQ />
 
@@ -292,7 +292,5 @@ function Landing() {
     </>
   );
 }
-
-
 
 export default Landing;

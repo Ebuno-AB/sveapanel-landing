@@ -1,4 +1,3 @@
-
 /* =====================
    Modern TopNav
    ===================== */
@@ -51,6 +50,150 @@
   gap: 1rem;
 }
 
+.saldo-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: white;
+  min-width: 70px;
+  padding: 0 12px;
+  background-color: #00cca380;
+  height: 38px;
+  border-radius: 30px;
+  border: 4px solid #00cca3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
+}
+.saldo-box.pop {
+  animation: saldo-pop 0.26s ease;
+}
+@keyframes saldo-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Burst container positioned relative to the saldo box */
+.saldo-burst {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.saldo-ring {
+  position: absolute;
+  left: var(--click-x, 50%);
+  top: var(--click-y, 50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 2px solid #00cca3;
+  transform: translate(-50%, -50%);
+  animation: saldo-ring 0.7s ease-out forwards;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  opacity: 0.9;
+}
+@keyframes saldo-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+.saldo-float {
+  position: absolute;
+  left: var(--click-x, 50%);
+  top: var(--click-y, 50%);
+  transform: translate(-50%, -50%);
+  font: 800 16px/1 "Inter", ui-sans-serif;
+  color: #00cca3;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  animation: saldo-floatUp 0.9s ease-out forwards;
+  white-space: nowrap;
+}
+@keyframes saldo-floatUp {
+  0% {
+    transform: translate(-50%, -50%) translateY(6px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-26px);
+    opacity: 0;
+  }
+}
+
+.saldo-coin {
+  position: absolute;
+  left: var(--click-x, 50%);
+  top: var(--click-y, 50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    120% 120% at 30% 30%,
+    #fff7b8 0% 35%,
+    #f7c52b 36% 68%,
+    #d8a60a 69% 100%
+  );
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.65),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.08);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.22));
+  animation: saldo-coinFly 0.9s cubic-bezier(0.16, 0.7, 0.23, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes saldo-coinFly {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.6) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty))
+      scale(var(--scale, 1)) rotate(var(--rot, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saldo-box.pop {
+    animation: none;
+  }
+  .saldo-coin,
+  .saldo-float,
+  .saldo-ring {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}
+
 .topnav-link {
   background: none;
   border: none;
@@ -86,15 +229,15 @@
     padding: 0 1.5rem;
     height: 60px;
   }
-  
+
   .topnav-brand {
     font-size: 1.2rem;
   }
-  
+
   .topnav-links {
     gap: 0.5rem;
   }
-  
+
   .topnav-link {
     font-size: 0.65rem;
     padding: 0.5rem 0.8rem;
@@ -105,28 +248,22 @@
   .topnav-container {
     padding: 0 1rem;
   }
-  
+
   .topnav-logo-img {
     width: 32px;
     height: 32px;
   }
-  
+
   .topnav-brand {
     font-size: 1.1rem;
   }
-  
+
   .topnav-links {
     gap: 0.25rem;
   }
-  
+
   .topnav-link {
     font-size: 0.8rem;
     padding: 0.4rem 0.6rem;
   }
 }
-
-
-
-
-
-
