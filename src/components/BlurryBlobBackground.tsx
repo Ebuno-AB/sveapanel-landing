@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 
 export default function MovingBlurryBlobsBare() {
@@ -21,7 +20,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(1200px 600px at 10% 20%, #60a5fa 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #34d399 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #f472b6 0%, #a78bfa 40%)",
+            "radial-gradient(1200px 600px at 10% 20%, #0fd4a8 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #0aa0b0 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #153f6a 0%, #0b2f45 60%)",
         }}
       />
 
