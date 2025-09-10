@@ -226,11 +226,6 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
       >
-        <FlappyGame
-          onPointGained={() => {
-            handleEarn(10);
-          }}
-        />
       </FeatureSection>
 
       <FeatureSection background={""} title={""} description={""}>
