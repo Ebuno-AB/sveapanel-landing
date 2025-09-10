@@ -21,7 +21,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(1200px 600px at 10% 20%, #60a5fa 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #34d399 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #f472b6 0%, #a78bfa 40%)",
+            "radial-gradient(1200px 600px at 10% 20%, #4273b0ff 0%, transparent 60%), radial-gradient(900px 500px at 90% 80%, #23936aff 0%, transparent 60%), radial-gradient(800px 800px at 50% 120%, #ae4f80ff 0%, #6b58a2ff 40%)",
         }}
       />
 
@@ -36,7 +36,7 @@ export default function MovingBlurryBlobsBare() {
         <AnimatedBlob
           size={900}
           colorA="#2a93c0ff"
-          colorB="#028da6ff"
+          colorB="#026476ff"
           initial={{ x: -300, y: 150, scale: 1.0 }}
           animate={{ x: 350, y: 0, scale: 1.15 }}
           duration={12}
@@ -79,7 +79,7 @@ export default function MovingBlurryBlobsBare() {
 
 function AnimatedBlob({
   size = 800,
-  colorA = "#9d009dff",
+  colorA = "#700270ff",
   colorB = "#018989ff",
   initial,
   animate,
