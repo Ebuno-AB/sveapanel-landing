@@ -34,29 +34,29 @@ export default function MovingBlurryBlobsBare() {
       >
         <AnimatedBlob
           size={900}
-          colorA="#2a93c0ff"
-          colorB="#026476ff"
+          colorA="black"
+          colorB="red"
           initial={{ x: -300, y: 150, scale: 1.0 }}
           animate={{ x: 350, y: 0, scale: 1.15 }}
-          duration={12}
+          duration={26}
         />
         <AnimatedBlob
           size={800}
-          colorA="#10b981"
-          colorB="#3b82f6"
+          colorA="#123456"
+          colorB="#456789"
           initial={{ x: 500, y: 300, scale: 1.0 }}
           animate={{ x: 50, y: -120, scale: 1.2 }}
-          duration={15}
-          delay={-2}
+          duration={32}
+          delay={-4}
         />
         <AnimatedBlob
           size={950}
-          colorA="#962d61ff"
-          colorB="#543896ff"
+          colorA="#000"
+          colorB="#888"
           initial={{ x: -200, y: 450, scale: 1.1 }}
           animate={{ x: 600, y: 380, scale: 0.95 }}
-          duration={18}
-          delay={-4}
+          duration={38}
+          delay={-8}
         />
       </div>
 
