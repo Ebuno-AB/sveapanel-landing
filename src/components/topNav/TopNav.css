@@ -23,6 +23,8 @@
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible;
 }
 
 .topnav-logo {
@@ -183,134 +185,147 @@
 }
 
 /* =====================
-   Hamburger
+   Hamburger Menu
    ===================== */
 .hamburger {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;           /* larger tap target */
-  border-radius: 12px;
+  padding: 0;
   z-index: 1001;
-}
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
   transition: all 0.3s ease;
+  outline: none;
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.hamburger:active {
+  outline: none;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2px;
+  background: white;
+  border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center;
 }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+.hamburger.active span:nth-child(1) { 
+  transform: rotate(45deg) translate(6px, 6px); 
+}
+.hamburger.active span:nth-child(2) { 
+  opacity: 0; 
+  transform: scale(0);
+}
+.hamburger.active span:nth-child(3) { 
+  transform: rotate(-45deg) translate(6px, -6px); 
+}
 
 /* =====================
-   Full-Screen Mobile Menu
+   Mobile Menu Dropdown
    ===================== */
 .mobile-menu {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100svh; /* iOS/Android friendly viewport height */
-  z-index: 9999;
-
-  background: rgba(10, 12, 18, 0.96);
+  position: absolute;
+  top: calc(100% - 10px);
+  left: 20px;
+  right: 20px;
+  z-index: 999;
+  
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-
-  display: block; /* backdrop is the click-outside area */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px) scale(0.98);
-  transition: opacity 220ms ease, visibility 220ms ease, transform 220ms ease;
+  transform: translateY(-20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .mobile-menu.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
 }
 
-/* Inner sheet: flex column so links scroll and CTA sits at the bottom */
-.mobile-sheet {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  width: 100%;
-  height: 100%;
-  padding:
-    max(16px, env(safe-area-inset-top))
-    max(20px, env(safe-area-inset-right))
-    max(20px, env(safe-area-inset-bottom))
-    max(20px, env(safe-area-inset-left));
-}
-
+/* Menu Content */
 .mobile-menu-content {
+  padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  align-items: center;
-
-  flex: 1 1 auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-top: 8px;
 }
 
+/* Menu Links */
 .mobile-menu-link {
   background: none;
   border: none;
-  color: white;
-  font-size: 2rem;
-  font-weight: 300;
-  padding: 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
   cursor: pointer;
-  transition: transform 200ms ease, opacity 200ms ease, background 160ms ease;
-  text-align: center;
-  min-width: 200px;
-  letter-spacing: 0.02em;
-
-  transform: translateY(4px);
-  opacity: 0.92;
-}
-.mobile-menu.open .mobile-menu-content .mobile-menu-link {
-  transform: translateY(0);
-  opacity: 1;
-}
-.mobile-menu-link:hover {
-  color: rgba(255, 255, 255, 0.85);
-  transform: translateY(-2px);
-}
-
-.mobile-menu-cta {
-  flex: 0 0 auto;
-  position: sticky;
-  bottom: env(safe-area-inset-bottom);
+  transition: all 0.2s ease;
+  text-align: left;
   width: 100%;
-  margin-top: 0.5rem;
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  position: relative;
+  outline: none;
+}
 
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+.mobile-menu-link:focus {
+  outline: none;
+}
+
+.mobile-menu-link:active {
+  outline: none;
+}
+
+.mobile-menu-link:hover {
+  background: rgba(35, 72, 30, 0.08);
+  color: #23481e;
+  padding-left: 2.5rem;
+}
+
+/* CTA Button */
+.mobile-menu-cta {
+  background: linear-gradient(135deg, #23481e, #2d5a2a);
   border: none;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   padding: 1rem 2rem;
-  border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   text-align: center;
-  min-width: 200px;
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  font-family: 'Cereal', system-ui, Arial, sans-serif;
+  border-radius: 12px;
+  margin: 1rem 2rem 1.5rem 2rem;
+  box-shadow: 0 4px 15px rgba(35, 72, 30, 0.3);
+  outline: none;
 }
+
+.mobile-menu-cta:focus {
+  outline: none;
+}
+
+.mobile-menu-cta:active {
+  outline: none;
+}
+
 .mobile-menu-cta:hover {
+  background: linear-gradient(135deg, #1a3a1a, #23481e);
   transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 6px 20px rgba(35, 72, 30, 0.4);
 }
 
 /* Prevent background scroll when menu is open */
@@ -355,6 +370,12 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
     height: 32px;
     padding: 0 8px;
   }
+
+  /* Fix mobile menu positioning */
+  .mobile-menu {
+    left: 1rem;
+    right: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -372,4 +393,21 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
 
   .hamburger { width: 25px; height: 25px; }
   .hamburger span { width: 20px; height: 2px; }
+
+  /* Fix mobile menu positioning for very small screens */
+  .mobile-menu {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .mobile-menu-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .mobile-menu-cta {
+    margin: 0.75rem 1.5rem 1rem 1.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
 }

@@ -25,7 +25,7 @@ import branch from "branch-sdk";
 
 function Landing() {
   const { trackEvent } = useGA();
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ function Landing() {
   const handleEarn = (amount: number) => {
     setTotalEarnings((prev) => parseFloat((prev + amount).toFixed(1)));
   };
-
+  
   // BankID integration
   const {
     qrCodeUrl,
@@ -64,7 +64,7 @@ function Landing() {
         console.log("Branch init", err, data);
       });
   }, []);
-
+  
   // Handle BankID registration button click
   const handleBankIDRegistration = async () => {
     console.log("BankID registration button clicked!");
@@ -73,12 +73,12 @@ function Landing() {
       isSocialBrowserDetected,
       currentUrl,
     });
-
+    
     // Start BankID authentication
     console.log("🚀 Initializing BankID authentication...");
     const returnedBrowserLink = await initialize(isPhoneDevice);
-
-    // For non-desktop devices, redirect to browserLink if available.
+    
+    // For non-desktop devices, redirect to browserLink if available. 
     // for successful registrations, redirect to landing page "/ " with a success message
 
     if (isPhoneDevice && returnedBrowserLink) {
@@ -89,14 +89,14 @@ function Landing() {
       window.location.href = returnedBrowserLink;
       return;
     }
-
+    
     // Open modal for desktop devices
     if (!isPhoneDevice) {
       console.log("🖥️ Opening modal for desktop");
       setIsModalOpen(true);
     }
   };
-
+  
   // Handle modal close
   const handleModalClose = () => {
     console.log("❌ Modal closed - clearing intervals");
@@ -115,7 +115,7 @@ function Landing() {
 
     // Check if user is on desktop
     const isDesktop = !isPhone();
-
+    
     if (isDesktop) {
       // Show QR code modal for desktop users
       setIsAppDownloadQRModalOpen(true);
@@ -214,9 +214,9 @@ function Landing() {
         {/* Ratings Section - Customer Reviews and Trust */}
         <div style={{ padding: "50px 30px" }}>
           <RatingsSection />
-        </div>
+          </div>
       </div>
-
+      
       {/* First Feature Section - Games */}
       <FeatureSection
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
@@ -257,8 +257,8 @@ function Landing() {
 
       {/* QR Modal */}
       {/* BankID Registration Modal */}
-      <QRModal
-        isOpen={isModalOpen}
+      <QRModal 
+        isOpen={isModalOpen} 
         onClose={handleModalClose}
         qrCodeUrl={qrCodeUrl}
         isLoading={isLoading}
@@ -267,8 +267,8 @@ function Landing() {
       />
 
       {/* Success Modal for Mobile Registration */}
-      <QRModal
-        isOpen={showSuccessModal}
+      <QRModal 
+        isOpen={showSuccessModal} 
         onClose={() => setShowSuccessModal(false)}
         success={{
           title: "Registrering lyckades!",
@@ -279,13 +279,13 @@ function Landing() {
       />
 
       {/* App Download QR Modal */}
-      <AppDownloadQRModal
-        isOpen={isAppDownloadQRModalOpen}
+      <AppDownloadQRModal 
+        isOpen={isAppDownloadQRModalOpen} 
         onClose={() => setIsAppDownloadQRModalOpen(false)}
       />
-
+      
       {/* Cookies Consent Banner */}
-      <CookiesConsent
+      <CookiesConsent 
         onAccept={() => {
           console.log("Cookies accepted");
           setCookiesAccepted(true);

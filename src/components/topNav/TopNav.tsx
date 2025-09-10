@@ -162,62 +162,51 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
         </div>
 
       {isMobile && (
-  <div
-    id="mobile-menu"
-    ref={menuRef}
-    className={`mobile-menu ${isMenuOpen ? "open" : ""}`}
-    role="dialog"
-    aria-modal="true"
-    onMouseDown={onBackdropClick}
-  >
-    <div className="mobile-sheet">
-      <div className="mobile-menu-content" role="menu" aria-label="Mobilmeny">
-        <button
-          ref={firstLinkRef}
-          className="mobile-menu-link"
-          role="menuitem"
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            closeMenu();
-          }}
+        <div
+          id="mobile-menu"
+          ref={menuRef}
+          className={`mobile-menu ${isMenuOpen ? "open" : ""}`}
+          role="menu"
+          aria-label="Mobilmeny"
         >
-          Home
-        </button>
-        <button
-          className="mobile-menu-link"
-          role="menuitem"
-          onClick={() => scrollToSection("faq-section")}
-        >
-          Features
-        </button>
-        <button
-          className="mobile-menu-link"
-          role="menuitem"
-          onClick={() => scrollToSection("faq-section")}
-        >
-          About
-        </button>
-        <button
-          className="mobile-menu-link"
-          role="menuitem"
-          onClick={() => scrollToSection("footer")}
-        >
-          Contact
-        </button>
-      </div>
-
-      <button
-        className="mobile-menu-cta"
-        onClick={() => {
-          handleAppDownload();
-          closeMenu();
-        }}
-      >
-        Ladda ner app →
-      </button>
-    </div>
-  </div>
-)}
+          <div className="mobile-menu-content">
+            <button
+              ref={firstLinkRef}
+              className="mobile-menu-link"
+              role="menuitem"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                closeMenu();
+              }}
+            >
+              Hem
+            </button>
+            <button
+              className="mobile-menu-link"
+              role="menuitem"
+              onClick={() => scrollToSection("faq-section")}
+            >
+              Vanliga frågor
+            </button>
+            <button
+              className="mobile-menu-link"
+              role="menuitem"
+              onClick={() => scrollToSection("footer")}
+            >
+              Kontakt
+            </button>
+            <button
+              className="mobile-menu-cta"
+              onClick={() => {
+                handleAppDownload();
+                closeMenu();
+              }}
+            >
+              Ladda ner app
+            </button>
+          </div>
+        </div>
+      )}
 
       </div>
     </nav>
