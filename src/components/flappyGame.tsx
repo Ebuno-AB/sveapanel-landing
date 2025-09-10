@@ -8,25 +8,25 @@ const BIRD_IMAGE_URL = "/assets/flappysvea.svg"; // SVG bird image
 /**
  * -------- Game tuning --------
  */
-// Base dimensions - will be calculated responsively
-let GAME_W = 700; // Double width for much wider gameplay
-let GAME_H = 500;
-let GROUND_H = 120;
+// Base dimensions - optimized for mobile iPhone frame
+let GAME_W = 700; // Much larger canvas for more zoomed in appearance
+let GAME_H = 1000; // Even taller for better mobile experience
+let GROUND_H = 150; // Proportionally larger ground for taller canvas
 let VIEW_H = GAME_H - GROUND_H;
 
-// Game constants that will be calculated based on screen size
-let GRAVITY = 1700; // px/s^2
-let JUMP_VELOCITY = -420; // px/s
+// Game constants that will be calculated based on screen size - scaled for 1000px height
+let GRAVITY = 2000; // px/s^2 - increased for taller canvas
+let JUMP_VELOCITY = -550; // px/s - stronger jump for taller canvas
 const MAX_DROP_ANGLE = 80; // degrees
 const MAX_RISE_ANGLE = -25; // degrees
-let PIPE_W = 70;
-let PIPE_GAP_MIN = 140;
-let PIPE_GAP_MAX = 180;
-let PIPE_HOLE_MIN = 80; // min top margin
-let PIPE_HOLE_MAX = VIEW_H - 80;
-let PIPE_SPAWN_DIST = 240; // px between pipes
-let PIPE_SPEED_BASE = 160; // px/s (will scale with score)
-let HITBOX_R = 16; // circle radius for collisions
+let PIPE_W = 100; // Wider pipes for proportional look
+let PIPE_GAP_MIN = 280; // Much larger gaps for taller canvas
+let PIPE_GAP_MAX = 340;
+let PIPE_HOLE_MIN = 120; // Larger margins for taller canvas
+let PIPE_HOLE_MAX = VIEW_H - 120;
+let PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
+let PIPE_SPEED_BASE = 200; // Faster speed to match taller proportions
+let HITBOX_R = 25; // Larger hitbox for scaled elements
 
 export default function FlappyBirdCanvas({
   onPointGained = () => {},
@@ -38,56 +38,34 @@ export default function FlappyBirdCanvas({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: GAME_W, height: GAME_H, displaySize: 500, displayWidth: 1400 });
 
-  // Calculate responsive dimensions
+  // Calculate dimensions to fit within iPhone frame screen area
   const calculateDimensions = () => {
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    // Dimensions optimized for iPhone screen area
+    // Use a mobile-friendly aspect ratio that fits the phone screen
+    const gameWidth = 700;  // Much larger canvas for more zoomed in appearance
+    const gameHeight = 1000; // Even taller for better mobile experience
     
-    // Calculate dimensions with wider aspect ratio (7:5)
-    let maxWidth, maxHeight;
+    // Display dimensions that will be scaled by CSS
+    const displayWidth = gameWidth;
+    const displayHeight = gameHeight;
     
-    if (viewportWidth < 789) { // Mobile
-      maxWidth = Math.min(viewportWidth * 0.95, 500);
-      maxHeight = Math.min(viewportHeight * 0.5, 360);
-    } else if (viewportWidth < 1024) { // Tablet
-      maxWidth = Math.min(viewportWidth * 0.85, 700);
-      maxHeight = Math.min(viewportHeight * 0.6, 500);
-    } else { // Desktop
-      maxWidth = Math.min(viewportWidth * 0.7, 840);
-      maxHeight = Math.min(viewportHeight * 0.7, 600);
-    }
-    
-    // Maintain 7:5 aspect ratio (width:height)
-    const aspectRatio = 7 / 5;
-    let displayWidth = maxWidth;
-    let displayHeight = displayWidth / aspectRatio;
-    
-    // If height exceeds limit, scale down proportionally
-    if (displayHeight > maxHeight) {
-      displayHeight = maxHeight;
-      displayWidth = displayHeight * aspectRatio;
-    }
-    
-    // Calculate scale factor based on base height of 500px
-    const scaleFactor = displayHeight / 500;
-    
-    // Update global constants with scaling
-    GAME_W = 700; // Keep internal resolution constant - wider
-    GAME_H = 500;
-    GROUND_H = GAME_H * 0.15; // 15% of height for ground
+    // Update global constants - optimized for mobile frame
+    GAME_W = gameWidth;
+    GAME_H = gameHeight;
+    GROUND_H = GAME_H * 0.15; // 15% of height for ground for better proportions
     VIEW_H = GAME_H - GROUND_H;
     
-    // Scale game physics and elements proportionally
-    GRAVITY = 1700 * scaleFactor;
-    JUMP_VELOCITY = -420 * scaleFactor;
-    PIPE_W = 70 * scaleFactor;
-    PIPE_GAP_MIN = 140 * scaleFactor;
-    PIPE_GAP_MAX = 180 * scaleFactor;
-    PIPE_HOLE_MIN = 80 * scaleFactor;
-    PIPE_HOLE_MAX = VIEW_H - (80 * scaleFactor);
-    PIPE_SPAWN_DIST = 240 * scaleFactor;
-    PIPE_SPEED_BASE = 160 * scaleFactor;
-    HITBOX_R = 16 * scaleFactor;
+    // Scale game physics and elements for mobile - more zoomed in feel
+    GRAVITY = 2000; // Adjusted for much taller canvas (1000px)
+    JUMP_VELOCITY = -550; // Much stronger jump for taller canvas
+    PIPE_W = 100; // Wider pipes for better proportions
+    PIPE_GAP_MIN = 280; // Much larger gaps for taller canvas
+    PIPE_GAP_MAX = 340;
+    PIPE_HOLE_MIN = 120; // Larger margins for better spacing
+    PIPE_HOLE_MAX = VIEW_H - 120;
+    PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
+    PIPE_SPEED_BASE = 200; // Faster speed to match proportions
+    HITBOX_R = 25; // Larger hitbox for scaled elements
     
     return { width: GAME_W, height: GAME_H, displaySize: displayHeight, displayWidth };
   };
@@ -137,13 +115,7 @@ export default function FlappyBirdCanvas({
     spawnAccumulator: 0,
   });
 
-  // for small UI bits
-  const [ui, setUi] = useState({
-    mode: "waiting" as "waiting" | "playing" | "dead" | "celebrating",
-    score: 0,
-    best: Number(localStorage.getItem("flappy_best") || 0),
-    money: 0,
-  });
+
 
   // helpers
   const reset = () => {
@@ -164,19 +136,17 @@ export default function FlappyBirdCanvas({
     s.flyAcc = 0;
     s.celebAcc = 0;
     s.spawnAccumulator = 0;
-    setUi({ mode: s.mode, score: s.score, best: s.best, money: s.money });
+
   };
 
   const startGame = () => {
     const s = stateRef.current;
     if (s.mode === "waiting") {
       s.mode = "playing";
-      setUi((u) => ({ ...u, mode: "playing" }));
     } else if (s.mode === "dead") {
       // restart
       reset();
       stateRef.current.mode = "playing";
-      setUi((u) => ({ ...u, mode: "playing" }));
     }
   };
 
@@ -301,7 +271,6 @@ export default function FlappyBirdCanvas({
           s.money += 10;
           console.log("Bird passed through pipe - calling onPointGained()");
           onPointGained();
-          setUi((u) => ({ ...u, score: s.score, money: s.money }));
           // small celebration burst
           s.shakeT = 0.15;
         }
@@ -325,7 +294,6 @@ export default function FlappyBirdCanvas({
         s.mode = "dead";
         s.best = Math.max(s.best, s.score);
         localStorage.setItem("flappy_best", String(s.best));
-        setUi((u) => ({ ...u, mode: "dead", best: s.best }));
         s.shakeT = 0.35;
       }
     } else if (s.mode === "waiting") {
@@ -370,11 +338,12 @@ export default function FlappyBirdCanvas({
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, GAME_W, GAME_H);
 
-    // distant clouds (parallax)
+    // distant clouds (parallax) - scaled for taller canvas
     ctx.globalAlpha = 0.6;
-    drawCloud(ctx, -s.parallaxX * 0.5 + 40, 80, 46, 14);
-    drawCloud(ctx, -s.parallaxX * 0.5 + 260, 140, 22, 8);
-    drawCloud(ctx, -s.parallaxX * 0.5 + 360, 60, 46, 14);
+    drawCloud(ctx, -s.parallaxX * 0.5 + 50, 120, 80, 24);
+    drawCloud(ctx, -s.parallaxX * 0.5 + 400, 200, 50, 16);
+    drawCloud(ctx, -s.parallaxX * 0.5 + 550, 100, 80, 24);
+    drawCloud(ctx, -s.parallaxX * 0.5 + 200, 300, 60, 20);
     ctx.globalAlpha = 1;
 
     // pipes
@@ -432,7 +401,7 @@ export default function FlappyBirdCanvas({
       drawSubText(ctx, "Earn $10 per pipe!", 18, 64, "#FFD54A");
     } else if (s.mode === "dead") {
       drawCenterText(ctx, "Game Over", 58);
-      drawBoard(ctx, s.score, s.best, s.money);
+      // drawBoard(ctx, s.score, s.best, s.money);
       drawSubText(ctx, "Click to play again", 18, 54);
     }
 
@@ -512,7 +481,7 @@ export default function FlappyBirdCanvas({
     flyFrame: number
   ) => {
     const img = imgRef.current;
-    const target = GAME_W * 0.096; // on-canvas size of the bird (proportional to canvas size)
+    const target = GAME_W * 0.2; // Bigger bird for more prominent appearance
 
     if (img && img.complete && img.naturalHeight !== 0) {
       // Use SVG bird image
@@ -533,7 +502,7 @@ export default function FlappyBirdCanvas({
       ctx.restore();
     } else {
       // Fallback: draw a simple bird shape
-      const size = GAME_W * 0.048; // Proportional to canvas size
+      const size = GAME_W * 0.05; // Proportional fallback bird size for taller canvas
       ctx.save();
 
       // Bird body (circle)
@@ -587,7 +556,7 @@ export default function FlappyBirdCanvas({
   };
 
   const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
-    const fontSize = Math.max(24, GAME_W * 0.096); // Responsive font size
+    const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
     ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
@@ -603,7 +572,7 @@ export default function FlappyBirdCanvas({
     text: string,
     baseFontSize: number
   ) => {
-    const fontSize = Math.max(20, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
+    const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
     ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
@@ -631,42 +600,42 @@ export default function FlappyBirdCanvas({
     ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
   };
 
-  const drawBoard = (
-    ctx: CanvasRenderingContext2D,
-    score: number,
-    best: number,
-    money: number
-  ) => {
-    const w = GAME_W * 0.52; // 52% of canvas width
-    const h = GAME_H * 0.32; // 32% of canvas height
-    const x = GAME_W / 2 - w / 2;
-    const y = GAME_H / 2 - h / 2 + GAME_H * 0.028;
-    const cornerRadius = Math.max(8, GAME_W * 0.028);
+  // const drawBoard = (
+  //   ctx: CanvasRenderingContext2D,
+  //   score: number,
+  //   best: number,
+  //   money: number
+  // ) => {
+  //   const w = GAME_W * 0.52; // 52% of canvas width
+  //   const h = GAME_H * 0.32; // 32% of canvas height
+  //   const x = GAME_W / 2 - w / 2;
+  //   const y = GAME_H / 2 - h / 2 + GAME_H * 0.028;
+  //   const cornerRadius = Math.max(8, GAME_W * 0.028);
     
-    ctx.fillStyle = "#FFE082";
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
-    roundRect(ctx, x, y, w, h, cornerRadius, true, true);
+  //   ctx.fillStyle = "#FFE082";
+  //   ctx.strokeStyle = "#000";
+  //   ctx.lineWidth = Math.max(3, GAME_W * 0.012);
+  //   roundRect(ctx, x, y, w, h, cornerRadius, true, true);
     
-    const smallFont = Math.max(12, GAME_W * 0.036);
-    const mediumFont = Math.max(16, GAME_W * 0.052);
-    const largeFont = Math.max(20, GAME_W * 0.056);
+  //   const smallFont = Math.max(12, GAME_W * 0.036);
+  //   const mediumFont = Math.max(16, GAME_W * 0.052);
+  //   const largeFont = Math.max(20, GAME_W * 0.056);
     
-    ctx.fillStyle = "#000";
-    ctx.font = `bold ${smallFont}px Arial`;
-    ctx.fillText("Score", x + w * 0.23, y + h * 0.225);
-    ctx.font = `bold ${mediumFont}px Arial`;
-    ctx.fillText(String(score), x + w * 0.23, y + h * 0.425);
-    ctx.font = `bold ${smallFont}px Arial`;
-    ctx.fillText("Best", x + w * 0.77, y + h * 0.225);
-    ctx.font = `bold ${mediumFont}px Arial`;
-    ctx.fillText(String(best), x + w * 0.77, y + h * 0.425);
-    ctx.fillStyle = "#0a7b33";
-    ctx.font = `bold ${smallFont}px Arial`;
-    ctx.fillText("Money", x + w / 2, y + h * 0.66);
-    ctx.font = `bold ${largeFont}px Arial`;
-    ctx.fillText(`$${money}`, x + w / 2, y + h * 0.85);
-  };
+  //   ctx.fillStyle = "#000";
+  //   ctx.font = `bold ${smallFont}px Arial`;
+  //   ctx.fillText("Score", x + w * 0.23, y + h * 0.225);
+  //   ctx.font = `bold ${mediumFont}px Arial`;
+  //   ctx.fillText(String(score), x + w * 0.23, y + h * 0.425);
+  //   ctx.font = `bold ${smallFont}px Arial`;
+  //   ctx.fillText("Best", x + w * 0.77, y + h * 0.225);
+  //   ctx.font = `bold ${mediumFont}px Arial`;
+  //   ctx.fillText(String(best), x + w * 0.77, y + h * 0.425);
+  //   ctx.fillStyle = "#0a7b33";
+  //   ctx.font = `bold ${smallFont}px Arial`;
+  //   ctx.fillText("Money", x + w / 2, y + h * 0.66);
+  //   ctx.font = `bold ${largeFont}px Arial`;
+  //   ctx.fillText(`$${money}`, x + w / 2, y + h * 0.85);
+  // };
 
   const roundRect = (
     ctx: CanvasRenderingContext2D,
@@ -692,21 +661,25 @@ export default function FlappyBirdCanvas({
   const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
   return (
-    <div className="flex items-center justify-center w-full py-8">
+    <div style={{ 
+      display: "flex", 
+      justifyContent: "center", 
+      alignItems: "center",
+      width: "100%",
+      height: "100%"
+    }}>
       <canvas
         ref={canvasRef}
         width={dimensions.width}
         height={dimensions.height}
         style={{
-          width: `${dimensions.displayWidth}px`,
-          height: `${dimensions.displaySize}px`,
-          maxWidth: "calc(100vw - 2rem)",
-          maxHeight: "calc(100vh - 4rem)",
-          borderRadius: 12,
-          background: "#000",
+          width: "100%",
+          height: "100%",
+          borderRadius: "25px", // Match iPhone screen corners more precisely
           cursor: "pointer",
           display: "block",
-          imageRendering: "auto",
+          imageRendering: "pixelated", // Better for pixel art games
+          objectFit: "fill", // Fill the entire container
         }}
         onClick={() => {
           const s = stateRef.current;

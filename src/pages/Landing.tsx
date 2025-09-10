@@ -226,14 +226,55 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
       >
+        <div style={{ 
+          position: "relative", 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center",
+          maxWidth: "auto",      // Slightly smaller for better fit
+          margin: "0 auto",
+          minHeight: "900px"      // Ensure adequate height
+        }}>
+          {/* iPhone frame background */}
+          <img 
+            src="/public/Iphone.svg" 
+            alt="iPhone Frame" 
+            style={{ 
+              width: "100%", 
+              height: "auto", 
+              maxWidth: "500px",   // Match container max width
+              display: "block",
+              filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))", // Add realistic shadow
+              zIndex : 1000,
+            }} 
+          />
+          
+          {/* Game positioned over iPhone screen area */}
+          <div style={{
+            position: "absolute",
+            top: "8.5%",          // More precise alignment with iPhone screen
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "89%",         // Almost full width to match phone image width
+            height: "83%",        // Taller to better match iPhone screen proportions
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10,
+            borderRadius: "25px", // Match iPhone screen corner radius
+            overflow: "hidden"    // Ensure game stays within rounded corners
+          }}>
+            <FlappyGame onPointGained={() => {
+              handleEarn(10);
+            }} />
+          </div>
+        </div>
+
       </FeatureSection>
 
       <FeatureSection background={""} title={""} description={""}>
    
-          <FlappyGame  onPointGained={() => {
-              handleEarn(10);
-            }}
-          />
+         
 
       </FeatureSection>
       {/* Second Feature Section - Survey Cards */}
