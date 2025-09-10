@@ -233,6 +233,12 @@ function Landing() {
         />
       </FeatureSection>
 
+      <FeatureSection background={""} title={""} description={""}>
+        <FlappyGame  onPointGained={() => {
+            handleEarn(10);
+          }}
+        />
+      </FeatureSection>
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
@@ -242,6 +248,7 @@ function Landing() {
       >
         <SurveyCards onEarn={handleEarn} />
       </FeatureSection>
+
 
       {/* FAQ Section */}
       <FAQ />
