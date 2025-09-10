@@ -9,7 +9,7 @@ const BIRD_IMAGE_URL = '/assets/flappysvea.svg'; // SVG bird image
  * -------- Game tuning --------
  */
 const GAME_W = 400;
-const GAME_H = 600;
+const GAME_H = 800;
 const GROUND_H = 120;
 const VIEW_H = GAME_H - GROUND_H;
 
@@ -22,7 +22,7 @@ const PIPE_GAP_MIN = 140;
 const PIPE_GAP_MAX = 180;
 const PIPE_HOLE_MIN = 80;      // min top margin
 const PIPE_HOLE_MAX = VIEW_H - 80;
-const PIPE_SPAWN_DIST = 260;   // px between pipes
+const PIPE_SPAWN_DIST = 240;   // px between pipes
 const PIPE_SPEED_BASE = 160;   // px/s (will scale with score)
 const HITBOX_R = 16;           // circle radius for collisions
 
@@ -564,9 +564,7 @@ export default function FlappyBirdCanvas() {
           if (s.mode === 'dead') reset();
         }}
       />
-      <div className="text-xs text-gray-500">
-        Score: {ui.score} · Best: {ui.best} · Money: ${ui.money} · (click / space to flap)
-      </div>
+     
     </div>
   );
 }

@@ -138,9 +138,9 @@ const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
 
   return (
     <div className="sc-stage">
-      <div className={`earnings-badge ${bump ? "is-bump" : ""}`}>
+      {/* <div className={`earnings-badge ${bump ? "is-bump" : ""}`}>
         Saldo: <strong>{total.toString().replace(".", ",")} kr</strong>
-      </div>
+      </div> */}
 
 
 
