@@ -277,27 +277,29 @@ function Landing() {
             width: "100%",
             height: "100%",
             pointerEvents: "none",
+            zIndex: 2000, // Ensure icons are in front of the phone image
           }}>
-            {[
-              { src: "/assets/games/candyCrush.png", top: "10%", left: "-10%" },
-              { src: "/assets/games/monopoly.png", top: "0%", right: "10%" },
-              { src: "/assets/games/tontongGame.png", bottom: "20%", left: "-20%" },
-              { src: "/assets/games/pigGame.png", bottom: "30%", right: "-15%" },
-            ].map((icon, index) => (
-              <img
-                key={index}
-                src={icon.src}
-                alt={`Game Icon ${index}`}
-                style={{
-                  position: "absolute",
-                  ...icon,
-                  animation: `hover${index} 5s infinite ease-in-out`,
-                  width: "100px",
-                  height: "100px",
-                  filter: "drop-shadow(0 5px 10px rgba(0,0,0,0.3))`",
-                }}
-              />
-            ))}
+          {[
+  { src: "/assets/games/candyCrush.png", top: "5%", left: "-14%", size: 150 },
+  { src: "/assets/games/monopoly.png", top: "5%", right: "5%", size: 140 },
+  { src: "/assets/games/tontongGame.png", top: "20%", left: "0%", size: 130 },
+  { src: "/assets/games/pigGame.png", bottom: "15%", right: "0%", size: 120 },
+].map((icon, index) => (
+  <img
+    key={index}
+    src={icon.src}
+    alt={`Game Icon ${index}`}
+    style={{
+      position: "absolute",
+      ...icon,
+      animation: `hover${index} 5s infinite ease-in-out`,
+      width: `${icon.size}px`,
+      height: `${icon.size}px`,
+      filter: "drop-shadow(0 5px 10px rgba(0,0,0,0.3))`",
+      zIndex: 2000, // Ensure each icon is in front of the phone image
+    }}
+  />
+))}
           </div>
 
           {/* Add floating animations */}
