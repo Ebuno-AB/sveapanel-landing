@@ -272,66 +272,12 @@ function Landing() {
           >
             <FlappyGame
               onPointGained={() => {
-                handleEarn(10);
+                handleEarn(1);
               }}
             />
           </div>
 
-          {/* Game icons hovering around the phone */}
-          {/* <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-              height: "100%",
-              pointerEvents: "none",
-              zIndex: 2000, // Ensure icons are in front of the phone image
-            }}
-          >
-            {[
-              {
-                src: "/assets/games/candyCrush.png",
-                top: "20%",
-                left: "-4%",
-                size: 150,
-              },
-              {
-                src: "/assets/games/monopoly.png",
-                top: "10%",
-                right: "5%",
-                size: 140,
-              },
-              {
-                src: "/assets/games/tontongGame.png",
-                bottom: "25%",
-                left: "-5%",
-                size: 130,
-              },
-              {
-                src: "/assets/games/pigGame.png",
-                bottom: "15%",
-                right: "0%",
-                size: 120,
-              },
-            ].map((icon, index) => (
-              <img
-                key={index}
-                src={icon.src}
-                alt={`Game Icon ${index}`}
-                style={{
-                  position: "absolute",
-                  ...icon,
-                  animation: `hover${index} 5s infinite ease-in-out`,
-                  width: `${icon.size}px`,
-                  height: `${icon.size}px`,
-                  filter: "drop-shadow(0 5px 10px rgba(0,0,0,0.3))`",
-                  zIndex: 2000, // Ensure each icon is in front of the phone image
-                }}
-              />
-            ))}
-          </div> */}
+          
 
           {/* Add floating animations */}
           <style>
