@@ -183,6 +183,18 @@
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
+/* .topnav-download {
+   background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+} */
 
 /* =====================
    Hamburger Menu

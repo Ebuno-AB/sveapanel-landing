@@ -129,17 +129,17 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
               ))}
             </div>
 
-            {/* Desktop links */}
+           {/* Desktop links */}
             {!isMobile && (
               <div className="topnav-links">
                 <button className="topnav-link" onClick={() => scrollToSection("faq-section")}>
                   Vanliga frågor
                 </button>
-                <button className="topnav-link" onClick={() => scrollToSection("footer")}>
-                  Kontakt
+                <button className="topnav-link" onClick={handleAppDownload}>
+                  Ladda ner appen
                 </button>
               </div>
-            )}
+              )}
 
             {/* Mobile hamburger */}
             {isMobile && (

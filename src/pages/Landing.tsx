@@ -223,7 +223,7 @@ function Landing() {
       {/* First Feature Section - Games */}
       <FeatureSection
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
-        title="Över 100 oliefaka mobilspel att ladda ner!"
+        title="100+ mobilspel att ladda ner!"
         description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
@@ -244,7 +244,7 @@ function Landing() {
             src="/public/Iphone.svg"
             alt="iPhone Frame"
             style={{
-              width: "80%",
+              width: "70%",
               height: "auto",
               maxWidth: "500px", // Match container max width
               display: "block",
@@ -257,11 +257,11 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-              top: "11%", // More precise alignment with iPhone screen
+              top: "16%", // More precise alignment with iPhone screen
               left: "50%",
               transform: "translateX(-50%)",
-              width: "75%", // Almost full width to match phone image width
-              height: "78%", // Taller to better match iPhone screen proportions
+              width: "65%", // Almost full width to match phone image width
+              height: "68%", // Taller to better match iPhone screen proportions
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

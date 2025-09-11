@@ -580,51 +580,56 @@ export default function FlappyBirdCanvas({
     }
   };
 
-  const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
-    const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
-    ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
-    ctx.fillStyle = "#fff";
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
-    ctx.textAlign = "center";
-    const yPos = GAME_H * 0.14; // 14% from top
-    ctx.strokeText(String(score), GAME_W / 2, yPos);
-    ctx.fillText(String(score), GAME_W / 2, yPos);
-  };
+const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
+  const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
+  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+  ctx.fillStyle = "#fff";
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = Math.max(3, GAME_W * 0.012);
+  ctx.textAlign = "center";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+  ctx.shadowBlur = 6;
+  const yPos = GAME_H * 0.14; // 14% from top
+  ctx.strokeText(String(score), GAME_W / 2, yPos);
+  ctx.fillText(String(score), GAME_W / 2, yPos);
+};
 
-  const drawCenterText = (
-    ctx: CanvasRenderingContext2D,
-    text: string,
-    baseFontSize: number
-  ) => {
-    const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
-    ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
-    ctx.fillStyle = "#fff";
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(4, GAME_W * 0.016);
-    ctx.textAlign = "center";
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-  };
+const drawCenterText = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  baseFontSize: number
+) => {
+  const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
+  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+  ctx.fillStyle = "#fff";
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = Math.max(4, GAME_W * 0.016);
+  ctx.textAlign = "center";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+  ctx.shadowBlur = 6;
+  ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
+  ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
+};
 
-  const drawSubText = (
-    ctx: CanvasRenderingContext2D,
-    text: string,
-    baseFontSize: number,
-    offset = 0,
-    color = "#fff"
-  ) => {
-    const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
-    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
-    ctx.fillStyle = color;
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(2, GAME_W * 0.008);
-    ctx.textAlign = "center";
-    const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-  };
-
+const drawSubText = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  baseFontSize: number,
+  offset = 0,
+  color = "#fff"
+) => {
+  const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
+  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+  ctx.fillStyle = color;
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = Math.max(2, GAME_W * 0.008);
+  ctx.textAlign = "center";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+  ctx.shadowBlur = 6;
+  const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
+  ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
+  ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
+};
   // utils
   const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
