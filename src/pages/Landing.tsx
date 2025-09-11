@@ -45,7 +45,6 @@ function Landing() {
   // BankID integration
   const {
     qrCodeUrl,
-    browserLink,
     isLoading,
     error,
     success,
@@ -224,8 +223,8 @@ function Landing() {
       {/* First Feature Section - Games */}
       <FeatureSection
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
-        title="Svara på formulär och tjäna pengar"
-        description="För alla stunder i ditt liv"
+        title="Ladda ner mobilspel och bli belönad för varje nivå"
+        description=""
         imageAlt="Spel och belöningar"
         interactive={true}
       >
@@ -279,7 +278,7 @@ function Landing() {
           </div>
 
           {/* Game icons hovering around the phone */}
-          <div
+          {/* <div
             style={{
               position: "absolute",
               top: "50%",
@@ -332,7 +331,7 @@ function Landing() {
                 }}
               />
             ))}
-          </div>
+          </div> */}
 
           {/* Add floating animations */}
           <style>
