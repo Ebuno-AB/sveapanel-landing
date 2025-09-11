@@ -122,7 +122,7 @@ export default function FlappyBirdCanvas({
     const s = stateRef.current;
     s.mode = "waiting";
     s.t = 0;
-    s.birdY = VIEW_H * 0.35;
+    s.birdY = VIEW_H * 0.32;
     s.birdVY = 0;
     s.angle = 0;
     s.pipes = [];
@@ -308,7 +308,7 @@ export default function FlappyBirdCanvas({
       }
     } else if (s.mode === "waiting") {
       // idle bob - more subtle like original
-      s.birdY = VIEW_H * 0.45 + Math.sin(now * 0.003) * 6;
+      s.birdY = VIEW_H * 0.55 + Math.sin(now * 0.003) * 6;
       s.angle = Math.sin(now * 0.003) * 2;
     } else if (s.mode === "dead") {
       // settle on ground - bird falls naturally with gravity
@@ -398,12 +398,12 @@ export default function FlappyBirdCanvas({
         const fontSize = Math.max(12, GAME_W * 0.032);
         const offsetX = GAME_W * 0.052;
         const offsetY = GAME_H * 0.052;
-        ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
+        // ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
         ctx.fillStyle = "#FFD54A";
         ctx.strokeStyle = "#000";
         ctx.lineWidth = Math.max(2, GAME_W * 0.006);
         ctx.textAlign = "center";
-        ctx.strokeText("+$10", bx + offsetX, by - offsetY);
+        ctx.strokeText("+10kr", bx + offsetX, by - offsetY);
         ctx.fillText("+$10", bx + offsetX, by - offsetY);
       }
     }
@@ -411,8 +411,8 @@ export default function FlappyBirdCanvas({
     // overlays
     if (s.mode === "waiting") {
       drawCenterText(ctx, "Flappy Bird", 64);
-      drawSubText(ctx, "Click or press Space to start", 18, 32);
-      drawSubText(ctx, "Earn $10 per pipe!", 18, 64, "#FFD54A");
+      drawSubText(ctx, "Klicka eller spela tryck på skärmen för att spela", 18, 32);
+      drawSubText(ctx, "Tjäna 10 kr per rör!", 18, 64, "#FFD54A");
     } else if (s.mode === "dead") {
       drawCenterText(ctx, "Game Over", 58);
       drawSubText(ctx, "Click to play again", 18, 54);

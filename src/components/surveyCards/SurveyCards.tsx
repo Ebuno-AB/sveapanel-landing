@@ -66,7 +66,7 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "Prime S
       <div className="sc-pill sc-pill--tag">{tag}</div>
 
       <div className="sc-price">
-        <span className="sc-price-value">{price.toString().replace(".", ",")}</span>
+        <span className="sc-price-value">{price.toString().replace(",", ".")}</span>
         <span className="sc-price-currency">kr</span>
       </div>
 
