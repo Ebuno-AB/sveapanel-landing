@@ -58,9 +58,9 @@ export default function FlappyBirdCanvas({
     // Scale game physics and elements for mobile - more zoomed in feel
     GRAVITY = 2000; // Adjusted for much taller canvas (1000px)
     JUMP_VELOCITY = -550; // Much stronger jump for taller canvas
-    PIPE_W = 100; // Wider pipes for better proportions
-    PIPE_GAP_MIN = 280; // Much larger gaps for taller canvas
-    PIPE_GAP_MAX = 340;
+    PIPE_W = 130; // Wider pipes for better proportions
+    PIPE_GAP_MIN = 300; // Much larger gaps for taller canvas
+    PIPE_GAP_MAX = 350;
     PIPE_HOLE_MIN = 120; // Larger margins for better spacing
     PIPE_HOLE_MAX = VIEW_H - 120;
     PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
@@ -98,7 +98,7 @@ export default function FlappyBirdCanvas({
   }>({
     mode: "waiting",
     t: 0,
-    birdY: VIEW_H * 0.45,
+    birdY: VIEW_H * 0.35,
     birdVY: 0,
     angle: 0,
     pipes: [],
@@ -122,7 +122,7 @@ export default function FlappyBirdCanvas({
     const s = stateRef.current;
     s.mode = "waiting";
     s.t = 0;
-    s.birdY = VIEW_H * 0.45;
+    s.birdY = VIEW_H * 0.35;
     s.birdVY = 0;
     s.angle = 0;
     s.pipes = [];
@@ -481,7 +481,7 @@ export default function FlappyBirdCanvas({
     flyFrame: number
   ) => {
     const img = imgRef.current;
-    const target = GAME_W * 0.2; // Bigger bird for more prominent appearance
+    const target = GAME_W * 0.15; // Smaller bird for less prominent appearance
 
     if (img && img.complete && img.naturalHeight !== 0) {
       // Use SVG bird image
@@ -675,7 +675,7 @@ export default function FlappyBirdCanvas({
         style={{
           width: "100%",
           height: "100%",
-          borderRadius: "25px", // Match iPhone screen corners more precisely
+          borderRadius: "40px", // Match iPhone screen corners more precisely
           cursor: "pointer",
           display: "block",
           imageRendering: "pixelated", // Better for pixel art games

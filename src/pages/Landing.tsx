@@ -222,7 +222,6 @@ function Landing() {
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
         title="Svara på formulär och tjäna pengar"
         description="För alla stunder i ditt liv"
-        image="/assets/games.png"
         imageAlt="Spel och belöningar"
         interactive={true}
       >
@@ -240,7 +239,7 @@ function Landing() {
             src="/public/Iphone.svg" 
             alt="iPhone Frame" 
             style={{ 
-              width: "100%", 
+              width: "80%", 
               height: "auto", 
               maxWidth: "500px",   // Match container max width
               display: "block",
@@ -252,11 +251,11 @@ function Landing() {
           {/* Game positioned over iPhone screen area */}
           <div style={{
             position: "absolute",
-            top: "8.5%",          // More precise alignment with iPhone screen
+            top: "11%",          // More precise alignment with iPhone screen
             left: "50%",
             transform: "translateX(-50%)",
-            width: "89%",         // Almost full width to match phone image width
-            height: "83%",        // Taller to better match iPhone screen proportions
+            width: "75%",         // Almost full width to match phone image width
+            height: "78%",        // Taller to better match iPhone screen proportions
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -268,15 +267,70 @@ function Landing() {
               handleEarn(10);
             }} />
           </div>
+
+          {/* Game icons hovering around the phone */}
+          <div style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+          }}>
+            {[
+              { src: "/assets/games/candyCrush.png", top: "10%", left: "-10%" },
+              { src: "/assets/games/monopoly.png", top: "0%", right: "10%" },
+              { src: "/assets/games/tontongGame.png", bottom: "20%", left: "-20%" },
+              { src: "/assets/games/pigGame.png", bottom: "30%", right: "-15%" },
+            ].map((icon, index) => (
+              <img
+                key={index}
+                src={icon.src}
+                alt={`Game Icon ${index}`}
+                style={{
+                  position: "absolute",
+                  ...icon,
+                  animation: `hover${index} 5s infinite ease-in-out`,
+                  width: "100px",
+                  height: "100px",
+                  filter: "drop-shadow(0 5px 10px rgba(0,0,0,0.3))`",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Add floating animations */}
+          <style>
+            {`
+              @keyframes hover0 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(-10px, 10px); }
+                100% { transform: translate(0, 0); }
+              }
+              @keyframes hover1 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(10px, -10px); }
+                100% { transform: translate(0, 0); }
+              }
+              @keyframes hover2 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(-10px, -10px); }
+                100% { transform: translate(0, 0); }
+              }
+              @keyframes hover3 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(10px, 10px); }
+                100% { transform: translate(0, 0); }
+              }
+            `}
+          </style>
         </div>
 
       </FeatureSection>
 
-      <FeatureSection background={""} title={""} description={""}>
-   
-         
 
-      </FeatureSection>
+
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
