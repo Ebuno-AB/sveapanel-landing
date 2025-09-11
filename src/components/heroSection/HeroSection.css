@@ -92,7 +92,7 @@
 
 .phone-wrap {
   position: relative;
-  width: 440px;                /* scaled up from 400px (10% increase) */
+  width: 500px;                /* scaled up from 400px (10% increase) */
   max-width: 100%;
   aspect-ratio: 400 / 550;     /* keep proportions on shrink */
   transform: rotate(-7deg);    /* responsive tilt */

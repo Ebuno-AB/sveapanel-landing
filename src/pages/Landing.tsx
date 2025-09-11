@@ -215,7 +215,7 @@ function Landing() {
         <InfoSection />
 
         {/* Ratings Section - Customer Reviews and Trust */}
-        <div style={{ padding: "50px 30px" }}>
+        <div style={{ padding: "25px 15px" }}>
           <RatingsSection />
         </div>
       </div>
