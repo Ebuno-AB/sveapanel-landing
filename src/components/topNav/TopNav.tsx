@@ -48,7 +48,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
       document.documentElement.classList.add("no-scroll");
       document.body.classList.add("no-scroll");
       // focus first interactive element
-      firstLinkRef.current?.focus();
+      setTimeout(() => firstLinkRef.current?.focus(), 100);
     } else {
       document.documentElement.classList.remove("no-scroll");
       document.body.classList.remove("no-scroll");
@@ -85,11 +85,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isMenuOpen]);
 
-  // Click outside (backdrop) to close
-  const onBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) closeMenu();
-  };
-
   // --- your saldo burst logic (unchanged) ---
   useEffect(() => {
     const prev = prevRef.current;
@@ -116,92 +111,147 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
   }, [moneyValue]);
 
   return (
-    <nav className="modern-topnav">
-      <div className="topnav-container">
-        {/* Logo */}
-        <div className="topnav-logo">
-          <img src="/logo.png" alt="SveaPanelen logo" className="topnav-logo-img" />
-          {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
-        </div>
-
-        {/* Right side */}
-        <div className="topnav-right">
-          <div ref={boxRef} className={`saldo-box ${pop ? "pop" : ""}`}>
-            {moneyValue.toFixed(1)}kr
-            {bursts.map((b) => (
-              <SaldoBurst key={b.id} amount={b.amount} />
-            ))}
+    <>
+      <nav className="modern-topnav">
+        <div className="topnav-container">
+          {/* Logo */}
+          <div className="topnav-logo">
+            <img src="/logo.png" alt="SveaPanelen logo" className="topnav-logo-img" />
+            {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
           </div>
 
-          {/* Desktop links */}
-          {!isMobile && (
-            <div className="topnav-links">
-              <button className="topnav-link" onClick={() => scrollToSection("faq-section")}>
-                Vanliga frågor
-              </button>
-              <button className="topnav-link" onClick={() => scrollToSection("footer")}>
-                Kontakt
-              </button>
+          {/* Right side */}
+          <div className="topnav-right">
+            <div ref={boxRef} className={`saldo-box ${pop ? "pop" : ""}`}>
+              {moneyValue.toFixed(1)}kr
+              {bursts.map((b) => (
+                <SaldoBurst key={b.id} amount={b.amount} />
+              ))}
             </div>
-          )}
 
-          {/* Mobile hamburger */}
-          {isMobile && (
-            <button
-              className={`hamburger ${isMenuOpen ? "active" : ""}`}
-              onClick={toggleMenu}
-              aria-label="Huvudmeny"
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </button>
-          )}
+            {/* Desktop links */}
+            {!isMobile && (
+              <div className="topnav-links">
+                <button className="topnav-link" onClick={() => scrollToSection("faq-section")}>
+                  Vanliga frågor
+                </button>
+                <button className="topnav-link" onClick={() => scrollToSection("footer")}>
+                  Kontakt
+                </button>
+              </div>
+            )}
+
+            {/* Mobile hamburger */}
+            {isMobile && (
+              <button
+                className={`hamburger ${isMenuOpen ? "active" : ""}`}
+                onClick={toggleMenu}
+                aria-label="Huvudmeny"
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </button>
+            )}
+          </div>
         </div>
+      </nav>
 
-      {isMobile && (
+      {/* Full-Screen Mobile Menu - Rendered at root level */}
+      {isMobile && isMenuOpen && (
         <div
           id="mobile-menu"
           ref={menuRef}
-          className={`mobile-menu ${isMenuOpen ? "open" : ""}`}
+          className="mobile-menu open"
           role="menu"
           aria-label="Mobilmeny"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 999999,
+            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%)'
+          }}
         >
+          {/* Menu Header */}
+          <div className="mobile-menu-header">
+            <div className="mobile-menu-logo">
+              <img src="/logo.png" alt="SveaPanelen logo" />
+              <span className="mobile-menu-brand">SveaPanelen</span>
+            </div>
+            <button
+              className="mobile-menu-close"
+              onClick={closeMenu}
+              aria-label="Stäng meny"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          {/* Menu Content */}
           <div className="mobile-menu-content">
-            <button
-              ref={firstLinkRef}
-              className="mobile-menu-link"
-              role="menuitem"
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-                closeMenu();
-              }}
-            >
-              Hem
-            </button>
-            <button
-              className="mobile-menu-link"
-              role="menuitem"
-              onClick={() => scrollToSection("faq-section")}
-            >
-              Vanliga frågor
-            </button>
-            <button
-              className="mobile-menu-link"
-              role="menuitem"
-              onClick={() => scrollToSection("footer")}
-            >
-              Kontakt
-            </button>
-          
+            <nav className="mobile-menu-nav">
+              <h3 className="mobile-menu-section-title">Navigation</h3>
+              
+              <button
+                ref={firstLinkRef}
+                className="mobile-menu-link"
+                role="menuitem"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  closeMenu();
+                }}
+              >
+                Hem
+              </button>
+              
+              <button
+                className="mobile-menu-link"
+                role="menuitem"
+                onClick={() => scrollToSection("faq-section")}
+              >
+                Vanliga frågor
+              </button>
+              
+              <button
+                className="mobile-menu-link"
+                role="menuitem"
+                onClick={() => scrollToSection("footer")}
+              >
+                Kontakt
+              </button>
+            </nav>
+
+            {/* Bottom Actions */}
+            <div className="mobile-menu-actions">
+              <button
+                className="mobile-menu-cta"
+                onClick={() => {
+                  handleAppDownload();
+                  closeMenu();
+                }}
+              >
+                Ladda ner app
+              </button>
+              
+              <button
+                className="mobile-menu-secondary"
+                onClick={() => scrollToSection("footer")}
+              >
+                Kontakta uss
+              </button>
+            </div>
           </div>
         </div>
       )}
-
-      </div>
-    </nav>
+    </>
   );
 };
 

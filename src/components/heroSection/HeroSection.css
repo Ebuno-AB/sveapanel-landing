@@ -148,7 +148,7 @@
     font-size: 1.1rem;         /* Slightly larger subtext for readability */
   }
   .hero-overlay {
-    padding: 120px 20px 60px 20px; /* More bottom padding for buttons */
+     padding: 80px 20px 60px 20px; /* Reduced from 120px */
     position: static;          /* Change from absolute to static */
     min-height: calc(100vh - 40px); /* Account for bottom padding */
     display: flex;
