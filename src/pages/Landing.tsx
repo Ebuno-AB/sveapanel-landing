@@ -223,8 +223,8 @@ function Landing() {
       {/* First Feature Section - Games */}
       <FeatureSection
         background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
-        title="Ladda ner mobilspel"
-        description="Bli belönad för varje nivå"
+        title="Över 100 oliefaka mobilspel att ladda ner!"
+        description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
       >
