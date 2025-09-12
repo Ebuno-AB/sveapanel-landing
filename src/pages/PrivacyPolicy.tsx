@@ -15,14 +15,14 @@ import {
   Box,
   Link,
 } from "@mui/material";
-import { useSearchParams } from "next/navigation";
+
 
 const TermsPage = () => {
   const AppName = "SveaPanelen";
 
-  const searchParams = useSearchParams();
 
-  const showLayout = searchParams.get("showLayout") || "true";
+
+
 
   const SupportEmail = "hello@pollapp.io";
 

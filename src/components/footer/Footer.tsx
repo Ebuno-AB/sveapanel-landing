@@ -1,6 +1,8 @@
 // Footer component 
 import './Footer.css';
 
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer id="footer" className="modern-footer">
@@ -50,7 +52,8 @@ export default function Footer() {
           <a href="/updates" className="footer-link">Updates</a>
           <a href="/developers" className="footer-link">Developers</a>
           <a href="/terms" className="footer-link">Terms</a>
-          // <a href="/privacy" className="footer-link">Privacy & Cookies</a> */}
+          <a href="/privacy" className="footer-link">Privacy & Cookies</a> */}
+          <Link to="/privacy" className="footer-link">Support</Link>
           <a href="https://pollflow.io" className="footer-link" target="https://pollflow.io" rel="noopener noreferrer">PollFlow</a>
         </div>
         <div className="footer-copyright">
