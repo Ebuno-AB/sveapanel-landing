@@ -15,22 +15,51 @@ import {
   Box,
   Link,
 } from "@mui/material";
+import "./../App.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const theme = createTheme({
+  typography: {
+    // Applies to all MUI Typography variants and most components
+    fontFamily:
+      "Cereal, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+          html, body, #__next { height: 100%;background-color:#fff;  }
+          /* Ensure native HTML elements also inherit Cereal */
+          body, * { font-family: Cereal, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+        `,
+    },
+  },
+});
 
 const TermsPage = () => {
   const AppName = "SveaPanelen";
 
-
-
-
-
-  const SupportEmail = "hello@pollapp.io";
+  const SupportEmail = "help@sveapanelen.se";
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <style>{`
+        body {
+          background-color: #fff;
+        }
+        html:{
+            background-color:#fff !important;
+        }
+      `}</style>
       <Container maxWidth="lg">
         <Box my={4}>
-          <Typography variant="h2" component="h1" gutterBottom>
+          <Typography
+            variant="h2"
+            component="h1"
+            gutterBottom
+            style={{
+              fontWeight: "bold",
+            }}
+          >
             Privacy Policy
           </Typography>
 
@@ -98,8 +127,8 @@ const TermsPage = () => {
             Should you have any questions regarding our processing of your
             personal data, or if you wish to exercise any of your rights under
             data protection legislation, please contact us via our email address
-            {SupportEmail}. Our postal address is Flow Group AB Stora Tomegatan
-            21, 223 51, Lund.
+            {SupportEmail}. Our postal address is Flow Group AB Luntmakargatan
+            54B, 113 58, Stockholm.
           </Typography>
 
           <Typography variant="h4" gutterBottom>
@@ -1337,7 +1366,7 @@ const TermsPage = () => {
           </Typography>
         </Box>
       </Container>
-    </div>
+    </ThemeProvider>
   );
 };
 
