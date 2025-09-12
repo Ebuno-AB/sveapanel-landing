@@ -135,7 +135,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
                 <button className="topnav-link" onClick={() => scrollToSection("faq-section")}>
                   Vanliga frågor
                 </button>
-                <button className="topnav-link" onClick={handleAppDownload}>
+                <button className="topnav-download" onClick={handleAppDownload}>
                   Ladda ner appen
                 </button>
               </div>
@@ -198,7 +198,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
           {/* Menu Content */}
           <div className="mobile-menu-content">
             <nav className="mobile-menu-nav">
-              <h3 className="mobile-menu-section-title">Navigation</h3>
+              
               
               <button
                 ref={firstLinkRef}
@@ -220,13 +220,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
                 Vanliga frågor
               </button>
               
-              <button
-                className="mobile-menu-link"
-                role="menuitem"
-                onClick={() => scrollToSection("footer")}
-              >
-                Kontakt
-              </button>
+              
             </nav>
 
             {/* Bottom Actions */}
@@ -238,15 +232,11 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
                   closeMenu();
                 }}
               >
-                Ladda ner app
+                Ladda ner appen
+
               </button>
               
-              <button
-                className="mobile-menu-secondary"
-                onClick={() => scrollToSection("footer")}
-              >
-                Kontakta uss
-              </button>
+            
             </div>
           </div>
         </div>

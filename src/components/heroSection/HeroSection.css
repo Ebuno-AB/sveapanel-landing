@@ -220,7 +220,17 @@
 
 /* Slightly earlier wrap for very narrow devices */
 @media (max-width: 420px) {
- 
+  .hero-title {
+    /* Uses responsive h1 styling from App.css */
+    margin-inline: 30px;
+    margin-bottom: 12px;
+  }
+  .hero-sub {
+           /* Slightly smaller subtext */
+    margin-inline: 30px;
+  }
+
+
   
   .hero-inner {
     gap: 30px;                 /* Reduce gap on very small screens */

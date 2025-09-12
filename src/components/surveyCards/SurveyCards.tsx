@@ -140,7 +140,7 @@ const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
   const [total, setTotal] = useState(0);
   const [bump, setBump] = useState(false);
 
-  const handleEarn = (amount: number) => {
+const handleEarn = React.useCallback((amount: number) => {
     setTotal((t) => {
       const next = parseFloat((t + amount).toFixed(1));
       return next;
@@ -150,7 +150,7 @@ const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
     
     // Also call the external onEarn prop to update the top nav money counter
     onEarnProp?.(amount);
-  };
+ }, [onEarnProp]);
 
   return (
     <div className="sc-stage">

@@ -2,7 +2,7 @@ import "../App.css";
 import "../components/bankModal/BankModal.css";
 import "../styles/BlobStyles.css";
 
-import { useState, useEffect } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import QRModal from "../components/QRModal";
 
@@ -34,13 +34,24 @@ function Landing() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
 
-  // Money counter state for survey earnings
+  
   const [totalEarnings, setTotalEarnings] = useState(0);
+  const earningsRef = useRef(0);
+  
+// Throttle UI updates to every 200ms
+useEffect(() => {
+  const interval = setInterval(() => {
+    if (earningsRef.current !== totalEarnings) {
+      setTotalEarnings(earningsRef.current);
+    }
+  }, 200);
+  return () => clearInterval(interval);
+}, [totalEarnings]);
 
-  // Handle earning money from survey cards
-  const handleEarn = (amount: number) => {
-    setTotalEarnings((prev) => parseFloat((prev + amount).toFixed(1)));
-  };
+// Use this for FlappyGame and SurveyCards
+const handleEarn = useCallback((amount: number) => {
+  earningsRef.current = parseFloat((earningsRef.current + amount).toFixed(1));
+}, []);
 
   // BankID integration
   const {
@@ -322,7 +333,6 @@ function Landing() {
       }
     `}
         </style>
-
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
           {/* Game inside phone (scales with frame) */}
@@ -342,6 +352,10 @@ function Landing() {
               background: "#000", // prevents transparent edges
               zIndex: 1, // sits under the frame
               overflow: "hidden",
+              userSelect: "none",
+              msUserSelect: "none",
+              WebkitTapHighlightColor: "transparent",
+
             }}
           >
             <FlappyGame
@@ -373,8 +387,8 @@ function Landing() {
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
-        title="Svara på formulär och tjäna pengar"
-        description="För alla stunder i ditt liv"
+        title="Svara på enkäter och tjäna pengar"
+        description=""
         backgroundImage="/assets/gameCards.webp"
       >
         <SurveyCards onEarn={handleEarn} />

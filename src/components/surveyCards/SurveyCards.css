@@ -12,6 +12,10 @@
   --sc-green: #00CCA3;
 }
 
+body, html {
+  overflow-x: hidden !important;
+}
+
 .sc-stage{
   position: relative;
   padding: 100px;
@@ -59,8 +63,10 @@
   padding: 18px 16px 16px;
   transition: transform .15s ease, box-shadow .15s ease;
   user-select: none;
-  cursor: pointer;
-  outline: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .sc-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 28px rgba(0,0,0,.14); }
 .sc-card.is-pop{ animation: tap .25s ease both; }

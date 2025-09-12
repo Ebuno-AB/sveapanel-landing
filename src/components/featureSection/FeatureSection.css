@@ -8,7 +8,7 @@
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
-  gap: clamp(30px, 6vw, 60px);
+
   flex-wrap: wrap;
 }
 
@@ -156,7 +156,7 @@
   }
  
   .feature-section-title {
-    font-size: 1.5rem;
+    margin-inline: 4rem;
   }
 
   .feature-section-description {

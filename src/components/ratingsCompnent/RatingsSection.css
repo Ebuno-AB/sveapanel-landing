@@ -20,7 +20,7 @@
 .ratings-headline {
   /* Uses h2 styling from App.css */
   color: #ffffff;
-  margin-bottom: 16px;
+  margin-inline: 3rem;
   background: white; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -34,6 +34,8 @@
   background-clip: text;
   font-weight: 900;
   position: relative;
+  /* next row */
+  display: inline-block;
 }
 
 .ratings-headline .highlight::after {
@@ -52,7 +54,8 @@
   font-size: 1.05rem;
   color: #ffffff; 
   max-width: 600px;
-  margin: 0 auto 16px auto;
+
+  margin-inline: 3rem;
   line-height: 1.6;
   font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;

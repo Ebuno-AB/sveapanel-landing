@@ -17,22 +17,22 @@ let GROUND_H = 150; // Proportionally larger ground for taller canvas
 let VIEW_H = GAME_H - GROUND_H;
 
 // Game constants that will be calculated based on screen size - scaled for 1000px height
-let GRAVITY = 1200; // Increased gravity for more responsive feel like original
+let GRAVITY = 1000; // Increased gravity for more responsive feel like original
 let JUMP_VELOCITY = -380; // Adjusted jump velocity for better feel
-const MAX_DROP_ANGLE = 30; // Increased maximum drop angle like original
+const MAX_DROP_ANGLE = 20; // Increased maximum drop angle like original
 const MAX_RISE_ANGLE = -20; // Reduced maximum rise angle
 let PIPE_W = 100; // Wider pipes for proportional look
 let PIPE_GAP_MIN = 280; // Much larger gaps for taller canvas
 let PIPE_GAP_MAX = 340;
 let PIPE_HOLE_MIN = 120; // Larger margins for taller canvas
 let PIPE_HOLE_MAX = VIEW_H - 120;
-let PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
-let PIPE_SPEED_BASE = 200; // Faster speed to match taller proportions
+let PIPE_SPAWN_DIST = 500; // More spacing for taller canvas
+let PIPE_SPEED_BASE = 300; // Faster speed to match taller proportions
 let HITBOX_R = 25; // Larger hitbox for scaled elements
 
 
 
-export default function FlappyBirdCanvas({
+function FlappyBirdCanvas({
   onPointGained = () => {},
 }: {
   onPointGained: () => void;
@@ -71,15 +71,15 @@ useEffect(() => {
     VIEW_H = GAME_H - GROUND_H;
     
     // Scale game physics and elements for mobile - more zoomed in feel
-    GRAVITY = 1500; // Adjusted for more authentic feel
-    JUMP_VELOCITY = -420; // Stronger jump for better control
+    GRAVITY = 1400; // Adjusted for more authentic feel
+    JUMP_VELOCITY = -460; // Stronger jump for better control
     PIPE_W = 130; // Wider pipes for better proportions
     PIPE_GAP_MIN = 300; // Much larger gaps for taller canvas
     PIPE_GAP_MAX = 350;
     PIPE_HOLE_MIN = 120; // Larger margins for better spacing
     PIPE_HOLE_MAX = VIEW_H - 120;
-    PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
-    PIPE_SPEED_BASE = 200; // Faster speed to match proportions
+    PIPE_SPAWN_DIST = 340; // More spacing for taller canvas
+    PIPE_SPEED_BASE = 220; // Faster speed to match proportions
     HITBOX_R = 25; // Larger hitbox for scaled elements
     
     return { width: GAME_W, height: GAME_H, displaySize: displayHeight, displayWidth };
@@ -269,15 +269,19 @@ useEffect(() => {
       s.spawnAccumulator += speed * dt;
       while (s.spawnAccumulator >= PIPE_SPAWN_DIST) {
         s.spawnAccumulator -= PIPE_SPAWN_DIST;
-        const gap = rand(PIPE_GAP_MIN, PIPE_GAP_MAX);
-        const hole = rand(PIPE_HOLE_MIN, PIPE_HOLE_MAX - gap);
-        s.pipes.push({
-          x: GAME_W + 40,
-          top: hole,
-          gap,
-          passed: false,
-          id: Math.random(),
-        });
+              const gap = rand(PIPE_GAP_MIN, PIPE_GAP_MAX);
+      // Pick a center for the gap, not just a top
+      const minCenter = PIPE_HOLE_MIN + gap / 2;
+      const maxCenter = PIPE_HOLE_MAX - gap / 2;
+      const gapCenter = rand(minCenter, maxCenter);
+      const hole = Math.max(PIPE_HOLE_MIN, Math.min(PIPE_HOLE_MAX - gap, gapCenter - gap / 2));
+      s.pipes.push({
+        x: GAME_W + 40,
+        top: hole,
+        gap,
+        passed: false,
+        id: Math.random(),
+      });
       }
 
       // move pipes & scoring
@@ -285,18 +289,17 @@ useEffect(() => {
       for (const p of s.pipes) {
         p.x -= speed * dt;
         if (!p.passed && p.x + PIPE_W < birdX) {
-          p.passed = true;
-          s.score += 1;
-          s.money += 1;
-          if(soundRef.current) {
-            soundRef.current.currentTime = 0;
-            soundRef.current.play();
-          }
-          console.log("Bird passed through pipe - calling onPointGained()");
-          onPointGained();
-          // small celebration burst
-          s.shakeT = 0.15;
+        p.passed = true;
+        s.score += 1;
+        s.money += 1;
+        if(soundRef.current) {
+          soundRef.current.currentTime = 0;
+          soundRef.current.play();
         }
+        // console.log("Bird passed through pipe - calling onPointGained()");
+        onPointGained();
+        s.shakeT = 0.15;
+      }
       }
       // remove off-screen
       s.pipes = s.pipes.filter((p) => p.x > -PIPE_W - 10);
@@ -429,8 +432,8 @@ useEffect(() => {
     // overlays
     if (s.mode === "waiting") {
       drawCenterText(ctx, "Flappy Bird", 64);
-      drawSubText(ctx, "Klicka eller spela tryck på skärmen för att spela", 18, 32);
-      drawSubText(ctx, "Tjäna 10 kr per rör!", 18, 64, "#FFD54A");
+    
+      drawSubText(ctx, "Pröva spela!", 38, 64, "#ffffffff");
     } else if (s.mode === "dead") {
       drawCenterText(ctx, "Game Over", 58);
       drawSubText(ctx, "Click to play again", 18, 54);
@@ -651,6 +654,8 @@ const drawSubText = (
   // utils
   const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
+  const ignoreClickRef = useRef(false);
+
   return (
     <div style={{ 
       display: "flex", 
@@ -673,11 +678,17 @@ const drawSubText = (
           objectFit: "fill", // Fill the entire container
         }}
         onClick={() => {
+          if (ignoreClickRef.current) {
+            ignoreClickRef.current = false;
+            return;
+          }
           jump();
           const s = stateRef.current;
           if (s.mode === "dead") reset();
         }}
         onTouchStart={() => {
+          ignoreClickRef.current = true;
+          setTimeout(() => { ignoreClickRef.current = false; }, 400);
           jump();
           const s = stateRef.current;
           if (s.mode === "dead") reset();
@@ -686,3 +697,7 @@ const drawSubText = (
     </div>
   );
 }
+
+export default React.memo(FlappyBirdCanvas);
+
+
