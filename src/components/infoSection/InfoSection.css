@@ -6,7 +6,7 @@
 .info-section-title {
   color: white;
   /* Uses h2 styling from App.css for consistent sizing */
-  line-height: 1.2;
+  font-size: 2.2rem;
   max-width: 800px;
   margin: 0 auto clamp(20px, 4vw, 40px) auto;
 }

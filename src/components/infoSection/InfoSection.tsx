@@ -5,23 +5,24 @@ import CardSection from '../cardSection/CardSection';
 const InfoSection: React.FC = () => {
   return (
     <div className="info-section">
-      <h2 className="info-section-title">
+      <h2 style={{ color: "white", marginTop: "3rem"}}>
         Tre enkla steg till att tjäna pengar
       </h2>
 
       <div className="info-section-cards">
-        <CardSection
-          title="Svara på enkäter"
-          description="Hjälp företag och myndigheter genom att dela din åsikt"
-        />
-        <CardSection
-          title="Bjud in vänner"
-          description="Få bonusar när du tipsar andra om tjänsten"
-        />
-        <CardSection
-          title="Tjäna pengar"
-          description="Lös uppgifter och se dina belöningar växa"
-        />
+       <CardSection
+        title="Spela mobilspel"
+        description="Spela och samla poäng – belöningarna tickar in medan du spelar."
+      />
+      <CardSection
+        title="Svara på enkäter"
+        description="Korta enkäter anpassade för dig. Få poäng för varje svar och extra bonus när du tipsar en vän."
+      />
+      <CardSection
+        title="Tjäna pengar"
+        description="Lös uppgifter, klara mål och se saldot växa."
+      />
+
       </div>
     </div>
   );

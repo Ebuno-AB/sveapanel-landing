@@ -220,85 +220,83 @@ function Landing() {
         </div>
       </div>
 
-
-{/* First Feature Section - Games */}
-<FeatureSection
-  background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
-  title="100+ mobilspel att ladda ner!"
-  description="Bli belönad för varje nivå!"
-  imageAlt="Spel och belöningar"
-  interactive={true}
-  carousel={
-  <div className="carousel-strip">
-    <div
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        // wider viewport
-        width: "100vw",
-        maxWidth: "600px",
-        marginLeft: "-5rem",
-        
-        margin: "40px auto 60px",
-        // smooth fade on edges
-        maskImage:
-          "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
-      }}
-    >
- 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
-          width: "max-content",
-          // seamless scroll
-          animation: "marquee var(--marquee-speed, 22s) linear infinite",
-          // eliminate jitter on reset
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          transform: "translate3d(0,0,0)",
-        }}
-      >
-        {[
-          "/assets/games/candyCrush.png",
-          "/assets/games/monopoly.png",
-          "/assets/games/pigGame.png",
-          "/assets/games/tontongGame.png",
-        ]
-          // exact 2× duplication ensures translateX(-50%) loops perfectly
-          .concat([
-            "/assets/games/candyCrush.png",
-            "/assets/games/monopoly.png",
-            "/assets/games/pigGame.png",
-            "/assets/games/tontongGame.png",
-          ])
-          .map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt="Game icon"
-              draggable={false}
+      {/* First Feature Section - Games */}
+      <FeatureSection
+        background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
+        title="100+ mobilspel att ladda ner!"
+        description="Bli belönad för varje nivå!"
+        imageAlt="Spel och belöningar"
+        interactive={true}
+        carousel={
+          <div className="carousel-strip">
+            <div
               style={{
-                flex: "0 0 auto", // prevent flex shrink (avoids width drift)
-                width: "160px",
-                height: "160px",
-                objectFit: "contain",
-                borderRadius: "20px",
-                padding: "6px",
-                // avoid subpixel blur on some GPUs
-                imageRendering: "auto",
-                transform: "translateZ(0)",
-              }}
-            />
-          ))}
-      </div>
+                position: "relative",
+                overflow: "hidden",
+                // wider viewport
+                width: "100vw",
+                maxWidth: "600px",
+                marginLeft: "-5rem",
 
-      {/* Animation styles */}
-      <style>
-        {`
+                margin: "40px auto 60px",
+                // smooth fade on edges
+                maskImage:
+                  "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "20px",
+                  width: "max-content",
+                  // seamless scroll
+                  animation: "marquee var(--marquee-speed, 22s) linear infinite",
+                  // eliminate jitter on reset
+                  willChange: "transform",
+                  backfaceVisibility: "hidden",
+                  transform: "translate3d(0,0,0)",
+                }}
+              >
+                {[
+                  "/assets/games/candyCrush.png",
+                  "/assets/games/monopoly.png",
+                  "/assets/games/pigGame.png",
+                  "/assets/games/tontongGame.png",
+                ]
+                  // exact 2× duplication ensures translateX(-50%) loops perfectly
+                  .concat([
+                    "/assets/games/candyCrush.png",
+                    "/assets/games/monopoly.png",
+                    "/assets/games/pigGame.png",
+                    "/assets/games/tontongGame.png",
+                  ])
+                  .map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt="Game icon"
+                      draggable={false}
+                      style={{
+                        flex: "0 0 auto", // prevent flex shrink (avoids width drift)
+                        width: "160px",
+                        height: "160px",
+                        objectFit: "contain",
+                        borderRadius: "20px",
+                        padding: "6px",
+                        // avoid subpixel blur on some GPUs
+                        imageRendering: "auto",
+                        transform: "translateZ(0)",
+                      }}
+                    />
+                  ))}
+              </div>
+
+              {/* Animation styles */}
+              <style>
+                {`
           @keyframes marquee {
             0%   { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-50%, 0, 0); }
@@ -311,86 +309,66 @@ function Landing() {
             }
           }
         `}
-      </style>
-    </div>
-  </div>
-}
-
->
-
-  <style>
-    {`
+              </style>
+            </div>
+          </div>
+        }
+      >
+        <style>
+          {`
       @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
     `}
-  </style>
+        </style>
 
-{/* Phone showcase */}
-<div
-  style={{
-    position: "relative",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "0 auto",
-    top: "10rem",  
-    minHeight: "700px", // or a value that fits your design
-    height: "700px",
-    right: "-12rem",
-  }}
->
-  {/* Game inside phone (scales with frame) */}
-  <div
-    style={{
-      position: "absolute",
-      top: "0%",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "72%",
-      height: "82%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: "25px",
-      boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
-      background: "#000", // prevents transparent edges
-      zIndex: 1,          // sits under the frame
-      overflow: "hidden",
-  
-    }}
-  >
-    <FlappyGame
-      onPointGained={() => {
-        handleEarn(1);
-      }}
-    />
-  </div>
+        {/* Phone showcase */}
+        <div className="feature-phone-showcase">
+          {/* Game inside phone (scales with frame) */}
+          <div
+            style={{
+              position: "absolute",
+              top: "0%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "72%",
+              height: "82%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "25px",
+              boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
+              background: "#000", // prevents transparent edges
+              zIndex: 1, // sits under the frame
+              overflow: "hidden",
+            }}
+          >
+            <FlappyGame
+              onPointGained={() => {
+                handleEarn(1);
+              }}
+            />
+          </div>
 
-  {/* iPhone frame — always above */}
-  <img
-    src="/public/Iphone.svg"
-    alt="iPhone Frame"
-    style={{
-      width: "80%",
-      height: "auto",
-      display: "block",
-      shadow:  "inset 0 0 100px rgba(0,0,0,0.2)",
-      filter:
-      "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
-      zIndex: 2, // above game
-      position: "relative",
-      pointerEvents: "none", // allows game interactions through
-    }}
-  />
-
-  
-</div>
-
-
-</FeatureSection>
-
+          {/* iPhone frame — always above */}
+          <img
+            src="/public/Iphone.svg"
+            alt="iPhone Frame"
+            style={{
+              width: "80%",
+              height: "auto",
+              display: "block",
+              shadow: "inset 0 0 100px rgba(0,0,0,0.2)",
+              filter:
+                "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
+              zIndex: 2, // above game
+              position: "relative",
+              pointerEvents: "none", // allows game interactions through
+            }}
+          />
+        </div>
+      </FeatureSection>
 
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
@@ -455,6 +433,8 @@ function Landing() {
           });
         }}
       />
+
+     
     </>
   );
 }

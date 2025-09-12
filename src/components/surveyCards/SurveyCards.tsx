@@ -10,7 +10,7 @@ type CardProps = {
   onEarn?: (amount: number) => void;
 };
 
-const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "Prime Survey", onEarn }) => {
+const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEarn }) => {
   const [pop, setPop] = useState(false);
   const [bursts, setBursts] = useState<Array<{ id: number }>>([]);
 
@@ -161,9 +161,9 @@ const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
 
 
       <div className="sc-wrap">
-        <PriceCard minutes={8} price={25.3} rating={3.5} onEarn={handleEarn} />
-        <PriceCard minutes={5} price={14.7} rating={5} onEarn={handleEarn} />
-        <PriceCard minutes={7} price={11.5} rating={4.5} onEarn={handleEarn} />
+        <PriceCard minutes={8} price={18.3} rating={3.5} onEarn={handleEarn} tag="Cint" />
+        <PriceCard minutes={5} price={12.7} rating={5} onEarn={handleEarn} tag="Prime Survey"/>
+        <PriceCard minutes={7} price={11.5} rating={4.5} onEarn={handleEarn} tag="Pure Spectrum" />
       </div>
     </div>
   );

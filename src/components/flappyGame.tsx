@@ -63,7 +63,7 @@ useEffect(() => {
     // Display dimensions that will be scaled by CSS
     const displayWidth = gameWidth;
     const displayHeight = gameHeight;
-    
+
     // Update global constants - optimized for mobile frame
     GAME_W = gameWidth;
     GAME_H = gameHeight;
