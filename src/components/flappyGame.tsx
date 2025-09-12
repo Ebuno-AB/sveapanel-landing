@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import FlappySound from "/assets/flappySound.mp3"
+import LosingSound from "/assets/losingSound.mp3"
 /**
  * -------- Bird Image Config --------
  */
 const Bird_Img = "/assets/games/flappybird.png"; // SVG bird image
+
 
 /**
  * -------- Game tuning --------
@@ -28,11 +30,24 @@ let PIPE_SPAWN_DIST = 380; // More spacing for taller canvas
 let PIPE_SPEED_BASE = 200; // Faster speed to match taller proportions
 let HITBOX_R = 25; // Larger hitbox for scaled elements
 
+
+
 export default function FlappyBirdCanvas({
   onPointGained = () => {},
 }: {
   onPointGained: () => void;
 }) {
+
+  const soundRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(() => {
+    soundRef.current = new Audio(FlappySound);
+  }, []);
+
+  const losingSoundRef = useRef<HTMLAudioElement | null>(null);
+useEffect(() => {
+  soundRef.current = new Audio(FlappySound);
+  losingSoundRef.current = new Audio(LosingSound);
+}, []);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -168,18 +183,12 @@ export default function FlappyBirdCanvas({
         e.preventDefault();
         jump();
       } else if (e.code === "Tab") {
-        // Prevent Tab from affecting the game
         e.preventDefault();
       }
     };
-    const onClick = () => jump();
     window.addEventListener("keydown", onKey);
-    window.addEventListener("mousedown", onClick);
-    window.addEventListener("touchstart", onClick, { passive: true });
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("mousedown", onClick);
-      window.removeEventListener("touchstart", onClick);
     };
   }, []);
 
@@ -278,7 +287,11 @@ export default function FlappyBirdCanvas({
         if (!p.passed && p.x + PIPE_W < birdX) {
           p.passed = true;
           s.score += 1;
-          s.money += 10;
+          s.money += 1;
+          if(soundRef.current) {
+            soundRef.current.currentTime = 0;
+            soundRef.current.play();
+          }
           console.log("Bird passed through pipe - calling onPointGained()");
           onPointGained();
           // small celebration burst
@@ -306,6 +319,11 @@ export default function FlappyBirdCanvas({
         localStorage.setItem("flappy_best", String(s.best));
         s.shakeT = 0.35;
       }
+
+      if (losingSoundRef.current) {
+      losingSoundRef.current.currentTime = 0;
+      losingSoundRef.current.play();
+       }
     } else if (s.mode === "waiting") {
       // idle bob - more subtle like original
       s.birdY = VIEW_H * 0.55 + Math.sin(now * 0.003) * 6;
@@ -655,6 +673,12 @@ const drawSubText = (
           objectFit: "fill", // Fill the entire container
         }}
         onClick={() => {
+          jump();
+          const s = stateRef.current;
+          if (s.mode === "dead") reset();
+        }}
+        onTouchStart={() => {
+          jump();
           const s = stateRef.current;
           if (s.mode === "dead") reset();
         }}

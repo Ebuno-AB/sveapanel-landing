@@ -46,11 +46,11 @@ export default function Footer() {
       {/* Bottom section - Legal links */}
       <div className="footer-bottom">
         <div className="footer-links">
-          <a href="/support" className="footer-link">Support</a>
+          {/* <a href="/support" className="footer-link">Support</a>
           <a href="/updates" className="footer-link">Updates</a>
           <a href="/developers" className="footer-link">Developers</a>
           <a href="/terms" className="footer-link">Terms</a>
-          <a href="/privacy" className="footer-link">Privacy & Cookies</a>
+          // <a href="/privacy" className="footer-link">Privacy & Cookies</a> */}
           <a href="https://pollflow.io" className="footer-link" target="https://pollflow.io" rel="noopener noreferrer">PollFlow</a>
         </div>
         <div className="footer-copyright">

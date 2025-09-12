@@ -383,6 +383,66 @@
   }
 }
 
+@media (max-width: 480px) {
+  .ratings-headline {
+    font-size: 1.5rem;
+  }
+
+  .ratings-desc {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+  .platforms-container {
+    padding: 2rem;
+  }
+  .platform-card {
+    padding: 16px;
+    min-height: 260px;
+  }
+
+  .platform-name {
+    font-size: 1.1rem;
+  }
+
+  .platform-rating {
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .rating-value {
+    font-size: 1.1rem;
+  }
+
+  .star {
+    font-size: 1rem;
+  }
+
+  .rating-count {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+  }
+
+  .review-card {
+    min-height: calc(var(--review-card-height) - 80px);
+    padding: 14px;
+  }
+
+  .review-author {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+  }
+
+  .review-text {
+    font-size: 0.8rem;
+    padding-left: 12px;
+  }
+
+  .review-text::before,
+  .review-text::after {
+    font-size: 1.2rem;
+  }
+}
+
 
 
 

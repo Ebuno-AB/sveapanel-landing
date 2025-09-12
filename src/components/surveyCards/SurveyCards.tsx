@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SurveyCards.css";
+import Money from "/assets/Catching.mp3";
 
 type CardProps = {
   minutes: number | string;
@@ -13,10 +14,20 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "Prime S
   const [pop, setPop] = useState(false);
   const [bursts, setBursts] = useState<Array<{ id: number }>>([]);
 
+   const moneyRef = React.useRef<HTMLAudioElement | null>(null);
+    React.useEffect(() => {
+      moneyRef.current = new Audio(Money);
+    }, []);
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    if (moneyRef.current) {
+    moneyRef.current.currentTime = 0;
+    moneyRef.current.play();
+  }
+   
     
     // Set click position as CSS custom properties
     e.currentTarget.style.setProperty('--click-x', `${x}%`);
@@ -39,6 +50,11 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "Prime S
       // For keyboard events, position at center
       e.currentTarget.style.setProperty('--click-x', '50%');
       e.currentTarget.style.setProperty('--click-y', '50%');
+
+      if (fartRef.current) {
+      fartRef.current.currentTime = 0;
+      fartRef.current.play();
+    }
       
       setPop(true);
       const id = Date.now() + Math.random();

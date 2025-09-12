@@ -26,6 +26,7 @@
   line-height: 1.2;
   margin-bottom: clamp(16px, 3vw, 24px);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
 }
 
 .feature-section-description {
@@ -115,5 +116,18 @@
   
   .feature-section-visual {
     order: -1;
+  }
+}
+@media (max-width: 480px) {
+  .feature-section {
+    padding: 20px 16px;
+  }
+ 
+  .feature-section-title {
+    font-size: 1.5rem;
+  }
+
+  .feature-section-description {
+    font-size: 1rem;
   }
 }
