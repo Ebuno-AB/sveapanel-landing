@@ -4,7 +4,7 @@ import LosingSound from "/assets/losingSound.mp3"
 /**
  * -------- Bird Image Config --------
  */
-const Bird_Img = "/assets/games/flappybird.png"; // SVG bird image
+const Bird_Img = "/assets/sveaBird.png";
 
 
 /**
@@ -348,7 +348,7 @@ useEffect(() => {
 
     // Wing flap animation - faster when alive, slower when dead
     s.flyAcc += dt;
-    const flyAdvance = s.mode === "dead" ? 1 / 4 : 1 / 10; // Faster flap when alive
+    const flyAdvance = s.mode === "dead" ? 1 / 4 : 1 / 6; // Slower flap when alive
     while (s.flyAcc >= flyAdvance) {
       s.flyAcc -= flyAdvance;
       s.flyFrame = (s.flyFrame + 1) % 3; // 3 frame cycle like original
@@ -516,33 +516,49 @@ useEffect(() => {
     ctx.fillRect(0, 0, w, stripeH);
   };
 
-  const BIRD_WIDTH = GAME_W * 0.15; // Default width proportional to canvas size
+  const BIRD_WIDTH = GAME_W * 0.3; // Default width proportional to canvas size
   // Add a scaling factor for the bird's width
   const BIRD_WIDTH_SCALE = 1.5; // Scale the width by 1.5x
+  const SPRITE_FRAMES = 3; // Number of frames in the spritesheet
+  const BIRD_HEIGHT = GAME_H * 0.4; // Set a fixed bird height (e.g. 11% of canvas height)
 
   const drawBird = (
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
-    anim: "fly" | "celebrate",
+    anim: "1" | "2" | "3",
     flyFrame: number
   ) => {
     const img = imgRef.current;
-    const targetHeight = BIRD_WIDTH; // Keep the height constant
-    const targetWidth = BIRD_WIDTH * BIRD_WIDTH_SCALE; // Scale the width
-
     if (img && img.complete && img.naturalHeight !== 0) {
       ctx.save();
 
-      const bounce = anim === "fly" ? Math.sin(flyFrame * 2) * 1 : 0;
-      const scale = anim === "celebrate" ? 1.1 + Math.sin(flyFrame * 0.5) * 0.1 : 1;
+      const bounce = anim === "1" ? Math.sin(flyFrame * 2) * 1 : 0;
+      const scale = anim === "2" ? 1.1 + Math.sin(flyFrame * 0.5) * 0.1 : 1;
+        
+          ctx.translate(x, y + bounce);
+          ctx.scale(scale, scale);
+          ctx.imageSmoothingEnabled = false;
+    const frameWidth = img.width / SPRITE_FRAMES;
+    const frameHeight = img.height;
+    const frame = flyFrame % SPRITE_FRAMES;
+    const aspect = frameWidth / frameHeight;
+    const targetHeight = BIRD_HEIGHT;
+    const targetWidth = BIRD_HEIGHT * aspect;
 
-      ctx.translate(x, y + bounce);
-      ctx.scale(scale, scale);
-      ctx.imageSmoothingEnabled = true;
-
-      // Adjust the width independently of the height
-      ctx.drawImage(img, -targetWidth / 2, -targetHeight / 2, targetWidth, targetHeight);
+    // Crop a bit from the right of each frame
+    const crop = 10; // pixels to crop from the right
+    ctx.drawImage(
+      img,
+      frame * (frameWidth - crop), // sx
+      0,                  // sy
+      frameWidth - crop,  // sWidth
+      frameHeight,        // sHeight
+      -targetWidth / 2,   // dx
+      -targetHeight / 2,  // dy
+      targetWidth,        // dWidth
+      targetHeight        // dHeight
+    );
 
       ctx.restore();
     } else {

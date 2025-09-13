@@ -201,8 +201,8 @@ const handleEarn = useCallback((amount: number) => {
       });
     }
   }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
-
-  return (
+    
+      return (
     <>
       <TopNav
         handleAppDownload={handleAppDownload}
@@ -220,11 +220,12 @@ const handleEarn = useCallback((amount: number) => {
       <div
         style={{
           background:
-            "linear-gradient(135deg, #6a55cbff 0%, #9683caff 50%, #967dc1ff 100%)",
+           "linear-gradient(135deg, #2960ceff 0%, #34b1d0ff 50%, #3dbed2ff 100%)"
         }}
       >
         <InfoSection />
-
+     
+   
         {/* Ratings Section - Customer Reviews and Trust */}
         <div style={{ padding: "25px 15px" }}>
           <RatingsSection />
