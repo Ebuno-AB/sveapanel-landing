@@ -10,3 +10,5 @@ const detectDevice = () => {
         const isDesktop = !isMobile && !isTablet;
     }, []);
 }
+
+export default detectDevice;

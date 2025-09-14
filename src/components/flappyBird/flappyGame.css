@@ -1,0 +1,51 @@
+/* Container for the Flappy Bird game */
+.flappy-game-container {
+             position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              
+              /* Responsive sizing based on screen dimensions */
+              width: min(85vw, 400px);
+              height: min(90vh, calc(min(85vw, 400px) * 1.5));
+              
+              /* Ensure minimum viable size */
+              min-width: 280px;
+              min-height: 420px;
+              
+              /* Maximum size for larger screens */
+              max-width: 450px;
+              max-height: 675px;
+              
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: clamp(15px, 3vw, 40px);
+              box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.2);
+              background: #000; /* prevents transparent edges */
+              z-index: 1; /* sits under the frame */
+              overflow: hidden;
+              user-select: none;
+              -ms-user-select: none;
+              -webkit-tap-highlight-color: transparent;
+              
+              /* Media queries for different screen sizes */
+              @media (max-width: 480px) {
+                width: 95vw;
+                height: min(85vh, calc(95vw * 1.5));
+                top: 45%;
+              }
+              
+              @media (min-width: 1024px) {
+                width: min(35vw, 400px);
+                height: min(70vh, calc(min(35vw, 400px) * 1.5));
+              }
+              
+              @media (max-height: 600px) and (orientation: landscape) {
+                width: min(50vh, 350px);
+                height: 85vh;
+                top: 50%;
+              }
+            }
+
+            

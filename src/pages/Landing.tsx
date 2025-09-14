@@ -20,10 +20,10 @@ import FAQ from "../components/faq/FAQ";
 import SurveyCards from "../components/surveyCards/SurveyCards";
 import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
-import FlappyGame from "../components/flappyGame";
+import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
-
+import detectDevice from "../utils/detectDevice";
 function Landing() {
   const { trackEvent } = useGA();
 
@@ -251,23 +251,22 @@ const handleEarn = useCallback((amount: number) => {
           <div
             style={{
               position: "absolute",
-              top: "0%",
-              left: "50%",
-              transform: "translateX(-50%)",
+              top: isPhoneDevice ? "4%" : "0%",
+              left: isPhoneDevice ? "50%" : "14%",
+              transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
-              height: "82%",
+              height: isPhoneDevice ? "80%" : "84%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              borderRadius: "25px",
+              borderRadius: "clamp(25px, 3vw, 25px)",
               boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
-              background: "#000", // prevents transparent edges
-              zIndex: 1, // sits under the frame
+              background: "#000",
+              zIndex: 1,
               overflow: "hidden",
               userSelect: "none",
               msUserSelect: "none",
               WebkitTapHighlightColor: "transparent",
-
             }}
           >
             <FlappyGame
@@ -287,7 +286,7 @@ const handleEarn = useCallback((amount: number) => {
               display: "block",
               filter:
                 "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
-              zIndex: 2, // above game
+              zIndex: 2,
               position: "relative",
               pointerEvents: "none", // allows game interactions through
             }}
