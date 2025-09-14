@@ -51,11 +51,11 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEa
       e.currentTarget.style.setProperty('--click-x', '50%');
       e.currentTarget.style.setProperty('--click-y', '50%');
 
-      if (fartRef.current) {
-      fartRef.current.currentTime = 0;
-      fartRef.current.play();
-    }
-      
+      if (moneyRef.current) {
+        moneyRef.current.currentTime = 0;
+        moneyRef.current.play();
+      }
+
       setPop(true);
       const id = Date.now() + Math.random();
       setBursts((b) => [...b, { id }]);

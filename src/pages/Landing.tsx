@@ -22,6 +22,7 @@ import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyGame";
 import branch from "branch-sdk";
+import Carousel from "../components/Carousel";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -239,101 +240,11 @@ const handleEarn = useCallback((amount: number) => {
         description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
-        carousel={
-          <div className="carousel-strip">
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-                // wider viewport
-                width: "100vw",
-                maxWidth: "600px",
-                marginLeft: "-5rem",
-
-                margin: "40px auto 60px",
-                // smooth fade on edges
-                maskImage:
-                  "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                  width: "max-content",
-                  // seamless scroll
-                  animation: "marquee var(--marquee-speed, 22s) linear infinite",
-                  // eliminate jitter on reset
-                  willChange: "transform",
-                  backfaceVisibility: "hidden",
-                  transform: "translate3d(0,0,0)",
-                }}
-              >
-                {[
-                  "/assets/games/candyCrush.png",
-                  "/assets/games/monopoly.png",
-                  "/assets/games/pigGame.png",
-                  "/assets/games/tontongGame.png",
-                ]
-                  // exact 2× duplication ensures translateX(-50%) loops perfectly
-                  .concat([
-                    "/assets/games/candyCrush.png",
-                    "/assets/games/monopoly.png",
-                    "/assets/games/pigGame.png",
-                    "/assets/games/tontongGame.png",
-                  ])
-                  .map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt="Game icon"
-                      draggable={false}
-                      style={{
-                        flex: "0 0 auto", // prevent flex shrink (avoids width drift)
-                        width: "160px",
-                        height: "160px",
-                        objectFit: "contain",
-                        borderRadius: "20px",
-                        padding: "6px",
-                        // avoid subpixel blur on some GPUs
-                        imageRendering: "auto",
-                        transform: "translateZ(0)",
-                      }}
-                    />
-                  ))}
-              </div>
-
-              {/* Animation styles */}
-              <style>
-                {`
-          @keyframes marquee {
-            0%   { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-          }
-          /* Reduce motion for accessibility */
-          @media (prefers-reduced-motion: reduce) {
-            .carousel-strip div[style*="animation: marquee"] {
-              animation: none !important;
-              transform: translate3d(0,0,0) !important;
-            }
-          }
-        `}
-              </style>
-            </div>
-          </div>
-        }
-      >
-        <style>
-          {`
-      @keyframes scroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+      carousel={
+        <Carousel />
       }
-    `}
-        </style>
+      >
+      
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
           {/* Game inside phone (scales with frame) */}

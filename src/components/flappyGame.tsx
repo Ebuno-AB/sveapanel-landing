@@ -377,12 +377,23 @@ useEffect(() => {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, GAME_W, GAME_H);
 
-    // distant clouds (parallax) - scaled for taller canvas
+    // distant clouds (parallax) - scaled for taller canvas with seamless loop
     ctx.globalAlpha = 0.6;
-    drawCloud(ctx, -s.parallaxX * 0.5 + 50, 120, 80, 24);
-    drawCloud(ctx, -s.parallaxX * 0.5 + 400, 200, 50, 16);
-    drawCloud(ctx, -s.parallaxX * 0.5 + 550, 100, 80, 24);
-    drawCloud(ctx, -s.parallaxX * 0.5 + 200, 300, 60, 20);
+    const cloudSpeed = -s.parallaxX * 0.5;
+    const cloudSpacing = 400; // Distance between cloud patterns
+    const totalCloudWidth = cloudSpacing * 4; // Width of one complete cloud pattern
+
+    // Calculate the base offset for seamless looping
+    const baseOffset = cloudSpeed % totalCloudWidth;
+
+    // Draw multiple sets of clouds to ensure seamless coverage
+    for (let i = -1; i <= 2; i++) {
+      const setOffset = baseOffset + (i * totalCloudWidth);
+      drawCloud(ctx, setOffset + 50, 120, 80, 24);
+      drawCloud(ctx, setOffset + 400, 200, 50, 16);
+      drawCloud(ctx, setOffset + 750, 100, 80, 24);
+      drawCloud(ctx, setOffset + 1100, 300, 60, 20);
+    }
     ctx.globalAlpha = 1;
 
     // pipes
