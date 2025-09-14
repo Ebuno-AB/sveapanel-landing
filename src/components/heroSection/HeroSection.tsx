@@ -32,7 +32,7 @@ return (
            <h1 className="hero-title">
           <TyperEffect 
             staticText="Bli belönad för "
-            words={["dina åsikter", "att spela mobilspel", "att svara på enkäter", "ditt deltagande"]}
+            words={["dina åsikter", "att spela mobilspel", "att svara på enkäter", "din tid"]}
             speed={120}
             pauseTime={2500}
           />
@@ -52,7 +52,7 @@ return (
                       style={{ width: 50, height: "auto", marginLeft: 8 }}
                     />
                   </button>
-                  <p className="hero-note">Registrera dig för att få tillgång till våra tjänster</p>
+
                 </div>
               ) : (
                 <div className="custom-app-buttons">

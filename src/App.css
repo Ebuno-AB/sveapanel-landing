@@ -95,6 +95,11 @@ h6 {
   font-weight: 500;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
 /* Responsive header scaling */
 @media (max-width: 768px) {
   h1 {
@@ -114,6 +119,9 @@ h6 {
   }
   h6 {
     font-size: 1rem;
+  }
+  p {
+    font-size: 0.95rem;
   }
 }
 
@@ -135,6 +143,9 @@ h6 {
   }
   h6 {
     font-size: 0.95rem;
+  }
+  p {
+    font-size: 0.9rem;
   }
 }
 

@@ -1,6 +1,53 @@
 /* =====================
-   FAQ Section Styles
+   Font Imports
    ===================== */
+/* Fallback to Inter for other weights until you have more Cereal font files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap");
+
+/* =====================
+   Font Declarations
+   ===================== */
+/* Airbnb Cereal Font - All Weights */
+@font-face {
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Lt.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Md.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Bd.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_XBd.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Blk.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 .faq-section {
   background: linear-gradient(135deg, #0f1031 0%, #1a1b3a 50%, #2a2b5e 100%);
@@ -33,7 +80,7 @@
   margin: 0;
   letter-spacing: -0.02em;
   text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
-  font-family: 'Circular', system-ui, -apple-system, sans-serif;
+  font-family: 'Cereal', system-ui, -apple-system, sans-serif;
 }
 
 .faq-list {
@@ -105,7 +152,7 @@
   line-height: 1.5;
   flex: 1;
   text-align: left;
-  font-family: 'Circular', system-ui, -apple-system, sans-serif;
+  font-family: 'Cereal', system-ui, -apple-system, sans-serif;
 }
 
 .faq-icon {
@@ -145,7 +192,7 @@
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
   font-weight: 400;
-  font-family: 'Circular', system-ui, -apple-system, sans-serif;
+  font-family: 'Cereal', system-ui, -apple-system, sans-serif;
 }
 
 /* Background decoration */

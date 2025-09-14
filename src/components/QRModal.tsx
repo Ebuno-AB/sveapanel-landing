@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import '../App.css'
 
@@ -19,7 +19,35 @@ interface QRModalProps {
   };
 }
 
-const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading = false, error, success }) => {  
+
+const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading = false, error, success }) => {
+  const [timeLeft, setTimeLeft] = useState(30);
+
+  // Reset timer when modal opens
+  useEffect(() => {
+    if (isOpen && !error && !success) {
+      setTimeLeft(30);
+    }
+  }, [isOpen, error, success]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (!isOpen || error || success || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          // Timer expired - close modal or show error
+          onClose();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isOpen, error, success, timeLeft, onClose]);
+
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -119,7 +147,7 @@ const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading
                 )}
               </div>
               <p className="qr-code-modal-text mt-4">
-                {isLoading ? 'Laddar QR-kod...' : 'Skanna QR-koden med BankID för att registrera dig'}
+                {isLoading ? 'Laddar QR-kod...' : `Denna QR-kod är giltig i ${timeLeft} sekunder.`}
               </p>
             </div>
           )}
@@ -129,4 +157,4 @@ const QRModal: React.FC<QRModalProps> = ({ isOpen, onClose, qrCodeUrl, isLoading
   );
 };
 
-export default QRModal; 
+export default QRModal;

@@ -297,8 +297,8 @@ const handleEarn = useCallback((amount: number) => {
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
-        title="Svara på enkäter och tjäna pengar"
-        description=""
+        title="Tjäna pengar på enkäter online"
+        description="Få betalt för din åsikt – enkelt hemifrån."
         backgroundImage="/assets/gameCards.webp"
       >
         <SurveyCards onEarn={handleEarn} />
