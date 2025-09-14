@@ -329,9 +329,11 @@ useEffect(() => {
        }
     } else if (s.mode === "waiting") {
       // idle bob - more subtle like original
-      s.birdY = VIEW_H * 0.55 + Math.sin(now * 0.003) * 6;
+      s.birdY = VIEW_H * 0.6 + Math.sin(now * 0.003) * 6;
       s.angle = Math.sin(now * 0.003) * 2;
     } else if (s.mode === "dead") {
+      s.parallaxX = 0;
+    s.groundX = 0;
       // settle on ground - bird falls naturally with gravity
       if (s.birdY < VIEW_H - 1) {
         s.birdVY += GRAVITY * dt;
@@ -340,10 +342,12 @@ useEffect(() => {
         const velocityFactor = s.birdVY / 400;
         s.angle = Math.min(MAX_DROP_ANGLE, velocityFactor * 90);
       } else {
+        
         s.birdY = VIEW_H - 1;
         s.birdVY = 0;
         s.angle = MAX_DROP_ANGLE; // Bird is flat on ground
       }
+      
     }
 
     // Wing flap animation - faster when alive, slower when dead
@@ -431,10 +435,12 @@ useEffect(() => {
 
     // overlays
     if (s.mode === "waiting") {
-      drawCenterText(ctx, "Flappy Bird", 64);
-    
-      drawSubText(ctx, "Pröva spela!", 38, 64, "#ffffffff");
+
+      drawCenterText(ctx, "Flappy Svea", 64);
+
+      drawSubText(ctx, "Pröva spela!", 38, 64);
     } else if (s.mode === "dead") {
+      
       drawCenterText(ctx, "Game Over", 58);
       drawSubText(ctx, "Click to play again", 18, 54);
     }

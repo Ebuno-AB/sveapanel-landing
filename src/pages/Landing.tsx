@@ -220,7 +220,7 @@ const handleEarn = useCallback((amount: number) => {
       <div
         style={{
           background:
-           "linear-gradient(135deg, #2960ceff 0%, #34b1d0ff 50%, #3dbed2ff 100%)"
+           "linear-gradient(135deg, #3691d6ff 0%, #e1a8ffff 50%, #b2a8ffff 100%)"
         }}
       >
         <InfoSection />
@@ -374,7 +374,6 @@ const handleEarn = useCallback((amount: number) => {
               width: "80%",
               height: "auto",
               display: "block",
-              shadow: "inset 0 0 100px rgba(0,0,0,0.2)",
               filter:
                 "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
               zIndex: 2, // above game
