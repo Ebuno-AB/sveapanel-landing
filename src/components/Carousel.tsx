@@ -16,7 +16,7 @@ const Carousel = () => {
           overflow: "hidden",
           width: "100vw",
           maxWidth: "600px",
-          marginLeft: "-5rem",
+          marginLeft: "-6rem",
           margin: "40px auto 60px",
           maskImage:
             "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
@@ -31,7 +31,7 @@ const Carousel = () => {
             gap: "20px",
             // Use calculated width for precise positioning
             width: `${singleSetWidth * 2}px`,
-            animation: "preciseMarquee 10s linear infinite",
+            animation: "preciseMarquee 18s linear infinite",
             transform: "translateZ(0)",
           }}
         >

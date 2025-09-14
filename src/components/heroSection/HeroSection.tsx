@@ -2,6 +2,7 @@ import React from "react";
 import "./HeroSection.css";
 import MovingBlurryBlobsBare from "../BlurryBlobBackground";
 import MoneyCounter from "../moneyCounter";
+import TyperEffect from "./TyperEffect";
 
 interface HeroProps {
     isRegistered: boolean;
@@ -28,7 +29,14 @@ return (
       
           {/* Left: copy */}
           <div className="hero-col hero-copy">
-            <h1 className="hero-title">Bli belönad för dina åsikter</h1>
+           <h1 className="hero-title">
+          <TyperEffect 
+            staticText="Bli belönad för "
+            words={["dina åsikter", "att spela mobilspel", "att svara på enkäter", "ditt deltagande"]}
+            speed={120}
+            pauseTime={2500}
+          />
+        </h1>
             <h3 className="hero-sub">
               Bli en av våra <span className="accent">200 000+</span> användare som
               tjänar pengar på enkäter och spel
