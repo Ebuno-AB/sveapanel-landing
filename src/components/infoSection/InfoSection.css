@@ -1,0 +1,65 @@
+.info-section {
+  padding: clamp(15px, 3vw, 30px) clamp(10px, 2vw, 20px);
+  text-align: center;
+}
+
+.info-section-title {
+  color: white;
+  /* Uses h2 styling from App.css for consistent sizing */
+  font-size: 2.2rem;
+  max-width: 800px;
+  margin: 0 auto clamp(20px, 4vw, 40px) auto;
+}
+
+.info-section-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 4vw, 40px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Mobile layout - column */
+@media (max-width: 768px) {
+  .info-section-cards {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Desktop layout - row */
+@media (min-width: 769px) {
+  .info-section {
+    padding: 1rem;
+  }
+  .info-section-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: 480px) {
+  .info-section {
+    padding: 1rem;
+  }
+  .info-section-title {
+    font-size: 1.5rem;
+  }
+
+  .info-section-cards {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 400px) {
+  .info-section {
+    padding: 2rem;
+  }
+  .info-section-title {
+    font-size: 2.2rem;
+  }
+
+  .info-section-cards {
+    padding: 3rem;
+  }
+}

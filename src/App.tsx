@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import RegistrationPage from './pages/RegistrationPage';
 import Redirect from './pages/Redirect';
 import { useGA } from './hooks/gtag';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const { trackEvent } = useGA();
@@ -22,6 +23,8 @@ function App() {
         <Route path="/r/:code" element={<Landing />} />
         <Route path="/redirect/:platform" element={<Redirect />} />
         <Route path="/redirect/detect" element={<Redirect />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+      
       </Routes>
     </Router>
   );

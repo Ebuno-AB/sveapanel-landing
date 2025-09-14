@@ -47,10 +47,8 @@
 
 .cookies-text h3 {
   margin: 0 0 8px 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  /* Uses h4 styling from App.css for consistent sizing */
   color: #1f2937;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .cookies-text p {
@@ -167,9 +165,7 @@
     min-width: auto;
   }
 
-  .cookies-text h3 {
-    font-size: 1.1rem;
-  }
+  /* Cookies h3 now uses responsive styling from App.css */
 
   .cookies-text p {
     font-size: 0.9rem;

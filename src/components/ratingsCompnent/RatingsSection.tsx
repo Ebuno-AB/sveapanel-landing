@@ -53,14 +53,14 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({ platform, rating, rev
   const isApple = platform === 'apple';
   
   return (
-    <div>
+    <div className="platform-card">
       <div className="platform-header">
         <div className="platform-info">
           <div className="platform-details">
             <div className="platform-name-container">
-              <h3 className="platform-name">
+              <h4 className="platform-name">
                 {isApple ? 'App Store' : 'Google Play'}
-              </h3>
+              </h4>
               {isApple ? <AppleIcon /> : <GoogleIcon />}
             </div>
             <div className="platform-rating">
@@ -72,16 +72,18 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({ platform, rating, rev
         </div>
       </div>
       
-      <div className="reviews-grid">
-        {reviews.map((review) => (
-          <div key={review.id} className="review-card">
-            <div className="review-header">
-              <StarRating rating={review.rating} />
-              <span className="review-author">{review.author}</span>
+      <div className="reviews-scroll">
+        <div className="reviews-grid">
+          {reviews.map((review) => (
+            <div key={review.id} className="review-card" tabIndex={0}>
+              <div className="review-header">
+                <StarRating rating={review.rating} />
+                <span className="review-author">{review.author}</span>
+              </div>
+              <p className="review-text">"{review.text}"</p>
             </div>
-            <p className="review-text">"{review.text}"</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -135,7 +137,7 @@ const RatingsSection: React.FC = () => {
       <div className="ratings-header">
         <h2 className="ratings-headline">
           Vi har betalat ut mer än{" "}
-          <span className="highlight">2 000 000 kr</span> <br/> till våra
+          <span className="highlight">7 000 000 kr</span> <br/> till våra
           användare!
         </h2>
         <p className="ratings-desc">
