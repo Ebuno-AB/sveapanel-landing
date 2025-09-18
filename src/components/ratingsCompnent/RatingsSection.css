@@ -6,7 +6,8 @@
 }
 
 .ratings-section {
-  padding: 60px 20px;
+  padding: 0px 20px;
+  padding-bottom: 60px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
@@ -21,7 +22,7 @@
   /* Uses h2 styling from App.css */
   color: #ffffff;
   margin-inline: 3rem;
-  background: white; 
+  background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -39,7 +40,7 @@
 }
 
 .ratings-headline .highlight::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -51,13 +52,11 @@
 }
 
 .ratings-desc {
-
-  color: #ffffff; 
-
+  color: #ffffff;
 
   margin-inline: 3rem;
   line-height: 1.6;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
 }
 
@@ -67,11 +66,10 @@
   gap: 40px;
   margin-top: 50px;
   position: relative;
-
 }
 
 .platforms-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -83,12 +81,14 @@
 }
 
 .platform-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 250, 252, 0.9) 100%
+  );
   border-radius: 20px;
   padding: 21px;
-  box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.08),
-    0 3px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 3px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(229, 231, 235, 0.4);
   backdrop-filter: blur(20px);
   position: relative;
@@ -100,9 +100,7 @@
 
 .platform-card:hover {
   transform: translateY(-6px);
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.12),
-    0 6px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
 .reviews-scroll {
@@ -168,7 +166,6 @@
 .platform-name-container svg {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
-
 
 .platform-details {
   text-align: center;
@@ -251,7 +248,11 @@
 }
 
 .review-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.7)
+  );
   border-radius: 16px;
   padding: 18px;
   text-align: left;
@@ -265,9 +266,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
-
-
 
 .review-header {
   display: flex;
@@ -285,7 +283,7 @@
   background: rgba(55, 65, 81, 0.1);
   padding: 4px 12px;
   border-radius: 12px;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .review-text {
@@ -294,7 +292,7 @@
   color: #4b5563;
   margin: 0;
   font-style: italic;
-  font-family: 'Cereal', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Responsive Design */
@@ -304,7 +302,7 @@
   }
 
   /* Ratings headline and description now use responsive styles from App.css */
-  
+
   .ratings-desc {
     font-size: 1rem;
   }
@@ -314,7 +312,7 @@
     gap: 30px;
     margin-top: 35px;
   }
-  
+
   .platforms-container::before {
     display: none;
   }
@@ -379,7 +377,7 @@
     font-size: 0.85rem;
     padding-left: 14px;
   }
-  
+
   .review-text::before,
   .review-text::after {
     font-size: 1.4rem;
@@ -445,10 +443,6 @@
     font-size: 1.2rem;
   }
 }
-
-
-
-
 
 /* =====================
    Live Earnings Counter
@@ -592,5 +586,3 @@
 
 
  */
-
- 
