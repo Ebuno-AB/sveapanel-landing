@@ -1,11 +1,8 @@
-
-
-
 /* --- HERO LAYOUT --- */
 .hero {
   position: relative;
   min-height: 100vh;
-  width: 100%;                 /* avoid 100vw to prevent horizontal scrollbars */
+  width: 100%; /* avoid 100vw to prevent horizontal scrollbars */
   background: #000;
   overflow: hidden;
 }
@@ -24,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;                      /* desktop: row, no gap */
+  gap: 0; /* desktop: row, no gap */
 }
 
 .hero-col {
@@ -46,13 +43,11 @@
   /* Uses h3 styling from App.css - no need to override font-size */
   font-weight: 400;
   margin: 0 0 16px 0;
-
 }
-
 
 .hero-sub .accent {
   font-weight: 700;
-  color: #00CCA3;
+  color: #00cca3;
 }
 
 .hero-note {
@@ -61,7 +56,9 @@
   margin-top: 8px;
 }
 
-.stores { margin-top: 30px; }
+.stores {
+  margin-top: 30px;
+}
 .stores-label {
   color: #fff;
   opacity: 0.8;
@@ -80,7 +77,7 @@
   height: 52px;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform .2s ease, opacity .2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   display: block;
 }
 
@@ -91,17 +88,61 @@
   align-items: center;
 }
 
+.hero-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.hero-feature {
+  position: relative;
+  padding-left: 2.5rem; /* more inset space */
+  margin-bottom: 1rem;
+  color: white; /* default text color */
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.hero-feature::before {
+  content: "✓"; /* clean checkmark */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* default text */
+.hero-feature .feature-text {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* highlight BankID and Swish */
+.hero-feature .feature-text strong {
+  color: #00e6b8; /* highlight color */
+}
+
 .phone-wrap {
   position: relative;
-  width: 500px;                /* scaled up from 400px (10% increase) */
+  width: 500px; /* scaled up from 400px (10% increase) */
   max-width: 100%;
-  aspect-ratio: 400 / 550;     /* keep proportions on shrink */
-  transform: rotate(-7deg);    /* responsive tilt */
+  aspect-ratio: 400 / 550; /* keep proportions on shrink */
   transition: transform 0.3s ease;
 }
 
 .phone-wrap:hover {
-  transform: rotate(-6deg) scale(1.02);  /* subtle hover interaction */
+  transform: rotate(-6deg) scale(1.02); /* subtle hover interaction */
 }
 
 .phone-wrap::before {
@@ -112,7 +153,12 @@
   transform: translateX(-50%) skewX(-7deg);
   width: 85%;
   height: 40px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.08) 40%, transparent 70%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.08) 40%,
+    transparent 70%
+  );
   border-radius: 50%;
   filter: blur(8px);
   z-index: -1;
@@ -131,9 +177,19 @@
   height: auto;
 }
 
-.badge-1 { top: 20px; left: 0; width: 100px; }
-.badge-2 { top: 120px; right: 20px; }
-.badge-3 { bottom: 60px; right: 20px; }
+.badge-1 {
+  top: 20px;
+  left: 0;
+  width: 100px;
+}
+.badge-2 {
+  top: 120px;
+  right: 20px;
+}
+.badge-3 {
+  bottom: 60px;
+  right: 20px;
+}
 
 /* Float animation you already had via .floaty, keep as-is */
 
@@ -141,80 +197,81 @@
 @media (max-width: 800px) {
   .hero {
     min-height: 100vh;
-    height: auto;              /* Allow hero to grow taller than viewport */
-    padding: 0;                /* Remove padding to prevent cut-off */
-    overflow: visible;         /* Allow content to be visible */
+    height: auto; /* Allow hero to grow taller than viewport */
+    padding: 0; /* Remove padding to prevent cut-off */
+    overflow: visible; /* Allow content to be visible */
   }
   .hero-sub {
-    font-size: 1.1rem;         /* Slightly larger subtext for readability */
+    font-size: 1.1rem; /* Slightly larger subtext for readability */
   }
   .hero-overlay {
-     padding: 80px 20px 60px 20px; /* Reduced from 120px */
-    position: static;          /* Change from absolute to static */
+    padding: 80px 20px 60px 20px; /* Reduced from 120px */
+    position: static; /* Change from absolute to static */
     min-height: calc(100vh - 40px); /* Account for bottom padding */
     display: flex;
-    align-items: flex-start;   /* Align to top instead of center */
+    align-items: flex-start; /* Align to top instead of center */
     justify-content: center;
   }
-  
+
   .hero-inner {
-    flex-direction: column;    /* stack! */
+    flex-direction: column; /* stack! */
     gap: 40px;
     justify-content: flex-start; /* Start from top */
     width: 100%;
     max-width: none;
-    padding-top: 20px;         /* Additional top spacing */
+    padding-top: 20px; /* Additional top spacing */
   }
   .hero-copy {
     text-align: center;
-    padding: 0;                /* Remove extra padding */
-    flex-shrink: 0;            /* Prevent text from shrinking */
+    padding: 0; /* Remove extra padding */
+    flex-shrink: 0; /* Prevent text from shrinking */
     width: 100%;
-    max-width: 500px;          /* Limit width for better readability */
-    margin: 0 auto;            /* Center the text block */
-    z-index: 10;               /* Ensure text is above background */
+    max-width: 500px; /* Limit width for better readability */
+    margin: 0 auto; /* Center the text block */
+    z-index: 10; /* Ensure text is above background */
   }
-  
+
   .hero-title {
     /* Uses responsive h1 styling from App.css */
     line-height: 1.2;
     margin-bottom: 16px;
-    color: #fff !important;    /* Force white color */
+    color: #fff !important; /* Force white color */
   }
-  
+
   .hero-sub {
     font-size: 1.1rem;
     margin-bottom: 24px;
-    color: #fff !important;    /* Force white color */
+    color: #fff !important; /* Force white color */
   }
-  
+
   .stores {
-    margin-top: 32px;          /* More space above stores */
+    margin-top: 32px; /* More space above stores */
   }
-  
+
   .stores-label {
-    color: #fff !important;    /* Force white color */
+    color: #fff !important; /* Force white color */
     margin-bottom: 16px;
   }
-  
+
   .stores-row {
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
   }
   .phone-wrap {
-    width: min(80vw, 440px);   /* maintain scaled up size on mobile */
-    flex-shrink: 0;            /* Prevent phone from shrinking */
-    transform: rotate(-5deg);  /* slightly less tilt on mobile for better fit */
+    width: min(80vw, 440px); /* maintain scaled up size on mobile */
+    flex-shrink: 0; /* Prevent phone from shrinking */
+    transform: rotate(-5deg); /* slightly less tilt on mobile for better fit */
   }
-  
+
   .phone-wrap::before {
-    bottom: -20px;             /* reduce shadow offset on mobile */
-    height: 30px;              /* smaller shadow on mobile */
-    width: 80%;                /* slightly narrower shadow */
+    bottom: -20px; /* reduce shadow offset on mobile */
+    height: 30px; /* smaller shadow on mobile */
+    width: 80%; /* slightly narrower shadow */
   }
-  .badge {                     /* tighten floating cards so they don’t overflow */
-    transform: scale(.9);
+  .badge {
+    /* tighten floating cards so they don’t overflow */
+    transform: scale(0.9);
   }
 }
 
@@ -226,35 +283,33 @@
     margin-bottom: 12px;
   }
   .hero-sub {
-           /* Slightly smaller subtext */
+    /* Slightly smaller subtext */
     margin-inline: 30px;
   }
 
-
-  
   .hero-inner {
-    gap: 30px;                 /* Reduce gap on very small screens */
+    gap: 30px; /* Reduce gap on very small screens */
     min-height: calc(100vh - 130px);
   }
 
   .hero-sub {
-    font-size: 1rem;           /* Slightly smaller subtext */
+    font-size: 1rem; /* Slightly smaller subtext */
     margin-bottom: 20px;
   }
   /* Hero title now uses responsive h1 styling from App.css */
-  
-  .store-badge { 
-    height: 44px; 
+
+  .store-badge {
+    height: 44px;
   }
 }
 
 /* Mobile-specific button and text styles for all mobile sizes */
 @media (max-width: 768px) {
   .hero-note {
-    color: #fff !important;    /* Force white color */
+    color: #fff !important; /* Force white color */
     font-size: 0.95rem;
   }
-  
+
   .custom-app-buttons {
     display: flex;
     justify-content: center;
@@ -262,12 +317,12 @@
     margin-top: 1.5rem;
     flex-wrap: wrap;
   }
-  
+
   .custom-app-btn {
-    min-width: 200px;          /* Ensure buttons are large enough */
-    padding: 0.8rem 1.8rem;    /* Larger padding for mobile */
-    font-size: 1.1rem;         /* Larger text for mobile */
-    white-space: nowrap;       /* Prevent text wrapping */
+    min-width: 200px; /* Ensure buttons are large enough */
+    padding: 0.8rem 1.8rem; /* Larger padding for mobile */
+    font-size: 1.1rem; /* Larger text for mobile */
+    white-space: nowrap; /* Prevent text wrapping */
     background: #fff !important; /* Force white background */
     color: #1a1a1a !important; /* Force dark text */
     border: none;
