@@ -23,7 +23,7 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
-import detectDevice from "../utils/detectDevice";
+
 function Landing() {
   const { trackEvent } = useGA();
 

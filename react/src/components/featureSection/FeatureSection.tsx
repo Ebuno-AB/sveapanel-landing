@@ -25,7 +25,6 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
   children,
   className = "",
   interactive = false,
-  img="",
   carousel, // 👈 use this
 }) => {
   // Check if we have content to display

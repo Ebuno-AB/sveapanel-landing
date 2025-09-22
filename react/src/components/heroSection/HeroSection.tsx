@@ -1,7 +1,6 @@
 import React from "react";
 import "./HeroSection.css";
 import MovingBlurryBlobsBare from "../BlurryBlobBackground";
-import MoneyCounter from "../moneyCounter";
 // import TyperEffect from "./TyperEffect";
 
 interface HeroProps {

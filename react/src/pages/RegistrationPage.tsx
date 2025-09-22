@@ -1,6 +1,6 @@
 import '../App.css';
 import React, { useEffect } from 'react';
-import BackButton from '../components/backButton';
+import BackButton from '../components/BackButton';
 import SocialBrowserWarning from '../components/SocialBrowserWarning';
 import BankIDButton from '../components/BankIDButton';
 import { useBankID } from '../hooks/useBankID';

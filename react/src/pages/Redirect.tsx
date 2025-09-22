@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGA } from '../hooks/gtag';
 import '../components/redirectComponent/Redirect.css';
@@ -6,7 +6,7 @@ import '../components/redirectComponent/Redirect.css';
 const Redirect: React.FC = () => {
   const { platform } = useParams<{ platform: string }>();
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const { trackEvent } = useGA();
 
   // Device detection function

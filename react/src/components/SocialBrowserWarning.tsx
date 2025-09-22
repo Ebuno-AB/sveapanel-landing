@@ -26,7 +26,7 @@ const SocialBrowserWarning: React.FC<SocialBrowserWarningProps> = ({ currentUrl 
     }
   };
 
-  const openInSafari = (url: string): void => {
+  const openInSafari = (_url: string): void => {
     // Show feedback to user
     Swal.fire({
       title: 'Öppna i webbläsare...',
@@ -41,65 +41,65 @@ const SocialBrowserWarning: React.FC<SocialBrowserWarningProps> = ({ currentUrl 
     });
   };
 
-  const tryOpenExternalBrowser = (): void => {
-    const url = currentUrl;
+  // const tryOpenExternalBrowser = (): void => {
+  //   const url = currentUrl;
     
-    try {
-      // Try multiple approaches
-      const opened = window.open(url, '_system');
+  //   try {
+  //     // Try multiple approaches
+  //     const opened = window.open(url, '_system');
       
-      if (!opened) {
-        if (isIOS()) {
-          window.location.href = url;
-        } else if (isAndroid()) {
-          window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + 
-            '#Intent;scheme=https;package=com.android.chrome;end';
-        } else {
-          window.location.href = url;
-        }
-      }
+  //     if (!opened) {
+  //       if (isIOS()) {
+  //         window.location.href = url;
+  //       } else if (isAndroid()) {
+  //         window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + 
+  //           '#Intent;scheme=https;package=com.android.chrome;end';
+  //       } else {
+  //         window.location.href = url;
+  //       }
+  //     }
       
-      showBrowserOpenFeedback();
-    } catch (error) {
-      console.error('Failed to open external browser:', error);
-      showManualCopyInstructions();
-    }
-  };
+  //     showBrowserOpenFeedback();
+  //   } catch (error) {
+  //     console.error('Failed to open external browser:', error);
+  //     showManualCopyInstructions();
+  //   }
+  // };
 
-  const showBrowserOpenFeedback = (): void => {
-    Swal.fire({
-      title: 'Öppnar webbläsare...',
-      text: 'Om inget händer, kopiera länken manuellt',
-      showConfirmButton: true,
-      confirmButtonText: 'Kopiera länk',
-      timer: 3000
-    }).then((result) => {
-      if (result.isConfirmed) {
-        copyPageUrl();
-      }
-    });
-  };
+  // const showBrowserOpenFeedback = (): void => {
+  //   Swal.fire({
+  //     title: 'Öppnar webbläsare...',
+  //     text: 'Om inget händer, kopiera länken manuellt',
+  //     showConfirmButton: true,
+  //     confirmButtonText: 'Kopiera länk',
+  //     timer: 3000
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       copyPageUrl();
+  //     }
+  //   });
+  // };
 
-  const showManualCopyInstructions = (): void => {
-    Swal.fire({
-      title: 'Kunde inte öppna webbläsaren',
-      html: `
-        <p>Följ dessa steg istället:</p>
-        <ol>
-          <li>Kopiera länken nedan</li>
-          <li>Öppna din vanliga webbläsare (Safari/Chrome)</li>
-          <li>Klistra in länken där</li>
-        </ol>
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Kopiera länk',
-      cancelButtonText: 'Avbryt'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        copyPageUrl();
-      }
-    });
-  };
+  // const showManualCopyInstructions = (): void => {
+  //   Swal.fire({
+  //     title: 'Kunde inte öppna webbläsaren',
+  //     html: `
+  //       <p>Följ dessa steg istället:</p>
+  //       <ol>
+  //         <li>Kopiera länken nedan</li>
+  //         <li>Öppna din vanliga webbläsare (Safari/Chrome)</li>
+  //         <li>Klistra in länken där</li>
+  //       </ol>
+  //     `,
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Kopiera länk',
+  //     cancelButtonText: 'Avbryt'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       copyPageUrl();
+  //     }
+  //   });
+  // };
 
   const copyPageUrl = (): void => {
     navigator.clipboard.writeText(currentUrl).then(() => {

@@ -7,7 +7,7 @@ interface ParticlesProps {
   className?: string
 }
 
-const ParticlesComponent = ({ id = "night-sky", className = "absolute inset-0" }: ParticlesProps) => {
+const ParticlesComponent = ({ id = "night-sky"}: ParticlesProps) => {
   const particlesInit = useCallback(async (engine: any) => {
     await loadFull(engine)
   }, [])

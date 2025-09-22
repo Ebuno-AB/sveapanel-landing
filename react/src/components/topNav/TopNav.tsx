@@ -31,7 +31,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const openMenu = () => setIsMenuOpen(true);
   const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen((o) => !o);
 

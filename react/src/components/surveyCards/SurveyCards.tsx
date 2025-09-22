@@ -137,8 +137,8 @@ interface SurveyCardsProps {
 }
 
 const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
-  const [total, setTotal] = useState(0);
-  const [bump, setBump] = useState(false);
+  const [, setTotal] = useState(0);
+  const [, setBump] = useState(false);
 
 const handleEarn = React.useCallback((amount: number) => {
     setTotal((t) => {

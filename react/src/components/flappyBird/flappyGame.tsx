@@ -421,7 +421,7 @@ useEffect(() => {
       ctx,
       bx,
       by,
-      s.mode === "celebrating" || s.mode === "dead" ? "celebrate" : "fly",
+      s.mode === "celebrating" || s.mode === "dead" ? "1" : "2",
       s.flyFrame
     );
     ctx.restore();
@@ -431,7 +431,6 @@ useEffect(() => {
       drawScore(ctx, s.score);
       // floating +$10 briefly near the bird when scoring (based on shake trigger)
       if (s.shakeT > 0.25) {
-        const fontSize = Math.max(12, GAME_W * 0.032);
         const offsetX = GAME_W * 0.052;
         const offsetY = GAME_H * 0.052;
         // ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
@@ -532,10 +531,7 @@ useEffect(() => {
     ctx.fillStyle = pattern;
     ctx.fillRect(0, 0, w, stripeH);
   };
-
-  const BIRD_WIDTH = GAME_W * 0.3; // Default width proportional to canvas size
   // Add a scaling factor for the bird's width
-  const BIRD_WIDTH_SCALE = 1.5; // Scale the width by 1.5x
   const SPRITE_FRAMES = 3; // Number of frames in the spritesheet
   const BIRD_HEIGHT = GAME_H * 0.4; // Set a fixed bird height (e.g. 11% of canvas height)
 
@@ -584,7 +580,7 @@ useEffect(() => {
       ctx.save();
 
       // Bird body (circle)
-      ctx.fillStyle = anim === "celebrate" ? "#FFD700" : "#FF6B35";
+      ctx.fillStyle = anim === "1" ? "#FFD700" : "#FF6B35";
       ctx.beginPath();
       ctx.arc(x, y, size / 2, 0, Math.PI * 2);
       ctx.fill();
@@ -597,7 +593,7 @@ useEffect(() => {
       // Wing (animated flap) - 3 frame animation like original
       const wingPositions = [-2, 0, 2];
       const wingOffset = wingPositions[flyFrame % 3];
-      ctx.fillStyle = anim === "celebrate" ? "#FFA500" : "#FF4500";
+      ctx.fillStyle = anim === "1" ? "#FFA500" : "#FF4500";
       ctx.beginPath();
       ctx.ellipse(x - 4, y + wingOffset, 8, 4, 0, 0, Math.PI * 2);
       ctx.fill();

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 // Google Analytics tracking ID
 const GA_TRACKING_ID = 'AW-764023269';
