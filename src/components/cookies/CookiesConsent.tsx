@@ -33,10 +33,7 @@ const CookiesConsent: React.FC<CookiesConsentProps> = ({ onAccept, onDecline }) 
     if (onDecline) onDecline();
   };
 
-  const handleCustomize = () => {
-    // For now, just accept - can be expanded later for granular controls
-    handleAccept();
-  };
+
 
   if (!isVisible) return null;
 

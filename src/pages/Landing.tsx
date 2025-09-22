@@ -278,7 +278,7 @@ const handleEarn = useCallback((amount: number) => {
 
           {/* iPhone frame — always above */}
           <img
-            src="/public/Iphone.svg"
+            src="/react/Iphone.svg"
             alt="iPhone Frame"
             style={{
               width: "80%",

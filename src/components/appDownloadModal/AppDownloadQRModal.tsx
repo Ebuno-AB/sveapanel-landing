@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Smartphone, Download, Phone } from 'lucide-react';
+import { X } from 'lucide-react';
 import QRCode from 'react-qr-code';
 import './AppDownloadQRModal.css';
 
