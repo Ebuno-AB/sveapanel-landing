@@ -120,7 +120,7 @@ const HeroSection: React.FC<HeroProps> = ({
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
               <img
-                src="/react/public/assets/sveamodel.png"
+                src="/react/public/assets/sveamock.png"
                 className="phone-img"
               />
               <img
