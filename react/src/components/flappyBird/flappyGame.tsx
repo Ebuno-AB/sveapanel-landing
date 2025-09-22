@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import FlappySound from "/assets/flappySound.mp3"
-import LosingSound from "/assets/losingSound.mp3"
+import FlappySound from "/react/public/assets/flappySound.mp3"
+import LosingSound from "/react/public/assets/losingSound.mp3"
 /**
  * -------- Bird Image Config --------
  */
-const Bird_Img = "/assets/sveaBird.png";
+const Bird_Img = "/react/public/assets/sveaBird.png";
 
 
 /**

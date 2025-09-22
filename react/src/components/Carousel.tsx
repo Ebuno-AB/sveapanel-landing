@@ -36,16 +36,16 @@ const Carousel = () => {
           }}
         >
           {[
-            "/assets/games/candyCrush.png",
-            "/assets/games/monopoly.png", 
-            "/assets/games/pigGame.png",
-            "/assets/games/tontongGame.png",
+            "/react/public/assets/games/candyCrush.png",
+            "/react/public/assets/games/monopoly.png", 
+            "/react/public/assets/games/pigGame.png",
+            "/react/public/assets/games/tontongGame.png",
           ]
             .concat([
-              "/assets/games/candyCrush.png",
-              "/assets/games/monopoly.png",
-              "/assets/games/pigGame.png", 
-              "/assets/games/tontongGame.png",
+              "/react/public/assets/games/candyCrush.png",
+              "/react/public/assets/games/monopoly.png",
+              "/react/public/assets/games/pigGame.png", 
+              "/react/public/assets/games/tontongGame.png",
             ])
             .map((src, i) => (
               <img

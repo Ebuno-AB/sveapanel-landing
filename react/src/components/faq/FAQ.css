@@ -10,7 +10,7 @@
 /* Airbnb Cereal Font - All Weights */
 @font-face {
   font-family: "Cereal";
-  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Lt.otf") format("opentype");
+  src: url("./react/public/assets/fonts/Cereal/AirbnbCereal_W_Lt.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -18,7 +18,7 @@
 
 @font-face {
   font-family: "Cereal";
-  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Md.otf") format("opentype");
+  src: url("./react/public/assets/fonts/Cereal/AirbnbCereal_W_Md.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 
 @font-face {
   font-family: "Cereal";
-  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Bd.otf") format("opentype");
+  src: url("./react/public/assets/fonts/Cereal/AirbnbCereal_W_Bd.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
 
 @font-face {
   font-family: "Cereal";
-  src: url("./assets/fonts/Cereal/AirbnbCereal_W_XBd.otf") format("opentype");
+  src: url("./react/public/assets/fonts/Cereal/AirbnbCereal_W_XBd.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: "Cereal";
-  src: url("./assets/fonts/Cereal/AirbnbCereal_W_Blk.otf") format("opentype");
+  src: url("./react/public/assets/fonts/Cereal/AirbnbCereal_W_Blk.otf") format("opentype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;

@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Left side - Logo and Company info */}
         <div className="footer-left">
           <div className="footer-logo">
-            <img src="/logo.png" alt="SveaPanelen" />
+            <img src="/react/public/logo.png" alt="SveaPanelen" />
             <span>SveaPanelen</span>
           </div>
           <p className="footer-tagline">

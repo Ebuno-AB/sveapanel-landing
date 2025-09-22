@@ -278,7 +278,7 @@ const handleEarn = useCallback((amount: number) => {
 
           {/* iPhone frame — always above */}
           <img
-            src="/public/Iphone.svg"
+            src="/react/public/Iphone.svg"
             alt="iPhone Frame"
             style={{
               width: "80%",
@@ -299,7 +299,7 @@ const handleEarn = useCallback((amount: number) => {
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
         title="Tjäna pengar på enkäter online"
         description="Få betalt för din åsikt – enkelt hemifrån."
-        backgroundImage="/assets/gameCards.webp"
+        backgroundImage="/react/public/assets/gameCards.webp"
       >
         <SurveyCards onEarn={handleEarn} />
       </FeatureSection>

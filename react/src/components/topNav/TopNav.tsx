@@ -116,7 +116,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
         <div className="topnav-container">
           {/* Logo */}
           <div className="topnav-logo">
-            <img src="/logo.png" alt="SveaPanelen logo" className="topnav-logo-img" />
+            <img src="/react/public/logo.png" alt="SveaPanelen logo" className="topnav-logo-img" />
             {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
           </div>
 
@@ -180,7 +180,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
           {/* Menu Header */}
           <div className="mobile-menu-header">
             <div className="mobile-menu-logo">
-              <img src="/logo.png" alt="SveaPanelen logo" />
+              <img src="/react/public/logo.png" alt="SveaPanelen logo" />
               <span className="mobile-menu-brand">SveaPanelen</span>
             </div>
             <button

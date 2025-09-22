@@ -49,7 +49,7 @@ return (
                   <button className="custom-app-btn" onClick={handleBankIDRegistration}>
                     Registrera dig med BankID
                     <img
-                      src="/assets/BankID_logo.svg"
+                      src="/react/public/assets/BankID_logo.svg"
                       style={{ width: 50, height: "auto", marginLeft: 8 }}
                     />
                   </button>
@@ -59,7 +59,7 @@ return (
                 <div className="custom-app-buttons">
                   <button className="custom-app-btn" onClick={handleAppDownload}>
                     Ladda ner appen
-                    <img src="/assets/logo/logo.svg" style={{ width: 35, height: 35 }} />
+                    <img src="/react/public/assets/logo/logo.svg" style={{ width: 35, height: 35 }} />
                   </button>
                 </div>
               )}
@@ -68,7 +68,7 @@ return (
                 <p className="stores-label">Tillgänglig på</p>
                 <div className="stores-row">
                   <img
-                    src="/assets/googleplay.png"
+                    src="/react/public/assets/googleplay.png"
                     alt="Ladda ner på Google Play"
                     className="store-badge"
                     onClick={handleGooglePlayClick}
@@ -82,7 +82,7 @@ return (
                     }}
                   />
                   <img
-                    src="/assets/appstore.png"
+                    src="/react/public/assets/appstore.png"
                     alt="Ladda ner på App Store"
                     className="store-badge"
                     onClick={handleAppStoreClick}
@@ -103,10 +103,10 @@ return (
           {/* Right: visuals */}
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
-              <img src="/assets/sveamodel.png" className="phone-img" />
-              <img src="/assets/conf1.avif" className="floaty badge badge-1" />
-              <img src="/assets/conf2.avif" className="floaty badge badge-2" />
-              <img src="/assets/conf3.avif" className="floaty badge badge-3" />
+              <img src="/react/public/assets/sveamodel.png" className="phone-img" />
+              <img src="/react/public/assets/conf1.avif" className="floaty badge badge-1" />
+              <img src="/react/public/assets/conf2.avif" className="floaty badge badge-2" />
+              <img src="/react/public/assets/conf3.avif" className="floaty badge badge-3" />
             </div>
           </div>
         </div>
