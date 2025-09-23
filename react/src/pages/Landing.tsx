@@ -35,24 +35,23 @@ function Landing() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
 
-  
   const [totalEarnings, setTotalEarnings] = useState(0);
   const earningsRef = useRef(0);
-  
-// Throttle UI updates to every 200ms
-useEffect(() => {
-  const interval = setInterval(() => {
-    if (earningsRef.current !== totalEarnings) {
-      setTotalEarnings(earningsRef.current);
-    }
-  }, 200);
-  return () => clearInterval(interval);
-}, [totalEarnings]);
 
-// Use this for FlappyGame and SurveyCards
-const handleEarn = useCallback((amount: number) => {
-  earningsRef.current = parseFloat((earningsRef.current + amount).toFixed(1));
-}, []);
+  // Throttle UI updates to every 200ms
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (earningsRef.current !== totalEarnings) {
+        setTotalEarnings(earningsRef.current);
+      }
+    }, 200);
+    return () => clearInterval(interval);
+  }, [totalEarnings]);
+
+  // Use this for FlappyGame and SurveyCards
+  const handleEarn = useCallback((amount: number) => {
+    earningsRef.current = parseFloat((earningsRef.current + amount).toFixed(1));
+  }, []);
 
   // BankID integration
   const {
@@ -202,9 +201,8 @@ const handleEarn = useCallback((amount: number) => {
       });
     }
   }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
-    
-      return (
-       
+
+  return (
     <>
 
     
@@ -224,12 +222,11 @@ const handleEarn = useCallback((amount: number) => {
       <div
         style={{
           background:
-           "linear-gradient(135deg, #3691d6ff 0%, #e1a8ffff 50%, #b2a8ffff 100%)"
+            "linear-gradient(135deg, #6a5ae0 0%, #7e7eff 50%, #49c6f3 100%)",
         }}
       >
         <InfoSection />
-     
-   
+
         {/* Ratings Section - Customer Reviews and Trust */}
         <div style={{ padding: "25px 15px" }}>
           <RatingsSection />
@@ -238,16 +235,13 @@ const handleEarn = useCallback((amount: number) => {
 
       {/* First Feature Section - Games */}
       <FeatureSection
-        background="linear-gradient(135deg, #e05d89ff 0%, #ffa8cc 50%, #c8a8ff 100%)"
+        background="linear-gradient(135deg, #ff7ac7 0%, #b56cff 50%, #4baaff 100%)"
         title="100+ mobilspel att ladda ner!"
         description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
-      carousel={
-        <Carousel />
-      }
+        carousel={<Carousel />}
       >
-      
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
           {/* Game inside phone (scales with frame) */}
@@ -298,7 +292,8 @@ const handleEarn = useCallback((amount: number) => {
 
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
-        background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
+        background="linear-gradient(135deg, #6a5ae0 0%, #7e7eff 50%, #49c6f3 100%)
+"
         title="Tjäna pengar på enkäter online"
         description="Få betalt för din åsikt – enkelt hemifrån."
       >
@@ -358,8 +353,6 @@ const handleEarn = useCallback((amount: number) => {
           });
         }}
       />
-
-     
     </>
   );
 }

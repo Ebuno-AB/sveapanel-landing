@@ -20,7 +20,7 @@ export default function MovingBlurryBlobsBare() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(800px 600px at 10% 20%, #7f0b99ff 0%, transparent 80%), radial-gradient(900px 500px at 90% 80%, #18a03cff 0%, transparent 100%), radial-gradient(800px 800px at 50% 120%, #ab2a6dff 0%, #203fb8ff 70%)",
+            "radial-gradient(800px 600px at 10% 20%, #7f0b99ff 0%, transparent 80%),radial-gradient(900px 500px at 90% 80%, #06b6d4ff 0%, transparent 100%),radial-gradient(800px 800px at 50% 120%, #ab2a6dff 0%, #203fb8ff 70%)",
         }}
       />
 
