@@ -248,12 +248,11 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-            
-              top: isPhoneDevice ? "2.5%" : "0%",
+              top: isPhoneDevice ? "2.5%" : "2.5%",
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
-              height: isPhoneDevice ? "80%" : "84%",
+              height: isPhoneDevice ? "84%" : "84%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",  

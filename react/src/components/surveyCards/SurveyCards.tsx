@@ -8,9 +8,10 @@ type CardProps = {
   rating: number;         // 0..5
   tag?: string;
   onEarn?: (amount: number) => void;
+  color?: string; 
 };
 
-const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEarn }) => {
+const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEarn, color }) => {
   const [pop, setPop] = useState(false);
   const [bursts, setBursts] = useState<Array<{ id: number }>>([]);
 
@@ -78,8 +79,17 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEa
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      <div className="sc-pill sc-pill--time">{minutes} min</div>
-      <div className="sc-pill sc-pill--tag">{tag}</div>
+            <div className="sc-pill sc-pill--time">{minutes} min</div>
+      <div
+        className="sc-pill sc-pill--tag"
+        style={{
+          // Use the color prop for background, and set text color as needed
+          "--pill-bg": color,
+          "--pill-text": "#fff", // or any color you want
+        } as React.CSSProperties}
+      >
+        {tag}
+      </div>
 
       <div className="sc-price">
         <span className="sc-price-value">{price.toString().replace(",", ".")}</span>
@@ -161,9 +171,9 @@ const handleEarn = React.useCallback((amount: number) => {
 
 
       <div className="sc-wrap">
-        <PriceCard minutes={8} price={18.3} rating={3.5} onEarn={handleEarn} tag="Cint" />
-        <PriceCard minutes={5} price={12.7} rating={5} onEarn={handleEarn} tag="Prime Survey"/>
-        <PriceCard minutes={7} price={11.5} rating={4.5} onEarn={handleEarn} tag="Pure Spectrum" />
+        <PriceCard minutes={8} price={18.3} rating={3.5} onEarn={handleEarn} tag="Cint" color="#000000" />
+        <PriceCard minutes={5} price={12.7} rating={5} onEarn={handleEarn} tag="Prime Survey" color="#695CFF"/>
+        <PriceCard minutes={7} price={11.5} rating={4.5} onEarn={handleEarn} tag="Pure Spectrum" color="#eb0d0dff" />
       </div>
     </div>
   );

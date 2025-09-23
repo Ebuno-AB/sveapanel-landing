@@ -26,7 +26,8 @@
   top: 10rem;
 }
 
-.feature-phone-showcase > div {
+
+.feature-phone-showcase > div { 
   position: absolute;
   top: 4%;
   left: 14%;
