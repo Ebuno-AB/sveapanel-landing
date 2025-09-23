@@ -135,7 +135,7 @@
 
 .phone-wrap {
   position: relative;
-  width: 500px; /* scaled up from 400px (10% increase) */
+  width: 450px; /* scaled up from 400px (10% increase) */
   max-width: 100%;
   aspect-ratio: 400 / 550; /* keep proportions on shrink */
   transition: transform 0.3s ease;

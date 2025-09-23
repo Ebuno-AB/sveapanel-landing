@@ -11,14 +11,17 @@ const InfoSection: React.FC = () => {
 
       <div className="info-section-cards">
         <CardSection
+          backgroundImage="/react/public/assets/gameillustration.png"
           title="Spela mobilspel"
           description="Spela och samla poäng – belöningarna tickar in medan du spelar."
         />
         <CardSection
+          backgroundImage="/react/public/assets/surveyillustration.png"
           title="Svara på enkäter"
           description="Korta enkäter anpassade för dig. Få poäng för varje svar och extra bonus när du tipsar en vän."
         />
         <CardSection
+          backgroundImage="/react/public/assets/payoutillustration.png"
           title="Tjäna pengar"
           description="Lös uppgifter, klara mål och se saldot växa. Ta ut dina pengar direkt till Swish!"
         />
