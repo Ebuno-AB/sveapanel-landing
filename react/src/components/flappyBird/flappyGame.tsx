@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import FlappySound from "/react/public/assets/flappySound.mp3"
-import LosingSound from "/react/public/assets/losingSound.mp3"
-/**
- * -------- Bird Image Config --------
- */
-const Bird_Img = "/react/public/assets/sveaBird.png";
-
+import FlappySound from "@/src/public/assets/flappySound.mp3";
+import LosingSound from "@/src/public/assets/losingSound.mp3";
+import Bird_Img from "@/src/public/assets/sveaBird.png";
 
 /**
  * -------- Game tuning --------
@@ -30,36 +26,38 @@ let PIPE_SPAWN_DIST = 500; // More spacing for taller canvas
 let PIPE_SPEED_BASE = 300; // Faster speed to match taller proportions
 let HITBOX_R = 25; // Larger hitbox for scaled elements
 
-
-
 function FlappyBirdCanvas({
   onPointGained = () => {},
 }: {
   onPointGained: () => void;
 }) {
-
   const soundRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     soundRef.current = new Audio(FlappySound);
   }, []);
 
   const losingSoundRef = useRef<HTMLAudioElement | null>(null);
-useEffect(() => {
-  soundRef.current = new Audio(FlappySound);
-  losingSoundRef.current = new Audio(LosingSound);
-}, []);
+  useEffect(() => {
+    soundRef.current = new Audio(FlappySound);
+    losingSoundRef.current = new Audio(LosingSound);
+  }, []);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const [dimensions, setDimensions] = useState({ width: GAME_W, height: GAME_H, displaySize: 500, displayWidth: 1400 });
+  const [dimensions, setDimensions] = useState({
+    width: GAME_W,
+    height: GAME_H,
+    displaySize: 500,
+    displayWidth: 1400,
+  });
 
   // Calculate dimensions to fit within iPhone frame screen area
   const calculateDimensions = () => {
     // Dimensions optimized for iPhone screen area
     // Use a mobile-friendly aspect ratio that fits the phone screen
-    const gameWidth = 600;  // Much larger canvas for more zoomed in appearance
+    const gameWidth = 600; // Much larger canvas for more zoomed in appearance
     const gameHeight = 900; // Even taller for better mobile experience
-    
+
     // Display dimensions that will be scaled by CSS
     const displayWidth = gameWidth;
     const displayHeight = gameHeight;
@@ -69,7 +67,7 @@ useEffect(() => {
     GAME_H = gameHeight;
     GROUND_H = GAME_H * 0.15; // 15% of height for ground for better proportions
     VIEW_H = GAME_H - GROUND_H;
-    
+
     // Scale game physics and elements for mobile - more zoomed in feel
     GRAVITY = 1400; // Adjusted for more authentic feel
     JUMP_VELOCITY = -460; // Stronger jump for better control
@@ -81,7 +79,7 @@ useEffect(() => {
     PIPE_SPAWN_DIST = 340; // More spacing for taller canvas
     PIPE_SPEED_BASE = 220; // Faster speed to match proportions
     HITBOX_R = 25; // Larger hitbox for scaled elements
-    
+
     return { width: GAME_W, height: GAME_H, displaySize: displayHeight, displayWidth };
   };
 
@@ -201,9 +199,9 @@ useEffect(() => {
 
     // Set initial dimensions
     handleResize();
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // asset load
@@ -253,7 +251,7 @@ useEffect(() => {
       s.birdVY += GRAVITY * dt;
       s.birdY += s.birdVY * dt;
       s.birdY = Math.max(0, Math.min(VIEW_H - 1, s.birdY));
-      
+
       // More authentic angle calculation like original Flappy Bird
       // Angle responds more dramatically to velocity changes
       const velocityFactor = s.birdVY / 400;
@@ -269,19 +267,22 @@ useEffect(() => {
       s.spawnAccumulator += speed * dt;
       while (s.spawnAccumulator >= PIPE_SPAWN_DIST) {
         s.spawnAccumulator -= PIPE_SPAWN_DIST;
-              const gap = rand(PIPE_GAP_MIN, PIPE_GAP_MAX);
-      // Pick a center for the gap, not just a top
-      const minCenter = PIPE_HOLE_MIN + gap / 2;
-      const maxCenter = PIPE_HOLE_MAX - gap / 2;
-      const gapCenter = rand(minCenter, maxCenter);
-      const hole = Math.max(PIPE_HOLE_MIN, Math.min(PIPE_HOLE_MAX - gap, gapCenter - gap / 2));
-      s.pipes.push({
-        x: GAME_W + 40,
-        top: hole,
-        gap,
-        passed: false,
-        id: Math.random(),
-      });
+        const gap = rand(PIPE_GAP_MIN, PIPE_GAP_MAX);
+        // Pick a center for the gap, not just a top
+        const minCenter = PIPE_HOLE_MIN + gap / 2;
+        const maxCenter = PIPE_HOLE_MAX - gap / 2;
+        const gapCenter = rand(minCenter, maxCenter);
+        const hole = Math.max(
+          PIPE_HOLE_MIN,
+          Math.min(PIPE_HOLE_MAX - gap, gapCenter - gap / 2)
+        );
+        s.pipes.push({
+          x: GAME_W + 40,
+          top: hole,
+          gap,
+          passed: false,
+          id: Math.random(),
+        });
       }
 
       // move pipes & scoring
@@ -289,17 +290,17 @@ useEffect(() => {
       for (const p of s.pipes) {
         p.x -= speed * dt;
         if (!p.passed && p.x + PIPE_W < birdX) {
-        p.passed = true;
-        s.score += 1;
-        s.money += 1;
-        if(soundRef.current) {
-          soundRef.current.currentTime = 0;
-          soundRef.current.play();
+          p.passed = true;
+          s.score += 1;
+          s.money += 1;
+          if (soundRef.current) {
+            soundRef.current.currentTime = 0;
+            soundRef.current.play();
+          }
+          // console.log("Bird passed through pipe - calling onPointGained()");
+          onPointGained();
+          s.shakeT = 0.15;
         }
-        // console.log("Bird passed through pipe - calling onPointGained()");
-        onPointGained();
-        s.shakeT = 0.15;
-      }
       }
       // remove off-screen
       s.pipes = s.pipes.filter((p) => p.x > -PIPE_W - 10);
@@ -324,16 +325,16 @@ useEffect(() => {
       }
 
       if (losingSoundRef.current) {
-      losingSoundRef.current.currentTime = 0;
-      losingSoundRef.current.play();
-       }
+        losingSoundRef.current.currentTime = 0;
+        losingSoundRef.current.play();
+      }
     } else if (s.mode === "waiting") {
       // idle bob - more subtle like original
       s.birdY = VIEW_H * 0.6 + Math.sin(now * 0.003) * 6;
       s.angle = Math.sin(now * 0.003) * 2;
     } else if (s.mode === "dead") {
       s.parallaxX = 0;
-    s.groundX = 0;
+      s.groundX = 0;
       // settle on ground - bird falls naturally with gravity
       if (s.birdY < VIEW_H - 1) {
         s.birdVY += GRAVITY * dt;
@@ -342,12 +343,10 @@ useEffect(() => {
         const velocityFactor = s.birdVY / 400;
         s.angle = Math.min(MAX_DROP_ANGLE, velocityFactor * 90);
       } else {
-        
         s.birdY = VIEW_H - 1;
         s.birdVY = 0;
         s.angle = MAX_DROP_ANGLE; // Bird is flat on ground
       }
-      
     }
 
     // Wing flap animation - faster when alive, slower when dead
@@ -388,7 +387,7 @@ useEffect(() => {
 
     // Draw multiple sets of clouds to ensure seamless coverage
     for (let i = -1; i <= 2; i++) {
-      const setOffset = baseOffset + (i * totalCloudWidth);
+      const setOffset = baseOffset + i * totalCloudWidth;
       drawCloud(ctx, setOffset + 50, 120, 80, 24);
       drawCloud(ctx, setOffset + 400, 200, 50, 16);
       drawCloud(ctx, setOffset + 750, 100, 80, 24);
@@ -399,7 +398,14 @@ useEffect(() => {
     // pipes
     for (const p of s.pipes) {
       drawPipe(ctx, p.x, 0, PIPE_W, p.top, true); // top pipe - cap at bottom
-      drawPipe(ctx, p.x, p.top + p.gap, PIPE_W, VIEW_H - (p.top + p.gap), false); // bottom pipe - cap at top
+      drawPipe(
+        ctx,
+        p.x,
+        p.top + p.gap,
+        PIPE_W,
+        VIEW_H - (p.top + p.gap),
+        false
+      ); // bottom pipe - cap at top
     }
 
     // ground
@@ -445,12 +451,10 @@ useEffect(() => {
 
     // overlays
     if (s.mode === "waiting") {
-
       drawCenterText(ctx, "Flappy Svea", 64);
 
       drawSubText(ctx, "Pröva spela!", 38, 64);
     } else if (s.mode === "dead") {
-      
       drawCenterText(ctx, "Game Over", 58);
       drawSubText(ctx, "Click to play again", 18, 54);
     }
@@ -533,7 +537,7 @@ useEffect(() => {
   };
   // Add a scaling factor for the bird's width
   const SPRITE_FRAMES = 3; // Number of frames in the spritesheet
-  const BIRD_HEIGHT = GAME_H * 0.4; // Set a fixed bird height (e.g. 11% of canvas height)
+  const BIRD_HEIGHT = GAME_H * 0.3; // Set a fixed bird height (e.g. 11% of canvas height)
 
   const drawBird = (
     ctx: CanvasRenderingContext2D,
@@ -548,35 +552,35 @@ useEffect(() => {
 
       const bounce = anim === "1" ? Math.sin(flyFrame * 2) * 1 : 0;
       const scale = anim === "2" ? 1.1 + Math.sin(flyFrame * 0.5) * 0.1 : 1;
-        
-          ctx.translate(x, y + bounce);
-          ctx.scale(scale, scale);
-          ctx.imageSmoothingEnabled = false;
-    const frameWidth = img.width / SPRITE_FRAMES;
-    const frameHeight = img.height;
-    const frame = flyFrame % SPRITE_FRAMES;
-    const aspect = frameWidth / frameHeight;
-    const targetHeight = BIRD_HEIGHT;
-    const targetWidth = BIRD_HEIGHT * aspect;
 
-    // Crop a bit from the right of each frame
-    const crop = 10; // pixels to crop from the right
-    ctx.drawImage(
-      img,
-      frame * (frameWidth - crop), // sx
-      0,                  // sy
-      frameWidth - crop,  // sWidth
-      frameHeight,        // sHeight
-      -targetWidth / 2,   // dx
-      -targetHeight / 2,  // dy
-      targetWidth,        // dWidth
-      targetHeight        // dHeight
-    );
+      ctx.translate(x, y + bounce);
+      ctx.scale(scale, scale);
+      ctx.imageSmoothingEnabled = false;
+      const frameWidth = img.width / SPRITE_FRAMES;
+      const frameHeight = img.height;
+      const frame = flyFrame % SPRITE_FRAMES;
+      const aspect = frameWidth / frameHeight;
+      const targetHeight = BIRD_HEIGHT;
+      const targetWidth = BIRD_HEIGHT * aspect;
+
+      // Crop a bit from the right of each frame
+      const crop = 10; // pixels to crop from the right
+      ctx.drawImage(
+        img,
+        frame * (frameWidth - crop), // sx
+        0, // sy
+        frameWidth - crop, // sWidth
+        frameHeight, // sHeight
+        -targetWidth / 2, // dx
+        -targetHeight / 2, // dy
+        targetWidth, // dWidth
+        targetHeight // dHeight
+      );
 
       ctx.restore();
     } else {
       // Fallback: draw a simple bird shape
-      const size = GAME_W * 0.06; // Proportional fallback bird size
+      const size = GAME_W * 0.05; // Proportional fallback bird size
       ctx.save();
 
       // Bird body (circle)
@@ -630,69 +634,71 @@ useEffect(() => {
     }
   };
 
-const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
-  const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
-  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = Math.max(3, GAME_W * 0.012);
-  ctx.textAlign = "center";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-  ctx.shadowBlur = 6;
-  const yPos = GAME_H * 0.14; // 14% from top
-  ctx.strokeText(String(score), GAME_W / 2, yPos);
-  ctx.fillText(String(score), GAME_W / 2, yPos);
-};
+  const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
+    const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
+    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+    ctx.fillStyle = "#fff";
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
+    ctx.textAlign = "center";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    ctx.shadowBlur = 6;
+    const yPos = GAME_H * 0.14; // 14% from top
+    ctx.strokeText(String(score), GAME_W / 2, yPos);
+    ctx.fillText(String(score), GAME_W / 2, yPos);
+  };
 
-const drawCenterText = (
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  baseFontSize: number
-) => {
-  const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
-  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = Math.max(4, GAME_W * 0.016);
-  ctx.textAlign = "center";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-  ctx.shadowBlur = 6;
-  ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-  ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-};
+  const drawCenterText = (
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    baseFontSize: number
+  ) => {
+    const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
+    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+    ctx.fillStyle = "#fff";
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = Math.max(4, GAME_W * 0.016);
+    ctx.textAlign = "center";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    ctx.shadowBlur = 6;
+    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
+    ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
+  };
 
-const drawSubText = (
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  baseFontSize: number,
-  offset = 0,
-  color = "#fff"
-) => {
-  const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
-  ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
-  ctx.fillStyle = color;
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = Math.max(2, GAME_W * 0.008);
-  ctx.textAlign = "center";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-  ctx.shadowBlur = 6;
-  const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
-  ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-  ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-};
+  const drawSubText = (
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    baseFontSize: number,
+    offset = 0,
+    color = "#fff"
+  ) => {
+    const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
+    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = Math.max(2, GAME_W * 0.008);
+    ctx.textAlign = "center";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    ctx.shadowBlur = 6;
+    const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
+    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
+    ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
+  };
   // utils
   const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
   const ignoreClickRef = useRef(false);
 
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center",
-      width: "100%",
-      height: "100%"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <canvas
         ref={canvasRef}
         width={dimensions.width}
@@ -717,7 +723,9 @@ const drawSubText = (
         }}
         onTouchStart={() => {
           ignoreClickRef.current = true;
-          setTimeout(() => { ignoreClickRef.current = false; }, 400);
+          setTimeout(() => {
+            ignoreClickRef.current = false;
+          }, 400);
           jump();
           const s = stateRef.current;
           if (s.mode === "dead") reset();

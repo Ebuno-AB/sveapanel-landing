@@ -23,10 +23,10 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
+import iphone from "@/src/public/Iphone.svg"
 
 function Landing() {
   const { trackEvent } = useGA();
-
   const navigate = useNavigate();
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -204,7 +204,10 @@ const handleEarn = useCallback((amount: number) => {
   }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
     
       return (
+       
     <>
+
+    
       <TopNav
         handleAppDownload={handleAppDownload}
         moneyValue={totalEarnings}
@@ -278,14 +281,13 @@ const handleEarn = useCallback((amount: number) => {
 
           {/* iPhone frame — always above */}
           <img
-            src="/react/public/Iphone.svg"
+            src={iphone}
             alt="iPhone Frame"
             style={{
               width: "80%",
               height: "auto",
               display: "block",
-              filter:
-                "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
+              filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
               zIndex: 2,
               position: "relative",
               pointerEvents: "none", // allows game interactions through
@@ -299,7 +301,6 @@ const handleEarn = useCallback((amount: number) => {
         background="linear-gradient(135deg, #ff6bf3ff 0%, #a8b8ffff 50%, #c8a8ff 100%)"
         title="Tjäna pengar på enkäter online"
         description="Få betalt för din åsikt – enkelt hemifrån."
-        backgroundImage="/react/public/assets/gameCards.webp"
       >
         <SurveyCards onEarn={handleEarn} />
       </FeatureSection>

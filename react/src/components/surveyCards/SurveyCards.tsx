@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SurveyCards.css";
-import Money from "/react/public/assets/Catching.mp3";
+import Money from "@/src/public/assets/Catching.mp3";
 
 type CardProps = {
   minutes: number | string;

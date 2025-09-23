@@ -1,3 +1,7 @@
+import candyCrushImg from "@/src/public/assets/games/candyCrush.png";
+import monopolyImg from "@/src/public/assets/games/monopoly.png";
+import pigGameImg from "@/src/public/assets/games/pigGame.png";
+import tontongGameImg from "@/src/public/assets/games/tontongGame.png";
 
 const Carousel = () => {
   // Calculate exact dimensions for perfect loop
@@ -36,16 +40,16 @@ const Carousel = () => {
           }}
         >
           {[
-            "/react/public/assets/games/candyCrush.png",
-            "/react/public/assets/games/monopoly.png", 
-            "/react/public/assets/games/pigGame.png",
-            "/react/public/assets/games/tontongGame.png",
+            candyCrushImg,
+            monopolyImg,
+            pigGameImg,
+            tontongGameImg,
           ]
             .concat([
-              "/react/public/assets/games/candyCrush.png",
-              "/react/public/assets/games/monopoly.png",
-              "/react/public/assets/games/pigGame.png", 
-              "/react/public/assets/games/tontongGame.png",
+              candyCrushImg,
+              monopolyImg,
+              pigGameImg,
+              tontongGameImg,
             ])
             .map((src, i) => (
               <img

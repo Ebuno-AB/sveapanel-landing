@@ -1,5 +1,6 @@
 // Footer component 
 import './Footer.css';
+import logoImg from "@/src/public/logo.png";
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export default function Footer() {
         {/* Left side - Logo and Company info */}
         <div className="footer-left">
           <div className="footer-logo">
-            <img src="/react/public/logo.png" alt="SveaPanelen" />
+            <img src={logoImg} alt="SveaPanelen" />
             <span>SveaPanelen</span>
           </div>
           <p className="footer-tagline">

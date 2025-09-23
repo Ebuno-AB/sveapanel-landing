@@ -2,6 +2,12 @@ import React from "react";
 import "./HeroSection.css";
 import MovingBlurryBlobsBare from "../BlurryBlobBackground";
 // import TyperEffect from "./TyperEffect";
+import phoneImg from "@/src/public/assets/sveamock.png";
+import bankIDLogo from "@/src/public/assets/BankID_logo.svg";
+import logoImg from "@/src/public/assets/logo/logo.svg";
+import conf1Img from "@/src/public/assets/conf1.avif";
+import conf2Img from "@/src/public/assets/conf2.avif";
+import conf3Img from "@/src/public/assets/conf3.avif";
 
 interface HeroProps {
   isRegistered: boolean;
@@ -60,7 +66,7 @@ const HeroSection: React.FC<HeroProps> = ({
                   >
                     Registrera dig med BankID
                     <img
-                      src="/react/public/assets/BankID_logo.svg"
+                      src={bankIDLogo}
                       style={{ width: 50, height: "auto", marginLeft: 8 }}
                     />
                   </button>
@@ -73,7 +79,7 @@ const HeroSection: React.FC<HeroProps> = ({
                   >
                     Ladda ner appen
                     <img
-                      src="/react/public/assets/logo/logo.svg"
+                      src={logoImg}
                       style={{ width: 35, height: 35 }}
                     />
                   </button>
@@ -84,7 +90,7 @@ const HeroSection: React.FC<HeroProps> = ({
                 <p className="stores-label">Tillgänglig på</p>
                 <div className="stores-row">
                   <img
-                    src="/react/public/assets/googleplay.png"
+                    src="react/src/public/assets/googleplay.png"
                     alt="Ladda ner på Google Play"
                     className="store-badge"
                     onClick={handleGooglePlayClick}
@@ -98,7 +104,7 @@ const HeroSection: React.FC<HeroProps> = ({
                     }}
                   />
                   <img
-                    src="/react/public/assets/appstore.png"
+                    src="react/src/public/assets/appstore.png"
                     alt="Ladda ner på App Store"
                     className="store-badge"
                     onClick={handleAppStoreClick}
@@ -120,19 +126,19 @@ const HeroSection: React.FC<HeroProps> = ({
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
               <img
-                src="/react/public/assets/sveamock.png"
+                src={phoneImg}
                 className="phone-img"
               />
               <img
-                src="/react/public/assets/conf1.avif"
+                src={conf1Img}
                 className="floaty badge badge-1"
               />
               <img
-                src="/react/public/assets/conf2.avif"
+                src={conf2Img}
                 className="floaty badge badge-2"
               />
               <img
-                src="/react/public/assets/conf3.avif"
+                src={conf3Img}
                 className="floaty badge badge-3"
               />
             </div>

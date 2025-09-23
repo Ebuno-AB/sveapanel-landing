@@ -1,65 +1,77 @@
 .info-section {
-  padding: clamp(15px, 3vw, 30px) clamp(10px, 2vw, 20px);
+  padding: clamp(16px, 5vw, 48px);
   text-align: center;
+  box-sizing: border-box;
 }
 
 .info-section-title {
   color: white;
-  /* Uses h2 styling from App.css for consistent sizing */
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   max-width: 800px;
-  margin: 0 auto clamp(20px, 4vw, 40px) auto;
+  margin: 0 auto clamp(24px, 5vw, 48px) auto;
 }
 
 .info-section-cards {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
-  gap: clamp(20px, 4vw, 40px);
+  align-items: center; /* always center vertically */
+  gap: clamp(16px, 4vw, 40px);
   max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-/* Mobile layout - column */
-@media (max-width: 768px) {
+/* Mobile: stack cards vertically, allow horizontal scroll if needed */
+@media (max-width: 600px) {
   .info-section-cards {
     flex-direction: column;
     flex-wrap: nowrap;
+    gap: clamp(12px, 3vw, 24px);
+    overflow-x: auto;
+    padding: 0 8px;
+    align-items: center; /* center cards vertically on mobile */
+    width: 100%;
+    max-width: 100vw;
+  }
+  .info-section-title {
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+  }
+  .info-section {
+    padding: clamp(12px, 4vw, 24px);
   }
 }
 
-/* Desktop layout - row */
-@media (min-width: 769px) {
+/* Tablet: slightly larger font and padding */
+@media (min-width: 601px) and (max-width: 1024px) {
   .info-section {
-    padding: 1rem;
+    padding: clamp(20px, 6vw, 40px);
+  }
+  .info-section-title {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+  }
+  .info-section-cards {
+    gap: clamp(16px, 4vw, 32px);
+    align-items: center; /* center cards vertically on tablet */
+    width: 100%;
+  }
+}
+
+/* Desktop: row layout, wrap cards */
+@media (min-width: 1025px) {
+  .info-section {
+    padding: clamp(24px, 8vw, 64px);
+  }
+  .info-section-title {
+    font-size: clamp(2rem, 3vw, 2.5rem);
   }
   .info-section-cards {
     flex-direction: row;
     flex-wrap: wrap;
-  }
-}
-@media (min-width: 480px) {
-  .info-section {
-    padding: 1rem;
-  }
-  .info-section-title {
-    font-size: 1.5rem;
-  }
-
-  .info-section-cards {
-    padding: 2rem;
-  }
-}
-
-@media (min-width: 400px) {
-  .info-section {
-    padding: 2rem;
-  }
-  .info-section-title {
-    font-size: 2.2rem;
-  }
-
-  .info-section-cards {
-    padding: 3rem;
+    gap: clamp(20px, 4vw, 40px);
+    padding: 0;
+    align-items: center; /* center cards vertically on desktop */
+    width: 100%;
   }
 }

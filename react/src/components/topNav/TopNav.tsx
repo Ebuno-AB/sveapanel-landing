@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./TopNav.css";
+import logoImg from "@/src/public/logo.png";
 
 interface TopNavProps {
   handleAppDownload: () => void;
@@ -115,7 +116,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
         <div className="topnav-container">
           {/* Logo */}
           <div className="topnav-logo">
-            <img src="/react/public/logo.png" alt="SveaPanelen logo" className="topnav-logo-img" />
+            <img src={logoImg} alt="SveaPanelen logo" className="topnav-logo-img" />
             {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
           </div>
 
@@ -179,7 +180,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
           {/* Menu Header */}
           <div className="mobile-menu-header">
             <div className="mobile-menu-logo">
-              <img src="/react/public/logo.png" alt="SveaPanelen logo" />
+              <img src={logoImg} alt="SveaPanelen logo" />
               <span className="mobile-menu-brand">SveaPanelen</span>
             </div>
             <button
@@ -246,7 +247,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
 
 export default TopNav;
 
-/* ------- burst subcomponent (unchanged) ------- */
 const SaldoBurst: React.FC<{ amount: number }> = ({ amount }) => {
   const N = 16;
   const coins = Array.from({ length: N }).map((_, i) => {
