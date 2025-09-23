@@ -248,14 +248,15 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-              top: isPhoneDevice ? "4%" : "0%",
+            
+              top: isPhoneDevice ? "2.5%" : "0%",
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
               height: isPhoneDevice ? "80%" : "84%",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center",  
               borderRadius: "clamp(25px, 3vw, 25px)",
               boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
               background: "#000",
@@ -265,6 +266,7 @@ function Landing() {
               msUserSelect: "none",
               WebkitTapHighlightColor: "transparent",
             }}
+
           >
             <FlappyGame
               onPointGained={() => {
@@ -277,6 +279,7 @@ function Landing() {
           <img
             src={iphone}
             alt="iPhone Frame"
+            
             style={{
               width: "80%",
               height: "auto",

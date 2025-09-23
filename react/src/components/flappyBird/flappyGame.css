@@ -6,16 +6,9 @@
               transform: translate(-50%, -50%);
               
               /* Responsive sizing based on screen dimensions */
-              width: min(85vw, 400px);
-              height: min(90vh, calc(min(85vw, 400px) * 1.5));
-              
-              /* Ensure minimum viable size */
-              min-width: 280px;
-              min-height: 420px;
-              
-              /* Maximum size for larger screens */
-              max-width: 450px;
-              max-height: 675px;
+              width: clamp(240px, 85vw, 400px);
+              height: clamp(360px, calc(85vw * 1.5), 600px);
+       
               
               display: flex;
               justify-content: center;
