@@ -59,7 +59,7 @@ const HeroSection: React.FC<HeroProps> = ({
             </ul>
             <div>
               {isRegistered ? (
-                <div>
+                <div className="custom-app-buttons">
                   <button
                     className="custom-app-btn"
                     onClick={handleBankIDRegistration}
@@ -78,10 +78,7 @@ const HeroSection: React.FC<HeroProps> = ({
                     onClick={handleAppDownload}
                   >
                     Ladda ner appen
-                    <img
-                      src={logoImg}
-                      style={{ width: 35, height: 35 }}
-                    />
+                    <img src={logoImg} style={{ width: 35, height: 35 }} />
                   </button>
                 </div>
               )}
@@ -125,22 +122,10 @@ const HeroSection: React.FC<HeroProps> = ({
           {/* Right: visuals */}
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
-              <img
-                src={phoneImg}
-                className="phone-img"
-              />
-              <img
-                src={conf1Img}
-                className="floaty badge badge-1"
-              />
-              <img
-                src={conf2Img}
-                className="floaty badge badge-2"
-              />
-              <img
-                src={conf3Img}
-                className="floaty badge badge-3"
-              />
+              <img src={phoneImg} className="phone-img" />
+              <img src={conf1Img} className="floaty badge badge-1" />
+              <img src={conf2Img} className="floaty badge badge-2" />
+              <img src={conf3Img} className="floaty badge badge-3" />
             </div>
           </div>
         </div>
