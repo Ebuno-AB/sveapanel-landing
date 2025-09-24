@@ -173,8 +173,7 @@ const faqData: FAQItem[] = [
             📝 Kvalitativa och relevanta undersökningar – anpassade efter dig.
           </li>
           <li>
-            🎮 Roliga och välbetalda mobilspel – tjäna poäng och pengar medan du
-            spelar, precis som på plattformar som Freecash.
+            🎮 Roliga och välbetalda mobilspel – tjäna pengar medan du spelar!
           </li>
         </ul>
       </>
