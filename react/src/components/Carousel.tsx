@@ -16,9 +16,9 @@ const Carousel = () => {
           overflow: "hidden",
           width: "100vw",
           maxWidth: "600px",
-          marginLeft: "-6rem",
+          marginLeft: "25px",
           margin: "40px auto 60px",
-          marginBottom: "-4rem", // Adjust this value to change gap below carousel
+          marginBottom: "-100px", // Adjust this value to change gap below carousel
           maskImage:
             "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
           WebkitMaskImage:
