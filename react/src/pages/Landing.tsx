@@ -2,7 +2,7 @@ import "../App.css";
 import "../components/bankModal/BankModal.css";
 import "../styles/BlobStyles.css";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import QRModal from "../components/QRModal";
 
@@ -36,24 +36,6 @@ function Landing() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
   const referralHook = useReferral();
-
-  const [totalEarnings, setTotalEarnings] = useState(0);
-  const earningsRef = useRef(0);
-
-  // Throttle UI updates to every 200ms
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (earningsRef.current !== totalEarnings) {
-        setTotalEarnings(earningsRef.current);
-      }
-    }, 200);
-    return () => clearInterval(interval);
-  }, [totalEarnings]);
-
-  // Use this for FlappyGame and SurveyCards
-  const handleEarn = useCallback((amount: number) => {
-    earningsRef.current = parseFloat((earningsRef.current + amount).toFixed(1));
-  }, []);
 
   // BankID integration
   const {
@@ -159,40 +141,6 @@ function Landing() {
     }
   };
 
-  const handleGooglePlayClick = () => {
-    // Track Google Play download attempt
-    if (cookiesAccepted) {
-      trackEvent("app_download_click", {
-        platform: "google_play",
-        device_type: isPhone() ? "mobile" : "desktop",
-      });
-    }
-
-    const isDesktop = !isPhone();
-    if (isDesktop) {
-      setIsAppDownloadQRModalOpen(true);
-    } else {
-      navigate("/redirect/google");
-    }
-  };
-
-  const handleAppStoreClick = () => {
-    // Track App Store download attempt
-    if (cookiesAccepted) {
-      trackEvent("app_download_click", {
-        platform: "app_store",
-        device_type: isPhone() ? "mobile" : "desktop",
-      });
-    }
-
-    const isDesktop = !isPhone();
-    if (isDesktop) {
-      setIsAppDownloadQRModalOpen(true);
-    } else {
-      navigate("/redirect/apple");
-    }
-  };
-
   // Check for success parameter in URL (for mobile redirects)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -223,17 +171,12 @@ function Landing() {
 
   return (
     <>
-      <TopNav
-        handleAppDownload={handleAppDownload}
-        moneyValue={totalEarnings}
-      />
+      <TopNav handleAppDownload={handleAppDownload} />
 
       <Hero
         isRegistered={isRegistered}
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
-        handleGooglePlayClick={handleGooglePlayClick}
-        handleAppStoreClick={handleAppStoreClick}
       />
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
@@ -283,11 +226,7 @@ function Landing() {
               WebkitTapHighlightColor: "transparent",
             }}
           >
-            <FlappyGame
-              onPointGained={() => {
-                handleEarn(1);
-              }}
-            />
+            <FlappyGame />
           </div>
 
           {/* iPhone frame — always above */}
@@ -315,7 +254,7 @@ function Landing() {
         title="Tjäna pengar på enkäter online"
         description="Få betalt för din åsikt – enkelt hemifrån."
       >
-        <SurveyCards onEarn={handleEarn} />
+        <SurveyCards />
       </FeatureSection>
 
       {/* FAQ Section */}

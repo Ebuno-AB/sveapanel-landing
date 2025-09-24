@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./TopNav.css";
 import logoImg from "@/src/public/logo.png";
+import { useAppSelector } from "@/src/redux/store";
 
 interface TopNavProps {
   handleAppDownload: () => void;
-  moneyValue?: number;
 }
 
-const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) => {
-  const prevRef = useRef(moneyValue);
+const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const moneyValue = useAppSelector((state) => state.balance);
+  const prevRef = useRef<number>(0);
+
+  useEffect(() => {
+    prevRef.current = moneyValue;
+  }, []);
 
   // NEW: refs for a11y and focus management
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -89,6 +94,11 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload, moneyValue = 0 }) =>
   useEffect(() => {
     const prev = prevRef.current;
     if (moneyValue > prev) {
+
+      if(bursts.length >= 8) { // Limit to 8 simultaneous bursts
+        setBursts((bs) => bs.slice(bs.length - 4));
+      }
+
       const diff = parseFloat((moneyValue - prev).toFixed(1));
       if (boxRef.current) {
         boxRef.current.style.setProperty("--click-x", "50%");

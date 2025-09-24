@@ -28,8 +28,6 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
   className = "",
   interactive = false,
   carousel, 
-  style = {},
-
 }) => {
   // Check if we have content to display
   const hasContent = title || description;

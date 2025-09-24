@@ -13,16 +13,12 @@ interface HeroProps {
   isRegistered: boolean;
   handleBankIDRegistration: () => void;
   handleAppDownload: () => void;
-  handleGooglePlayClick: () => void;
-  handleAppStoreClick: () => void;
 }
 
 const HeroSection: React.FC<HeroProps> = ({
   isRegistered,
   handleBankIDRegistration,
   handleAppDownload,
-  handleGooglePlayClick,
-  handleAppStoreClick,
 }) => {
   return (
     <div className="hero">

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./SurveyCards.css";
 import Money from "@/src/public/assets/Catching.mp3";
+import * as balanceRedux from "@/src/redux/slices/balanceSlice";
+import { useDispatch } from "react-redux";
 
 type CardProps = {
   minutes: number | string;
@@ -146,21 +148,12 @@ interface SurveyCardsProps {
   onEarn?: (amount: number) => void;
 }
 
-const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
-  const [, setTotal] = useState(0);
-  const [, setBump] = useState(false);
+const SurveyCards: React.FC<SurveyCardsProps> = () => {
+  const dispatch = useDispatch();
 
-const handleEarn = React.useCallback((amount: number) => {
-    setTotal((t) => {
-      const next = parseFloat((t + amount).toFixed(1));
-      return next;
-    });
-    setBump(true);
-    setTimeout(() => setBump(false), 400);
-    
-    // Also call the external onEarn prop to update the top nav money counter
-    onEarnProp?.(amount);
- }, [onEarnProp]);
+  const handleEarn = (amount: number) => {
+    dispatch(balanceRedux.increment(amount));
+  };
 
   return (
     <div className="sc-stage">
