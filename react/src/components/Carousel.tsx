@@ -1,3 +1,7 @@
+import candyCrushImg from "@/src/public/assets/games/candyCrush.png";
+import monopolyImg from "@/src/public/assets/games/monopoly.png";
+import pigGameImg from "@/src/public/assets/games/pigGame.png";
+import tontongGameImg from "@/src/public/assets/games/tontongGame.png";
 
 const Carousel = () => {
   // Calculate exact dimensions for perfect loop
@@ -7,7 +11,9 @@ const Carousel = () => {
   const totalItemWidth = itemWidth + itemPadding + gap;
   const numItems = 4;
   const singleSetWidth = numItems * totalItemWidth - gap; // minus gap after last item
-  
+
+  const isCompact = typeof window !== "undefined" && window.innerWidth <= 1200;
+
   return (
     <div className="carousel-strip">
       <div
@@ -18,7 +24,7 @@ const Carousel = () => {
           maxWidth: "600px",
           marginLeft: "25px",
           margin: "40px auto 60px",
-          marginBottom: "-100px", // Adjust this value to change gap below carousel
+          marginBottom: isCompact ? "-100px" : undefined,
           maskImage:
             "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
           WebkitMaskImage:
@@ -37,16 +43,16 @@ const Carousel = () => {
           }}
         >
           {[
-            "react/src/public/assets/games/candyCrush.png",
-            "react/src/public/assets/games/monopoly.png",
-            "react/src/public/assets/games/pigGame.png",
-            "react/src/public/assets/games/tontongGame.png",
+            candyCrushImg,
+            monopolyImg,
+            pigGameImg,
+            tontongGameImg,
           ]
             .concat([
-              "react/src/public/assets/games/candyCrush.png",
-              "react/src/public/assets/games/monopoly.png",
-              "react/src/public/assets/games/pigGame.png",
-              "react/src/public/assets/games/tontongGame.png",
+            candyCrushImg,
+            monopolyImg,
+            pigGameImg,
+            tontongGameImg,
             ])
             .map((src, i) => (
               <img

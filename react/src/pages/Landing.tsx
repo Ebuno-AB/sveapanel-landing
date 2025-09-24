@@ -33,7 +33,7 @@ function Landing() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
-    useState(false);
+  useState(false);
 
   const [totalEarnings, setTotalEarnings] = useState(0);
   const earningsRef = useRef(0);
@@ -242,7 +242,7 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
         carousel={<Carousel />}
-        style = {{marginTop: "-100rem"}}    
+        
        
       >
         {/* Phone showcase */}
