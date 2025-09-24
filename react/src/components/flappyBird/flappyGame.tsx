@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import FlappySound from "@/src/public/assets/flappySound.mp3";
 import LosingSound from "@/src/public/assets/losingSound.mp3";
 import Bird_Img from "@/src/public/assets/sveaBird.png";
+import * as balanceRedux from "@/src/redux/slices/balanceSlice";
+import { useDispatch } from "react-redux";
 
 /** ---------- FIXED WORLD (prevents zoomed look) ---------- */
 const WORLD_W = 360; // 9:16
@@ -15,15 +17,12 @@ type Pipe = {
   id: number;
 };
 
-function FlappyBirdCanvas({
-  onPointGained = () => {},
-}: {
-  onPointGained?: () => void;
-}) {
+function FlappyBirdCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const lastTRef = useRef<number>(0);
   const runningRef = useRef<boolean>(false);
+  const dispatch = useDispatch();
 
   /** visual CSS size (can change on resize; world size does NOT) */
   const [cssSize, setCssSize] = useState({ w: WORLD_W, h: WORLD_H });
@@ -312,7 +311,7 @@ function FlappyBirdCanvas({
           p.passed = true;
           s.score += 1;
           s.shakeT = 0.15;
-          onPointGained();
+          dispatch(balanceRedux.increment(1));
           play(soundPassRef.current);
         }
       }
