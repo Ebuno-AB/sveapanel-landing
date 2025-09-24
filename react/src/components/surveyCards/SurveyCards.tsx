@@ -4,36 +4,42 @@ import Money from "@/src/public/assets/Catching.mp3";
 
 type CardProps = {
   minutes: number | string;
-  price: number;          // numeric so we can sum
-  rating: number;         // 0..5
+  price: number; // numeric so we can sum
+  rating: number; // 0..5
   tag?: string;
   onEarn?: (amount: number) => void;
-  color?: string; 
+  color?: string;
 };
 
-const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEarn, color }) => {
+const PriceCard: React.FC<CardProps> = ({
+  minutes,
+  price,
+  rating,
+  tag = "",
+  onEarn,
+  color,
+}) => {
   const [pop, setPop] = useState(false);
   const [bursts, setBursts] = useState<Array<{ id: number }>>([]);
 
-   const moneyRef = React.useRef<HTMLAudioElement | null>(null);
-    React.useEffect(() => {
-      moneyRef.current = new Audio(Money);
-    }, []);
+  const moneyRef = React.useRef<HTMLAudioElement | null>(null);
+  React.useEffect(() => {
+    moneyRef.current = new Audio(Money);
+  }, []);
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
     if (moneyRef.current) {
-    moneyRef.current.currentTime = 0;
-    moneyRef.current.play();
-  }
-   
-    
+      moneyRef.current.currentTime = 0;
+      moneyRef.current.play();
+    }
+
     // Set click position as CSS custom properties
-    e.currentTarget.style.setProperty('--click-x', `${x}%`);
-    e.currentTarget.style.setProperty('--click-y', `${y}%`);
-    
+    e.currentTarget.style.setProperty("--click-x", `${x}%`);
+    e.currentTarget.style.setProperty("--click-y", `${y}%`);
+
     setPop(true);
     const id = Date.now() + Math.random();
     setBursts((b) => [...b, { id }]);
@@ -49,8 +55,8 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEa
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       // For keyboard events, position at center
-      e.currentTarget.style.setProperty('--click-x', '50%');
-      e.currentTarget.style.setProperty('--click-y', '50%');
+      e.currentTarget.style.setProperty("--click-x", "50%");
+      e.currentTarget.style.setProperty("--click-y", "50%");
 
       if (moneyRef.current) {
         moneyRef.current.currentTime = 0;
@@ -79,20 +85,24 @@ const PriceCard: React.FC<CardProps> = ({ minutes, price, rating, tag = "", onEa
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-            <div className="sc-pill sc-pill--time">{minutes} min</div>
+      <div className="sc-pill sc-pill--time">{minutes} min</div>
       <div
         className="sc-pill sc-pill--tag"
-        style={{
-          // Use the color prop for background, and set text color as needed
-          "--pill-bg": color,
-          "--pill-text": "#fff", // or any color you want
-        } as React.CSSProperties}
+        style={
+          {
+            // Use the color prop for background, and set text color as needed
+            "--pill-bg": color,
+            "--pill-text": "#fff", // or any color you want
+          } as React.CSSProperties
+        }
       >
         {tag}
       </div>
 
       <div className="sc-price">
-        <span className="sc-price-value">{price.toString().replace(",", ".")}</span>
+        <span className="sc-price-value">
+          {price.toString().replace(",", ".")}
+        </span>
         <span className="sc-price-currency">kr</span>
       </div>
 
@@ -150,17 +160,20 @@ const SurveyCards: React.FC<SurveyCardsProps> = ({ onEarn: onEarnProp }) => {
   const [, setTotal] = useState(0);
   const [, setBump] = useState(false);
 
-const handleEarn = React.useCallback((amount: number) => {
-    setTotal((t) => {
-      const next = parseFloat((t + amount).toFixed(1));
-      return next;
-    });
-    setBump(true);
-    setTimeout(() => setBump(false), 400);
-    
-    // Also call the external onEarn prop to update the top nav money counter
-    onEarnProp?.(amount);
- }, [onEarnProp]);
+  const handleEarn = React.useCallback(
+    (amount: number) => {
+      setTotal((t) => {
+        const next = parseFloat((t + amount).toFixed(1));
+        return next;
+      });
+      setBump(true);
+      setTimeout(() => setBump(false), 400);
+
+      // Also call the external onEarn prop to update the top nav money counter
+      onEarnProp?.(amount);
+    },
+    [onEarnProp]
+  );
 
   return (
     <div className="sc-stage">
@@ -168,12 +181,31 @@ const handleEarn = React.useCallback((amount: number) => {
         Saldo: <strong>{total.toString().replace(".", ",")} kr</strong>
       </div> */}
 
-
-
       <div className="sc-wrap">
-        <PriceCard minutes={8} price={18.3} rating={3.5} onEarn={handleEarn} tag="Cint" color="#000000" />
-        <PriceCard minutes={5} price={12.7} rating={5} onEarn={handleEarn} tag="Prime Survey" color="#695CFF"/>
-        <PriceCard minutes={7} price={11.5} rating={4.5} onEarn={handleEarn} tag="Pure Spectrum" color="#eb0d0dff" />
+        <PriceCard
+          minutes={8}
+          price={18.3}
+          rating={3.5}
+          onEarn={handleEarn}
+          tag="Cint"
+          color="purple"
+        />
+        <PriceCard
+          minutes={5}
+          price={12.7}
+          rating={5}
+          onEarn={handleEarn}
+          tag="Prime"
+          color="#695CFF"
+        />
+        <PriceCard
+          minutes={7}
+          price={11.5}
+          rating={4.5}
+          onEarn={handleEarn}
+          tag="Lucid"
+          color="black"
+        />
       </div>
     </div>
   );

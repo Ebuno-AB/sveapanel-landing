@@ -27,6 +27,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    host: true, // or "0.0.0.0" to listen on all interfaces
+    port: 5173,
     proxy: {
       "/Web/NewAuth": {
         target: "https://sveapanelen.se",
