@@ -213,6 +213,30 @@
     justify-content: center;
   }
 
+  .custom-app-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-feature {
+    display: flex;
+    align-items: center; /* vertically center check + text */
+    justify-content: center; /* horizontally center the whole row */
+    padding-left: 0; /* remove the gutter */
+    text-align: center;
+  }
+
+  .hero-feature::before {
+    position: static; /* let flexbox handle placement */
+    transform: none;
+    margin-right: 0.5rem; /* space between check and text */
+    display: inline-flex; /* keep check nicely centered in its box */
+    align-items: center;
+    justify-content: center;
+  }
+
   .hero-inner {
     flex-direction: column; /* stack! */
     gap: 40px;
@@ -302,7 +326,6 @@
     height: 44px;
   }
 }
-
 /* Mobile-specific button and text styles for all mobile sizes */
 @media (max-width: 768px) {
   .hero-note {

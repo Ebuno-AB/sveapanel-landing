@@ -15,7 +15,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center; /* always center vertically */
+  align-items: flex-start; /* always center vertically */
   gap: clamp(16px, 4vw, 40px);
   max-width: 1200px;
   margin: 0 auto;
@@ -71,7 +71,7 @@
     flex-wrap: wrap;
     gap: clamp(20px, 4vw, 40px);
     padding: 0;
-    align-items: center; /* center cards vertically on desktop */
+    align-items: flex-start; /* center cards vertically on desktop */
     width: 100%;
   }
 }
