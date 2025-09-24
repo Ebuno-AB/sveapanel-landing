@@ -69,6 +69,7 @@ function Landing() {
   // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered = location.pathname.includes("/r/");
 
+
   useEffect(() => {
     branch.init(
       "key_live_iwbeLcb4ikSelTXhyZCFWkijxqlOtyRk",

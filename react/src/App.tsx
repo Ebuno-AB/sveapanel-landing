@@ -21,6 +21,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/register/:code" element={<RegistrationPage />} />
         <Route path="/r/:code" element={<Landing />} />
+        <Route path="/IG" element={<Landing />} />
         <Route path="/redirect/:platform" element={<Redirect />} />
         <Route path="/redirect/detect" element={<Redirect />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
