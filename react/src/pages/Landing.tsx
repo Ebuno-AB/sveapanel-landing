@@ -69,6 +69,16 @@ function Landing() {
   // Check if user is registered (URL contains /r/{code} or /register/{code})
   const isRegistered = location.pathname.includes("/r/");
 
+  useEffect(() => {
+    // Check for /r/{code} and validate code length
+    const match = location.pathname.match(/\/r\/(\w{1,})/); // only take the part after /r/
+    if (match) {
+      const code = match[1];
+      if (code.length !== 5) {
+        navigate("/", { replace: true });
+      }
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     branch.init(
