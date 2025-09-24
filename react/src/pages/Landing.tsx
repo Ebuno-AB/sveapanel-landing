@@ -10,6 +10,7 @@ import RatingsSection from "../components/ratingsCompnent/RatingsSection";
 import CookiesConsent from "../components/cookies/CookiesConsent";
 import { useGA } from "../hooks/gtag";
 import { useBankID } from "../hooks/useBankID";
+import useReferral from "../hooks/useReferral";
 import { isPhone, isSocialBrowser } from "../utils/browserDetection";
 import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModal";
 import Hero from "../components/heroSection/HeroSection";
@@ -23,7 +24,7 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
-import iphone from "@/src/public/Iphone.svg"
+import iphone from "@/src/public/Iphone.svg";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -33,7 +34,8 @@ function Landing() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
-  useState(false);
+    useState(false);
+  const referralHook = useReferral();
 
   const [totalEarnings, setTotalEarnings] = useState(0);
   const earningsRef = useRef(0);
@@ -77,6 +79,12 @@ function Landing() {
       if (code.length !== 5) {
         navigate("/", { replace: true });
       }
+
+      referralHook.checkReferralCodeExists(code).then((exists) => {
+        if (!exists) {
+          navigate("/", { replace: true });
+        }
+      });
     }
   }, [location.pathname, navigate]);
 
@@ -215,8 +223,6 @@ function Landing() {
 
   return (
     <>
-
-    
       <TopNav
         handleAppDownload={handleAppDownload}
         moneyValue={totalEarnings}
@@ -252,8 +258,6 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
         carousel={<Carousel />}
-        
-       
       >
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
@@ -268,7 +272,7 @@ function Landing() {
               height: isPhoneDevice ? "84%" : "84%",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",  
+              alignItems: "center",
               borderRadius: "clamp(25px, 3vw, 25px)",
               boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
               background: "#000",
@@ -278,7 +282,6 @@ function Landing() {
               msUserSelect: "none",
               WebkitTapHighlightColor: "transparent",
             }}
-
           >
             <FlappyGame
               onPointGained={() => {
@@ -291,12 +294,12 @@ function Landing() {
           <img
             src={iphone}
             alt="iPhone Frame"
-            
             style={{
               width: "80%",
               height: "auto",
               display: "block",
-              filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
+              filter:
+                "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
               zIndex: 2,
               position: "relative",
               pointerEvents: "none", // allows game interactions through
