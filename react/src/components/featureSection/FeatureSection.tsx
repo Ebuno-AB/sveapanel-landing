@@ -1,5 +1,5 @@
-import React from 'react';
-import './FeatureSection.css';
+import React from "react";
+import "./FeatureSection.css";
 
 interface FeatureSectionProps {
   background: string;
@@ -12,9 +12,8 @@ interface FeatureSectionProps {
   className?: string;
   interactive?: boolean;
   img?: string;
-  carousel?: React.ReactNode; 
+  carousel?: React.ReactNode;
   style?: React.CSSProperties;
-
 }
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({
@@ -31,32 +30,30 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
 }) => {
   // Check if we have content to display
   const hasContent = title || description;
-  
+
   return (
-    <div 
-      className={`feature-section ${className}`}
-      style={{ background }}
-    >
+    <div className={`feature-section ${className}`} style={{ background }}>
       {backgroundImage && (
-        <img 
-          src={backgroundImage} 
-          alt="" 
+        <img
+          src={backgroundImage}
+          alt=""
           className="feature-section-bg-image"
         />
       )}
-      
-      <div className={`feature-section-container ${!hasContent && interactive ? 'full-width' : ''}`}>
+
+      <div
+        className={`feature-section-container ${
+          !hasContent && interactive ? "full-width" : ""
+        }`}
+      >
         {/* Left side - Text content */}
         {hasContent && (
           <div className="feature-section-content">
             <h2 className="feature-section-title">{title}</h2>
             <p className="feature-section-description">{description}</p>
 
-          
             {carousel && (
-              <div className="feature-section-carousel">
-                {carousel}
-              </div>
+              <div className="feature-section-carousel">{carousel}</div>
             )}
           </div>
         )}
@@ -64,22 +61,14 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
         {/* Right side - Visual / Children */}
         {image ? (
           <div className="feature-section-visual">
-            <img 
-              src={image} 
-              alt={imageAlt} 
-              className="feature-section-image"
-            />
+            <img src={image} alt={imageAlt} className="feature-section-image" />
           </div>
         ) : children && !interactive ? (
-          <div className="feature-section-cards">
-            {children}
-          </div>
+          <div className="feature-section-cards">{children}</div>
         ) : null}
-        
+
         {interactive && (
-          <div className="feature-section-interactive">
-            {children}
-          </div>
+          <div className="feature-section-interactive">{children}</div>
         )}
       </div>
     </div>
