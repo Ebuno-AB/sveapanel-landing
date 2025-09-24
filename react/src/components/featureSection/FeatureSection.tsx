@@ -12,7 +12,9 @@ interface FeatureSectionProps {
   className?: string;
   interactive?: boolean;
   img?: string;
-  carousel?: React.ReactNode; // 👈 new prop for carousel
+  carousel?: React.ReactNode; 
+  style?: React.CSSProperties;
+
 }
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({
@@ -25,7 +27,9 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
   children,
   className = "",
   interactive = false,
-  carousel, // 👈 use this
+  carousel, 
+  style = {},
+
 }) => {
   // Check if we have content to display
   const hasContent = title || description;
@@ -50,7 +54,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
             <h2 className="feature-section-title">{title}</h2>
             <p className="feature-section-description">{description}</p>
 
-            {/* 👇 Carousel sits directly below text */}
+          
             {carousel && (
               <div className="feature-section-carousel">
                 {carousel}

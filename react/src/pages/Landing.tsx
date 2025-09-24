@@ -242,6 +242,8 @@ function Landing() {
         imageAlt="Spel och belöningar"
         interactive={true}
         carousel={<Carousel />}
+        style = {{marginTop: "-100rem"}}    
+       
       >
         {/* Phone showcase */}
         <div className="feature-phone-showcase">

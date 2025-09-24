@@ -10,9 +10,11 @@
   align-items: center;
 
   flex-wrap: wrap;
+ 
 }
 
 .feature-phone-showcase {
+  
   position: relative;
   display: flex;
   justify-content: center;
@@ -195,6 +197,7 @@
 }
 
 @media (max-width: 480px) {
+
   .feature-section {
     padding: 20px 16px;
   }
