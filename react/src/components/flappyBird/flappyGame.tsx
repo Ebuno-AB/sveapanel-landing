@@ -3,738 +3,649 @@ import FlappySound from "@/src/public/assets/flappySound.mp3";
 import LosingSound from "@/src/public/assets/losingSound.mp3";
 import Bird_Img from "@/src/public/assets/sveaBird.png";
 
-/**
- * -------- Game tuning --------
- */
-// Base dimensions - optimized for mobile iPhone frame
-let GAME_W = 800; // Much larger canvas for more zoomed in appearance
-let GAME_H = 1000; // Even taller for better mobile experience
-let GROUND_H = 150; // Proportionally larger ground for taller canvas
-let VIEW_H = GAME_H - GROUND_H;
+/** ---------- FIXED WORLD (prevents zoomed look) ---------- */
+const WORLD_W = 360; // 9:16
+const WORLD_H = 640;
 
-// Game constants that will be calculated based on screen size - scaled for 1000px height
-let GRAVITY = 1000; // Increased gravity for more responsive feel like original
-let JUMP_VELOCITY = -380; // Adjusted jump velocity for better feel
-const MAX_DROP_ANGLE = 20; // Increased maximum drop angle like original
-const MAX_RISE_ANGLE = -20; // Reduced maximum rise angle
-let PIPE_W = 100; // Wider pipes for proportional look
-let PIPE_GAP_MIN = 280; // Much larger gaps for taller canvas
-let PIPE_GAP_MAX = 340;
-let PIPE_HOLE_MIN = 120; // Larger margins for taller canvas
-let PIPE_HOLE_MAX = VIEW_H - 120;
-let PIPE_SPAWN_DIST = 500; // More spacing for taller canvas
-let PIPE_SPEED_BASE = 300; // Faster speed to match taller proportions
-let HITBOX_R = 25; // Larger hitbox for scaled elements
+type Pipe = {
+  x: number;
+  top: number;
+  gap: number;
+  passed: boolean;
+  id: number;
+};
 
 function FlappyBirdCanvas({
   onPointGained = () => {},
 }: {
-  onPointGained: () => void;
+  onPointGained?: () => void;
 }) {
-  const soundRef = useRef<HTMLAudioElement | null>(null);
-  useEffect(() => {
-    soundRef.current = new Audio(FlappySound);
-  }, []);
-
-  const losingSoundRef = useRef<HTMLAudioElement | null>(null);
-  useEffect(() => {
-    soundRef.current = new Audio(FlappySound);
-    losingSoundRef.current = new Audio(LosingSound);
-  }, []);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
-  const imgRef = useRef<HTMLImageElement | null>(null);
-  const [dimensions, setDimensions] = useState({
-    width: GAME_W,
-    height: GAME_H,
-    displaySize: 500,
-    displayWidth: 1400,
+  const lastTRef = useRef<number>(0);
+  const runningRef = useRef<boolean>(false);
+
+  /** visual CSS size (can change on resize; world size does NOT) */
+  const [cssSize, setCssSize] = useState({ w: WORLD_W, h: WORLD_H });
+
+  useEffect(() => {
+    const fit = () => {
+      const maxW = Math.min(window.innerWidth, 380);
+      const w = Math.max(300, Math.floor(maxW));
+      const h = Math.floor((w * WORLD_H) / WORLD_W);
+      setCssSize({ w, h });
+    };
+    fit();
+    window.addEventListener("resize", fit, { passive: true });
+    return () => window.removeEventListener("resize", fit);
+  }, []);
+
+  /** ----- Tuning derived from the fixed world ----- */
+  const tuningRef = useRef({
+    GAME_W: WORLD_W,
+    GAME_H: WORLD_H,
+    VIEW_H: WORLD_H - 100,
+    GROUND_H: 100,
+    GRAVITY: 1300,
+    JUMP_VY: -420,
+    MAX_DROP_ANGLE: 20,
+    MAX_RISE_ANGLE: -20,
+    PIPE_W: 70,
+    PIPE_GAP_MIN: 170,
+    PIPE_GAP_MAX: 210,
+    PIPE_HOLE_MIN: 80,
+    PIPE_HOLE_MAX: WORLD_H - 100 - 80,
+    SPAWN_DIST: 240,
+    SPEED_BASE: 160,
+    HIT_R: 16,
+    DPR: 1,
   });
 
-  // Calculate dimensions to fit within iPhone frame screen area
-  const calculateDimensions = () => {
-    // Dimensions optimized for iPhone screen area
-    // Use a mobile-friendly aspect ratio that fits the phone screen
-    const gameWidth = 600; // Much larger canvas for more zoomed in appearance
-    const gameHeight = 900; // Even taller for better mobile experience
+  /** ----- Assets ----- */
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const soundPassRef = useRef<HTMLAudioElement | null>(null);
+  const soundLoseRef = useRef<HTMLAudioElement | null>(null);
+  const audioUnlockedRef = useRef(false);
 
-    // Display dimensions that will be scaled by CSS
-    const displayWidth = gameWidth;
-    const displayHeight = gameHeight;
+  useEffect(() => {
+    const img = new Image();
+    img.src = Bird_Img;
+    img.onload = () => (imgRef.current = img);
+    img.onerror = () => (imgRef.current = null);
+  }, []);
+  useEffect(() => {
+    soundPassRef.current = new Audio(FlappySound);
+    soundLoseRef.current = new Audio(LosingSound);
+    if (soundPassRef.current) soundPassRef.current.muted = true;
+    if (soundLoseRef.current) soundLoseRef.current.muted = true;
+  }, []);
 
-    // Update global constants - optimized for mobile frame
-    GAME_W = gameWidth;
-    GAME_H = gameHeight;
-    GROUND_H = GAME_H * 0.15; // 15% of height for ground for better proportions
-    VIEW_H = GAME_H - GROUND_H;
-
-    // Scale game physics and elements for mobile - more zoomed in feel
-    GRAVITY = 1400; // Adjusted for more authentic feel
-    JUMP_VELOCITY = -460; // Stronger jump for better control
-    PIPE_W = 130; // Wider pipes for better proportions
-    PIPE_GAP_MIN = 300; // Much larger gaps for taller canvas
-    PIPE_GAP_MAX = 350;
-    PIPE_HOLE_MIN = 120; // Larger margins for better spacing
-    PIPE_HOLE_MAX = VIEW_H - 120;
-    PIPE_SPAWN_DIST = 340; // More spacing for taller canvas
-    PIPE_SPEED_BASE = 220; // Faster speed to match proportions
-    HITBOX_R = 25; // Larger hitbox for scaled elements
-
-    return { width: GAME_W, height: GAME_H, displaySize: displayHeight, displayWidth };
-  };
-
-  // persistent game state
+  /** ----- Game state (no React re-renders per frame) ----- */
   const stateRef = useRef<{
+    mode: "waiting" | "playing" | "dead";
     birdX: number;
-    mode: "waiting" | "playing" | "dead" | "celebrating";
-    t: number;
     birdY: number;
     birdVY: number;
     angle: number;
-    pipes: {
-      x: number;
-      top: number;
-      gap: number;
-      passed: boolean;
-      id: number;
-    }[];
+    pipes: Pipe[];
     score: number;
     best: number;
-    money: number;
     groundX: number;
     parallaxX: number;
-    shakeT: number;
-    flyFrame: number;
-    celebFrame: number;
+    spawnAcc: number;
     flyAcc: number;
-    celebAcc: number;
-    spawnAccumulator: number;
+    flyFrame: number;
+    shakeT: number;
   }>({
     mode: "waiting",
-    t: 0,
-    birdY: VIEW_H * 0.35,
+    birdX: Math.floor(WORLD_W * 0.24),
+    birdY: Math.floor((WORLD_H - 100) * 0.5),
     birdVY: 0,
     angle: 0,
     pipes: [],
     score: 0,
     best: Number(localStorage.getItem("flappy_best") || 0),
-    money: 0,
     groundX: 0,
     parallaxX: 0,
-    shakeT: 0,
-    flyFrame: 0,
-    celebFrame: 0,
+    spawnAcc: 0,
     flyAcc: 0,
-    celebAcc: 0,
-    spawnAccumulator: 0,
-    birdX: GAME_W * 0.2, // Bird starts at 20% from left edge and stays there
+    flyFrame: 0,
+    shakeT: 0,
   });
 
-  // helpers
-  const reset = () => {
-    const s = stateRef.current;
+  /** ----- Precomputed paints ----- */
+  const paintsRef = useRef<{ sky?: CanvasGradient; ground?: CanvasPattern }>(
+    {}
+  );
+
+  function setupCanvas(c: HTMLCanvasElement) {
+    const ctx = c.getContext("2d")!;
+    const DPR = Math.min(window.devicePixelRatio || 1, 2); // cap for iOS
+    c.width = WORLD_W * DPR;
+    c.height = WORLD_H * DPR;
+    c.style.width = `${cssSize.w}px`;
+    c.style.height = `${cssSize.h}px`;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    // tuning always based on fixed world
+    tuningRef.current = {
+      ...tuningRef.current,
+      GAME_W: WORLD_W,
+      GAME_H: WORLD_H,
+      GROUND_H: 100,
+      VIEW_H: WORLD_H - 100,
+      PIPE_HOLE_MAX: WORLD_H - 100 - 80,
+      DPR,
+    };
+
+    // sky
+    const sky = ctx.createLinearGradient(0, 0, 0, WORLD_H);
+    sky.addColorStop(0, "#4EC0CA");
+    sky.addColorStop((WORLD_H - 100) / WORLD_H, "#4EC0CA");
+    sky.addColorStop((WORLD_H - 100) / WORLD_H, "#5EE270");
+    sky.addColorStop(1, "#5EE270");
+    paintsRef.current.sky = sky;
+
+    // ground stripes
+    const stripeH = 6;
+    const pc = document.createElement("canvas");
+    pc.width = 16;
+    pc.height = stripeH;
+    const pctx = pc.getContext("2d")!;
+    pctx.fillStyle = "#5EE270";
+    pctx.fillRect(0, 0, 8, stripeH);
+    pctx.fillStyle = "#4BC850";
+    pctx.fillRect(8, 0, 8, stripeH);
+    paintsRef.current.ground = ctx.createPattern(pc, "repeat") || undefined;
+
+    resetGame();
+  }
+
+  function resetGame() {
+    const T = tuningRef.current,
+      s = stateRef.current;
     s.mode = "waiting";
-    s.t = 0;
-    s.birdY = VIEW_H * 0.32;
+    s.birdX = Math.floor(WORLD_W * 0.24);
+    s.birdY = Math.floor(T.VIEW_H * 0.5);
     s.birdVY = 0;
     s.angle = 0;
     s.pipes = [];
     s.score = 0;
-    s.money = 0;
     s.groundX = 0;
     s.parallaxX = 0;
-    s.shakeT = 0;
-    s.flyFrame = 0;
-    s.celebFrame = 0;
+    s.spawnAcc = 0;
     s.flyAcc = 0;
-    s.celebAcc = 0;
-    s.spawnAccumulator = 0;
-    s.birdX = GAME_W * 0.2; // Reset bird position
-  };
+    s.flyFrame = 0;
+    s.shakeT = 0;
+  }
 
-  const startGame = () => {
-    const s = stateRef.current;
+  /** ----- Input ----- */
+  const act = () => {
+    if (!audioUnlockedRef.current) {
+      if (soundPassRef.current) soundPassRef.current.muted = false;
+      if (soundLoseRef.current) soundLoseRef.current.muted = false;
+      audioUnlockedRef.current = true;
+    }
+    const s = stateRef.current,
+      T = tuningRef.current;
     if (s.mode === "waiting") {
       s.mode = "playing";
-    } else if (s.mode === "dead") {
-      // restart
-      reset();
-      stateRef.current.mode = "playing";
-    }
-  };
-
-  const jump = () => {
-    const s = stateRef.current;
-    if (s.mode === "waiting" || s.mode === "dead") {
-      startGame();
-    }
-    if (s.mode === "playing") {
-      s.birdVY = JUMP_VELOCITY;
-      // Removed horizontal movement - bird stays at fixed X position like original
-    }
-  };
-
-  // controls
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.code === "Space" || e.key === " ") {
-        e.preventDefault();
-        jump();
-      } else if (e.code === "Tab") {
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-    };
-  }, []);
-
-  // Responsive resize effect
-  useEffect(() => {
-    const handleResize = () => {
-      const newDimensions = calculateDimensions();
-      setDimensions(newDimensions);
-    };
-
-    // Set initial dimensions
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // asset load
-  useEffect(() => {
-    const img = new Image();
-    img.src = Bird_Img;
-
-    img.onload = () => {
-      imgRef.current = img;
-    };
-    img.onerror = () => {
-      console.warn("Bird image not found, using fallback graphics");
-      imgRef.current = null; // Use fallback rendering
-    };
-
-    // Start the game loop regardless of image loading
-    reset();
-    loop(performance.now());
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dimensions]);
-
-  // main loop
-  const loop = (now: number) => {
-    const s = stateRef.current;
-    const c = canvasRef.current;
-    if (!c) {
-      rafRef.current = requestAnimationFrame(loop);
+      s.birdVY = T.JUMP_VY;
       return;
     }
-    const ctx = c.getContext("2d")!;
-    const dt = Math.min(1 / 30, rafRef.current ? (now - s.t) / 1000 : 0); // clamp big spikes
-    s.t = now;
+    if (s.mode === "dead") {
+      resetGame();
+      s.mode = "playing";
+      s.birdVY = T.JUMP_VY;
+      return;
+    }
+    if (s.mode === "playing") s.birdVY = T.JUMP_VY;
+  };
 
-    // difficulty scales with score
-    const speed = PIPE_SPEED_BASE + Math.min(120, s.score * 6);
+  useEffect(() => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const onDown = (e: PointerEvent) => {
+      e.preventDefault();
+      act();
+    };
+    c.addEventListener("pointerdown", onDown, { passive: false });
+    return () => c.removeEventListener("pointerdown", onDown);
+  }, []);
 
-    // background
-    s.parallaxX = (s.parallaxX + speed * 0.25 * dt) % (GAME_W * 2);
-    s.groundX = (s.groundX + speed * dt) % GAME_W;
+  /** ----- Loop ----- */
+  useEffect(() => {
+    const c = canvasRef.current;
+    if (!c) return;
+    setupCanvas(c);
+    runningRef.current = true;
+    lastTRef.current = performance.now();
 
-    // physics
-    if (s.mode === "playing") {
-      s.birdVY += GRAVITY * dt;
-      s.birdY += s.birdVY * dt;
-      s.birdY = Math.max(0, Math.min(VIEW_H - 1, s.birdY));
+    const step = (t: number) => {
+      if (!runningRef.current) return;
+      const dt = Math.min(1 / 30, (t - lastTRef.current) / 1000);
+      lastTRef.current = t;
+      tick(dt);
+      draw();
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
 
-      // More authentic angle calculation like original Flappy Bird
-      // Angle responds more dramatically to velocity changes
-      const velocityFactor = s.birdVY / 400;
-      if (s.birdVY < 0) {
-        // Rising - slight upward angle
-        s.angle = Math.max(MAX_RISE_ANGLE, velocityFactor * 15);
+    const onVis = () => {
+      if (document.hidden) {
+        runningRef.current = false;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
       } else {
-        // Falling - increasing downward angle
-        s.angle = Math.min(MAX_DROP_ANGLE, velocityFactor * 90);
+        runningRef.current = true;
+        lastTRef.current = performance.now();
+        rafRef.current = requestAnimationFrame(step);
+      }
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      runningRef.current = false;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, [cssSize.w, cssSize.h]);
+
+  function spawnPipe() {
+    const T = tuningRef.current;
+    const gap = rand(T.PIPE_GAP_MIN, T.PIPE_GAP_MAX);
+    const minC = T.PIPE_HOLE_MIN + gap / 2;
+    const maxC = T.PIPE_HOLE_MAX - gap / 2;
+    const center = rand(minC, maxC);
+    const top = Math.floor(center - gap / 2);
+    stateRef.current.pipes.push({
+      x: T.GAME_W + 24,
+      top,
+      gap,
+      passed: false,
+      id: Math.random(),
+    });
+  }
+
+  function drawGround(
+    ctx: CanvasRenderingContext2D,
+    w: number,
+    h: number,
+    pattern?: CanvasPattern
+  ) {
+    // ground base
+    ctx.fillStyle = "#DED895";
+    ctx.fillRect(0, 0, w, h);
+
+    // grass stripe on top (optional pattern)
+    if (pattern) {
+      ctx.fillStyle = pattern;
+      ctx.fillRect(0, 0, w, 6); // thin stripe at the top of ground
+    }
+  }
+
+  function tick(dt: number) {
+    const s = stateRef.current,
+      T = tuningRef.current;
+    if (s.mode === "playing") {
+      const speed = T.SPEED_BASE + Math.min(120, s.score * 6);
+      s.parallaxX = (s.parallaxX + speed * 0.25 * dt) % (T.GAME_W * 2);
+      s.groundX = (s.groundX + speed * dt) % T.GAME_W;
+
+      s.birdVY += T.GRAVITY * dt;
+      s.birdY += s.birdVY * dt;
+      s.birdY = Math.max(0, Math.min(T.VIEW_H - 1, s.birdY));
+
+      const vf = s.birdVY / 400;
+      s.angle =
+        s.birdVY < 0
+          ? Math.max(T.MAX_RISE_ANGLE, vf * 15)
+          : Math.min(T.MAX_DROP_ANGLE, vf * 90);
+
+      s.spawnAcc += speed * dt;
+      while (s.spawnAcc >= T.SPAWN_DIST) {
+        s.spawnAcc -= T.SPAWN_DIST;
+        spawnPipe();
       }
 
-      // spawn pipes
-      s.spawnAccumulator += speed * dt;
-      while (s.spawnAccumulator >= PIPE_SPAWN_DIST) {
-        s.spawnAccumulator -= PIPE_SPAWN_DIST;
-        const gap = rand(PIPE_GAP_MIN, PIPE_GAP_MAX);
-        // Pick a center for the gap, not just a top
-        const minCenter = PIPE_HOLE_MIN + gap / 2;
-        const maxCenter = PIPE_HOLE_MAX - gap / 2;
-        const gapCenter = rand(minCenter, maxCenter);
-        const hole = Math.max(
-          PIPE_HOLE_MIN,
-          Math.min(PIPE_HOLE_MAX - gap, gapCenter - gap / 2)
-        );
-        s.pipes.push({
-          x: GAME_W + 40,
-          top: hole,
-          gap,
-          passed: false,
-          id: Math.random(),
-        });
-      }
-
-      // move pipes & scoring
-      const birdX = s.birdX; // Use actual bird X position
       for (const p of s.pipes) {
         p.x -= speed * dt;
-        if (!p.passed && p.x + PIPE_W < birdX) {
+        if (!p.passed && p.x + T.PIPE_W < s.birdX) {
           p.passed = true;
           s.score += 1;
-          s.money += 1;
-          if (soundRef.current) {
-            soundRef.current.currentTime = 0;
-            soundRef.current.play();
-          }
-          // console.log("Bird passed through pipe - calling onPointGained()");
-          onPointGained();
           s.shakeT = 0.15;
+          onPointGained();
+          play(soundPassRef.current);
         }
       }
-      // remove off-screen
-      s.pipes = s.pipes.filter((p) => p.x > -PIPE_W - 10);
+      s.pipes = s.pipes.filter((p) => p.x > -T.PIPE_W - 10);
 
-      // collisions (circle vs rects)
-      const r = HITBOX_R;
-      const hitGround = s.birdY + r > VIEW_H || s.birdY - r < 0;
+      const r = T.HIT_R;
+      const hitBounds = s.birdY + r > T.VIEW_H || s.birdY - r < 0;
       const hitPipe = s.pipes.some((p) => {
-        const inX = birdX + r > p.x && birdX - r < p.x + PIPE_W;
+        const inX = s.birdX + r > p.x && s.birdX - r < p.x + T.PIPE_W;
         if (!inX) return false;
-        const gapTop = p.top;
-        const gapBot = p.top + p.gap;
-        const topRectHit = s.birdY - r < gapTop;
-        const botRectHit = s.birdY + r > gapBot;
-        return topRectHit || botRectHit;
+        return s.birdY - r < p.top || s.birdY + r > p.top + p.gap;
       });
-      if (hitGround || hitPipe) {
+      if (hitBounds || hitPipe) {
         s.mode = "dead";
         s.best = Math.max(s.best, s.score);
         localStorage.setItem("flappy_best", String(s.best));
         s.shakeT = 0.35;
-      }
-
-      if (losingSoundRef.current) {
-        losingSoundRef.current.currentTime = 0;
-        losingSoundRef.current.play();
+        play(soundLoseRef.current);
       }
     } else if (s.mode === "waiting") {
-      // idle bob - more subtle like original
-      s.birdY = VIEW_H * 0.6 + Math.sin(now * 0.003) * 6;
-      s.angle = Math.sin(now * 0.003) * 2;
+      const t = performance.now() * 0.003;
+      s.birdY = tuningRef.current.VIEW_H * 0.55 + Math.sin(t) * 6;
+      s.angle = Math.sin(t) * 2;
     } else if (s.mode === "dead") {
-      s.parallaxX = 0;
-      s.groundX = 0;
-      // settle on ground - bird falls naturally with gravity
-      if (s.birdY < VIEW_H - 1) {
-        s.birdVY += GRAVITY * dt;
+      if (s.birdY < tuningRef.current.VIEW_H - 1) {
+        s.birdVY += tuningRef.current.GRAVITY * dt;
         s.birdY += s.birdVY * dt;
-        // Keep updating angle as bird falls
-        const velocityFactor = s.birdVY / 400;
-        s.angle = Math.min(MAX_DROP_ANGLE, velocityFactor * 90);
+        const vf = s.birdVY / 400;
+        s.angle = Math.min(tuningRef.current.MAX_DROP_ANGLE, vf * 90);
       } else {
-        s.birdY = VIEW_H - 1;
+        s.birdY = tuningRef.current.VIEW_H - 1;
         s.birdVY = 0;
-        s.angle = MAX_DROP_ANGLE; // Bird is flat on ground
+        s.angle = tuningRef.current.MAX_DROP_ANGLE;
       }
     }
 
-    // Wing flap animation - faster when alive, slower when dead
     s.flyAcc += dt;
-    const flyAdvance = s.mode === "dead" ? 1 / 4 : 1 / 6; // Slower flap when alive
-    while (s.flyAcc >= flyAdvance) {
-      s.flyAcc -= flyAdvance;
-      s.flyFrame = (s.flyFrame + 1) % 3; // 3 frame cycle like original
+    const adv = s.mode === "dead" ? 1 / 4 : 1 / 6;
+    while (s.flyAcc >= adv) {
+      s.flyAcc -= adv;
+      s.flyFrame = (s.flyFrame + 1) % 3;
     }
-
-    // screen shake
-    const shakeAmt = s.shakeT > 0 ? 6 * (s.shakeT / 0.35) : 0;
     if (s.shakeT > 0) s.shakeT = Math.max(0, s.shakeT - dt);
+  }
 
-    // ---- draw ----
+  /** ----- Drawing ----- */
+  function draw() {
+    const c = canvasRef.current!,
+      ctx = c.getContext("2d")!;
+    const s = stateRef.current,
+      T = tuningRef.current;
+
     ctx.save();
-    ctx.clearRect(0, 0, GAME_W, GAME_H);
+    ctx.clearRect(0, 0, T.GAME_W, T.GAME_H);
 
     // sky
-    const skyTop = "#4EC0CA";
-    const skyBot = "#5EE270";
-    const grad = ctx.createLinearGradient(0, 0, 0, GAME_H);
-    grad.addColorStop(0, skyTop);
-    grad.addColorStop(VIEW_H / GAME_H, skyTop);
-    grad.addColorStop(VIEW_H / GAME_H, skyBot);
-    grad.addColorStop(1, skyBot);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, GAME_W, GAME_H);
+    ctx.fillStyle = paintsRef.current.sky!;
+    ctx.fillRect(0, 0, T.GAME_W, T.GAME_H);
 
-    // distant clouds (parallax) - scaled for taller canvas with seamless loop
+    // simple clouds
     ctx.globalAlpha = 0.6;
-    const cloudSpeed = -s.parallaxX * 0.5;
-    const cloudSpacing = 400; // Distance between cloud patterns
-    const totalCloudWidth = cloudSpacing * 4; // Width of one complete cloud pattern
-
-    // Calculate the base offset for seamless looping
-    const baseOffset = cloudSpeed % totalCloudWidth;
-
-    // Draw multiple sets of clouds to ensure seamless coverage
-    for (let i = -1; i <= 2; i++) {
-      const setOffset = baseOffset + i * totalCloudWidth;
-      drawCloud(ctx, setOffset + 50, 120, 80, 24);
-      drawCloud(ctx, setOffset + 400, 200, 50, 16);
-      drawCloud(ctx, setOffset + 750, 100, 80, 24);
-      drawCloud(ctx, setOffset + 1100, 300, 60, 20);
-    }
+    drawCloudRow(ctx, -s.parallaxX * 0.5, 70, T.GAME_W);
     ctx.globalAlpha = 1;
 
     // pipes
     for (const p of s.pipes) {
-      drawPipe(ctx, p.x, 0, PIPE_W, p.top, true); // top pipe - cap at bottom
+      drawPipe(ctx, p.x, 0, T.PIPE_W, p.top, true);
       drawPipe(
         ctx,
         p.x,
         p.top + p.gap,
-        PIPE_W,
-        VIEW_H - (p.top + p.gap),
+        T.PIPE_W,
+        T.VIEW_H - (p.top + p.gap),
         false
-      ); // bottom pipe - cap at top
+      );
     }
 
     // ground
     ctx.save();
-    ctx.translate(-s.groundX, VIEW_H);
-    drawGround(ctx, GAME_W * 2, GROUND_H);
+    ctx.translate(-s.groundX, T.VIEW_H);
+    drawGround(ctx, T.GAME_W * 2, T.GROUND_H, paintsRef.current.ground!);
     ctx.restore();
 
-    // bird (with slight shake)
+    // bird
+    const shake = s.shakeT > 0 ? 6 * (s.shakeT / 0.35) : 0;
+    const bx = s.birdX + (Math.random() - 0.5) * shake;
+    const by = s.birdY + (Math.random() - 0.5) * shake;
     ctx.save();
-    const shakeX = (Math.random() - 0.5) * shakeAmt;
-    const shakeY = (Math.random() - 0.5) * shakeAmt;
-    const bx = s.birdX + shakeX; // Use stored bird X position
-    const by = s.birdY + shakeY;
     ctx.translate(bx, by);
     ctx.rotate((s.angle * Math.PI) / 180);
     ctx.translate(-bx, -by);
-    drawBird(
-      ctx,
-      bx,
-      by,
-      s.mode === "celebrating" || s.mode === "dead" ? "1" : "2",
-      s.flyFrame
-    );
+    drawBird(ctx, bx, by, s.flyFrame);
     ctx.restore();
 
-    // score
-    if (s.mode === "playing") {
-      drawScore(ctx, s.score);
-      // floating +$10 briefly near the bird when scoring (based on shake trigger)
-      if (s.shakeT > 0.25) {
-        const offsetX = GAME_W * 0.052;
-        const offsetY = GAME_H * 0.052;
-        // ctx.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
-        ctx.fillStyle = "#FFD54A";
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = Math.max(2, GAME_W * 0.006);
-        ctx.textAlign = "center";
-        ctx.strokeText("+10kr", bx + offsetX, by - offsetY);
-        ctx.fillText("+$10", bx + offsetX, by - offsetY);
-      }
-    }
-
-    // overlays
+    // score + overlays
+    if (s.mode === "playing") drawScore(ctx, s.score);
     if (s.mode === "waiting") {
-      drawCenterText(ctx, "Flappy Svea", 64);
-
-      drawSubText(ctx, "Pröva spela!", 38, 64);
+      drawCenterText(ctx, "Flappy Svea", 54);
+      drawSubText(ctx, "Tryck för att spela", 18, 54);
     } else if (s.mode === "dead") {
-      drawCenterText(ctx, "Game Over", 58);
-      drawSubText(ctx, "Click to play again", 18, 54);
+      drawCenterText(ctx, "Game Over", 50);
+      drawSubText(ctx, "Tryck för att spela igen", 16, 52);
     }
 
     ctx.restore();
-    rafRef.current = requestAnimationFrame(loop);
-  };
+  }
 
-  // drawing helpers
-  const drawCloud = (
+  /** ----- Helpers ----- */
+  function play(a?: HTMLAudioElement | null) {
+    if (!a || a.muted) return;
+    a.currentTime = 0;
+    a.play().catch(() => {});
+  }
+  function rand(a: number, b: number) {
+    return a + Math.random() * (b - a);
+  }
+
+  function drawCloudRow(
     ctx: CanvasRenderingContext2D,
-    x: number,
+    baseX: number,
     y: number,
-    w: number,
-    h: number
-  ) => {
+    W: number
+  ) {
+    const spacing = 320,
+      width = spacing * 4;
+    const start = Math.floor((baseX - W) / width) - 1;
+    const end = Math.ceil((baseX + W) / width) + 1;
     ctx.fillStyle = "white";
-    ctx.beginPath();
-    ctx.roundRect(x, y, w, h, 10);
-    ctx.fill();
-  };
+    for (let i = start; i <= end; i++) {
+      const ox = baseX + i * width;
+      roundedRect(ctx, ox + 40, y + 12, 84, 22, 10);
+      ctx.fill();
+      roundedRect(ctx, ox + 260, y + 48, 56, 16, 8);
+      ctx.fill();
+      roundedRect(ctx, ox + 500, y + 10, 84, 22, 10);
+      ctx.fill();
+      roundedRect(ctx, ox + 740, y + 80, 64, 18, 8);
+      ctx.fill();
+    }
+  }
 
-  const drawPipe = (
+  function drawPipe(
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
     w: number,
     h: number,
-    isTopPipe: boolean = false
-  ) => {
-    // Shadow effect
-    ctx.save();
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetX = 5;
-    ctx.shadowOffsetY = 5;
-
-    // body
-    const grad = ctx.createLinearGradient(x, y, x + w, y);
-    grad.addColorStop(0, "#00CCA3");
-    grad.addColorStop(1, "#4BC850");
-    ctx.fillStyle = grad;
-    ctx.strokeStyle = "#064e3b";
+    top: boolean
+  ) {
+    const g = ctx.createLinearGradient(x, y, x + w, y);
+    g.addColorStop(0, "#00CCA3");
+    g.addColorStop(1, "#4BC850");
+    ctx.fillStyle = g;
+    ctx.strokeStyle = "#0a6b51";
     ctx.lineWidth = 2;
-    ctx.fillRect(x, y, w, h);
-    ctx.strokeRect(x, y, w, h);
 
-    // cap positioning
-    let capY;
-    if (isTopPipe) {
-      // For top pipe, put cap at the bottom (y + h - 24)
-      capY = y + h - 24;
-    } else {
-      // For bottom pipe, put cap at the top (y - 2)
-      capY = y - 2;
-    }
+    const rBody = 12;
+    if (top)
+      pathRoundedRect(ctx, x, y, w, h, { tl: 0, tr: 0, br: rBody, bl: rBody });
+    else
+      pathRoundedRect(ctx, x, y, w, h, { tl: rBody, tr: rBody, br: 0, bl: 0 });
+    ctx.fill();
+    ctx.stroke();
 
-    ctx.fillRect(x - 4, capY, w + 8, 24);
-    ctx.strokeRect(x - 4, capY, w + 8, 24);
+    const capH = 18,
+      capY = top ? y + h - capH : y - 2;
+    const rCap = Math.min(9, capH / 2);
+    pathRoundedRect(ctx, x - 4, capY, w + 8, capH, {
+      tl: rCap,
+      tr: rCap,
+      br: rCap,
+      bl: rCap,
+    });
+    ctx.fill();
+    ctx.stroke();
+  }
 
-    ctx.restore();
-  };
-
-  const drawGround = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
-    ctx.fillStyle = "#DED895";
-    ctx.fillRect(0, 0, w, h);
-    // grass stripe
-    const stripeH = 8;
-    const patternCanvas = document.createElement("canvas");
-    patternCanvas.width = 16;
-    patternCanvas.height = stripeH;
-    const pctx = patternCanvas.getContext("2d")!;
-    pctx.fillStyle = "#5EE270";
-    pctx.fillRect(0, 0, 8, stripeH);
-    pctx.fillStyle = "#4BC850";
-    pctx.fillRect(8, 0, 8, stripeH);
-    const pattern = ctx.createPattern(patternCanvas, "repeat")!;
-    ctx.fillStyle = pattern;
-    ctx.fillRect(0, 0, w, stripeH);
-  };
-  // Add a scaling factor for the bird's width
-  const SPRITE_FRAMES = 3; // Number of frames in the spritesheet
-  const BIRD_HEIGHT = GAME_H * 0.3; // Set a fixed bird height (e.g. 11% of canvas height)
-
-  const drawBird = (
+  const SPRITE_FRAMES = 3;
+  function drawBird(
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
-    anim: "1" | "2" | "3",
-    flyFrame: number
-  ) => {
+    frame: number
+  ) {
     const img = imgRef.current;
-    if (img && img.complete && img.naturalHeight !== 0) {
-      ctx.save();
-
-      const bounce = anim === "1" ? Math.sin(flyFrame * 2) * 1 : 0;
-      const scale = anim === "2" ? 1.1 + Math.sin(flyFrame * 0.5) * 0.1 : 1;
-
-      ctx.translate(x, y + bounce);
-      ctx.scale(scale, scale);
+    const targetH = WORLD_H * 0.2; // tuned for WORLD_H
+    if (img && img.complete && img.naturalHeight) {
+      const fw = img.width / SPRITE_FRAMES,
+        fh = img.height;
+      const aspect = fw / fh,
+        tw = Math.floor(targetH * aspect);
       ctx.imageSmoothingEnabled = false;
-      const frameWidth = img.width / SPRITE_FRAMES;
-      const frameHeight = img.height;
-      const frame = flyFrame % SPRITE_FRAMES;
-      const aspect = frameWidth / frameHeight;
-      const targetHeight = BIRD_HEIGHT;
-      const targetWidth = BIRD_HEIGHT * aspect;
-
-      // Crop a bit from the right of each frame
-      const crop = 10; // pixels to crop from the right
       ctx.drawImage(
         img,
-        frame * (frameWidth - crop), // sx
-        0, // sy
-        frameWidth - crop, // sWidth
-        frameHeight, // sHeight
-        -targetWidth / 2, // dx
-        -targetHeight / 2, // dy
-        targetWidth, // dWidth
-        targetHeight // dHeight
+        frame * fw,
+        0,
+        fw,
+        fh,
+        Math.floor(x - tw / 2),
+        Math.floor(y - targetH / 2),
+        tw,
+        targetH
       );
-
-      ctx.restore();
     } else {
-      // Fallback: draw a simple bird shape
-      const size = GAME_W * 0.05; // Proportional fallback bird size
-      ctx.save();
-
-      // Bird body (circle)
-      ctx.fillStyle = anim === "1" ? "#FFD700" : "#FF6B35";
+      const r = 18;
+      ctx.fillStyle = "#FFD54A";
       ctx.beginPath();
-      ctx.arc(x, y, size / 2, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Bird outline
-      ctx.strokeStyle = "#000";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Wing (animated flap) - 3 frame animation like original
-      const wingPositions = [-2, 0, 2];
-      const wingOffset = wingPositions[flyFrame % 3];
-      ctx.fillStyle = anim === "1" ? "#FFA500" : "#FF4500";
-      ctx.beginPath();
-      ctx.ellipse(x - 4, y + wingOffset, 8, 4, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      // Eye
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x + 4, y - 4, 4, 0, Math.PI * 2);
+      ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill();
       ctx.strokeStyle = "#000";
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
-
-      // Pupil
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.arc(x + 5, y - 4, 2, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Beak
-      ctx.fillStyle = "#FFA500";
-      ctx.beginPath();
-      ctx.moveTo(x + size / 2 - 2, y);
-      ctx.lineTo(x + size / 2 + 8, y - 2);
-      ctx.lineTo(x + size / 2 + 8, y + 2);
-      ctx.closePath();
-      ctx.fill();
-      ctx.strokeStyle = "#000";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      ctx.restore();
     }
-  };
+  }
 
-  const drawScore = (ctx: CanvasRenderingContext2D, score: number) => {
-    const fontSize = Math.max(32, GAME_W * 0.12); // Larger score font for zoomed-in feel
-    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+  function drawScore(ctx: CanvasRenderingContext2D, score: number) {
+    const W = WORLD_W,
+      H = WORLD_H;
+    const size = Math.max(26, Math.floor(W * 0.11));
+    ctx.font = `bold ${size}px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(3, GAME_W * 0.012);
+    ctx.lineWidth = Math.max(3, Math.floor(W * 0.01));
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-    ctx.shadowBlur = 6;
-    const yPos = GAME_H * 0.14; // 14% from top
-    ctx.strokeText(String(score), GAME_W / 2, yPos);
-    ctx.fillText(String(score), GAME_W / 2, yPos);
-  };
+    const y = Math.floor(H * 0.12);
+    ctx.strokeText(String(score), Math.floor(W / 2), y);
+    ctx.fillText(String(score), Math.floor(W / 2), y);
+  }
 
-  const drawCenterText = (
+  function drawCenterText(
     ctx: CanvasRenderingContext2D,
     text: string,
-    baseFontSize: number
-  ) => {
-    const fontSize = Math.max(28, GAME_W * (baseFontSize / 400)); // Larger fonts for zoomed-in feel
-    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
+    base: number
+  ) {
+    const W = WORLD_W,
+      H = WORLD_H;
+    const size = Math.max(28, Math.floor(W * (base / 400)));
+    ctx.font = `bold ${size}px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial`;
     ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(4, GAME_W * 0.016);
+    ctx.lineWidth = Math.max(3, Math.floor(W * 0.012));
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-    ctx.shadowBlur = 6;
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 - GAME_H * 0.08);
-  };
+    ctx.strokeText(text, Math.floor(W / 2), Math.floor(H / 2 - H * 0.08));
+    ctx.fillText(text, Math.floor(W / 2), Math.floor(H / 2 - H * 0.08));
+  }
 
-  const drawSubText = (
+  function drawSubText(
     ctx: CanvasRenderingContext2D,
     text: string,
-    baseFontSize: number,
-    offset = 0,
-    color = "#fff"
-  ) => {
-    const fontSize = Math.max(12, GAME_W * (baseFontSize / 500)); // Scale based on canvas size
-    ctx.font = `bold ${fontSize}px 'Cereal', sans-serif`;
-    ctx.fillStyle = color;
+    base: number,
+    offset: number
+  ) {
+    const W = WORLD_W,
+      H = WORLD_H;
+    const size = Math.max(12, Math.floor(W * (base / 500)));
+    ctx.font = `bold ${size}px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial`;
+    ctx.fillStyle = "#fff";
     ctx.strokeStyle = "#000";
-    ctx.lineWidth = Math.max(2, GAME_W * 0.008);
+    ctx.lineWidth = Math.max(2, Math.floor(W * 0.008));
     ctx.textAlign = "center";
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-    ctx.shadowBlur = 6;
-    const scaledOffset = GAME_H * (offset / 500); // Scale offset proportionally
-    ctx.strokeText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-    ctx.fillText(text, GAME_W / 2, GAME_H / 2 + scaledOffset);
-  };
-  // utils
-  const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const y = Math.floor(H / 2 + H * (offset / 500));
+    ctx.strokeText(text, Math.floor(W / 2), y);
+    ctx.fillText(text, Math.floor(W / 2), y);
+  }
 
-  const ignoreClickRef = useRef(false);
+  function roundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number
+  ) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function pathRoundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: { tl?: number; tr?: number; br?: number; bl?: number }
+  ) {
+    const tl = r.tl ?? 0,
+      tr = r.tr ?? 0,
+      br = r.br ?? 0,
+      bl = r.bl ?? 0;
+    ctx.beginPath();
+    ctx.moveTo(x + tl, y);
+    ctx.lineTo(x + w - tr, y);
+    tr ? ctx.arcTo(x + w, y, x + w, y + tr, tr) : ctx.lineTo(x + w, y);
+    ctx.lineTo(x + w, y + h - br);
+    br
+      ? ctx.arcTo(x + w, y + h, x + w - br, y + h, br)
+      : ctx.lineTo(x + w, y + h);
+    ctx.lineTo(x + bl, y + h);
+    bl ? ctx.arcTo(x, y + h, x, y + h - bl, bl) : ctx.lineTo(x, y + h);
+    ctx.lineTo(x, y + tl);
+    tl ? ctx.arcTo(x, y, x + tl, y, tl) : ctx.lineTo(x, y);
+    ctx.closePath();
+  }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
       <canvas
         ref={canvasRef}
-        width={dimensions.width}
-        height={dimensions.height}
         style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "40px", // Match iPhone screen corners more precisely
-          cursor: "pointer",
+          width: `${cssSize.w}px`,
+          height: `${cssSize.h}px`,
+          borderRadius: "20px",
           display: "block",
-          imageRendering: "pixelated", // Better for pixel art games
-          objectFit: "fill", // Fill the entire container
+          touchAction: "manipulation",
         }}
-        onClick={() => {
-          if (ignoreClickRef.current) {
-            ignoreClickRef.current = false;
-            return;
+        onKeyDown={(e) => {
+          if (e.code === "Space") {
+            e.preventDefault();
+            act();
           }
-          jump();
-          const s = stateRef.current;
-          if (s.mode === "dead") reset();
         }}
-        onTouchStart={() => {
-          ignoreClickRef.current = true;
-          setTimeout(() => {
-            ignoreClickRef.current = false;
-          }, 400);
-          jump();
-          const s = stateRef.current;
-          if (s.mode === "dead") reset();
-        }}
+        tabIndex={0}
       />
     </div>
   );
 }
 
 export default React.memo(FlappyBirdCanvas);
-
-
