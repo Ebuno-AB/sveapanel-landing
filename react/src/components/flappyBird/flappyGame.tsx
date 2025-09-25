@@ -4,6 +4,7 @@ import LosingSound from "@/src/public/assets/losingSound.mp3";
 import Bird_Img from "@/src/public/assets/sveaBird.png";
 import * as balanceRedux from "@/src/redux/slices/balanceSlice";
 import { useDispatch } from "react-redux";
+import { isPhone } from "@/src/utils/browserDetection";
 
 /** ---------- FIXED WORLD (prevents zoomed look) ---------- */
 const WORLD_W = 360; // 9:16
@@ -44,8 +45,8 @@ function FlappyBirdCanvas() {
     GAME_W: WORLD_W,
     GAME_H: WORLD_H,
     VIEW_H: WORLD_H - 100,
-    GROUND_H: 100,
-    GRAVITY: 1300,
+    GROUND_H: 200,
+    GRAVITY: 1300, 
     JUMP_VY: -420,
     MAX_DROP_ANGLE: 20,
     MAX_RISE_ANGLE: -20,
@@ -536,7 +537,7 @@ function FlappyBirdCanvas() {
     ctx.strokeStyle = "#000";
     ctx.lineWidth = Math.max(3, Math.floor(W * 0.01));
     ctx.textAlign = "center";
-    const y = Math.floor(H * 0.18);
+    const y = isPhone()? Math.floor(H * 0.25) : Math.floor(H * 0.2) ;
     ctx.strokeText(String(score), Math.floor(W / 2), y);
     ctx.fillText(String(score), Math.floor(W / 2), y);
   }
@@ -624,11 +625,11 @@ function FlappyBirdCanvas() {
     ctx.closePath();
   }
 
-  useEffect(() => {
-    if (canvasRef.current) {
-      canvasRef.current.focus();
-    }
-  }, []);
+ useEffect(() => {
+  if (canvasRef.current) {
+    canvasRef.current.focus({ preventScroll: true });
+  }
+}, []);
 
   return (
     <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>

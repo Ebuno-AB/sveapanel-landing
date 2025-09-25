@@ -212,7 +212,7 @@ function Landing() {
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
-              height: isPhoneDevice ? "84%" : "84%",
+              height: isPhoneDevice ? "79%" : "80%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
