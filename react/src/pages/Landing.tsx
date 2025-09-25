@@ -227,6 +227,7 @@ function Landing() {
             }}
           >
             <FlappyGame />
+            
           </div>
 
           {/* iPhone frame — always above */}

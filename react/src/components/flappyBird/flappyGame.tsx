@@ -497,7 +497,7 @@ function FlappyBirdCanvas() {
     frame: number
   ) {
     const img = imgRef.current;
-    const targetH = WORLD_H * 0.2; // tuned for WORLD_H
+    const targetH = WORLD_H * 0.24; // tuned for WORLD_H
     if (img && img.complete && img.naturalHeight) {
       const fw = img.width / SPRITE_FRAMES,
         fh = img.height;
@@ -506,7 +506,7 @@ function FlappyBirdCanvas() {
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(
         img,
-        frame * fw,
+        frame * (fw - 20),
         0,
         fw,
         fh,
@@ -536,7 +536,7 @@ function FlappyBirdCanvas() {
     ctx.strokeStyle = "#000";
     ctx.lineWidth = Math.max(3, Math.floor(W * 0.01));
     ctx.textAlign = "center";
-    const y = Math.floor(H * 0.12);
+    const y = Math.floor(H * 0.18);
     ctx.strokeText(String(score), Math.floor(W / 2), y);
     ctx.fillText(String(score), Math.floor(W / 2), y);
   }
@@ -624,6 +624,12 @@ function FlappyBirdCanvas() {
     ctx.closePath();
   }
 
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.focus();
+    }
+  }, []);
+
   return (
     <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
       <canvas
@@ -634,6 +640,7 @@ function FlappyBirdCanvas() {
           borderRadius: "20px",
           display: "block",
           touchAction: "manipulation",
+          cursor: "pointer"
         }}
         onKeyDown={(e) => {
           if (e.code === "Space") {
