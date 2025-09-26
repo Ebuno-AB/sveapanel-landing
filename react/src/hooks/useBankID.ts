@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import QRCode from 'qrcode';
 import { BANKID_CONFIG, getApiUrl } from '../config/bankid';
+import { useAppSelector } from '../redux/store';
 
 
 
@@ -12,6 +13,7 @@ export const useBankID = () => {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [error, setError] = useState<{title: string; message: string} | null>(null);
   const [success, setSuccess] = useState<{title: string; message: string; onClose?: () => void} | null>(null);
+  const session = useAppSelector(state => state.session);
   
   const orderRefRef = useRef<string | null>(null);
   const qrRefreshInterval = useRef<NodeJS.Timeout | null>(null);
@@ -20,7 +22,7 @@ export const useBankID = () => {
   const verifyCount = useRef<number>(0);
 
   // Generic API call function
-  const makeApiCall = async (endpoint: string, data?: Record<string, string>) => {
+  const makeApiCall = async (endpoint: string, data?: Record<string, any>) => {
 
     const formData = new FormData();
     if (data) {
@@ -171,9 +173,11 @@ export const useBankID = () => {
     try {
       verifyCount.current++;
       console.log('Verifying authentication ' + verifyCount.current);
-      const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.VERIFY_ORDER, {
-        order_ref: orderRefRef.current 
-      });
+      const payload = {
+        order_ref: orderRefRef.current,
+        referral_code: session.referral_code
+      };
+      const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.VERIFY_ORDER, payload);
       console.log('Verify response:', response);
       if (response.status === 'success') {
         setIsComplete(true);
@@ -193,7 +197,7 @@ export const useBankID = () => {
     } catch (error) {
       console.error('Verify error:', error);
     }
-  }, [isComplete]);
+  }, [isComplete, session.referral_code]);
 
   // Start intervals
   const startInterval = (callback: () => void, delay: number, countRef: React.MutableRefObject<number>) => {
