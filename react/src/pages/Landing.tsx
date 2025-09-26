@@ -208,7 +208,7 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-              top: isPhoneDevice ? "2.5%" : "2.5%",
+              top: "2.5%",
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
