@@ -238,10 +238,9 @@ function Landing() {
               width: "80%",
               height: "auto",
               display: "block",
-              filter:
-                "drop-shadow(0 25px 50px rgba(0,0,0,0.35)) drop-shadow(0 25px 30px rgba(0,0,0,0.2))",
               zIndex: 2,
-              position: "relative",
+              position: "absolute",
+              top: 0,
               pointerEvents: "none", // allows game interactions through
             }}
           />

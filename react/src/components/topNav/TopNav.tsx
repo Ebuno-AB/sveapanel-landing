@@ -95,8 +95,8 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
     const prev = prevRef.current;
     if (moneyValue > prev) {
 
-      if(bursts.length >= 8) { // Limit to 8 simultaneous bursts
-        setBursts((bs) => bs.slice(bs.length - 4));
+      if(bursts.length >= 1) { // Limit to 6 simultaneous bursts
+        setBursts((bs) => bs.slice(bs.length - 1));
       }
 
       const diff = parseFloat((moneyValue - prev).toFixed(1));
@@ -257,7 +257,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
 
 export default TopNav;
 
-const SaldoBurst: React.FC<{ amount: number }> = ({ amount }) => {
+const SaldoBurst =  React.memo(({ amount }: { amount: number }) => {
   const N = 16;
   const coins = Array.from({ length: N }).map((_, i) => {
     const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
@@ -291,4 +291,4 @@ const SaldoBurst: React.FC<{ amount: number }> = ({ amount }) => {
       ))}
     </div>
   );
-};
+});
