@@ -121,7 +121,7 @@ const QRModal: React.FC<QRModalProps> = ({
                 style={{ marginTop: 1 }}
               >
                 Ladda ner appen
-                <img src={logo} alt="" />
+             <img src={logo} style={{ width: 35, height: 35 }} />
               </a>
             </div>
           ) : (
