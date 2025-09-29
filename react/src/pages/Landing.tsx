@@ -212,7 +212,7 @@ function Landing() {
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
-              height: isPhoneDevice ? "79%" : "80%",
+              height: isPhoneDevice ? "87%" : "87%", // increased height for both
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -220,11 +220,12 @@ function Landing() {
               borderTopRightRadius: "30px",
               boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
               background: "#000",
-              zIndex: 1,
+              zIndex: 0,
               overflow: "hidden",
               userSelect: "none",
               msUserSelect: "none",
               WebkitTapHighlightColor: "transparent",
+
             }}
           >
             <FlappyGame />
