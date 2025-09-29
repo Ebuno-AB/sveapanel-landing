@@ -1,0 +1,228 @@
+/* =====================
+   Font Imports
+   ===================== */
+/* Fallback to Inter for other weights until you have more Cereal font files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap");
+
+/* =====================
+   Font Declarations
+   ===================== */
+/* Airbnb Cereal Font - All Weights */
+@font-face {
+  font-family: "Cereal";
+  src: url(".public/fonts/Cereal/AirbnbCereal_W_Lt.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url(".public/fonts/Cereal/AirbnbCereal_W_Md.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url(".public/fonts/Cereal/AirbnbCereal_W_Bd.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url(".public/fonts/Cereal/AirbnbCereal_W_XBd.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url(".public/fonts/Cereal/AirbnbCereal_W_Blk.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =====================
+   Standardized Header System
+   ===================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+/* Main heading - for page titles and primary headers */
+h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+}
+
+/* Section headings - for major sections */
+h2 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+/* Subsection headings - for components and features */
+h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Minor headings - for cards and smaller sections */
+h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Small headings - for labels and minor elements */
+h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Tiny headings - for captions and very small text */
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+/* Responsive header scaling */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+  h4 {
+    font-size: 1.3rem;
+  }
+  h5 {
+    font-size: 1.1rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  h5 {
+    font-size: 1.05rem;
+  }
+  h6 {
+    font-size: 0.95rem;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* =====================
+   Global Styles
+   ===================== */
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  background: black;
+}
+
+body {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: "Cereal", system-ui, Arial, sans-serif;
+  color: #244260;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+
+
+.custom-app-buttons {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.custom-app-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 1.2rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 8px 0 rgba(44, 62, 80, 0.08);
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-app-btn:hover {
+  box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.12);
+  background: #f3f3f3;
+  color: #23481e;
+}
+
+.modal-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+@media (max-width: 700px) {
+  .modal-button-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+}
+

@@ -3,7 +3,9 @@ export const testIsIOS = (): boolean => {
 };
 
 export const isPhone = (): boolean => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isPhone = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  return isPhone;
 };
 
 export const isFacebookBrowser = (): boolean => {

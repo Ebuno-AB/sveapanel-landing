@@ -108,22 +108,16 @@ const QRModal: React.FC<QRModalProps> = ({
 
         {success != null &&
           (isPhoneDevice ? (
-            <div>
-              <p
-                className="qr-code-modal-text"
-                style={{
-                  marginTop: 20,
-                  marginBottom: 20,
-                }}
-              >
-                Klicka på länken för att ladda ner appen!
+            <div className="qr-code-modal-container">
+              <p className="qr-code-modal-text mt-4" style={{ fontSize: 15 }}>
+                Skanna QR-koden eller klicka på länken för att ladda ner appen!
               </p>
               <a
                 href={redirectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="modal-btn bg-blue-600 hover:bg-blue-700"
-                style={{ padding: "10px 20px", fontSize: 16 }}
+                className="modal-btn"
+                style={{ marginTop: 1 }}
               >
                 Ladda ner appen
               </a>
