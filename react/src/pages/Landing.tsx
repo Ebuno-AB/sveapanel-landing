@@ -156,7 +156,7 @@ function Landing() {
       // Remove the parameter from URL
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, [cookiesAccepted, trackEvent]);
+  }, [cookiesAccepted, trackEvent, window.gtag]);
 
   // Track page view when cookies are accepted
   useEffect(() => {
@@ -167,7 +167,7 @@ function Landing() {
         device_type: isPhoneDevice ? "mobile" : "desktop",
       });
     }
-  }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice]);
+  }, [cookiesAccepted, trackEvent, isRegistered, isPhoneDevice, window.gtag]);
 
   return (
     <>

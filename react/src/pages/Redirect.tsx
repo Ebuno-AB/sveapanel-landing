@@ -12,9 +12,7 @@ const Redirect: React.FC = () => {
   // Device detection function
   const detectDevice = () => {
     const userAgent = navigator.userAgent.toLowerCase();
-    
-    console.log('User Agent:', userAgent); // Debug log
-    console.log('User Agent length:', userAgent.length); // Debug log
+  
     
     // Check for Android devices (more comprehensive check)
     if (/android/.test(userAgent) || /mobile.*android/.test(userAgent)) {
@@ -39,11 +37,11 @@ const Redirect: React.FC = () => {
     return 'google';
   };
 
-  useEffect(() => {
-    trackEvent('conversion', {
-        'send_to': 'AW-764023269/BruBCL2A_rQDEOWjqOwC'
-    });    
-  }, []);
+  useEffect(() => { 
+      trackEvent('conversion', {
+          'send_to': 'AW-764023269/BruBCL2A_rQDEOWjqOwC'
+      });    
+  }, [window.gtag]);
 
   useEffect(() => {
     // Progress animation
@@ -70,7 +68,7 @@ const Redirect: React.FC = () => {
         // For 'detect' or any other value, detect the device
         targetPlatform = detectDevice();
       }
-      
+
       console.log('Redirecting to platform:', targetPlatform); // Debug log
       
       if (targetPlatform === 'google') {
@@ -88,24 +86,9 @@ const Redirect: React.FC = () => {
     };
   }, [platform, navigate]);
 
-  // Calculate the target platform for display
-  const getTargetPlatform = () => {
-    console.log('Platform from URL:', platform); // Debug log
-    
-    if (platform === 'google') return 'google';
-    if (platform === 'apple') return 'apple';
-    if (platform === 'detect') return detectDevice();
-    
-    // Fallback: detect device for any other platform value
-    return detectDevice();
-  };
 
-  const targetPlatform = getTargetPlatform();
-  const isGoogle = targetPlatform === 'google';
-  const platformName = isGoogle ? 'Google Play' : 'App Store';
+
   
-  console.log('Final platform:', targetPlatform, 'isGoogle:', isGoogle, 'platformName:', platformName); // Debug log
-
   return (
     <div className="redirect-page">
       <div className="pendulum-container">

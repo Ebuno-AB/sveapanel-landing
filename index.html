@@ -2,6 +2,47 @@
 <html lang="en">
   <head>
 
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval'
+        https://www.googletagmanager.com
+        https://www.google-analytics.com
+        https://www.googleadservices.com
+        https://www.google.com
+        https://app.link;
+      connect-src 'self'
+        https://www.google-analytics.com
+        https://region1.google-analytics.com
+        https://www.googletagmanager.com
+        https://www.googleadservices.com
+        https://googleads.g.doubleclick.net
+        https://www.google.com
+        https://www.google.se
+        https://api2.branch.io
+        https://app.link
+        https://svea-docker.pollapp.io;
+      img-src 'self' data:
+        https://sveapanelen.se
+        https://svea-docker.pollapp.io
+        https://www.google-analytics.com
+        https://www.googletagmanager.com
+        https://www.googleadservices.com
+        https://googleads.g.doubleclick.net
+        https://www.google.com
+        https://www.google.se
+        https://fonts.gstatic.com;
+      style-src 'self' 'unsafe-inline'
+        https://fonts.googleapis.com
+        https://www.googletagmanager.com;
+      font-src 'self' https://fonts.gstatic.com;
+      frame-src 'self'
+        https://www.googletagmanager.com
+        https://www.google.com;
+    ">
+
+
+
+
      <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,19 +59,32 @@
         <meta property="og:description"
             content="SveaPanelen är en app som du kan göra betalda undersökningar i via mobilen. Vi erbjuder registrering via BankID och uttag via Swish." />
         <!-- description shown in the actual shared post -->
-        <meta property="og:image" content="https://sveapanelen.se/react/src/public/assets/sveamock.png" />
+        <!-- <meta property="og:image" content="https://sveapanelen.se/react/src/public/assets/sveamock.png" /> -->
         <!-- image link, make sure it's jpg -->
         <meta property="og:url" content="https://sveapanelen.se" /> <!-- where do you want your post to link to -->
         <meta property="og:type" content="article" />
         <meta name="google-site-verification" content="7QK4aBV55autpr-xc1abnmzXVxnCASVt424O4Fpydio" />
         
-        <link rel="preload" as="image" href="https://sveapanelen.se/react/src/public/assets/sveamock.png">
+        <!-- <link rel="preload" as="image" href="https://sveapanelen.se/react/src/public/assets/sveamock.png"> -->
 
     <meta charset="UTF-8" />
     <!-- import logo.svg from publicpublic/logo -->
     <link rel="icon" type="image/svg+xml" href="/react/src/public/assets/logo/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sveapanelen</title>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-764023269"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // REQUIRED config call
+      gtag('config', 'AW-764023269');
+    </script>
+
+   
   </head>
   <body>
     <div id="root"></div>
