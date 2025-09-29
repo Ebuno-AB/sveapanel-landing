@@ -21,65 +21,70 @@ const PriceCard: React.FC<CardProps> = ({
   onEarn,
   color,
 }) => {
-  const [pop, setPop] = useState(false);
-  const [bursts, setBursts] = useState<Array<{ id: number }>>([]);
+  // Store per-burst click position so each burst animates independently
+  const [bursts, setBursts] = useState<Array<{ id: number; x: number; y: number }>>([]);
 
   const moneyRef = React.useRef<HTMLAudioElement | null>(null);
   React.useEffect(() => {
     moneyRef.current = new Audio(Money);
   }, []);
+
+  const MAX_BURSTS = 2; // hard cap to keep DOM light on mobile
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
     if (moneyRef.current) {
-      moneyRef.current.currentTime = 0;
-      moneyRef.current.play();
+      try {
+        moneyRef.current.currentTime = 0;
+        const p = moneyRef.current.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      } catch {}
     }
 
-    // Set click position as CSS custom properties
-    e.currentTarget.style.setProperty("--click-x", `${x}%`);
-    e.currentTarget.style.setProperty("--click-y", `${y}%`);
-
-    setPop(true);
     const id = Date.now() + Math.random();
-    setBursts((b) => [...b, { id }]);
+    setBursts((b) => {
+      const next = [...b, { id, x, y }];
+      return next.length > MAX_BURSTS ? next.slice(-MAX_BURSTS) : next;
+    });
     onEarn?.(price);
 
-    // cleanup burst after animation ends
-    setTimeout(() => {
-      setBursts((b) => b.filter((x) => x.id !== id));
-      setPop(false);
+    window.setTimeout(() => {
+      setBursts((b) => b.filter((x_) => x_.id !== id));
     }, 1200);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" || e.key === " ") {
-      // For keyboard events, position at center
-      e.currentTarget.style.setProperty("--click-x", "50%");
-      e.currentTarget.style.setProperty("--click-y", "50%");
+      const id = Date.now() + Math.random();
+      const x = 50;
+      const y = 50;
 
       if (moneyRef.current) {
-        moneyRef.current.currentTime = 0;
-        moneyRef.current.play();
+        try {
+          moneyRef.current.currentTime = 0;
+          const p = moneyRef.current.play();
+          if (p && typeof p.catch === "function") p.catch(() => {});
+        } catch {}
       }
 
-      setPop(true);
-      const id = Date.now() + Math.random();
-      setBursts((b) => [...b, { id }]);
+      setBursts((b) => {
+        const next = [...b, { id, x, y }];
+        return next.length > MAX_BURSTS ? next.slice(-MAX_BURSTS) : next;
+      });
       onEarn?.(price);
 
-      setTimeout(() => {
-        setBursts((b) => b.filter((x) => x.id !== id));
-        setPop(false);
+      window.setTimeout(() => {
+        setBursts((b) => b.filter((x_) => x_.id !== id));
       }, 1200);
     }
   };
 
   return (
     <div
-      className={`sc-card ${pop ? "is-pop" : ""}`}
+      className={`sc-card ${bursts.length > 0 ? "is-pop" : ""}`}
       style={{ ["--rating" as any]: rating }}
       onClick={handleClick}
       role="button"
@@ -90,21 +95,13 @@ const PriceCard: React.FC<CardProps> = ({
       <div className="sc-pill sc-pill--time">{minutes} min</div>
       <div
         className="sc-pill sc-pill--tag"
-        style={
-          {
-            // Use the color prop for background, and set text color as needed
-            "--pill-bg": color,
-            "--pill-text": "#fff", // or any color you want
-          } as React.CSSProperties
-        }
+        style={{ ["--pill-bg" as any]: color, ["--pill-text" as any]: "#fff" } as React.CSSProperties}
       >
         {tag}
       </div>
 
       <div className="sc-price">
-        <span className="sc-price-value">
-          {price.toString().replace(",", ".")}
-        </span>
+        <span className="sc-price-value">{price.toString().replace(",", ".")}</span>
         <span className="sc-price-currency">kr</span>
       </div>
 
@@ -112,47 +109,55 @@ const PriceCard: React.FC<CardProps> = ({
 
       {/* Effects */}
       {bursts.map((b) => (
-        <CoinBurst key={b.id} amount={price} />
+        <CoinBurst key={b.id} amount={price} x={b.x} y={b.y} />
       ))}
     </div>
   );
 };
 
-const CoinBurst: React.FC<{ amount: number }> = ({ amount }) => {
-  const N = 16;
-  const coins = Array.from({ length: N }).map((_, i) => {
-    const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
-    const distance = 70 + Math.random() * 60; // px
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance - (20 + Math.random() * 40); // slight upward bias
-    const rot = (Math.random() * 360 - 180).toFixed(1);
-    const delay = (i * 0.015).toFixed(3);
-    const scale = (0.8 + Math.random() * 0.6).toFixed(2);
-    return { dx, dy, rot, delay, scale, i };
-  });
+// Memoize to avoid re-rendering active bursts on parent updates
+const CoinBurst: React.FC<{ amount: number; x: number; y: number }> = React.memo(({ amount, x, y }) => {
+  const coins = React.useMemo(() => {
+    const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+    const N = isMobile ? 8 : 14; // fewer coins on mobile for smoother perf
+    return Array.from({ length: N }).map((_, i) => {
+      const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
+      const distance = 62 + Math.random() * 52; // px
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - (18 + Math.random() * 36); // slight upward bias
+      const rot = (Math.random() * 360 - 180).toFixed(1);
+      const delay = (i * 0.012).toFixed(3);
+      const scale = (0.8 + Math.random() * 0.5).toFixed(2);
+      return { dx, dy, rot, delay, scale, i };
+    });
+  }, []);
+
+  // Provide per-burst CSS variables so each burst uses its own origin
+  const burstStyle = {
+    ["--click-x" as any]: `${x}%`,
+    ["--click-y" as any]: `${y}%`,
+  } as React.CSSProperties;
 
   return (
-    <div className="burst">
+    <div className="burst" style={burstStyle}>
       <div className="ring" />
       <div className="kr-float">+{amount.toString().replace(".", ",")} kr</div>
       {coins.map(({ dx, dy, rot, delay, scale, i }) => (
         <span
           key={i}
           className="coin"
-          style={
-            {
-              ["--tx" as any]: `${dx}px`,
-              ["--ty" as any]: `${dy}px`,
-              ["--rot" as any]: `${rot}deg`,
-              ["--delay" as any]: `${delay}s`,
-              ["--scale" as any]: scale,
-            } as React.CSSProperties
-          }
+          style={{
+            ["--tx" as any]: `${dx}px`,
+            ["--ty" as any]: `${dy}px`,
+            ["--rot" as any]: `${rot}deg`,
+            ["--delay" as any]: `${delay}s`,
+            ["--scale" as any]: scale,
+          } as React.CSSProperties}
         />
       ))}
     </div>
   );
-};
+});
 
 interface SurveyCardsProps {
   onEarn?: (amount: number) => void;
