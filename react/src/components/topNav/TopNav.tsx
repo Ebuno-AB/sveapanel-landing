@@ -257,36 +257,42 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
 
 export default TopNav;
 
-const SaldoBurst =  React.memo(({ amount }: { amount: number }) => {
-  const N = 16;
-  const coins = Array.from({ length: N }).map((_, i) => {
-    const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
-    const distance = 60 + Math.random() * 50;
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance - (15 + Math.random() * 35);
-    const rot = (Math.random() * 360 - 180).toFixed(1);
-    const delay = (i * 0.015).toFixed(3);
-    const scale = (0.8 + Math.random() * 0.6).toFixed(2);
-    return { dx, dy, rot, delay, scale, i };
-  });
+const SaldoBurst =  React.memo(({ amount, x = 50, y = 50 }: { amount: number; x?: number; y?: number }) => {
+  const coins = React.useMemo(() => {
+    const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+    const N = isMobile ? 8 : 14; // fewer coins on mobile
+    return Array.from({ length: N }).map((_, i) => {
+      const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
+      const distance = 54 + Math.random() * 46; // slightly reduced travel
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - (16 + Math.random() * 30);
+      const rot = (Math.random() * 360 - 180).toFixed(1);
+      const delay = (i * 0.012).toFixed(3); // stagger a bit less
+      const scale = (0.85 + Math.random() * 0.45).toFixed(2);
+      return { dx, dy, rot, delay, scale, i };
+    });
+  }, []);
+
+  const burstStyle = {
+    ["--click-x" as any]: `${x}%`,
+    ["--click-y" as any]: `${y}%`,
+  } as React.CSSProperties;
 
   return (
-    <div className="saldo-burst" aria-hidden="true">
+    <div className="saldo-burst" aria-hidden="true" style={burstStyle}>
       <div className="saldo-ring" />
       <div className="saldo-float">+{amount.toString().replace(".", ",")} kr</div>
       {coins.map(({ dx, dy, rot, delay, scale, i }) => (
         <span
           key={i}
           className="saldo-coin"
-          style={
-            {
-              ["--tx" as any]: `${dx}px`,
-              ["--ty" as any]: `${dy}px`,
-              ["--rot" as any]: `${rot}deg`,
-              ["--delay" as any]: `${delay}s`,
-              ["--scale" as any]: scale,
-            } as React.CSSProperties
-          }
+          style={{
+            ["--tx" as any]: `${dx}px`,
+            ["--ty" as any]: `${dy}px`,
+            ["--rot" as any]: `${rot}deg`,
+            ["--delay" as any]: `${delay}s`,
+            ["--scale" as any]: scale,
+          } as React.CSSProperties}
         />
       ))}
     </div>
