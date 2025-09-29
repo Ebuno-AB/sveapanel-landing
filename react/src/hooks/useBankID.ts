@@ -10,6 +10,7 @@ export const useBankID = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [browserLink, setBrowserLink] = useState<string | null>(null);
+  const [universalLink, setUniversalLink] = useState<string | null>(null);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [error, setError] = useState<{title: string; message: string} | null>(null);
   const [success, setSuccess] = useState<{title: string; message: string; onClose?: () => void} | null>(null);
@@ -119,7 +120,7 @@ export const useBankID = () => {
   };
 
   // Begin authentication
-  const beginAuthentication = useCallback(async (): Promise<{ success: boolean; browserLink: string | null }> => {
+  const beginAuthentication = useCallback(async (): Promise<{ success: boolean; browserLink: string | null, universalLink: string | null }> => {
     try {
       setIsLoading(true);
       setError(null); // Clear any previous errors
@@ -127,22 +128,22 @@ export const useBankID = () => {
       
       if (!response.data) throw new Error('No data received');
       
-      const { orderRef, browserLink, qr } = response.data;
+      const { orderRef, browserLink, qr, universalLink } = response.data;
       orderRefRef.current = orderRef;
       setBrowserLink(browserLink);
-      
+      setUniversalLink(universalLink);
       if (qr) {
         const qrUrl = await generateQRCode(qr);
         setQrCodeUrl(qrUrl);
       }
       
       setIsLoading(false);
-      return { success: true, browserLink };
+      return { success: true, browserLink, universalLink };
     } catch (error) {
       console.error('Begin error:', error);
       showMessage('error');
       setIsLoading(false);
-      return { success: false, browserLink: null };
+      return { success: false, browserLink: null, universalLink: null };
     }
   }, []);
 
@@ -233,7 +234,7 @@ export const useBankID = () => {
     }
     
     // Return the browserLink for immediate use
-    return result.browserLink;
+    return result.universalLink;
   }, [beginAuthentication, verifyAuthentication, refreshQR]);
 
   // Cleanup on unmount
@@ -244,6 +245,7 @@ export const useBankID = () => {
   return {
     qrCodeUrl,
     browserLink,
+    universalLink,
     isLoading,
     isComplete,
     error: error ? { ...error, onRetry: retryAuthentication } : null,
