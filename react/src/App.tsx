@@ -6,7 +6,6 @@ import Redirect from "./pages/Redirect";
 import { useGA } from "./hooks/gtag";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFoundPage from "./pages/404";
-import phoneImg from "@/src/public/assets/sveamock.png";
 
 function App() {
   const { trackEvent } = useGA();
@@ -17,26 +16,6 @@ function App() {
     });
   }, [trackEvent, window.gtag]);
 
-  useEffect(() => {
-    // --- META tag ---
-    const meta = document.createElement("meta");
-    meta.setAttribute("property", "og:image");
-    meta.setAttribute("content", "https://sveapanelen.se" + phoneImg);
-    document.head.appendChild(meta);
-
-    // --- LINK preload ---
-    const link = document.createElement("link");
-    link.setAttribute("rel", "preload");
-    link.setAttribute("as", "image");
-    link.setAttribute("href", "https://sveapanelen.se" + phoneImg);
-    document.head.appendChild(link);
-
-    // optional cleanup if component unmounts
-    return () => {
-      document.head.removeChild(meta);
-      document.head.removeChild(link);
-    };
-  }, []);
 
   return (
     <Router>
