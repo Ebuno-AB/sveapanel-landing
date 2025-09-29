@@ -24,7 +24,7 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
-import iphone from "@/src/public/Iphone.svg";
+import iphone from "@/src/public/Iphone.png";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -208,7 +208,7 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-              top: "2.5%",
+              top: "0%",
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
@@ -227,7 +227,6 @@ function Landing() {
             }}
           >
             <FlappyGame />
-            
           </div>
 
           {/* iPhone frame — always above */}
@@ -240,7 +239,7 @@ function Landing() {
               display: "block",
               zIndex: 2,
               position: "absolute",
-              top: 0,
+              top: "-2.5%",
               pointerEvents: "none", // allows game interactions through
             }}
           />
@@ -280,7 +279,7 @@ function Landing() {
         success={{
           title: "Registrering lyckades!",
           message:
-            "Du har registrerats framgångsrikt med BankID! Du kan nu ladda ner appen för att börja tjäna pengar.",
+            "Grattis! Din registrering med BankID är klar. Ladda ner appen och kom igång med att tjäna pengar direkt.",
           onClose: () => setShowSuccessModal(false),
         }}
       />

@@ -1,42 +1,29 @@
 import React, { useEffect } from "react";
 import { X } from "lucide-react";
-import QRCode from "react-qr-code";
+import AppDownloadQRCode from "./AppDownloadQRCode";
 import "./AppDownloadQRModal.css";
 
 interface AppDownloadQRModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** Optional: override the QR URL (otherwise it’s computed automatically) */
+  qrUrl?: string;
 }
 
 const AppDownloadQRModal: React.FC<AppDownloadQRModalProps> = ({
   isOpen,
   onClose,
+  qrUrl,
 }) => {
-  const getQRCodeUrl = () => {
-    if (
-      window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1"
-    ) {
-      return `http://192.168.0.220:5173/redirect/detect`; // Your actual local IP and port
-    } else {
-      // For production, use the actual domain
-      return `${window.location.origin}/redirect/detect`;
-    }
-  };
-
-  const qrCodeUrl = getQRCodeUrl();
-
-  // Close modal on escape key
+  // Close modal on escape key + lock background scroll
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
+      if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden"; // Prevent background scroll
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
@@ -53,7 +40,11 @@ const AppDownloadQRModal: React.FC<AppDownloadQRModalProps> = ({
         className="app-download-modal-content"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="app-download-modal-close-btn" onClick={onClose}>
+        <button
+          className="app-download-modal-close-btn"
+          onClick={onClose}
+          aria-label="Stäng"
+        >
           <X size={24} />
         </button>
 
@@ -65,23 +56,13 @@ const AppDownloadQRModal: React.FC<AppDownloadQRModalProps> = ({
         </div>
 
         <div className="app-download-modal-body">
-          <div className="qr-code-container">
-            <div className="qr-code-wrapper">
-              <QRCode
-                value={qrCodeUrl}
-                size={250}
-                level="H"
-                fgColor="#000000"
-                bgColor="#ffffff"
-              />
-            </div>
-            <p className="qr-code-instructions">
-              Öppna kameran på din telefon och skanna QR-koden
-            </p>
-          </div>
+          {/* Re-usable QR component */}
+          <AppDownloadQRCode url={qrUrl} size={250} showInstructions />
 
           <div className="app-download-modal-footer">
-            <div className="store-buttons"></div>
+            <div className="store-buttons">
+              {/* (optional) store badges here */}
+            </div>
             <p className="store-note">
               Appen kommer automatiskt att öppnas i rätt butik baserat på din
               enhet
