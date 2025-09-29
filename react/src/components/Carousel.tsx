@@ -41,7 +41,7 @@ const Carousel = () => {
           maxWidth: "600px",
           marginLeft: "25px",
           margin: "40px auto 60px",
-          marginBottom: isCompact ? "-20px" : undefined,
+          marginBottom: isCompact ? "-50px" : undefined,
           maskImage:
             "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
           WebkitMaskImage:
