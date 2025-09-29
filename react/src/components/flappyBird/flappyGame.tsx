@@ -537,7 +537,7 @@ function FlappyBirdCanvas() {
     ctx.strokeStyle = "#000";
     ctx.lineWidth = Math.max(3, Math.floor(W * 0.01));
     ctx.textAlign = "center";
-    const y = isPhone()? Math.floor(H * 0.25) : Math.floor(H * 0.2) ;
+    const y = isPhone()? Math.floor(H * 0.30) : Math.floor(H * 0.265) ;
     ctx.strokeText(String(score), Math.floor(W / 2), y);
     ctx.fillText(String(score), Math.floor(W / 2), y);
   }
@@ -638,7 +638,6 @@ function FlappyBirdCanvas() {
         style={{
           width: `${cssSize.w}px`,
           height: `${cssSize.h}px`,
-          borderRadius: "20px",
           display: "block",
           touchAction: "manipulation",
           cursor: "pointer"

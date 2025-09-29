@@ -208,7 +208,7 @@ function Landing() {
           <div
             style={{
               position: "absolute",
-              top: "0%",
+              top: "-5%",
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
@@ -216,7 +216,8 @@ function Landing() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              borderRadius: "clamp(25px, 3vw, 25px)",
+              borderTopLeftRadius: "30px",
+              borderTopRightRadius: "30px",
               boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
               background: "#000",
               zIndex: 1,
@@ -239,7 +240,7 @@ function Landing() {
               display: "block",
               zIndex: 2,
               position: "absolute",
-              top: "-2.5%",
+              top: "-7.5%",
               pointerEvents: "none", // allows game interactions through
             }}
           />
