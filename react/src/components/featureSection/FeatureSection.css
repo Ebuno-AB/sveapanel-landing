@@ -27,9 +27,19 @@
   background: transparent;
   top: 10rem;
 }
+.feature-section-games {
+  min-height: 650px; /* or whatever height you want */
+  padding-bottom: 60px; /* add more space at the bottom if needed */
+}
 
- 
-
+.feature-section-games .feature-phone-showcase {
+  min-height: 650px;
+}
+@media (max-width: 700px){
+  .feature-section-games .feature-phone-showcase {
+    min-height: 650px;
+  }
+}
 .feature-phone-showcase > div {
   position: absolute;
   top: 4%;

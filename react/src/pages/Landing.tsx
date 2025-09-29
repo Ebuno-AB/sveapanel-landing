@@ -195,6 +195,7 @@ function Landing() {
 
       {/* First Feature Section - Games */}
       <FeatureSection
+        className="feature-section-games"
         background="linear-gradient(135deg, #ff7ac7 0%, #b56cff 50%, #4baaff 100%)"
         title="100+ mobilspel att ladda ner!"
         description="Bli belönad för varje nivå!"
@@ -212,7 +213,7 @@ function Landing() {
               left: isPhoneDevice ? "50%" : "14%",
               transform: isPhoneDevice ? "translateX(-50%)" : "none",
               width: "72%",
-              height: isPhoneDevice ? "87%" : "87%", // increased height for both
+              height: isPhoneDevice ? "87%" : "90%", // increased height for both
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
