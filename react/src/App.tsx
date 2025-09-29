@@ -5,6 +5,7 @@ import RegistrationPage from './pages/RegistrationPage';
 import Redirect from './pages/Redirect';
 import { useGA } from './hooks/gtag';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import NotFoundPage from './pages/404';
 
 function App() {
   const { trackEvent } = useGA();
@@ -25,10 +26,8 @@ function App() {
         <Route path="/redirect/:platform" element={<Redirect />} />
         <Route path="/redirect/detect" element={<Redirect />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
-      
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-
-
     </Router>
   );
 }
