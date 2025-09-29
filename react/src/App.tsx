@@ -8,7 +8,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFoundPage from "./pages/404";
 import phoneImg from "@/src/public/assets/sveamock.png";
 
-async function App() {
+function App() {
   const { trackEvent } = useGA();
 
   useEffect(() => {
