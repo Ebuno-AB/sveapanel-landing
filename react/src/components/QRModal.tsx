@@ -5,6 +5,7 @@ import AppDownloadQRCode, {
   getDefaultQRCodeUrl,
 } from "../components/appDownloadModal/AppDownloadQRCode";
 import { isPhone } from "../utils/browserDetection";
+import logo from "@/src/public/logo.png";
 
 interface QRModalProps {
   isOpen: boolean;
@@ -110,7 +111,7 @@ const QRModal: React.FC<QRModalProps> = ({
           (isPhoneDevice ? (
             <div className="qr-code-modal-container">
               <p className="qr-code-modal-text mt-4" style={{ fontSize: 15 }}>
-                Skanna QR-koden eller klicka på länken för att ladda ner appen!
+                Klicka på länken för att ladda ner appen!
               </p>
               <a
                 href={redirectUrl}
@@ -120,6 +121,7 @@ const QRModal: React.FC<QRModalProps> = ({
                 style={{ marginTop: 1 }}
               >
                 Ladda ner appen
+                <img src={logo} alt="" />
               </a>
             </div>
           ) : (
