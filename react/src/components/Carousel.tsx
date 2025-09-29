@@ -2,16 +2,33 @@ import candyCrushImg from "@/src/public/assets/games/candyCrush.png";
 import monopolyImg from "@/src/public/assets/games/monopoly.png";
 import pigGameImg from "@/src/public/assets/games/pigGame.png";
 import tontongGameImg from "@/src/public/assets/games/tontongGame.png";
+import { useEffect, useState } from "react";
 
 const Carousel = () => {
-  // Calculate exact dimensions for perfect loop
-  const itemWidth = 160; // image width
+  const itemWidth = 160; // desktop image width
+  const itemWidthCompact = 120; // image width for compact view
   const itemPadding = 6 * 2; // padding left + right
   const gap = 20;
-  const totalItemWidth = itemWidth + itemPadding + gap;
   const numItems = 4;
-  const singleSetWidth = numItems * totalItemWidth - gap; // minus gap after last item
 
+  // Responsive width state
+  const [currentItemWidth, setCurrentItemWidth] = useState(itemWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 700) {
+        setCurrentItemWidth(itemWidthCompact);
+      } else {
+        setCurrentItemWidth(itemWidth);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const totalItemWidth = currentItemWidth + itemPadding + gap;
+  const singleSetWidth = numItems * totalItemWidth - gap;
   const isCompact = typeof window !== "undefined" && window.innerWidth <= 1200;
 
   return (
@@ -24,7 +41,7 @@ const Carousel = () => {
           maxWidth: "600px",
           marginLeft: "25px",
           margin: "40px auto 60px",
-          marginBottom: isCompact ? "-125px" : undefined,
+          marginBottom: isCompact ? "-0px" : undefined,
           maskImage:
             "linear-gradient(to right, transparent, black 7%, black 93%, transparent)",
           WebkitMaskImage:
@@ -36,7 +53,6 @@ const Carousel = () => {
             display: "flex",
             alignItems: "center",
             gap: "20px",
-            // Use calculated width for precise positioning
             width: `${singleSetWidth * 2}px`,
             animation: "preciseMarquee 18s linear infinite",
             transform: "translateZ(0)",
@@ -62,8 +78,8 @@ const Carousel = () => {
                 draggable={false}
                 style={{
                   flex: "0 0 auto",
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth}px`, 
+                  width: `${currentItemWidth}px`,
+                  height: `${currentItemWidth}px`,
                   objectFit: "contain",
                   borderRadius: "20px",
                   padding: `${itemPadding / 2}px`,
@@ -73,7 +89,6 @@ const Carousel = () => {
               />
             ))}
         </div>
-
         <style>
           {`
             @keyframes preciseMarquee {
@@ -81,11 +96,9 @@ const Carousel = () => {
                 transform: translateX(0) translateZ(0); 
               }
               100% { 
-                transform: translateX(-${singleSetWidth +20}px) translateZ(0); 
+                transform: translateX(-${singleSetWidth + 20}px) translateZ(0); 
               }
             }
-            
-            /* Accessibility */
             @media (prefers-reduced-motion: reduce) {
               .carousel-strip * {
                 animation: none !important;

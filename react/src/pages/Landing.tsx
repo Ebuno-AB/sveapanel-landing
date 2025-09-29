@@ -201,7 +201,7 @@ function Landing() {
         description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
-        carousel={<Carousel />}
+        carousel={<Carousel/>}
       >
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
