@@ -4,9 +4,7 @@ import path from "path";
 
 export default defineConfig({
   root: "", // React app lives here
-  plugins: [
-    react(),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "react"), // import from '/react/...'
