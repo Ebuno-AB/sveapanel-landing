@@ -174,7 +174,7 @@ body {
   justify-content: center;
   margin: 0;
   font-family: "Cereal", system-ui, Arial, sans-serif;
-  color: #244260;
+  color: #000000;
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -193,8 +193,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  background: #fff;
-  color: #1a1a1a;
+  background: #111;
+  color: #fff;
   border-radius: 1.2rem;
   padding: 0.7rem 1.6rem;
   font-size: 1.08rem;
@@ -211,6 +211,6 @@ body {
 
 .custom-app-btn:hover {
   box-shadow: 0 4px 16px 0 rgba(44, 62, 80, 0.12);
-  background: #f3f3f3;
-  color: #23481e;
+  background: #333;
+  color: #fff;
 }

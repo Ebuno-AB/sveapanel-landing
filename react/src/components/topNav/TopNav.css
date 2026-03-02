@@ -68,155 +68,6 @@
 }
 
 /* =====================
-   Saldo + Burst
-   ===================== */
-.saldo-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 14px;
-  color: white;
-  min-width: 70px;
-  padding: 0 12px;
-  background-color: #00cca380;
-  height: 38px;
-  border-radius: 30px;
-  border: 4px solid #00cca3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateZ(0);
-}
-.saldo-box.pop {
-  animation: saldo-pop 0.26s ease;
-}
-@keyframes saldo-pop {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.08);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.saldo-burst {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.saldo-ring {
-  position: absolute;
-  left: var(--click-x, 50%);
-  top: var(--click-y, 50%);
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  border: 2px solid #00cca3;
-  transform: translate(-50%, -50%);
-  animation: saldo-ring 0.7s ease-out forwards;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-  opacity: 0.9;
-}
-@keyframes saldo-ring {
-  0% {
-    transform: translate(-50%, -50%) scale(0.6);
-    opacity: 0.9;
-  }
-  70% {
-    transform: translate(-50%, -50%) scale(1.25);
-    opacity: 0.45;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.6);
-    opacity: 0;
-  }
-}
-
-.saldo-float {
-  position: absolute;
-  left: var(--click-x, 50%);
-  top: var(--click-y, 50%);
-  transform: translate(-50%, -50%);
-  font:
-    800 16px/1 "Inter",
-    ui-sans-serif;
-  color: #00cca3;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 6px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-  animation: saldo-floatUp 0.9s ease-out forwards;
-  white-space: nowrap;
-}
-@keyframes saldo-floatUp {
-  0% {
-    transform: translate(-50%, -50%) translateY(6px);
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) translateY(-26px);
-    opacity: 0;
-  }
-}
-
-.saldo-coin {
-  position: absolute;
-  left: var(--click-x, 50%);
-  top: var(--click-y, 50%);
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    120% 120% at 30% 30%,
-    #fff7b8 0% 35%,
-    #f7c52b 36% 68%,
-    #d8a60a 69% 100%
-  );
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, 0.65),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.08);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.22));
-  animation: saldo-coinFly 0.9s cubic-bezier(0.16, 0.7, 0.23, 1) forwards;
-  animation-delay: var(--delay, 0s);
-}
-@keyframes saldo-coinFly {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) translate(0, 0) scale(0.6) rotate(0deg);
-  }
-  15% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) translate(var(--tx), var(--ty))
-      scale(var(--scale, 1)) rotate(var(--rot, 0deg));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .saldo-box.pop {
-    animation: none;
-  }
-  .saldo-coin,
-  .saldo-float,
-  .saldo-ring {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-  }
-}
-
-/* =====================
    Links
    ===================== */
 .topnav-link {
@@ -236,10 +87,13 @@
   background: rgba(0, 0, 0, 0.06);
   transform: translateY(-1px);
 }
+.topnav-link.active {
+  font-weight: 600;
+}
 .topnav-download {
-  background: rgb(255, 255, 255);
+  background: #111;
   border: none;
-  color: rgba(0, 0, 0, 0.9);
+  color: #fff;
   font-size: 0.95rem;
   font-weight: 500;
   padding: 0.6rem 1.2rem;
@@ -247,6 +101,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+}
+.topnav-download:hover {
+  background: #333;
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 /* =====================
@@ -306,15 +165,9 @@
   height: 100vh;
   z-index: 1999;
 
-  /* Dark gradient background similar to GroupMe */
-  background: linear-gradient(
-    135deg,
-    #1a1a2e 0%,
-    #16213e 25%,
-    #0f3460 50%,
-    #533483 75%,
-    #7209b7 100%
-  );
+  /* Light background */
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 
   opacity: 0;
   visibility: hidden;
@@ -353,14 +206,14 @@
 .mobile-menu-brand {
   font-size: 1.3rem;
   font-weight: 700;
-  color: white;
+  color: #111;
   letter-spacing: -0.02em;
 }
 
 .mobile-menu-close {
   background: none;
   border: none;
-  color: white;
+  color: #111;
   cursor: pointer;
   padding: 8px;
   border-radius: 50%;
@@ -390,21 +243,15 @@
   padding: 0 2rem;
 }
 
-.mobile-menu-section-title {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 2rem 0 1rem 0;
-  padding-left: 0.5rem;
+/* Menu Links */
+.mobile-menu-link.active {
+  font-weight: 700;
 }
 
-/* Menu Links */
 .mobile-menu-link {
   background: none;
   border: none;
-  color: white;
+  color: #111;
   font-size: 1.25rem;
   font-weight: 500;
   padding: 1.25rem 0.5rem;
@@ -460,29 +307,6 @@
   box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
 }
 
-/* Secondary Button */
-.mobile-menu-secondary {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 0.875rem 2rem;
-  cursor: pointer;
-
-  text-align: center;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  border-radius: 50px;
-  outline: none;
-}
-
-.mobile-menu-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
-}
-
 /* Prevent background scroll when menu is open */
 html.no-scroll,
 body.no-scroll {
@@ -532,13 +356,6 @@ body.no-scroll {
   .topnav-links {
     display: none;
   }
-
-  .saldo-box {
-    font-size: 12px;
-    min-width: 60px;
-    height: 32px;
-    padding: 0 8px;
-  }
 }
 
 @media (max-width: 500px) {
@@ -557,12 +374,6 @@ body.no-scroll {
   }
   .topnav-brand {
     font-size: 1.1rem;
-  }
-
-  .saldo-box {
-    font-size: 11px;
-    min-width: 45px;
-    height: 25px;
   }
 
   .hamburger {

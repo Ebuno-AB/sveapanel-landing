@@ -49,7 +49,7 @@
 }
 
 .faq-section {
-  background: linear-gradient(135deg, #0f1031 0%, #1a1b3a 50%, #2a2b5e 100%);
+  background: #ffffff;
   padding: 35px 35px;
   width: 100vw;
   position: relative;
@@ -75,11 +75,15 @@
 .faq-title {
   font-size: 4rem;
   font-weight: 900;
-  color: #ffffff;
+  color: #000000;
   margin: 0;
   letter-spacing: -0.02em;
   text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
-  font-family: "Cereal", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Cereal",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .faq-list {
@@ -104,7 +108,7 @@
 }
 
 .faq-item:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .faq-question {
@@ -125,11 +129,11 @@
 }
 
 .faq-question:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .faq-question.expanded {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .faq-question:focus {
@@ -147,17 +151,21 @@
 .faq-question-text {
   font-size: 1.2rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.95);
   line-height: 1.5;
   flex: 1;
   text-align: left;
-  font-family: "Cereal", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Cereal",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .faq-icon {
   font-size: 1.25rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
   width: 20px;
   height: 20px;
   display: flex;
@@ -168,13 +176,14 @@
 }
 
 .faq-question.expanded .faq-icon {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   transform: rotate(45deg);
 }
 
 .faq-answer {
   overflow: hidden;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   height: 0;
   opacity: 0;
@@ -189,10 +198,14 @@
   margin-top: 10px;
   padding: 0 32px 24px 32px;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(0, 0, 0, 0.75);
   line-height: 1.6;
   font-weight: 400;
-  font-family: "Cereal", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Cereal",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* Background decoration */
@@ -203,11 +216,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.08) 0%,
-    transparent 50%
-  );
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
   animation: rotate 30s linear infinite;
   pointer-events: none;
 }
@@ -230,7 +239,8 @@
 @media (max-width: 768px) {
   .faq-answer {
     overflow: hidden;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transition:
+      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
       height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 0;
     opacity: 0;
@@ -275,7 +285,8 @@
 @media (max-width: 400px) {
   .faq-answer {
     overflow: hidden;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transition:
+      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
       height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 0;
     opacity: 0;

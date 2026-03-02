@@ -76,7 +76,7 @@ function Landing() {
       {},
       (err: branch.BranchError, data: branch.SessionData | null) => {
         console.log("Branch init", err, data);
-      }
+      },
     );
   }, []);
 
@@ -99,7 +99,7 @@ function Landing() {
     if (isPhoneDevice && returnedBrowserLink) {
       console.log(
         "📱 Redirecting to BankID app via browserLink:",
-        returnedBrowserLink
+        returnedBrowserLink,
       );
       window.location.href = returnedBrowserLink;
       return;
@@ -181,8 +181,7 @@ function Landing() {
       {/* Unified Background for InfoSection and RatingsSection */}
       <div
         style={{
-          background:
-            "linear-gradient(135deg, #6a5ae0 0%, #7e7eff 50%, #49c6f3 100%)",
+          background: "#ffffff",
         }}
       >
         <InfoSection />
@@ -196,12 +195,12 @@ function Landing() {
       {/* First Feature Section - Games */}
       <FeatureSection
         className="feature-section-games"
-        background="linear-gradient(135deg, #ff7ac7 0%, #b56cff 50%, #4baaff 100%)"
+        background="#ffffff"
         title="100+ mobilspel att ladda ner!"
         description="Bli belönad för varje nivå!"
         imageAlt="Spel och belöningar"
         interactive={true}
-        carousel={<Carousel/>}
+        carousel={<Carousel />}
       >
         {/* Phone showcase */}
         <div className="feature-phone-showcase">
@@ -226,7 +225,6 @@ function Landing() {
               userSelect: "none",
               msUserSelect: "none",
               WebkitTapHighlightColor: "transparent",
-
             }}
           >
             <FlappyGame />
@@ -251,8 +249,7 @@ function Landing() {
 
       {/* Second Feature Section - Survey Cards */}
       <FeatureSection
-        background="linear-gradient(135deg, #6a5ae0 0%, #7e7eff 50%, #49c6f3 100%)
-"
+        background="#ffffff"
         title="Tjäna pengar på enkäter online"
         description="Få betalt för din åsikt – enkelt hemifrån."
       >

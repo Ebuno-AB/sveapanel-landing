@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/src/public/logo.png";
 
@@ -9,6 +9,7 @@ interface TopNavProps {
 
 const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const menuRef = useRef<HTMLDivElement | null>(null);
   const firstLinkRef = useRef<HTMLButtonElement | null>(null);
 
@@ -79,7 +80,11 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
       <nav className="modern-topnav">
         <div className="topnav-container">
           {/* Logo */}
-          <div className="topnav-logo">
+          <div
+            className="topnav-logo"
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
             <img
               src={logoImg}
               alt="SveaPanelen logo"
@@ -93,20 +98,26 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
             {/* Desktop links */}
             {!isMobile && (
               <div className="topnav-links">
-                <button className="topnav-link" onClick={() => navigate("/")}>
+                <button
+                  className={`topnav-link${location.pathname === "/" ? " active" : ""}`}
+                  onClick={() => navigate("/")}
+                >
                   Hem
                 </button>
                 <button
-                  className="topnav-link"
+                  className={`topnav-link${location.pathname === "/cashback" ? " active" : ""}`}
                   onClick={() => navigate("/cashback")}
                 >
                   Cashback
                 </button>
-                <button className="topnav-link" onClick={() => navigate("/om")}>
+                <button
+                  className={`topnav-link${location.pathname === "/om" ? " active" : ""}`}
+                  onClick={() => navigate("/om")}
+                >
                   Om
                 </button>
                 <button
-                  className="topnav-link"
+                  className={`topnav-link${location.pathname === "/kontakt" ? " active" : ""}`}
                   onClick={() => navigate("/kontakt")}
                 >
                   Kontakt
@@ -182,7 +193,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
             <nav className="mobile-menu-nav">
               <button
                 ref={firstLinkRef}
-                className="mobile-menu-link"
+                className={`mobile-menu-link${location.pathname === "/" ? " active" : ""}`}
                 role="menuitem"
                 onClick={() => {
                   navigate("/");
@@ -192,7 +203,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 Hem
               </button>
               <button
-                className="mobile-menu-link"
+                className={`mobile-menu-link${location.pathname === "/cashback" ? " active" : ""}`}
                 role="menuitem"
                 onClick={() => {
                   navigate("/cashback");
@@ -202,7 +213,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 Cashback
               </button>
               <button
-                className="mobile-menu-link"
+                className={`mobile-menu-link${location.pathname === "/om" ? " active" : ""}`}
                 role="menuitem"
                 onClick={() => {
                   navigate("/om");
@@ -212,7 +223,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 Om
               </button>
               <button
-                className="mobile-menu-link"
+                className={`mobile-menu-link${location.pathname === "/kontakt" ? " active" : ""}`}
                 role="menuitem"
                 onClick={() => {
                   navigate("/kontakt");

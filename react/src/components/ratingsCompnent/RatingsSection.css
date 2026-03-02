@@ -17,9 +17,9 @@
 }
 
 .ratings-headline {
-  color: #ffffff;
+  color: #000000;
   margin-inline: 3rem;
-  background: white;
+  background: #000000;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -48,10 +48,14 @@
 }
 
 .ratings-desc {
-  color: #ffffff;
+  color: #000000;
   margin-inline: 3rem;
   line-height: 1.6;
-  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Cereal",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   font-weight: 400;
 }
 
@@ -83,7 +87,9 @@
   );
   border-radius: 20px;
   padding: 21px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08), 0 3px 12px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.08),
+    0 3px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(229, 231, 235, 0.4);
   backdrop-filter: blur(20px);
   position: relative;
@@ -280,7 +286,11 @@
   background: rgba(55, 65, 81, 0.1);
   padding: 4px 12px;
   border-radius: 12px;
-  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Cereal",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 .review-text {
@@ -289,7 +299,11 @@
   color: #4b5563;
   margin: 0;
   font-style: italic;
-  font-family: "Cereal", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Cereal",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
