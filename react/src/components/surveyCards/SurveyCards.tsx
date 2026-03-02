@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./SurveyCards.css";
-import Money from "@/src/public/assets/Catching.mp3";
 import * as balanceRedux from "@/src/redux/slices/balanceSlice";
 import { useDispatch } from "react-redux";
 
@@ -22,12 +21,9 @@ const PriceCard: React.FC<CardProps> = ({
   color,
 }) => {
   // Store per-burst click position so each burst animates independently
-  const [bursts, setBursts] = useState<Array<{ id: number; x: number; y: number }>>([]);
-
-  const moneyRef = React.useRef<HTMLAudioElement | null>(null);
-  React.useEffect(() => {
-    moneyRef.current = new Audio(Money);
-  }, []);
+  const [bursts, setBursts] = useState<
+    Array<{ id: number; x: number; y: number }>
+  >([]);
 
   const MAX_BURSTS = 2; // hard cap to keep DOM light on mobile
 
@@ -35,14 +31,6 @@ const PriceCard: React.FC<CardProps> = ({
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    if (moneyRef.current) {
-      try {
-        moneyRef.current.currentTime = 0;
-        const p = moneyRef.current.play();
-        if (p && typeof p.catch === "function") p.catch(() => {});
-      } catch {}
-    }
 
     const id = Date.now() + Math.random();
     setBursts((b) => {
@@ -61,14 +49,6 @@ const PriceCard: React.FC<CardProps> = ({
       const id = Date.now() + Math.random();
       const x = 50;
       const y = 50;
-
-      if (moneyRef.current) {
-        try {
-          moneyRef.current.currentTime = 0;
-          const p = moneyRef.current.play();
-          if (p && typeof p.catch === "function") p.catch(() => {});
-        } catch {}
-      }
 
       setBursts((b) => {
         const next = [...b, { id, x, y }];
@@ -95,13 +75,20 @@ const PriceCard: React.FC<CardProps> = ({
       <div className="sc-pill sc-pill--time">{minutes} min</div>
       <div
         className="sc-pill sc-pill--tag"
-        style={{ ["--pill-bg" as any]: color, ["--pill-text" as any]: "#fff" } as React.CSSProperties}
+        style={
+          {
+            ["--pill-bg" as any]: color,
+            ["--pill-text" as any]: "#fff",
+          } as React.CSSProperties
+        }
       >
         {tag}
       </div>
 
       <div className="sc-price">
-        <span className="sc-price-value">{price.toString().replace(",", ".")}</span>
+        <span className="sc-price-value">
+          {price.toString().replace(",", ".")}
+        </span>
         <span className="sc-price-currency">kr</span>
       </div>
 
@@ -116,48 +103,56 @@ const PriceCard: React.FC<CardProps> = ({
 };
 
 // Memoize to avoid re-rendering active bursts on parent updates
-const CoinBurst: React.FC<{ amount: number; x: number; y: number }> = React.memo(({ amount, x, y }) => {
-  const coins = React.useMemo(() => {
-    const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
-    const N = isMobile ? 8 : 14; // fewer coins on mobile for smoother perf
-    return Array.from({ length: N }).map((_, i) => {
-      const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
-      const distance = 62 + Math.random() * 52; // px
-      const dx = Math.cos(angle) * distance;
-      const dy = Math.sin(angle) * distance - (18 + Math.random() * 36); // slight upward bias
-      const rot = (Math.random() * 360 - 180).toFixed(1);
-      const delay = (i * 0.012).toFixed(3);
-      const scale = (0.8 + Math.random() * 0.5).toFixed(2);
-      return { dx, dy, rot, delay, scale, i };
-    });
-  }, []);
+const CoinBurst: React.FC<{ amount: number; x: number; y: number }> =
+  React.memo(({ amount, x, y }) => {
+    const coins = React.useMemo(() => {
+      const isMobile =
+        typeof window !== "undefined" &&
+        window.matchMedia &&
+        window.matchMedia("(max-width: 768px)").matches;
+      const N = isMobile ? 8 : 14; // fewer coins on mobile for smoother perf
+      return Array.from({ length: N }).map((_, i) => {
+        const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
+        const distance = 62 + Math.random() * 52; // px
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance - (18 + Math.random() * 36); // slight upward bias
+        const rot = (Math.random() * 360 - 180).toFixed(1);
+        const delay = (i * 0.012).toFixed(3);
+        const scale = (0.8 + Math.random() * 0.5).toFixed(2);
+        return { dx, dy, rot, delay, scale, i };
+      });
+    }, []);
 
-  // Provide per-burst CSS variables so each burst uses its own origin
-  const burstStyle = {
-    ["--click-x" as any]: `${x}%`,
-    ["--click-y" as any]: `${y}%`,
-  } as React.CSSProperties;
+    // Provide per-burst CSS variables so each burst uses its own origin
+    const burstStyle = {
+      ["--click-x" as any]: `${x}%`,
+      ["--click-y" as any]: `${y}%`,
+    } as React.CSSProperties;
 
-  return (
-    <div className="burst" style={burstStyle}>
-      <div className="ring" />
-      <div className="kr-float">+{amount.toString().replace(".", ",")} kr</div>
-      {coins.map(({ dx, dy, rot, delay, scale, i }) => (
-        <span
-          key={i}
-          className="coin"
-          style={{
-            ["--tx" as any]: `${dx}px`,
-            ["--ty" as any]: `${dy}px`,
-            ["--rot" as any]: `${rot}deg`,
-            ["--delay" as any]: `${delay}s`,
-            ["--scale" as any]: scale,
-          } as React.CSSProperties}
-        />
-      ))}
-    </div>
-  );
-});
+    return (
+      <div className="burst" style={burstStyle}>
+        <div className="ring" />
+        <div className="kr-float">
+          +{amount.toString().replace(".", ",")} kr
+        </div>
+        {coins.map(({ dx, dy, rot, delay, scale, i }) => (
+          <span
+            key={i}
+            className="coin"
+            style={
+              {
+                ["--tx" as any]: `${dx}px`,
+                ["--ty" as any]: `${dy}px`,
+                ["--rot" as any]: `${rot}deg`,
+                ["--delay" as any]: `${delay}s`,
+                ["--scale" as any]: scale,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
+    );
+  });
 
 interface SurveyCardsProps {
   onEarn?: (amount: number) => void;

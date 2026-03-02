@@ -1,13 +1,9 @@
 import React from "react";
 import "./HeroSection.css";
-import MovingBlurryBlobsBare from "../BlurryBlobBackground";
 // import TyperEffect from "./TyperEffect";
 import phoneImg from "@/src/public/assets/sveamock.png";
 import bankIDLogo from "@/src/public/assets/BankID_logo.svg";
 import logoImg from "@/src/public/assets/logo/logo.svg";
-import conf1Img from "@/src/public/assets/conf1.avif";
-import conf2Img from "@/src/public/assets/conf2.avif";
-import conf3Img from "@/src/public/assets/conf3.avif";
 
 interface HeroProps {
   isRegistered: boolean;
@@ -22,24 +18,14 @@ const HeroSection: React.FC<HeroProps> = ({
 }) => {
   return (
     <div className="hero">
-      <MovingBlurryBlobsBare />
-
       <div className="hero-overlay">
         <div className="hero-inner">
           {/* Left: copy */}
           <div className="hero-col hero-copy">
-            <h1 className="hero-title">
-              {/* <TyperEffect  */}
-              {/* staticText="Bli belönad för "
-            words={["dina åsikter", "att spela mobilspel", "att svara på enkäter", "din tid"]}
-            speed={120}
-            pauseTime={2500}
-          /> */}
-              Bli belönad för dina åsikter
-            </h1>
+            <h1 className="hero-title">Sveriges bästa rewards app.</h1>
             <h3 className="hero-sub">
               Bli en av våra <span className="accent">200 000+</span> användare
-              som tjänar pengar på enkäter och mobilspel.
+              som tjänar pengar på enkäter, mobilspel och cashback.
             </h3>
             <ul className="hero-features">
               <li className="hero-feature">
@@ -78,40 +64,6 @@ const HeroSection: React.FC<HeroProps> = ({
                   </button>
                 </div>
               )}
-
-              {/* <div className="stores">
-                <p className="stores-label">Tillgänglig på</p>
-                <div className="stores-row">
-                  <img
-                    src="react/src/public/assets/googleplay.png"
-                    alt="Ladda ner på Google Play"
-                    className="store-badge"
-                    onClick={handleGooglePlayClick}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.05)";
-                      e.currentTarget.style.opacity = "0.9";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.opacity = "1";
-                    }}
-                  />
-                  <img
-                    src="react/src/public/assets/appstore.png"
-                    alt="Ladda ner på App Store"
-                    className="store-badge"
-                    onClick={handleAppStoreClick}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "scale(1.05)";
-                      e.currentTarget.style.opacity = "0.9";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.opacity = "1";
-                    }}
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
 
@@ -119,9 +71,6 @@ const HeroSection: React.FC<HeroProps> = ({
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
               <img src={phoneImg} className="phone-img" />
-              <img src={conf1Img} className="floaty badge badge-1" />
-              <img src={conf2Img} className="floaty badge badge-2" />
-              <img src={conf3Img} className="floaty badge badge-3" />
             </div>
           </div>
         </div>

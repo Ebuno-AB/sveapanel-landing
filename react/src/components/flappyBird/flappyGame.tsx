@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import FlappySound from "@/src/public/assets/flappySound.mp3";
-import LosingSound from "@/src/public/assets/losingSound.mp3";
 import Bird_Img from "@/src/public/assets/sveaBird.png";
 import * as balanceRedux from "@/src/redux/slices/balanceSlice";
 import { useDispatch } from "react-redux";
@@ -46,7 +44,7 @@ function FlappyBirdCanvas() {
     GAME_H: WORLD_H,
     VIEW_H: WORLD_H - 100,
     GROUND_H: 200,
-    GRAVITY: 1300, 
+    GRAVITY: 1300,
     JUMP_VY: -420,
     MAX_DROP_ANGLE: 20,
     MAX_RISE_ANGLE: -20,
@@ -63,9 +61,6 @@ function FlappyBirdCanvas() {
 
   /** ----- Assets ----- */
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const soundPassRef = useRef<HTMLAudioElement | null>(null);
-  const soundLoseRef = useRef<HTMLAudioElement | null>(null);
-  const audioUnlockedRef = useRef(false);
 
   useEffect(() => {
     const img = new Image();
@@ -73,13 +68,6 @@ function FlappyBirdCanvas() {
     img.onload = () => (imgRef.current = img);
     img.onerror = () => (imgRef.current = null);
   }, []);
-  useEffect(() => {
-    soundPassRef.current = new Audio(FlappySound);
-    soundLoseRef.current = new Audio(LosingSound);
-    if (soundPassRef.current) soundPassRef.current.muted = true;
-    if (soundLoseRef.current) soundLoseRef.current.muted = true;
-  }, []);
-
   /** ----- Game state (no React re-renders per frame) ----- */
   const stateRef = useRef<{
     mode: "waiting" | "playing" | "dead";
@@ -115,7 +103,7 @@ function FlappyBirdCanvas() {
 
   /** ----- Precomputed paints ----- */
   const paintsRef = useRef<{ sky?: CanvasGradient; ground?: CanvasPattern }>(
-    {}
+    {},
   );
 
   function setupCanvas(c: HTMLCanvasElement) {
@@ -181,11 +169,6 @@ function FlappyBirdCanvas() {
 
   /** ----- Input ----- */
   const act = () => {
-    if (!audioUnlockedRef.current) {
-      if (soundPassRef.current) soundPassRef.current.muted = false;
-      if (soundLoseRef.current) soundLoseRef.current.muted = false;
-      audioUnlockedRef.current = true;
-    }
     const s = stateRef.current,
       T = tuningRef.current;
     if (s.mode === "waiting") {
@@ -269,7 +252,7 @@ function FlappyBirdCanvas() {
     ctx: CanvasRenderingContext2D,
     w: number,
     h: number,
-    pattern?: CanvasPattern
+    pattern?: CanvasPattern,
   ) {
     // ground base
     ctx.fillStyle = "#DED895";
@@ -313,7 +296,6 @@ function FlappyBirdCanvas() {
           s.score += 1;
           s.shakeT = 0.15;
           dispatch(balanceRedux.increment(1));
-          play(soundPassRef.current);
         }
       }
       s.pipes = s.pipes.filter((p) => p.x > -T.PIPE_W - 10);
@@ -330,7 +312,6 @@ function FlappyBirdCanvas() {
         s.best = Math.max(s.best, s.score);
         localStorage.setItem("flappy_best", String(s.best));
         s.shakeT = 0.35;
-        play(soundLoseRef.current);
       }
     } else if (s.mode === "waiting") {
       const t = performance.now() * 0.003;
@@ -386,7 +367,7 @@ function FlappyBirdCanvas() {
         p.top + p.gap,
         T.PIPE_W,
         T.VIEW_H - (p.top + p.gap),
-        false
+        false,
       );
     }
 
@@ -421,11 +402,6 @@ function FlappyBirdCanvas() {
   }
 
   /** ----- Helpers ----- */
-  function play(a?: HTMLAudioElement | null) {
-    if (!a || a.muted) return;
-    a.currentTime = 0;
-    a.play().catch(() => {});
-  }
   function rand(a: number, b: number) {
     return a + Math.random() * (b - a);
   }
@@ -434,7 +410,7 @@ function FlappyBirdCanvas() {
     ctx: CanvasRenderingContext2D,
     baseX: number,
     y: number,
-    W: number
+    W: number,
   ) {
     const spacing = 320,
       width = spacing * 4;
@@ -460,7 +436,7 @@ function FlappyBirdCanvas() {
     y: number,
     w: number,
     h: number,
-    top: boolean
+    top: boolean,
   ) {
     const g = ctx.createLinearGradient(x, y, x + w, y);
     g.addColorStop(0, "#00CCA3");
@@ -495,7 +471,7 @@ function FlappyBirdCanvas() {
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
-    frame: number
+    frame: number,
   ) {
     const img = imgRef.current;
     const targetH = WORLD_H * 0.24; // tuned for WORLD_H
@@ -514,7 +490,7 @@ function FlappyBirdCanvas() {
         Math.floor(x - tw / 2),
         Math.floor(y - targetH / 2),
         tw,
-        targetH
+        targetH,
       );
     } else {
       const r = 18;
@@ -537,7 +513,7 @@ function FlappyBirdCanvas() {
     ctx.strokeStyle = "#000";
     ctx.lineWidth = Math.max(3, Math.floor(W * 0.01));
     ctx.textAlign = "center";
-    const y = isPhone()? Math.floor(H * 0.30) : Math.floor(H * 0.265) ;
+    const y = isPhone() ? Math.floor(H * 0.3) : Math.floor(H * 0.265);
     ctx.strokeText(String(score), Math.floor(W / 2), y);
     ctx.fillText(String(score), Math.floor(W / 2), y);
   }
@@ -545,7 +521,7 @@ function FlappyBirdCanvas() {
   function drawCenterText(
     ctx: CanvasRenderingContext2D,
     text: string,
-    base: number
+    base: number,
   ) {
     const W = WORLD_W,
       H = WORLD_H;
@@ -563,7 +539,7 @@ function FlappyBirdCanvas() {
     ctx: CanvasRenderingContext2D,
     text: string,
     base: number,
-    offset: number
+    offset: number,
   ) {
     const W = WORLD_W,
       H = WORLD_H;
@@ -584,7 +560,7 @@ function FlappyBirdCanvas() {
     y: number,
     w: number,
     h: number,
-    r: number
+    r: number,
   ) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
@@ -604,7 +580,7 @@ function FlappyBirdCanvas() {
     y: number,
     w: number,
     h: number,
-    r: { tl?: number; tr?: number; br?: number; bl?: number }
+    r: { tl?: number; tr?: number; br?: number; bl?: number },
   ) {
     const tl = r.tl ?? 0,
       tr = r.tr ?? 0,
@@ -625,11 +601,11 @@ function FlappyBirdCanvas() {
     ctx.closePath();
   }
 
- useEffect(() => {
-  if (canvasRef.current) {
-    canvasRef.current.focus({ preventScroll: true });
-  }
-}, []);
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.focus({ preventScroll: true });
+    }
+  }, []);
 
   return (
     <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
@@ -640,7 +616,7 @@ function FlappyBirdCanvas() {
           height: `${cssSize.h}px`,
           display: "block",
           touchAction: "manipulation",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
         onKeyDown={(e) => {
           if (e.code === "Space") {

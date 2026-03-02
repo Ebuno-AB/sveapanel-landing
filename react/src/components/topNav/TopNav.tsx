@@ -1,27 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/src/public/logo.png";
-import { useAppSelector } from "@/src/redux/store";
 
 interface TopNavProps {
   handleAppDownload: () => void;
 }
 
 const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
-  const boxRef = useRef<HTMLDivElement | null>(null);
-  const moneyValue = useAppSelector((state) => state.balance);
-  const prevRef = useRef<number>(0);
-
-  useEffect(() => {
-    prevRef.current = moneyValue;
-  }, []);
-
-  // NEW: refs for a11y and focus management
+  const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement | null>(null);
   const firstLinkRef = useRef<HTMLButtonElement | null>(null);
 
-  const [pop, setPop] = useState(false);
-  const [bursts, setBursts] = useState<Array<{ id: number; amount: number }>>([]);
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -39,12 +29,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
 
   const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen((o) => !o);
-
-  const scrollToSection = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-    if (isMobile) closeMenu();
-  };
 
   // Body scroll lock + initial focus when menu opens
   useEffect(() => {
@@ -71,7 +55,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
       } else if (e.key === "Tab" && menuRef.current) {
         // Simple focus trap
         const focusables = menuRef.current.querySelectorAll<HTMLElement>(
-          'button, [href], [tabindex]:not([tabindex="-1"])'
+          'button, [href], [tabindex]:not([tabindex="-1"])',
         );
         if (focusables.length === 0) return;
         const first = focusables[0];
@@ -90,66 +74,48 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isMenuOpen]);
 
-  // --- your saldo burst logic (unchanged) ---
-  useEffect(() => {
-    const prev = prevRef.current;
-    if (moneyValue > prev) {
-
-      if(bursts.length >= 1) { // Limit to 6 simultaneous bursts
-        setBursts((bs) => bs.slice(bs.length - 1));
-      }
-
-      const diff = parseFloat((moneyValue - prev).toFixed(1));
-      if (boxRef.current) {
-        boxRef.current.style.setProperty("--click-x", "50%");
-        boxRef.current.style.setProperty("--click-y", "50%");
-      }
-      setPop(true);
-      const id = Date.now() + Math.random();
-      setBursts((b) => [...b, { id, amount: diff > 0 ? diff : moneyValue }]);
-      const t = setTimeout(() => {
-        setPop(false);
-        setBursts((b) => b.filter((x) => x.id !== id));
-      }, 1200);
-      return () => clearTimeout(t);
-    }
-    prevRef.current = moneyValue;
-  }, [moneyValue]);
-
-  useEffect(() => {
-    prevRef.current = moneyValue;
-  }, [moneyValue]);
-
   return (
     <>
       <nav className="modern-topnav">
         <div className="topnav-container">
           {/* Logo */}
           <div className="topnav-logo">
-            <img src={logoImg} alt="SveaPanelen logo" className="topnav-logo-img" />
+            <img
+              src={logoImg}
+              alt="SveaPanelen logo"
+              className="topnav-logo-img"
+            />
             {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
           </div>
 
           {/* Right side */}
           <div className="topnav-right">
-            <div ref={boxRef} className={`saldo-box ${pop ? "pop" : ""}`}>
-              {moneyValue.toFixed(1)}kr
-              {bursts.map((b) => (
-                <SaldoBurst key={b.id} amount={b.amount} />
-              ))}
-            </div>
-
-           {/* Desktop links */}
+            {/* Desktop links */}
             {!isMobile && (
               <div className="topnav-links">
-                <button className="topnav-link" onClick={() => scrollToSection("faq-section")}>
-                  Vanliga frågor
+                <button className="topnav-link" onClick={() => navigate("/")}>
+                  Hem
+                </button>
+                <button
+                  className="topnav-link"
+                  onClick={() => navigate("/cashback")}
+                >
+                  Cashback
+                </button>
+                <button className="topnav-link" onClick={() => navigate("/om")}>
+                  Om
+                </button>
+                <button
+                  className="topnav-link"
+                  onClick={() => navigate("/kontakt")}
+                >
+                  Kontakt
                 </button>
                 <button className="topnav-download" onClick={handleAppDownload}>
                   Ladda ner appen
                 </button>
               </div>
-              )}
+            )}
 
             {/* Mobile hamburger */}
             {isMobile && (
@@ -178,13 +144,14 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
           role="menu"
           aria-label="Mobilmeny"
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
+            width: "100vw",
+            height: "100vh",
             zIndex: 999999,
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%)'
+            background:
+              "linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%)",
           }}
         >
           {/* Menu Header */}
@@ -198,7 +165,12 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
               onClick={closeMenu}
               aria-label="Stäng meny"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -208,29 +180,47 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
           {/* Menu Content */}
           <div className="mobile-menu-content">
             <nav className="mobile-menu-nav">
-              
-              
               <button
                 ref={firstLinkRef}
                 className="mobile-menu-link"
                 role="menuitem"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  navigate("/");
                   closeMenu();
                 }}
               >
                 Hem
               </button>
-              
               <button
                 className="mobile-menu-link"
                 role="menuitem"
-                onClick={() => scrollToSection("faq-section")}
+                onClick={() => {
+                  navigate("/cashback");
+                  closeMenu();
+                }}
               >
-                Vanliga frågor
+                Cashback
               </button>
-              
-              
+              <button
+                className="mobile-menu-link"
+                role="menuitem"
+                onClick={() => {
+                  navigate("/om");
+                  closeMenu();
+                }}
+              >
+                Om
+              </button>
+              <button
+                className="mobile-menu-link"
+                role="menuitem"
+                onClick={() => {
+                  navigate("/kontakt");
+                  closeMenu();
+                }}
+              >
+                Kontakt
+              </button>
             </nav>
 
             {/* Bottom Actions */}
@@ -243,10 +233,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 }}
               >
                 Ladda ner appen
-
               </button>
-              
-            
             </div>
           </div>
         </div>
@@ -256,45 +243,3 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
 };
 
 export default TopNav;
-
-const SaldoBurst =  React.memo(({ amount, x = 50, y = 50 }: { amount: number; x?: number; y?: number }) => {
-  const coins = React.useMemo(() => {
-    const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
-    const N = isMobile ? 8 : 14; // fewer coins on mobile
-    return Array.from({ length: N }).map((_, i) => {
-      const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
-      const distance = 54 + Math.random() * 46; // slightly reduced travel
-      const dx = Math.cos(angle) * distance;
-      const dy = Math.sin(angle) * distance - (16 + Math.random() * 30);
-      const rot = (Math.random() * 360 - 180).toFixed(1);
-      const delay = (i * 0.012).toFixed(3); // stagger a bit less
-      const scale = (0.85 + Math.random() * 0.45).toFixed(2);
-      return { dx, dy, rot, delay, scale, i };
-    });
-  }, []);
-
-  const burstStyle = {
-    ["--click-x" as any]: `${x}%`,
-    ["--click-y" as any]: `${y}%`,
-  } as React.CSSProperties;
-
-  return (
-    <div className="saldo-burst" aria-hidden="true" style={burstStyle}>
-      <div className="saldo-ring" />
-      <div className="saldo-float">+{amount.toString().replace(".", ",")} kr</div>
-      {coins.map(({ dx, dy, rot, delay, scale, i }) => (
-        <span
-          key={i}
-          className="saldo-coin"
-          style={{
-            ["--tx" as any]: `${dx}px`,
-            ["--ty" as any]: `${dy}px`,
-            ["--rot" as any]: `${rot}deg`,
-            ["--delay" as any]: `${delay}s`,
-            ["--scale" as any]: scale,
-          } as React.CSSProperties}
-        />
-      ))}
-    </div>
-  );
-});
