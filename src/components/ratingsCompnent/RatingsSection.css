@@ -209,8 +209,6 @@
   flex-wrap: nowrap;
   gap: 16px;
   will-change: transform;
-  animation: reviews-scroll 25s linear infinite;
-  min-width: 100%;
 }
 
 .review-card--carousel {
@@ -219,18 +217,9 @@
   max-width: var(--slide-width);
 }
 
-@keyframes reviews-scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reviews-track {
-    animation: none;
+    pointer-events: none;
   }
 }
 
@@ -293,14 +282,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
-}
-
-.platform-card.apple .reviews-track {
-  animation-duration: 28s;
-}
-
-.platform-card.google .reviews-track {
-  animation-duration: 22s;
 }
 
 @media (max-width: 768px) {

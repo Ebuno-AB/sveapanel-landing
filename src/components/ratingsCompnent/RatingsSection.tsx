@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import "./RatingsSection.css";
 
 // Apple App Store icon (inline SVG)
@@ -92,8 +93,41 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({
 }) => {
   const isApple = platform === "apple";
 
-  // Duplicate the list for a seamless infinite loop
-  const looped = [...reviews, ...reviews, ...reviews, ...reviews];
+  // Two copies — we'll loop by exactly the width of one copy (measured in pixels)
+  const looped = [...reviews, ...reviews];
+
+  const trackRef = useRef<HTMLDivElement>(null);
+  const loopWidthRef = useRef(0);
+  const x = useMotionValue(0);
+
+  // px/s scroll speed — apple slower, google faster
+  const speed = isApple ? 33 : 42;
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      const children = track.children;
+      const n = reviews.length;
+      if (children.length < n + 1) return;
+      // Exact pixel distance between the start of copy-1 and copy-2
+      const first = (children[0] as HTMLElement).getBoundingClientRect().left;
+      const nth = (children[n] as HTMLElement).getBoundingClientRect().left;
+      loopWidthRef.current = nth - first;
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [reviews.length]);
+
+  useAnimationFrame((_, delta) => {
+    const loopWidth = loopWidthRef.current;
+    if (loopWidth <= 0) return;
+    let next = x.get() - (speed * delta) / 1000;
+    if (next <= -loopWidth) next += loopWidth;
+    x.set(next);
+  });
 
   return (
     <div className={`platform-card ${isApple ? "apple" : "google"}`}>
@@ -117,9 +151,8 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({
         </div>
       </div>
 
-      {/* Horizontal, auto-animated carousel (no manual scroll) */}
       <div className="reviews-viewport" aria-label="Kundomdömen karusell">
-        <div className="reviews-track">
+        <motion.div ref={trackRef} className="reviews-track" style={{ x }}>
           {looped.map((review, i) => (
             <div
               key={`${review.id}-${i}`}
@@ -136,7 +169,7 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({
               <p className="review-text">"{review.text}"</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
