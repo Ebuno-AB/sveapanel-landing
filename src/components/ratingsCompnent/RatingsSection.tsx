@@ -32,7 +32,7 @@ const GoogleIcon = () => (
   >
     <path
       d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.61 3 21.09 3 20.5Z"
-      fill="#0F9D58"
+      fill="#00CCA3"
     />
     <path d="M16.81 15.12L6.05 21.34L14.54 12.85L16.81 15.12Z" fill="#FFCD40" />
     <path
@@ -193,10 +193,13 @@ const RatingsSection: React.FC = () => {
           <span className="highlight">7 000 000 kr</span> <br /> till våra
           användare!
         </h2>
-        <p className="ratings-desc">
+      </div>
+
+      <div>
+        <h3 className="ratings-desc">
           SveaPanelen har tusentals nöjda användare och ett av de högsta betygen
           i branschen.
-        </p>
+        </h3>
       </div>
 
       <div className="platforms-container">

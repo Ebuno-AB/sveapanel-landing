@@ -171,11 +171,11 @@ function Landing() {
         handleAppDownload={handleAppDownload}
       />
 
+      <AppInfo />
+
       <div style={{ padding: "25px 15px" }}>
         <RatingsSection />
       </div>
-
-      <AppInfo />
 
       <Footer />
 
