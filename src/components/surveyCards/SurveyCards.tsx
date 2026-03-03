@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SurveyCards.css";
-import * as balanceRedux from "@/src/redux/slices/balanceSlice";
+import * as balanceRedux from "@/redux/slices/balanceSlice";
 import { useDispatch } from "react-redux";
 
 type CardProps = {

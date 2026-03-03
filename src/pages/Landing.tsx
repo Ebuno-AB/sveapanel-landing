@@ -1,6 +1,5 @@
 import "../App.css";
 import "../components/bankModal/BankModal.css";
-import "../styles/BlobStyles.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -24,7 +23,7 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/ui/Carousel";
-import iphone from "@/src/assets/Images/Iphone.png";
+import iphone from "@/assets/Images/Iphone.png";
 
 function Landing() {
   const { trackEvent } = useGA();

@@ -5,7 +5,7 @@ import AppDownloadQRCode, {
   getDefaultQRCodeUrl,
 } from "../appDownloadModal/AppDownloadQRCode";
 import { isPhone } from "../../utils/browserDetection";
-import logo from "@/src/assets/icons/logo.png";
+import logo from "@/assets/icons/logo.png";
 
 interface QRModalProps {
   isOpen: boolean;

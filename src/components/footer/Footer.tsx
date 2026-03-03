@@ -1,6 +1,6 @@
 // Footer component
 import "./Footer.css";
-import logoImg from "@/src/assets/icons/logo.png";
+import logoImg from "@/assets/icons/logo.png";
 
 import { Link } from "react-router-dom";
 

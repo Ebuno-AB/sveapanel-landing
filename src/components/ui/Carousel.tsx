@@ -1,7 +1,7 @@
-import candyCrushImg from "@/src/assets/Images/candyCrush.png";
-import monopolyImg from "@/src/assets/Images/monopoly.png";
-import pigGameImg from "@/src/assets/Images/pigGame.png";
-import tontongGameImg from "@/src/assets/Images/tontongGame.png";
+import candyCrushImg from "@/assets/Images/candyCrush.png";
+import monopolyImg from "@/assets/Images/monopoly.png";
+import pigGameImg from "@/assets/Images/pigGame.png";
+import tontongGameImg from "@/assets/Images/tontongGame.png";
 import { useEffect, useState } from "react";
 
 const Carousel = () => {

@@ -1,9 +1,9 @@
 import React from "react";
 import "./HeroSection.css";
 // import TyperEffect from "./TyperEffect";
-import phoneImg from "@/src/assets/Images/sveamock.png";
-import bankIDLogo from "@/src/assets/icons/BankID_logo.svg";
-import logoImg from "@/src/assets/logo/logo.svg";
+import phoneImg from "@/assets/Images/sveamock.png";
+import bankIDLogo from "@/assets/icons/BankID_logo.svg";
+import logoImg from "@/assets/logo/logo.svg";
 
 interface HeroProps {
   isRegistered: boolean;

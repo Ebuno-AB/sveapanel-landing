@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
-import logoImg from "@/src/assets/icons/logo.png";
+import logoImg from "@/assets/icons/logo.png";
 
 interface TopNavProps {
   handleAppDownload: () => void;
