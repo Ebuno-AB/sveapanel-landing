@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import "../App.css";
+import "../../App.css";
 import AppDownloadQRCode, {
   getDefaultQRCodeUrl,
-} from "../components/appDownloadModal/AppDownloadQRCode";
-import { isPhone } from "../utils/browserDetection";
+} from "../appDownloadModal/AppDownloadQRCode";
+import { isPhone } from "../../utils/browserDetection";
 import logo from "@/src/assets/icons/logo.png";
 
 interface QRModalProps {

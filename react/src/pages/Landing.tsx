@@ -4,7 +4,7 @@ import "../styles/BlobStyles.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import QRModal from "../components/QRModal";
+import QRModal from "../components/ui/QRModal";
 
 import RatingsSection from "../components/ratingsCompnent/RatingsSection";
 import CookiesConsent from "../components/cookies/CookiesConsent";
@@ -23,7 +23,7 @@ import InfoSection from "../components/infoSection/InfoSection";
 import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
-import Carousel from "../components/Carousel";
+import Carousel from "../components/ui/Carousel";
 import iphone from "@/src/assets/Images/Iphone.png";
 
 function Landing() {
