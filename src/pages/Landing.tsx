@@ -15,6 +15,7 @@ import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModa
 import Hero from "../components/heroSection/HeroSection";
 import Footer from "../components/footer/Footer";
 import TopNav from "../components/topNav/TopNav";
+import { AppInfo } from "../components/AppInfo/AppInfo";
 import branch from "branch-sdk";
 
 function Landing() {
@@ -173,6 +174,8 @@ function Landing() {
       <div style={{ padding: "25px 15px" }}>
         <RatingsSection />
       </div>
+
+      <AppInfo />
 
       <Footer />
 
