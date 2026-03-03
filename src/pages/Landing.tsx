@@ -15,15 +15,7 @@ import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModa
 import Hero from "../components/heroSection/HeroSection";
 import Footer from "../components/footer/Footer";
 import TopNav from "../components/topNav/TopNav";
-import FAQ from "../components/faq/FAQ";
-
-import SurveyCards from "../components/surveyCards/SurveyCards";
-import InfoSection from "../components/infoSection/InfoSection";
-import FeatureSection from "../components/featureSection/FeatureSection";
-import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
-import Carousel from "../components/ui/Carousel";
-import iphone from "@/assets/Images/Iphone.png";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -177,91 +169,13 @@ function Landing() {
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
       />
-      {/* Unified Background for InfoSection and RatingsSection */}
-      <div
-        style={{
-          background: "#ffffff",
-        }}
-      >
-        <InfoSection />
 
-        {/* Ratings Section - Customer Reviews and Trust */}
-        <div style={{ padding: "25px 15px" }}>
-          <RatingsSection />
-        </div>
+      <div style={{ padding: "25px 15px" }}>
+        <RatingsSection />
       </div>
-
-      {/* First Feature Section - Games */}
-      <FeatureSection
-        className="feature-section-games"
-        background="#ffffff"
-        title="100+ mobilspel att ladda ner!"
-        description="Bli belönad för varje nivå!"
-        imageAlt="Spel och belöningar"
-        interactive={true}
-        carousel={<Carousel />}
-      >
-        {/* Phone showcase */}
-        <div className="feature-phone-showcase">
-          {/* Game inside phone (scales with frame) */}
-          <div
-            style={{
-              position: "absolute",
-              top: "-5%",
-              left: isPhoneDevice ? "50%" : "14%",
-              transform: isPhoneDevice ? "translateX(-50%)" : "none",
-              width: "72%",
-              height: isPhoneDevice ? "87%" : "90%", // increased height for both
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderTopLeftRadius: "30px",
-              borderTopRightRadius: "30px",
-              boxShadow: "inset 0 0 18px rgba(0,0,0,0.2)",
-              background: "#000",
-              zIndex: 0,
-              overflow: "hidden",
-              userSelect: "none",
-              msUserSelect: "none",
-              WebkitTapHighlightColor: "transparent",
-            }}
-          >
-            <FlappyGame />
-          </div>
-
-          {/* iPhone frame — always above */}
-          <img
-            src={iphone}
-            alt="iPhone Frame"
-            style={{
-              width: "80%",
-              height: "auto",
-              display: "block",
-              zIndex: 2,
-              position: "absolute",
-              top: "-7.5%",
-              pointerEvents: "none", // allows game interactions through
-            }}
-          />
-        </div>
-      </FeatureSection>
-
-      {/* Second Feature Section - Survey Cards */}
-      <FeatureSection
-        background="#ffffff"
-        title="Tjäna pengar på enkäter online"
-        description="Få betalt för din åsikt – enkelt hemifrån."
-      >
-        <SurveyCards />
-      </FeatureSection>
-
-      {/* FAQ Section */}
-      <FAQ />
 
       <Footer />
 
-      {/* QR Modal */}
-      {/* BankID Registration Modal */}
       <QRModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
