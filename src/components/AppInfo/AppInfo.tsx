@@ -2,8 +2,9 @@ import "./AppInfo.css";
 import cashbackMockup from "../../assets/Images/cashbackMockup2.png";
 import gamingMockup from "../../assets/Images/GamingMockup2.png";
 import dualsMockup from "../../assets/Images/DualsMockup_.png";
+import competitionMockup from "../../assets/Images/GamingMockup_.png";
 
-type Accent = "pink" | "teal" | "purple";
+type Accent = "pink" | "teal" | "purple" | "orange";
 
 interface AppInfoItem {
   image: string;
@@ -68,6 +69,21 @@ const items: AppInfoItem[] = [
       "Bestäm hur mycket du vill spela om",
       "Svara så snabbt du kan på frågorna för att få mer poäng",
       "Den som får mest poäng vinner och får den andras pengar",
+    ],
+  },
+  {
+    image: competitionMockup,
+    imageAlt: "Competition mockup",
+    reverse: true,
+    accent: "orange",
+    headingParts: [
+      { text: "Vi har dagliga och veckovisa " },
+      { text: "tävlingar", highlighted: true },
+      { text: " där vinnarna får pris" },
+    ],
+    bullets: [
+      "Samla poäng genom att göra enkäter och klara nivåer i spel",
+      "Vinnarna i tävlingarna får pengar i vinst",
     ],
   },
 ];
