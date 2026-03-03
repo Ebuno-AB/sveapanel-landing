@@ -5,7 +5,7 @@ import AppDownloadQRCode, {
   getDefaultQRCodeUrl,
 } from "../components/appDownloadModal/AppDownloadQRCode";
 import { isPhone } from "../utils/browserDetection";
-import logo from "@/src/public/logo.png";
+import logo from "@/src/assets/icons/logo.png";
 
 interface QRModalProps {
   isOpen: boolean;
@@ -95,15 +95,15 @@ const QRModal: React.FC<QRModalProps> = ({
             {error
               ? error.title
               : success
-              ? success.title
-              : "Registrera dig med BankID"}
+                ? success.title
+                : "Registrera dig med BankID"}
           </h2>
           <p className="modal-subtitle">
             {error
               ? error.message
               : success
-              ? success.message
-              : "Skanna QR-koden med BankID för att registrera dig"}
+                ? success.message
+                : "Skanna QR-koden med BankID för att registrera dig"}
           </p>
         </div>
 
@@ -121,7 +121,7 @@ const QRModal: React.FC<QRModalProps> = ({
                 style={{ marginTop: 1 }}
               >
                 Ladda ner appen
-             <img src={logo} style={{ width: 35, height: 35 }} />
+                <img src={logo} style={{ width: 35, height: 35 }} />
               </a>
             </div>
           ) : (

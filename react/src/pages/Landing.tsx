@@ -24,7 +24,7 @@ import FeatureSection from "../components/featureSection/FeatureSection";
 import FlappyGame from "../components/flappyBird/flappyGame";
 import branch from "branch-sdk";
 import Carousel from "../components/Carousel";
-import iphone from "@/src/public/Iphone.png";
+import iphone from "@/src/assets/Images/Iphone.png";
 
 function Landing() {
   const { trackEvent } = useGA();

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Bird_Img from "@/src/public/assets/sveaBird.png";
+import Bird_Img from "@/src/assets/icons/sveaBird.png";
 import * as balanceRedux from "@/src/redux/slices/balanceSlice";
 import { useDispatch } from "react-redux";
 import { isPhone } from "@/src/utils/browserDetection";

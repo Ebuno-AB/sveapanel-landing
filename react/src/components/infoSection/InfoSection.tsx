@@ -1,9 +1,9 @@
 import React from "react";
 import "./InfoSection.css";
 import CardSection from "../cardSection/CardSection";
-import gameIllustration from "@/src/public/assets/gameillustration.png";
-import surveyIllustration from "@/src/public/assets/surveyillustration.png";
-import payoutIllustration from "@/src/public/assets/payoutillustration.png";
+import gameIllustration from "@/src/assets/Images/gameillustration.png";
+import surveyIllustration from "@/src/assets/Images/surveyillustration.png";
+import payoutIllustration from "@/src/assets/Images/payoutillustration.png";
 
 const InfoSection: React.FC = () => {
   return (

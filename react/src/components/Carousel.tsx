@@ -1,7 +1,7 @@
-import candyCrushImg from "@/src/public/assets/games/candyCrush.png";
-import monopolyImg from "@/src/public/assets/games/monopoly.png";
-import pigGameImg from "@/src/public/assets/games/pigGame.png";
-import tontongGameImg from "@/src/public/assets/games/tontongGame.png";
+import candyCrushImg from "@/src/assets/Images/candyCrush.png";
+import monopolyImg from "@/src/assets/Images/monopoly.png";
+import pigGameImg from "@/src/assets/Images/pigGame.png";
+import tontongGameImg from "@/src/assets/Images/tontongGame.png";
 import { useEffect, useState } from "react";
 
 const Carousel = () => {
@@ -58,18 +58,8 @@ const Carousel = () => {
             transform: "translateZ(0)",
           }}
         >
-          {[
-            candyCrushImg,
-            monopolyImg,
-            pigGameImg,
-            tontongGameImg,
-          ]
-            .concat([
-            candyCrushImg,
-            monopolyImg,
-            pigGameImg,
-            tontongGameImg,
-            ])
+          {[candyCrushImg, monopolyImg, pigGameImg, tontongGameImg]
+            .concat([candyCrushImg, monopolyImg, pigGameImg, tontongGameImg])
             .map((src, i) => (
               <img
                 key={i}
