@@ -63,16 +63,11 @@
 }
 
 .platform-card {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(248, 250, 252, 0.9) 100%
-  );
   border-radius: 20px;
   padding: 21px;
   box-shadow:
-    0 15px 30px rgba(0, 0, 0, 0.08),
-    0 3px 12px rgba(0, 0, 0, 0.04);
+    0 5px 30px rgba(0, 0, 0, 0.08),
+    0 3px 10px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(229, 231, 235, 0.4);
   backdrop-filter: blur(20px);
   position: relative;

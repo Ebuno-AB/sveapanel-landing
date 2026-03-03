@@ -52,7 +52,7 @@
 }
 
 .footer-tagline {
-  color: #888;
+  color: #000;
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -74,9 +74,9 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: #f0f0f0;
+  background: #ffffff;
   border-radius: 8px;
-  color: #555;
+  color: #000;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -107,7 +107,7 @@
 }
 
 .footer-link {
-  color: #888;
+  color: #000;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
@@ -126,13 +126,13 @@
 }
 
 .footer-copyright span {
-  color: #888;
+  color: #000;
   font-size: 0.9rem;
 }
 
 .company-info {
-  font-size: 0.8rem !important;
-  color: #666 !important;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  color: #000;
 }
 
 @media (max-width: 1024px) {
@@ -244,10 +244,6 @@
   .footer-copyright span {
     font-size: 1rem;
   }
-
-  .company-info {
-    font-size: 0.9rem !important;
-  }
 }
 
 @media (max-width: 480px) {
@@ -317,10 +313,6 @@
 
   .footer-copyright span {
     font-size: 0.9rem;
-  }
-
-  .company-info {
-    font-size: 0.8rem !important;
   }
 }
 
