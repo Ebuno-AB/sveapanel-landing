@@ -3,11 +3,10 @@
    ===================== */
 .modern-footer {
   background: #ffffff;
-  width: 100vw;
+  width: 100%;
   padding: 3rem 0 2rem 0;
   color: #000000;
   position: relative;
-  margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
 }
 

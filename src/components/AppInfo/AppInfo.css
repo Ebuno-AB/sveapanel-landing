@@ -7,6 +7,7 @@
   flex-direction: column;
   gap: 100px;
   margin-bottom: clamp(60px, 10vw, 140px);
+  box-sizing: border-box;
 }
 
 /* ── Row ── */
@@ -14,6 +15,9 @@
   display: flex;
   align-items: center;
   gap: 64px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .app-info__row--reverse {
@@ -38,6 +42,7 @@
 /* ── Text ── */
 .app-info__content {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -49,6 +54,8 @@
   color: #111;
   line-height: 1.25;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .app-info__heading--accent-pink {
@@ -129,6 +136,41 @@
 
   .app-info {
     gap: 64px;
-    padding: 40px 20px;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .app-info__row,
+  .app-info__row--reverse {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .app-info__content {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .app-info__heading {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  .app-info__list-item {
+    font-size: 1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
+  }
+
+  .app-info__check {
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+  }
+
+  .app-info__check svg {
+    width: 10px;
+    height: 10px;
   }
 }

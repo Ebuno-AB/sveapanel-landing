@@ -283,14 +283,20 @@
   .ratings-section {
     padding: 45px 16px;
   }
+  .ratings-headline {
+    margin-inline: 0;
+    margin-bottom: 60px;
+  }
   .ratings-desc {
     font-size: 1rem;
+    margin-inline: 0;
   }
   .platforms-container {
     grid-template-columns: 1fr;
     gap: 30px;
     margin-top: 35px;
     justify-items: center;
+    padding: 0;
   }
   .platforms-container::before {
     display: none;
@@ -299,8 +305,8 @@
     padding: 20px;
     height: auto;
     min-height: 280px;
-    width: calc(100% - 80px);
-    margin-inline: auto;
+    width: 100%;
+    margin-inline: 0;
   }
   :root {
     --review-card-height: 120px;
@@ -332,6 +338,8 @@
 @media (max-width: 480px) {
   .ratings-headline {
     font-size: 1.7rem;
+    margin-inline: 0;
+    margin-bottom: 100px;
   }
   .platform-name-container {
     gap: 10px;
@@ -351,12 +359,16 @@
     font-size: 1.4rem;
   }
   .platform-card {
-    max-width: calc(100% - 40px);
+    max-width: 100%;
+  }
+  .ratings-desc {
+    font-size: 1.2rem;
+    margin-inline: 0;
   }
 }
 
 @media (max-width: 400px) {
   .platforms-container {
-    padding: 2rem;
+    padding: 0;
   }
 }
