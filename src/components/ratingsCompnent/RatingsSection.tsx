@@ -110,9 +110,9 @@ const ReviewsPlatform: React.FC<ReviewsPlatformProps> = ({
       const children = track.children;
       const n = reviews.length;
       if (children.length < n + 1) return;
-      // Exact pixel distance between the start of copy-1 and copy-2
-      const first = (children[0] as HTMLElement).getBoundingClientRect().left;
-      const nth = (children[n] as HTMLElement).getBoundingClientRect().left;
+      // Use offsetLeft so it's not affected by the current CSS transform
+      const first = (children[0] as HTMLElement).offsetLeft;
+      const nth = (children[n] as HTMLElement).offsetLeft;
       loopWidthRef.current = nth - first;
     };
 
