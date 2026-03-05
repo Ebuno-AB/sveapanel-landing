@@ -110,18 +110,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 >
                   Cashback
                 </button>
-                <button
-                  className={`topnav-link${location.pathname === "/om" ? " active" : ""}`}
-                  onClick={() => navigate("/om")}
-                >
-                  Om
-                </button>
-                <button
-                  className={`topnav-link${location.pathname === "/kontakt" ? " active" : ""}`}
-                  onClick={() => navigate("/kontakt")}
-                >
-                  Kontakt
-                </button>
                 <button className="topnav-download" onClick={handleAppDownload}>
                   Ladda ner appen
                 </button>

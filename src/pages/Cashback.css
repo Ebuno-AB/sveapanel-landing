@@ -1,0 +1,205 @@
+/* ── Hero ─────────────────────────────────────── */
+.cashback-hero {
+  background-color: #f647a4;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 5% 80px;
+  box-sizing: border-box;
+}
+
+.cashback-hero-inner {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.cashback-hero-copy {
+  flex: 1 1 0;
+  max-width: 580px;
+}
+
+.cashback-hero-title {
+  color: #fff;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 24px 0;
+}
+
+.cashback-hero-desc {
+  color: #fff;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 460px;
+}
+
+.cashback-hero-image-wrap {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.cashback-hero-image {
+  max-width: min(480px, 100%);
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── How-to ───────────────────────────────────── */
+.cashback-howto {
+  background-color: #fff;
+  padding: 80px 5%;
+  box-sizing: border-box;
+}
+
+.cashback-howto-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cashback-section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 48px 0;
+}
+
+.howto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.howto-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+.howto-card-title {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 12px 0;
+}
+
+.howto-card-desc {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Store cards ──────────────────────────────── */
+.cashback-stores {
+  background-color: #ffffff;
+  padding: 80px 5%;
+  box-sizing: border-box;
+}
+
+.cashback-stores-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cashback-stores-subtitle {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: #555;
+  margin: 0 0 48px 0;
+  line-height: 1.6;
+}
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.store-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #a8a8a8;
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  cursor: default;
+}
+
+.store-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.store-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #f5f5f5;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.store-logo-fallback {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #000000;
+}
+
+.store-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+.store-cashback-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #f647a4;
+  background: rgba(246, 71, 164, 0.08);
+  border-radius: 999px;
+  padding: 2px 14px;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+  .cashback-hero-inner {
+    flex-direction: column;
+  }
+
+  .howto-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .store-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

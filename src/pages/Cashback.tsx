@@ -1,4 +1,5 @@
 import "../App.css";
+import "./Cashback.css";
 import { useState } from "react";
 import TopNav from "../components/topNav/TopNav";
 import Footer from "../components/footer/Footer";
@@ -19,50 +20,12 @@ function Cashback() {
       <TopNav handleAppDownload={handleAppDownload} />
 
       {/* Hero Section */}
-      <section
-        style={{
-          backgroundColor: "#F647A4",
-          maxHeight: "90vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "120px 5% 80px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "2rem",
-          }}
-        >
+      <section className="cashback-hero">
+        <div className="cashback-hero-inner">
           {/* Left copy */}
-          <div style={{ flex: "1 1 0", maxWidth: 580 }}>
-            <h1
-              style={{
-                color: "#fff",
-                fontSize: "clamp(2.4rem, 5vw, 4rem)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                margin: "0 0 24px 0",
-              }}
-            >
-              SveaPanelen Cashback
-            </h1>
-            <p
-              style={{
-                color: "#fff",
-                fontSize: "clamp(1rem, 2vw, 1.2rem)",
-                fontWeight: 400,
-                lineHeight: 1.6,
-                margin: 0,
-                maxWidth: 460,
-              }}
-            >
+          <div className="cashback-hero-copy">
+            <h1 className="cashback-hero-title">SveaPanelen Cashback</h1>
+            <p className="cashback-hero-desc">
               Ladda ner SveaPanelens app för att få tillfång till Cashback på
               hundratals butiker. Pengarna kommer till ditt konto hos
               SveaPanelen som du sedan kan ta ut med Swish!
@@ -70,60 +33,20 @@ function Cashback() {
           </div>
 
           {/* Right mockup */}
-          <div
-            style={{
-              flex: "1 1 0",
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-            }}
-          >
+          <div className="cashback-hero-image-wrap">
             <img
               src={cashbackMockup}
               alt="SveaPanelen Cashback app"
-              style={{
-                maxWidth: "min(480px, 100%)",
-                width: "100%",
-                objectFit: "contain",
-                display: "block",
-              }}
+              className="cashback-hero-image"
             />
           </div>
         </div>
       </section>
 
       {/* How-to Section */}
-      <section
-        style={{
-          backgroundColor: "#fff",
-          padding: "80px 5%",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <h2
-            style={{
-              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
-              fontWeight: 800,
-              color: "#111",
-              margin: "0 0 48px 0",
-            }}
-          >
-            Såhär gör du
-          </h2>
-
-          <style>{`
-            .howto-grid {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 32px;
-            }
-            @media (max-width: 768px) {
-              .howto-grid {
-                grid-template-columns: 1fr;
-              }
-            }
-          `}</style>
+      <section className="cashback-howto">
+        <div className="cashback-howto-inner">
+          <h2 className="cashback-section-title">Såhär gör du</h2>
 
           <div className="howto-grid">
             {[
@@ -147,42 +70,71 @@ function Cashback() {
                 <img
                   src={card.img}
                   alt={card.title}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                    objectFit: "contain",
-                    borderRadius: 24,
-                    marginBottom: 24,
-                  }}
+                  className="howto-card-img"
                 />
-                <h3
-                  style={{
-                    fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
-                    fontWeight: 700,
-                    color: "#111",
-                    margin: "0 0 12px 0",
-                  }}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: "clamp(0.9rem, 1.5vw, 1rem)",
-                    color: "#333",
-                    lineHeight: 1.6,
-                    margin: 0,
-                  }}
-                >
-                  {card.desc}
-                </p>
+                <h3 className="howto-card-title">{card.title}</h3>
+                <p className="howto-card-desc">{card.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section></section>
+      {/* Store Cards Section */}
+      <section className="cashback-stores">
+        <div className="cashback-stores-inner">
+          <h2 className="cashback-section-title">
+            Få cashback på dina favoritbutiker
+          </h2>
+
+          <div className="store-grid">
+            {(
+              [
+                { name: "IKEA", domain: "ikea.com", cashback: 2.0 },
+                { name: "H&M", domain: "hm.com", cashback: 5.0 },
+                { name: "Zalando", domain: "zalando.se", cashback: 4.0 },
+                { name: "Adidas", domain: "adidas.com", cashback: 6.0 },
+                { name: "Nike", domain: "nike.com", cashback: 5.0 },
+                { name: "Elgiganten", domain: "elgiganten.se", cashback: 3.0 },
+                {
+                  name: "Apotek Hjärtat",
+                  domain: "apotekhjartat.se",
+                  cashback: 8.0,
+                },
+                { name: "Webhallen", domain: "webhallen.com", cashback: 3.5 },
+                { name: "Stadium", domain: "stadium.se", cashback: 4.0 },
+                { name: "Lindex", domain: "lindex.com", cashback: 6.0 },
+                { name: "Boozt", domain: "boozt.com", cashback: 7.0 },
+                { name: "Coop", domain: "coop.se", cashback: 2.5 },
+              ] as { name: string; domain: string; cashback: number }[]
+            ).map((store, i) => (
+              <div key={i} className="store-card">
+                <img
+                  src={"https://logo.clearbit.com/${store.domain}"}
+                  alt={store.name}
+                  className="store-logo"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = "none";
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = "flex";
+                  }}
+                />
+                <div
+                  className="store-logo-fallback"
+                  style={{ display: "none" }}
+                >
+                  {store.name.charAt(0)}
+                </div>
+                <span className="store-name">{store.name}</span>
+                <span className="store-cashback-badge">
+                  {store.cashback}% cashback
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
       <AppDownloadQRModal
