@@ -7,8 +7,6 @@ import { useGA } from "./hooks/gtag";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFoundPage from "./pages/404";
 import Cashback from "./pages/Cashback";
-import Om from "./pages/Om";
-import Kontakt from "./pages/Kontakt";
 
 function App() {
   const { trackEvent } = useGA();
@@ -24,8 +22,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/cashback" element={<Cashback />} />
-        <Route path="/om" element={<Om />} />
-        <Route path="/kontakt" element={<Kontakt />} />
         <Route path="/register/:code" element={<RegistrationPage />} />
         <Route path="/r/:code" element={<Landing />} />
         <Route path="/IG" element={<Landing />} />

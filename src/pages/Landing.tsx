@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import QRModal from "../components/ui/QRModal";
 
-import RatingsSection from "../components/ratingsCompnent/RatingsSection";
 import CookiesConsent from "../components/cookies/CookiesConsent";
 import { useGA } from "../hooks/gtag";
 import { useBankID } from "../hooks/useBankID";
@@ -17,6 +16,7 @@ import Footer from "../components/footer/Footer";
 import TopNav from "../components/topNav/TopNav";
 import { AppInfo } from "../components/AppInfo/AppInfo";
 import branch from "branch-sdk";
+import { DownloadToday } from "@/components/downloadToday/DownloadToday";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -173,10 +173,11 @@ function Landing() {
 
       <AppInfo />
 
-      <div style={{ padding: "25px 15px" }}>
+      {/* <div style={{ padding: "25px 15px" }}>
         <RatingsSection />
-      </div>
+      </div> */}
 
+      <DownloadToday />
       <Footer />
 
       <QRModal

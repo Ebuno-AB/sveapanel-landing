@@ -1,0 +1,78 @@
+.download-today-wrapper {
+  width: 100%;
+  padding: 3rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding-bottom: 100px;
+}
+
+.download-today-card {
+  background-color: #00cca3;
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+.download-today-title {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.download-today-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+.store-button {
+  display: inline-block;
+  text-decoration: none;
+  background: transparent;
+  outline: none;
+  border: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
+}
+
+.store-button img {
+  display: block;
+  height: 60px;
+  width: auto;
+}
+
+.store-button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 520px) {
+  .download-today-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .download-today-title {
+    font-size: 1.4rem;
+  }
+
+  .download-today-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .store-button img {
+    height: 48px;
+  }
+}
