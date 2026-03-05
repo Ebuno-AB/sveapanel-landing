@@ -8,6 +8,7 @@
   color: #000000;
   position: relative;
   box-sizing: border-box;
+  border-top: 1px solid #000;
 }
 
 .footer-main {
@@ -53,6 +54,14 @@
 .footer-tagline {
   color: #000;
   font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.footer-tagline-bold {
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
   line-height: 1.5;
   margin: 0;
 }

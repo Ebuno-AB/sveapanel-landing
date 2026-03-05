@@ -14,10 +14,8 @@ export default function Footer() {
             <img src={logoImg} alt="SveaPanelen" />
             <span>SveaPanelen</span>
           </div>
-          <p className="footer-tagline">
-            Din plattform för betalda undersökningar. Tjäna pengar genom att
-            dela dina åsikter.
-          </p>
+          <p className="footer-tagline-bold">Kontakt:</p>
+          <p className="footer-tagline">help@sveapanelen.se</p>
         </div>
 
         {/* Right side - Social media icons */}
@@ -76,11 +74,6 @@ export default function Footer() {
       {/* Bottom section - Legal links */}
       <div className="footer-bottom">
         <div className="footer-links">
-          {/* <a href="/support" className="footer-link">Support</a>
-          <a href="/updates" className="footer-link">Updates</a>
-          <a href="/developers" className="footer-link">Developers</a>
-          <a href="/terms" className="footer-link">Terms</a>
-          <a href="/privacy" className="footer-link">Privacy & Cookies</a> */}
           <Link to="/privacy" className="footer-link">
             Privacy
           </Link>
