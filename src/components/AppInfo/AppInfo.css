@@ -70,6 +70,9 @@
 .app-info__heading--accent-orange {
   color: #f59e0b;
 }
+.app-info__heading--accent-blue {
+  color: #3a5bd7;
+}
 
 /* ── Bullet list ── */
 .app-info__list {
@@ -112,6 +115,9 @@
 }
 .app-info__check--orange {
   background: #f59e0b;
+}
+.app-info__check--blue {
+  background: #3a5bd7;
 }
 
 .app-info__check svg {

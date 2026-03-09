@@ -3,8 +3,9 @@ import cashbackMockup from "../../assets/Images/cashbackMockup2.png";
 import gamingMockup from "../../assets/Images/GamingMockup2.png";
 import dualsMockup from "../../assets/Images/DualsMockup_.png";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
+import surveyMockup from "../../assets/Images/surveyMockup.png";
 
-type Accent = "pink" | "teal" | "purple" | "orange";
+type Accent = "pink" | "teal" | "purple" | "orange" | "blue";
 
 interface AppInfoItem {
   image: string;
@@ -84,6 +85,21 @@ const items: AppInfoItem[] = [
     bullets: [
       "Samla poäng genom att göra enkäter och klara nivåer i spel",
       "Vinnarna i tävlingarna får pengar i vinst",
+    ],
+  },
+  {
+    image: surveyMockup,
+    imageAlt: "Survey mockup",
+    reverse: false,
+    accent: "blue",
+    headingParts: [
+      { text: "Svara på " },
+      { text: "enkäter", highlighted: true },
+      { text: " och bli belönad med pengar" },
+    ],
+    bullets: [
+      "Nya enkäter släpps varje dag",
+      "Ju fler du gör desto bättre anpassade enkäter får du",
     ],
   },
 ];
