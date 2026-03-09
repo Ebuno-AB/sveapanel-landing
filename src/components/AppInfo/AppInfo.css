@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   gap: 100px;
-  margin-bottom: clamp(60px, 10vw, 140px);
   box-sizing: border-box;
 }
 

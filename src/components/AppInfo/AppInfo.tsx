@@ -37,8 +37,8 @@ const items: AppInfoItem[] = [
     ],
     bullets: [
       "Du handlar som vanligt",
-      "Använd SveaPanelens",
-      "Få pengar tillbaka",
+      "Använd SveaPanelens extention eller öppna butiken från appen",
+      "Få pengar tillbaka!",
     ],
   },
   {
@@ -69,7 +69,7 @@ const items: AppInfoItem[] = [
     bullets: [
       "Bestäm hur mycket du vill spela om",
       "Svara så snabbt du kan på frågorna för att få mer poäng",
-      "Den som får mest poäng vinner och får den andras pengar",
+      "Den som får mest poäng vinner och får den andras satsade pengar",
     ],
   },
   {

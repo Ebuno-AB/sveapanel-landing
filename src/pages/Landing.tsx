@@ -17,6 +17,7 @@ import TopNav from "../components/topNav/TopNav";
 import { AppInfo } from "../components/AppInfo/AppInfo";
 import branch from "branch-sdk";
 import { DownloadToday } from "@/components/downloadToday/DownloadToday";
+import UserReviews from "../components/userReviews/UserReviews";
 
 function Landing() {
   const { trackEvent } = useGA();
@@ -164,22 +165,15 @@ function Landing() {
   return (
     <>
       <TopNav handleAppDownload={handleAppDownload} />
-
       <Hero
         isRegistered={isRegistered}
         handleBankIDRegistration={handleBankIDRegistration}
         handleAppDownload={handleAppDownload}
       />
-
       <AppInfo />
-
-      {/* <div style={{ padding: "25px 15px" }}>
-        <RatingsSection />
-      </div> */}
-
+      <UserReviews />
       <DownloadToday />
-      <Footer />
-
+      <Footer />x
       <QRModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
@@ -188,7 +182,6 @@ function Landing() {
         error={error || undefined}
         success={success || undefined}
       />
-
       {/* Success Modal for Mobile Registration */}
       <QRModal
         isOpen={showSuccessModal}
@@ -200,13 +193,11 @@ function Landing() {
           onClose: () => setShowSuccessModal(false),
         }}
       />
-
       {/* App Download QR Modal */}
       <AppDownloadQRModal
         isOpen={isAppDownloadQRModalOpen}
         onClose={() => setIsAppDownloadQRModalOpen(false)}
       />
-
       {/* Cookies Consent Banner */}
       <CookiesConsent
         onAccept={() => {
