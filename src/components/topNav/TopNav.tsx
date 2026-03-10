@@ -110,6 +110,12 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 >
                   Cashback
                 </button>
+                <button
+                  className={`topnav-link${location.pathname === "/kundtjanst" ? " active" : ""}`}
+                  onClick={() => navigate("/kundtjanst")}
+                >
+                  Kundtjänst
+                </button>
                 <button className="topnav-download" onClick={handleAppDownload}>
                   Ladda ner appen
                 </button>
@@ -199,6 +205,16 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 }}
               >
                 Cashback
+              </button>
+              <button
+                className={`mobile-menu-link${location.pathname === "/kundtjanst" ? " active" : ""}`}
+                role="menuitem"
+                onClick={() => {
+                  navigate("/kundtjanst");
+                  closeMenu();
+                }}
+              >
+                Kundtjänst
               </button>
               <button
                 className={`mobile-menu-link${location.pathname === "/om" ? " active" : ""}`}
