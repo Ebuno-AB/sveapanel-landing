@@ -4,6 +4,7 @@ import "./HeroSection.css";
 import phoneImg from "@/assets/Images/sveamock.png";
 import bankIDLogo from "@/assets/icons/BankID_logo.svg";
 import logoImg from "@/assets/logo/logo.svg";
+import PayoutCounter from "../ui/PayoutCounter";
 
 interface HeroProps {
   isRegistered: boolean;
@@ -65,6 +66,7 @@ const HeroSection: React.FC<HeroProps> = ({
                 </div>
               )}
             </div>
+            <PayoutCounter />
           </div>
 
           {/* Right: visuals */}
