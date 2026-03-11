@@ -1,5 +1,4 @@
 import "../App.css";
-import "../components/bankModal/BankModal.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
