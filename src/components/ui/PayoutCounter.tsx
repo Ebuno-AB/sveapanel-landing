@@ -76,7 +76,7 @@ export default function PayoutCounter() {
         style={{
           marginTop: 10,
           fontSize: "clamp(0.95rem, 2vw, 1.15rem)",
-          color: "#555",
+          color: "#000000",
           fontWeight: 500,
           letterSpacing: "0.03em",
         }}

@@ -19,7 +19,7 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
   // Responsive breakpoint + close menu when switching to desktop
   useEffect(() => {
     const checkScreenSize = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth < 900;
       setIsMobile(mobile);
       if (!mobile) setIsMenuOpen(false);
     };
