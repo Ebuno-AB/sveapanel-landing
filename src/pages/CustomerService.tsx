@@ -1,4 +1,5 @@
 import "../App.css";
+import "./CustomerService.css";
 import { useState } from "react";
 import TopNav from "../components/topNav/TopNav";
 import Footer from "../components/footer/Footer";
@@ -16,68 +17,20 @@ function CustomerService() {
       <TopNav handleAppDownload={handleAppDownload} />
 
       {/* Hero section */}
-      <section
-        style={{
-          backgroundColor: "#7571FC",
-          maxHeight: "90vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "120px 5% 80px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ maxWidth: "1200px", width: "100%" }}>
-          <h1
-            style={{
-              color: "#fff",
-              fontSize: "clamp(2.4rem, 5vw, 4rem)",
-              fontWeight: 800,
-              lineHeight: 1.1,
-              margin: "0 0 24px 0",
-            }}
-          >
-            Kundtjänst
-          </h1>
-          <p
-            style={{
-              color: "#fff",
-              fontSize: "clamp(1rem, 2vw, 1.2rem)",
-              fontWeight: 400,
-              lineHeight: 1.6,
-              margin: "0 0 48px 0",
-              maxWidth: "460px",
-            }}
-          >
+      <section className="cs-hero">
+        <div className="cs-hero__inner">
+          <h1 className="cs-hero__title">Kundtjänst</h1>
+          <p className="cs-hero__description">
             Har du frågor eller behöver hjälp? Vi finns här för dig. Kontakta
             oss via e-post eller kolla in svaren på vanliga frågor nedan.
           </p>
 
-          <h2
-            style={{
-              color: "#fff",
-              fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
-              fontWeight: 700,
-              margin: "0 0 12px 0",
-            }}
-          >
-            Kontakta oss
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.9)", margin: 0 }}>
-            E-post:{" "}
-            <a
-              href="mailto:help@sveapanelen.se"
-              style={{
-                color: "#ffffff",
-                textDecoration: "underline",
-                fontWeight: 600,
-              }}
-            >
-              help@sveapanelen.se
-            </a>
+          <h2 className="cs-hero__contact-heading">Kontakta oss</h2>
+          <p className="cs-hero__contact-email">
+            E-post: <a href="mailto:help@sveapanelen.se">help@sveapanelen.se</a>
           </p>
-          <p style={{ color: "rgba(255,255,255,0.75)", marginTop: "6px" }}>
-            Vi svarar normalt inom 1–2 arbetsdagar.
+          <p className="cs-hero__response-time">
+            Vi svarar normalt inom 1-2 arbetsdagar.
           </p>
         </div>
       </section>
