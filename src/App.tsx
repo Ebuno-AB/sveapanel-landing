@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { useEffect } from "react";
 import Landing from "./pages/Landing";
 import RegistrationPage from "./pages/RegistrationPage";
@@ -8,6 +13,14 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFoundPage from "./pages/404";
 import Cashback from "./pages/Cashback";
 import CustomerService from "./pages/CustomerService";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   const { trackEvent } = useGA();
@@ -20,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/cashback" element={<Cashback />} />
