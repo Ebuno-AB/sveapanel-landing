@@ -1,6 +1,5 @@
 import React from "react";
 import "./HeroSection.css";
-// import TyperEffect from "./TyperEffect";
 import phoneImg from "@/assets/Images/sveamock.png";
 import bankIDLogo from "@/assets/icons/BankID_logo.svg";
 import logoImg from "@/assets/logo/logo.svg";

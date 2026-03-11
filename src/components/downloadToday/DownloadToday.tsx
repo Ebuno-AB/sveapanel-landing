@@ -14,7 +14,7 @@ export const DownloadToday = () => {
             rel="noopener noreferrer"
             className="store-button"
           >
-            <img src={appleIcon} alt="" />
+            <img src={appleIcon} alt="Ladda ner på App Store" />
           </a>
           <a
             href="https://play.google.com/store/apps/details?id=com.ebuno.swishpanelenfinal"
