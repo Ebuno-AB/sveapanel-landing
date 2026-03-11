@@ -204,6 +204,20 @@
 
   .howto-grid {
     grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .howto-card-img {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .howto-card-title,
+  .howto-card-desc {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

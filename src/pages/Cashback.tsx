@@ -88,42 +88,22 @@ function Cashback() {
           </h2>
 
           <div className="store-grid">
-            {(
-              [
-                { name: "IKEA", domain: "ikea.com", cashback: 2.0 },
-                { name: "H&M", domain: "hm.com", cashback: 5.0 },
-                { name: "Zalando", domain: "zalando.se", cashback: 4.0 },
-                { name: "Adidas", domain: "adidas.com", cashback: 6.0 },
-                { name: "Nike", domain: "nike.com", cashback: 5.0 },
-                { name: "Elgiganten", domain: "elgiganten.se", cashback: 3.0 },
-                {
-                  name: "Apotek Hjärtat",
-                  domain: "apotekhjartat.se",
-                  cashback: 8.0,
-                },
-                { name: "Webhallen", domain: "webhallen.com", cashback: 3.5 },
-                { name: "Stadium", domain: "stadium.se", cashback: 4.0 },
-                { name: "Lindex", domain: "lindex.com", cashback: 6.0 },
-                { name: "Boozt", domain: "boozt.com", cashback: 7.0 },
-                { name: "Coop", domain: "coop.se", cashback: 2.5 },
-              ] as { name: string; domain: string; cashback: number }[]
-            ).map((store, i) => (
+            {[
+              { name: "IKEA", cashback: 2.0 },
+              { name: "H&M", cashback: 5.0 },
+              { name: "Zalando", cashback: 4.0 },
+              { name: "Adidas", cashback: 6.0 },
+              { name: "Nike", cashback: 5.0 },
+              { name: "Elgiganten", cashback: 3.0 },
+              { name: "Apotek Hjärtat", cashback: 8.0 },
+              { name: "Webhallen", cashback: 3.5 },
+              { name: "Stadium", cashback: 4.0 },
+              { name: "Lindex", cashback: 6.0 },
+              { name: "Boozt", cashback: 7.0 },
+              { name: "Coop", cashback: 2.5 },
+            ].map((store, i) => (
               <div key={i} className="store-card">
-                <img
-                  src={"https://logo.clearbit.com/${store.domain}"}
-                  alt={store.name}
-                  className="store-logo"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    target.style.display = "none";
-                    const fallback = target.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = "flex";
-                  }}
-                />
-                <div
-                  className="store-logo-fallback"
-                  style={{ display: "none" }}
-                >
+                <div className="store-logo-fallback">
                   {store.name.charAt(0)}
                 </div>
                 <span className="store-name">{store.name}</span>
