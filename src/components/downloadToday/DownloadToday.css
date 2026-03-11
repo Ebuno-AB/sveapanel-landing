@@ -68,11 +68,13 @@
   }
 
   .download-today-buttons {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
+    gap: 0.02rem;
   }
 
   .store-button img {
-    height: 48px;
+    height: 42px;
   }
 }

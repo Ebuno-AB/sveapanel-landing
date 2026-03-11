@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import "./PayoutCounter.css";
 
 const TARGET = 20_000_000;
 const START_FROM_PCT = 0.997;
@@ -49,6 +50,7 @@ export default function PayoutCounter() {
   return (
     <div
       ref={containerRef}
+      className="payout-counter"
       style={{
         display: "flex",
         flexDirection: "column",

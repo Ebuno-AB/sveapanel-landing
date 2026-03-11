@@ -52,3 +52,12 @@
   color: rgba(255, 255, 255, 0.75);
   margin-top: 6px;
 }
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+  .cs-hero {
+    max-height: none;
+    padding-top: 160px;
+    padding-bottom: 60px;
+  }
+}

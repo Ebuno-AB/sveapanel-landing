@@ -189,6 +189,15 @@
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 768px) {
+  .cashback-hero {
+    max-height: none;
+    padding-top: 160px;
+  }
+
+  .cashback-hero-image-wrap {
+    display: none;
+  }
+
   .cashback-hero-inner {
     flex-direction: column;
   }
