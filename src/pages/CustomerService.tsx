@@ -33,6 +33,7 @@ function CustomerService() {
             Vi svarar normalt inom 1-2 arbetsdagar.
           </p>
         </div>
+        <div></div>
       </section>
 
       {/* FAQ – full-width, outside the constrained hero container */}
