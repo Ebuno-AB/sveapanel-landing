@@ -1,21 +1,25 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import QRCode from 'qrcode';
-import { BANKID_CONFIG, getApiUrl } from '../config/bankid';
-import { useAppSelector } from '../redux/store';
-
-
-
+import { useState, useEffect, useRef, useCallback } from "react";
+import QRCode from "qrcode";
+import { BANKID_CONFIG, getApiUrl } from "../config/bankid";
+import { useAppSelector } from "../redux/store";
+import { safeRedirect } from "../utils/safeRedirect";
 
 export const useBankID = () => {
-  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [browserLink, setBrowserLink] = useState<string | null>(null);
   const [universalLink, setUniversalLink] = useState<string | null>(null);
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [error, setError] = useState<{title: string; message: string} | null>(null);
-  const [success, setSuccess] = useState<{title: string; message: string; onClose?: () => void} | null>(null);
-  const session = useAppSelector(state => state.session);
-  
+  const [error, setError] = useState<{ title: string; message: string } | null>(
+    null,
+  );
+  const [success, setSuccess] = useState<{
+    title: string;
+    message: string;
+    onClose?: () => void;
+  } | null>(null);
+  const session = useAppSelector((state) => state.session);
+
   const orderRefRef = useRef<string | null>(null);
   const qrRefreshInterval = useRef<NodeJS.Timeout | null>(null);
   const verifyInterval = useRef<NodeJS.Timeout | null>(null);
@@ -24,24 +28,25 @@ export const useBankID = () => {
 
   // Generic API call function
   const makeApiCall = async (endpoint: string, data?: Record<string, any>) => {
-
     const formData = new FormData();
     if (data) {
-    
-      Object.entries(data).forEach(([key, value]) => formData.append(key, value));
+      Object.entries(data).forEach(([key, value]) =>
+        formData.append(key, value),
+      );
     }
-    
+
     const response = await fetch(getApiUrl(endpoint), {
-      method: 'POST',
+      method: "POST",
       body: formData,
     });
-    
+
     const responseText = await response.text();
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${responseText}`);
-    
+    if (!response.ok)
+      throw new Error(`HTTP ${response.status}: ${responseText}`);
+
     const parsed = JSON.parse(responseText);
-    if (!parsed) throw new Error('Invalid response');
-    
+    if (!parsed) throw new Error("Invalid response");
+
     return parsed;
   };
 
@@ -50,14 +55,14 @@ export const useBankID = () => {
     try {
       return await QRCode.toDataURL(text, { width: 200, margin: 2 });
     } catch (error) {
-      console.error('QR generation failed:', error);
-      return '';
+      console.error("QR generation failed:", error);
+      return "";
     }
   };
 
-  // Clear all intervals 
+  // Clear all intervals
   const clearAllIntervals = useCallback((): void => {
-    [qrRefreshInterval, verifyInterval].forEach(ref => {
+    [qrRefreshInterval, verifyInterval].forEach((ref) => {
       if (ref.current) {
         clearInterval(ref.current);
         ref.current = null;
@@ -66,25 +71,25 @@ export const useBankID = () => {
   }, []);
 
   // Show error (custom modal) or success (custom modal)
-  const showMessage = (type: 'error' | 'success', customMessage?: string) => {
+  const showMessage = (type: "error" | "success", customMessage?: string) => {
     clearAllIntervals();
-    if (isComplete && type === 'error') return;
+    if (isComplete && type === "error") return;
 
-    if (type === 'error') {
-      const message = customMessage || 'Något gick fel. Prova igen.';
+    if (type === "error") {
+      const message = customMessage || "Något gick fel. Prova igen.";
       setError({
-        title: 'Hoppsan!',
-        message: message
+        title: "Hoppsan!",
+        message: message,
       });
     } else {
       setSuccess({
-        title: 'Grattis!',
-        message: 'Du har registrerats framgångsrikt med BankID! Ladda ner appen för att fortsätta.',
+        title: "Grattis!",
+        message:
+          "Du har registrerats framgångsrikt med BankID! Ladda ner appen för att fortsätta.",
         onClose: () => {
-          window.location.href = '/';
-        }
+          window.location.href = "/";
+        },
       });
-    
     }
   };
 
@@ -93,26 +98,26 @@ export const useBankID = () => {
     setError(null);
     setSuccess(null);
     setIsLoading(true);
-    
+
     // Reset counters
     refreshCount.current = 0;
     verifyCount.current = 0;
-    
-    beginAuthentication().then(result => {
+
+    beginAuthentication().then((result) => {
       if (result.success) {
         // Restart verification interval with device type
         verifyInterval.current = startInterval(
-          () => verifyAuthentication(isPhoneDevice), 
-          BANKID_CONFIG.INTERVALS.VERIFY, 
-          verifyCount
+          () => verifyAuthentication(isPhoneDevice),
+          BANKID_CONFIG.INTERVALS.VERIFY,
+          verifyCount,
         );
-        
+
         // Restart QR refresh interval for desktop (assuming this was started initially)
         if (!qrRefreshInterval.current && !isPhoneDevice) {
           qrRefreshInterval.current = startInterval(
-            refreshQR, 
-            BANKID_CONFIG.INTERVALS.QR_REFRESH, 
-            refreshCount
+            refreshQR,
+            BANKID_CONFIG.INTERVALS.QR_REFRESH,
+            refreshCount,
           );
         }
       }
@@ -120,14 +125,18 @@ export const useBankID = () => {
   };
 
   // Begin authentication
-  const beginAuthentication = useCallback(async (): Promise<{ success: boolean; browserLink: string | null, universalLink: string | null }> => {
+  const beginAuthentication = useCallback(async (): Promise<{
+    success: boolean;
+    browserLink: string | null;
+    universalLink: string | null;
+  }> => {
     try {
       setIsLoading(true);
       setError(null); // Clear any previous errors
       const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.BEGIN);
-      
-      if (!response.data) throw new Error('No data received');
-      
+
+      if (!response.data) throw new Error("No data received");
+
       const { orderRef, browserLink, qr, universalLink } = response.data;
       orderRefRef.current = orderRef;
       setBrowserLink(browserLink);
@@ -136,12 +145,12 @@ export const useBankID = () => {
         const qrUrl = await generateQRCode(qr);
         setQrCodeUrl(qrUrl);
       }
-      
+
       setIsLoading(false);
       return { success: true, browserLink, universalLink };
     } catch (error) {
-      console.error('Begin error:', error);
-      showMessage('error');
+      console.error("Begin error:", error);
+      showMessage("error");
       setIsLoading(false);
       return { success: false, browserLink: null, universalLink: null };
     }
@@ -150,62 +159,74 @@ export const useBankID = () => {
   // Refresh QR code
   const refreshQR = useCallback(async (): Promise<void> => {
     if (!orderRefRef.current) return;
-    
+
     try {
       refreshCount.current++;
-      console.log('Refreshing QR code ' + refreshCount.current);
+      console.log("Refreshing QR code " + refreshCount.current);
       const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.UPDATE_QR, {
-        order_ref: orderRefRef.current
+        order_ref: orderRefRef.current,
       });
-      
+
       if (response.data?.qr) {
         const qrUrl = await generateQRCode(response.data.qr);
         setQrCodeUrl(qrUrl);
       }
     } catch (error) {
-      console.error('QR refresh error:', error);
+      console.error("QR refresh error:", error);
     }
   }, []);
 
   // Verify authentication
-  const verifyAuthentication = useCallback(async (isPhoneDevice?: boolean): Promise<void> => {
-    if (isComplete || !orderRefRef.current) return;
-    
-    try {
-      verifyCount.current++;
-      console.log('Verifying authentication ' + verifyCount.current);
-      const payload = {
-        order_ref: orderRefRef.current,
-        referral_code: session.referral_code
-      };
-      const response = await makeApiCall(BANKID_CONFIG.ENDPOINTS.VERIFY_ORDER, payload);
-      console.log('Verify response:', response);
-      if (response.status === 'success') {
-        setIsComplete(true);
-        clearAllIntervals();
-        
-        // For mobile devices, redirect to landing page with success message
-        if (isPhoneDevice) {
-          console.log('📱 Mobile authentication successful - redirecting to landing page');
-          window.location.href = '/?registration=success';
-        } else {
-          // For desktop, show success message in modal
-          showMessage('success');
+  const verifyAuthentication = useCallback(
+    async (isPhoneDevice?: boolean): Promise<void> => {
+      if (isComplete || !orderRefRef.current) return;
+
+      try {
+        verifyCount.current++;
+        console.log("Verifying authentication " + verifyCount.current);
+        const payload = {
+          order_ref: orderRefRef.current,
+          referral_code: session.referral_code,
+        };
+        const response = await makeApiCall(
+          BANKID_CONFIG.ENDPOINTS.VERIFY_ORDER,
+          payload,
+        );
+        console.log("Verify response:", response);
+        if (response.status === "success") {
+          setIsComplete(true);
+          clearAllIntervals();
+
+          // For mobile devices, redirect to landing page with success message
+          if (isPhoneDevice) {
+            console.log(
+              "📱 Mobile authentication successful - redirecting to landing page",
+            );
+            safeRedirect("/?registration=success");
+          } else {
+            // For desktop, show success message in modal
+            showMessage("success");
+          }
+          console.log("Authentication successful");
         }
-        console.log('Authentication successful');
+        // Continue polling for 'pending' or 'error' status
+      } catch (error) {
+        console.error("Verify error:", error);
       }
-      // Continue polling for 'pending' or 'error' status
-    } catch (error) {
-      console.error('Verify error:', error);
-    }
-  }, [isComplete, session.referral_code]);
+    },
+    [isComplete, session.referral_code],
+  );
 
   // Start intervals
-  const startInterval = (callback: () => void, delay: number, countRef: React.MutableRefObject<number>) => {
+  const startInterval = (
+    callback: () => void,
+    delay: number,
+    countRef: React.MutableRefObject<number>,
+  ) => {
     return setInterval(() => {
       if (countRef.current > BANKID_CONFIG.INTERVALS.MAX_RETRIES) {
         clearAllIntervals();
-        showMessage('error', 'Timeout - försök igen');
+        showMessage("error", "Timeout - försök igen");
         return;
       }
       callback();
@@ -213,29 +234,32 @@ export const useBankID = () => {
   };
 
   // Initialize authentication
-  const initialize = useCallback(async (isPhoneDevice: boolean): Promise<string | null> => {
-    const result = await beginAuthentication();
-    if (!result.success) return null;
-    
-    // Start verification polling with device type
-    verifyInterval.current = startInterval(
-      () => verifyAuthentication(isPhoneDevice), 
-      BANKID_CONFIG.INTERVALS.VERIFY, 
-      verifyCount
-    );
-    
-    // Start QR refresh for desktop
-    if (!isPhoneDevice) {
-      qrRefreshInterval.current = startInterval(
-        refreshQR, 
-        BANKID_CONFIG.INTERVALS.QR_REFRESH, 
-        refreshCount
+  const initialize = useCallback(
+    async (isPhoneDevice: boolean): Promise<string | null> => {
+      const result = await beginAuthentication();
+      if (!result.success) return null;
+
+      // Start verification polling with device type
+      verifyInterval.current = startInterval(
+        () => verifyAuthentication(isPhoneDevice),
+        BANKID_CONFIG.INTERVALS.VERIFY,
+        verifyCount,
       );
-    }
-    
-    // Return the browserLink for immediate use
-    return result.universalLink;
-  }, [beginAuthentication, verifyAuthentication, refreshQR]);
+
+      // Start QR refresh for desktop
+      if (!isPhoneDevice) {
+        qrRefreshInterval.current = startInterval(
+          refreshQR,
+          BANKID_CONFIG.INTERVALS.QR_REFRESH,
+          refreshCount,
+        );
+      }
+
+      // Return the browserLink for immediate use
+      return result.universalLink;
+    },
+    [beginAuthentication, verifyAuthentication, refreshQR],
+  );
 
   // Cleanup on unmount
   useEffect(() => {
@@ -253,4 +277,4 @@ export const useBankID = () => {
     initialize,
     clearAllIntervals,
   };
-}; 
+};

@@ -1,18 +1,14 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const balanceSlice = createSlice({
-  name: 'balance',
+  name: "balance",
   initialState: 0,
   reducers: {
     increment: (state, action: PayloadAction<number>) => {
-      const newBalance = (state + action.payload).toFixed(1);
-      state = Number(newBalance);
-      return state;
+      return Number((state + action.payload).toFixed(1));
     },
     decrement: (state, action: PayloadAction<number>) => {
-      const newBalance = (state - action.payload).toFixed(1);
-      state = Number(newBalance);
-      return state;
+      return Number((state - action.payload).toFixed(1));
     },
   },
 });

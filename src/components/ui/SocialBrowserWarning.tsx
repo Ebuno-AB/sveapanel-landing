@@ -16,6 +16,20 @@ const SocialBrowserWarning: React.FC<SocialBrowserWarningProps> = ({
   const browserName = getSocialBrowserName();
 
   const openInChrome = (url: string): void => {
+    try {
+      const parsed = new URL(url);
+      if (parsed.origin !== window.location.origin) {
+        console.warn(
+          "[SocialBrowserWarning] Blocked redirect to non-same-origin URL:",
+          url,
+        );
+        return;
+      }
+    } catch {
+      console.warn("[SocialBrowserWarning] Invalid URL:", url);
+      return;
+    }
+
     if (isAndroid()) {
       // Android Chrome
       window.location.href =

@@ -3,6 +3,7 @@ import "../App.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import QRModal from "../components/ui/QRModal";
+import { safeRedirect } from "../utils/safeRedirect";
 
 import CookiesConsent from "../components/cookies/CookiesConsent";
 import { useGA } from "../hooks/gtag";
@@ -64,7 +65,7 @@ function Landing() {
 
   useEffect(() => {
     branch.init(
-      "key_live_iwbeLcb4ikSelTXhyZCFWkijxqlOtyRk",
+      import.meta.env.VITE_BRANCH_SDK_KEY,
       {},
       (err: branch.BranchError, data: branch.SessionData | null) => {
         console.log("Branch init", err, data);
@@ -93,7 +94,7 @@ function Landing() {
         "📱 Redirecting to BankID app via browserLink:",
         returnedBrowserLink,
       );
-      window.location.href = returnedBrowserLink;
+      safeRedirect(returnedBrowserLink);
       return;
     }
 
