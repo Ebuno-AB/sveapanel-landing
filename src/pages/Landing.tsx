@@ -173,7 +173,7 @@ function Landing() {
       <AppInfo />
       <UserReviews />
       <DownloadToday />
-      <Footer />x
+      <Footer />
       <QRModal
         isOpen={isModalOpen}
         onClose={handleModalClose}

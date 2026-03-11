@@ -140,48 +140,16 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
         </div>
       </nav>
 
-      {/* Full-Screen Mobile Menu - Rendered at root level */}
-      {isMobile && isMenuOpen && (
+      {/* Full-Screen Mobile Menu - Always in DOM on mobile so exit transition plays */}
+      {isMobile && (
         <div
           id="mobile-menu"
           ref={menuRef}
-          className="mobile-menu open"
+          className={`mobile-menu${isMenuOpen ? " open" : ""}`}
           role="menu"
           aria-label="Mobilmeny"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: 999999,
-            background:
-              "linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%)",
-          }}
+          aria-hidden={!isMenuOpen}
         >
-          {/* Menu Header */}
-          <div className="mobile-menu-header">
-            <div className="mobile-menu-logo">
-              <img src={logoImg} alt="SveaPanelen logo" />
-              <span className="mobile-menu-brand">SveaPanelen</span>
-            </div>
-            <button
-              className="mobile-menu-close"
-              onClick={closeMenu}
-              aria-label="Stäng meny"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-
           {/* Menu Content */}
           <div className="mobile-menu-content">
             <nav className="mobile-menu-nav">
@@ -215,26 +183,6 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 }}
               >
                 Kundtjänst
-              </button>
-              <button
-                className={`mobile-menu-link${location.pathname === "/om" ? " active" : ""}`}
-                role="menuitem"
-                onClick={() => {
-                  navigate("/om");
-                  closeMenu();
-                }}
-              >
-                Om
-              </button>
-              <button
-                className={`mobile-menu-link${location.pathname === "/kontakt" ? " active" : ""}`}
-                role="menuitem"
-                onClick={() => {
-                  navigate("/kontakt");
-                  closeMenu();
-                }}
-              >
-                Kontakt
               </button>
             </nav>
 
