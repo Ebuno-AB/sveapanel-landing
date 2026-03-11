@@ -51,12 +51,13 @@
 .faq-section {
   background: #ffffff;
   padding: 35px 35px;
-  width: 100vw;
+  width: 100%;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
 .faq-container {
@@ -68,12 +69,12 @@
 }
 
 .faq-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 60px;
 }
 
 .faq-title {
-  font-size: 4rem;
+  font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 900;
   color: #000000;
   margin: 0;
@@ -252,10 +253,6 @@
   .faq-section {
     padding: 60px 16px;
     min-height: auto;
-  }
-
-  .faq-title {
-    font-size: 3.2rem;
   }
 
   .faq-container {
