@@ -16,7 +16,7 @@
   width: 340px;
   min-width: 280px;
   background: #fff;
-  border-right: 1px solid #ebebeb;
+  border-right: 1px solid #000000;
   padding: 48px 0 32px;
   display: flex;
   flex-direction: column;
@@ -68,32 +68,40 @@
   color: #111;
   cursor: pointer;
   border-left: 3px solid transparent;
-  transition:
-    background 0.15s,
-    border-color 0.15s;
+  transition: border-color 0.15s;
   user-select: none;
+  position: relative;
 }
 
-.my-account__nav-item:hover {
-  background: #f5f4ff;
+.my-account__nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 36px;
+  right: 50px;
+  height: 1.5px;
+  background: #111;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.my-account__nav-item:hover::after {
+  transform: scaleX(1);
 }
 
 .my-account__nav-item--active {
-  background: #f0efff;
-  border-left-color: #7571fc;
-  color: #7571fc;
+  border-left-color: transparent;
   font-weight: 500;
 }
 
-.my-account__nav-chevron {
-  font-size: 1rem;
-  color: #999;
-  font-weight: 300;
-  transition: color 0.15s;
+.my-account__nav-item--active::after {
+  transform: scaleX(1);
 }
 
-.my-account__nav-item--active .my-account__nav-chevron {
-  color: #7571fc;
+.my-account__nav-chevron {
+  color: #000000;
+  flex-shrink: 0;
 }
 
 /* ── Content Area ──────────────────────────────────── */

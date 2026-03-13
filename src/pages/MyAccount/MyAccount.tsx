@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 import "./MyAccount.css";
 import TopNav from "../../components/topNav/TopNav";
 import AppDownloadQRModal from "../../components/appDownloadModal/AppDownloadQRModal";
-import { OversiktContent } from "../../components/AccountOverview/AccountOverview";
+import { AccountOverview } from "@/components/AccountOverview/AccountOverview";
 
 type Tab =
   | "oversikt"
@@ -90,7 +91,7 @@ function InstallningarContent() {
 }
 
 const contentMap: Record<Tab, React.ReactNode> = {
-  oversikt: <OversiktContent />,
+  oversikt: <AccountOverview />,
   "bjud-in": <BjudInContent />,
   extension: <ExtensionContent />,
   kophistorik: <KophistorikContent />,
@@ -140,7 +141,7 @@ export const MyAccount = () => {
                 onClick={() => handleSelect(tab.id)}
               >
                 {tab.label}
-                <span className="my-account__nav-chevron">›</span>
+                <ChevronRight className="my-account__nav-chevron" size={18} />
               </li>
             ))}
           </ul>

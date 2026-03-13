@@ -1,6 +1,7 @@
+import { Clock, Check } from "lucide-react";
 import "./AccountOverview.css";
 
-export const OversiktContent = () => {
+export const AccountOverview = () => {
   return (
     <div className="overview">
       <h2 className="overview__title">Översikt</h2>
@@ -9,7 +10,7 @@ export const OversiktContent = () => {
         {/* Top-left: activity card */}
         <div className="overview__activity-card">
           <div className="overview__activity-row">
-            <span className="overview__activity-icon">🕐</span>
+            <Clock className="overview__activity-icon" size={16} />
             <span className="overview__activity-label">
               Kommande{" "}
               <span className="overview__activity-amount--pending">33.3kr</span>
@@ -18,7 +19,7 @@ export const OversiktContent = () => {
           </div>
           <div className="overview__divider" />
           <div className="overview__activity-row">
-            <span className="overview__activity-icon">✓</span>
+            <Check className="overview__activity-icon" size={16} />
             <span className="overview__activity-label">
               Godkännd{" "}
               <span className="overview__activity-amount--approved">13kr</span>
