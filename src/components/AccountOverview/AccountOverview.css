@@ -12,9 +12,21 @@
 }
 
 .overview__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  align-items: flex-start;
+}
+
+.overview__left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.overview__right-col {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
@@ -80,7 +92,7 @@
 .overview__balance-card {
   border: 1.5px solid #000000;
   border-radius: 18px;
-  padding: 14px 20px;
+  padding: 10px 10px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -97,12 +109,14 @@
 
 /* ── Extension CTA (bottom-left) ── */
 .overview__extension-card {
+  width: 100%;
   border-radius: 18px;
   padding: 16px 20px;
   background: #a3a0ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   cursor: pointer;
   font-size: 0.93rem;
   font-weight: 500;
@@ -110,7 +124,6 @@
   transition: opacity 0.15s;
   border: none;
   text-align: left;
-  width: 100%;
 }
 
 .overview__extension-card:hover {

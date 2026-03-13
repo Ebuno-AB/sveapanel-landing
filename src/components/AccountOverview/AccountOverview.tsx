@@ -1,4 +1,4 @@
-import { Clock, Check } from "lucide-react";
+import { Clock, Check, ChevronRight } from "lucide-react";
 import "./AccountOverview.css";
 
 export const AccountOverview = () => {
@@ -7,41 +7,48 @@ export const AccountOverview = () => {
       <h2 className="overview__title">Översikt</h2>
 
       <div className="overview__grid">
-        {/* Top-left: activity card */}
-        <div className="overview__activity-card">
-          <div className="overview__activity-row">
-            <Clock className="overview__activity-icon" size={16} />
-            <span className="overview__activity-label">
-              Kommande{" "}
-              <span className="overview__activity-amount--pending">33.3kr</span>
-            </span>
-            <span className="overview__activity-chevron">›</span>
+        {/* Left column: activity + extension */}
+        <div className="overview__left-col">
+          <div className="overview__activity-card">
+            <div className="overview__activity-row">
+              <Clock className="overview__activity-icon" size={16} />
+              <span className="overview__activity-label">
+                Kommande{" "}
+                <span className="overview__activity-amount--pending">
+                  33.3kr
+                </span>
+              </span>
+              <ChevronRight className="overview__activity-chevron" size={16} />
+            </div>
+            <div className="overview__divider" />
+            <div className="overview__activity-row">
+              <Check className="overview__activity-icon" size={16} />
+              <span className="overview__activity-label">
+                Godkännd{" "}
+                <span className="overview__activity-amount--approved">
+                  13kr
+                </span>
+              </span>
+              <ChevronRight className="overview__activity-chevron" size={16} />
+            </div>
           </div>
-          <div className="overview__divider" />
-          <div className="overview__activity-row">
-            <Check className="overview__activity-icon" size={16} />
-            <span className="overview__activity-label">
-              Godkännd{" "}
-              <span className="overview__activity-amount--approved">13kr</span>
-            </span>
-            <span className="overview__activity-chevron">›</span>
-          </div>
+
+          {/* Extension CTA */}
+          <button className="overview__extension-card">
+            Installera Svea- extension <ChevronRight size={16} />
+          </button>
         </div>
 
-        {/* Top-right: balance card */}
-        <div className="overview__balance-card">
-          Saldo:<span className="overview__balance-amount">145kr</span>
-        </div>
+        {/* Right column: balance + referral */}
+        <div className="overview__right-col">
+          <div className="overview__balance-card">
+            Saldo:<span className="overview__balance-amount">145kr</span>
+          </div>
 
-        {/* Bottom-left: extension CTA */}
-        <button className="overview__extension-card">
-          Installera Svea- extension &rsaquo;
-        </button>
-
-        {/* Bottom-right: referral card */}
-        <div className="overview__referral-card">
-          Få <span className="overview__referral-amount">10kr</span> när du
-          bjuder in en kompis! &rsaquo;
+          <div className="overview__referral-card">
+            Få <span className="overview__referral-amount">10kr</span> när du
+            bjuder in en kompis! <ChevronRight size={16} />
+          </div>
         </div>
       </div>
     </div>
