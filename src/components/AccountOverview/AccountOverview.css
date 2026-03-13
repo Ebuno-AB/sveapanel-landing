@@ -51,7 +51,7 @@
 }
 
 .overview__activity-row:hover {
-  background: #f5f5f5;
+  background: #ffffff;
 }
 
 .overview__activity-icon {
@@ -68,7 +68,7 @@
 }
 
 .overview__activity-amount--pending {
-  color: #e06aa3;
+  color: #f647a4;
   font-weight: 600;
 }
 
@@ -136,11 +136,13 @@
   border-radius: 18px;
   padding: 14px 20px;
   background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
   color: #111;
   cursor: pointer;
   transition: background 0.12s;
-  line-height: 1.45;
 }
 
 .overview__referral-card:hover {

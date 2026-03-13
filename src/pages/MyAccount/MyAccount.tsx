@@ -4,6 +4,7 @@ import "./MyAccount.css";
 import TopNav from "../../components/topNav/TopNav";
 import AppDownloadQRModal from "../../components/appDownloadModal/AppDownloadQRModal";
 import { AccountOverview } from "@/components/AccountOverview/AccountOverview";
+import { InviteFriends } from "../../components/InviteFriends/InviteFriends";
 
 type Tab =
   | "oversikt"
@@ -19,25 +20,6 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "kophistorik", label: "Köphistorik" },
   { id: "installningar", label: "Kontoinställningar" },
 ];
-
-function BjudInContent() {
-  return (
-    <div className="my-account__content-inner">
-      <h2>Bjud in vänner</h2>
-      <div className="my-account__placeholder-card">
-        <h3>Din referenskod</h3>
-        <p>
-          Dela din unika länk med vänner och tjäna cashback när de registrerar
-          sig.
-        </p>
-      </div>
-      <div className="my-account__placeholder-card">
-        <h3>Dina inbjudningar</h3>
-        <p>Du har inga aktiva inbjudningar ännu.</p>
-      </div>
-    </div>
-  );
-}
 
 function ExtensionContent() {
   return (
@@ -92,7 +74,7 @@ function InstallningarContent() {
 
 const contentMap: Record<Tab, React.ReactNode> = {
   oversikt: <AccountOverview />,
-  "bjud-in": <BjudInContent />,
+  "bjud-in": <InviteFriends />,
   extension: <ExtensionContent />,
   kophistorik: <KophistorikContent />,
   installningar: <InstallningarContent />,
