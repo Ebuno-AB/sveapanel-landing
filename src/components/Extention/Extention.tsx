@@ -42,48 +42,46 @@ export const Extentsion = () => {
 
   return (
     <div className="extension">
-      <div className="extension__layout">
-        {/* Left: info */}
-        <div className="extension__info">
-          <h2 className="extension__title">Svea - extension</h2>
-          <p className="extension__tagline">Missa aldrig din cashback!</p>
-          <p className="extension__description">
-            Svea-extension är ett tillägg som påminner dig om att aktivera
-            cashback när du besöker en butik där du kan få pengar tillbaka. På
-            så sätt missar du aldrig din cashback.
-          </p>
-        </div>
+      {/* Info */}
+      <div className="extension__info">
+        <h2 className="extension__title">Svea - extension</h2>
+        <p className="extension__tagline">Missa aldrig din cashback!</p>
+        <p className="extension__description">
+          Svea-extension är ett tillägg som påminner dig om att aktivera
+          cashback när du besöker en butik där du kan få pengar tillbaka. På så
+          sätt missar du aldrig din cashback.
+        </p>
+      </div>
 
-        {/* Right: steps */}
-        <div className="extension__steps-col">
-          <h3 className="extension__steps-title">Så här gör du</h3>
-          <ol className="extension__steps">
-            <li className="extension__step">
-              <span className="extension__step-icon">
-                <ExternalLink size={18} />
-              </span>
-              <p>
-                Klicka här eller på knappen nedan så kommer du till {name}{" "}
-                Add-ons.
-              </p>
-            </li>
-            <li className="extension__step">
-              <span className="extension__step-icon">
-                <Download size={18} />
-              </span>
-              <p>Installera tillägget genom att klicka på {addText}.</p>
-            </li>
-            <li className="extension__step">
-              <span className="extension__step-icon">
-                <Download size={18} />
-              </span>
-              <p>
-                Ge tillåtelse till alla webbplatser om du blir ombedd, sen är
-                det bara att shoppa som vanligt!
-              </p>
-            </li>
-          </ol>
-        </div>
+      {/* Steps */}
+      <div className="extension__steps-col">
+        <h3 className="extension__steps-title">Så här gör du</h3>
+        <ol className="extension__steps">
+          <li className="extension__step">
+            <span className="extension__step-icon">
+              <ExternalLink size={18} />
+            </span>
+            <p>
+              Klicka här eller på knappen nedan så kommer du till {name}{" "}
+              Add-ons.
+            </p>
+          </li>
+          <li className="extension__step">
+            <span className="extension__step-icon">
+              <Download size={18} />
+            </span>
+            <p>Installera tillägget genom att klicka på {addText}.</p>
+          </li>
+          <li className="extension__step">
+            <span className="extension__step-icon">
+              <Download size={18} />
+            </span>
+            <p>
+              Ge tillåtelse till alla webbplatser om du blir ombedd, sen är det
+              bara att shoppa som vanligt!
+            </p>
+          </li>
+        </ol>
       </div>
 
       <div className="extension__actions">
