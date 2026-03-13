@@ -1,9 +1,9 @@
-import "../App.css";
+import "../../App.css";
 import "./CustomerService.css";
 import { useState } from "react";
-import TopNav from "../components/topNav/TopNav";
-import Footer from "../components/footer/Footer";
-import AppDownloadQRModal from "../components/appDownloadModal/AppDownloadQRModal";
+import TopNav from "../../components/topNav/TopNav";
+import Footer from "../../components/footer/Footer";
+import AppDownloadQRModal from "../../components/appDownloadModal/AppDownloadQRModal";
 import FAQ from "@/components/faq/FAQ";
 
 function CustomerService() {

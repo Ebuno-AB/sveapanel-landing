@@ -11,8 +11,9 @@ import Redirect from "./pages/Redirect";
 import { useGA } from "./hooks/gtag";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFoundPage from "./pages/404";
-import Cashback from "./pages/Cashback";
-import CustomerService from "./pages/CustomerService";
+import Cashback from "./pages/Cashback/Cashback";
+import CustomerService from "./pages/CustomerService/CustomerService";
+import MyAccount from "./pages/MyAccount/MyAccount";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/cashback" element={<Cashback />} />
         <Route path="/kundtjanst" element={<CustomerService />} />
+        <Route path="/minasidor" element={<MyAccount />} />
         <Route path="/register/:code" element={<RegistrationPage />} />
         <Route path="/r/:code" element={<Landing />} />
         <Route path="/IG" element={<Landing />} />
