@@ -5,10 +5,10 @@
 }
 
 .overview__title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #000000;
-  margin: 0 0 4px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 32px;
 }
 
 .overview__grid {
@@ -139,7 +139,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #111;
   cursor: pointer;
   transition: background 0.12s;
