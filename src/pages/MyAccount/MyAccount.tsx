@@ -5,6 +5,7 @@ import TopNav from "../../components/topNav/TopNav";
 import AppDownloadQRModal from "../../components/appDownloadModal/AppDownloadQRModal";
 import { AccountOverview } from "@/components/AccountOverview/AccountOverview";
 import { InviteFriends } from "../../components/InviteFriends/InviteFriends";
+import { Extentsion } from "@/components/Extention/Extention";
 
 type Tab =
   | "oversikt"
@@ -20,25 +21,6 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "kophistorik", label: "Köphistorik" },
   { id: "installningar", label: "Kontoinställningar" },
 ];
-
-function ExtensionContent() {
-  return (
-    <div className="my-account__content-inner">
-      <h2>Svea - extension</h2>
-      <div className="my-account__placeholder-card">
-        <h3>Webbläsartillägg</h3>
-        <p>
-          Installera Svea-tillägget för att automatiskt aktivera cashback när du
-          handlar online.
-        </p>
-      </div>
-      <div className="my-account__placeholder-card">
-        <h3>Status</h3>
-        <p>Tillägget är inte installerat på den här enheten.</p>
-      </div>
-    </div>
-  );
-}
 
 function KophistorikContent() {
   return (
@@ -75,7 +57,7 @@ function InstallningarContent() {
 const contentMap: Record<Tab, React.ReactNode> = {
   oversikt: <AccountOverview />,
   "bjud-in": <InviteFriends />,
-  extension: <ExtensionContent />,
+  extension: <Extentsion />,
   kophistorik: <KophistorikContent />,
   installningar: <InstallningarContent />,
 };
