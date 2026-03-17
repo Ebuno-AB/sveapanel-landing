@@ -3,9 +3,12 @@ import './index.css'
 import App from './App.tsx';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.ts';
+import { QueryProvider } from './core/query/QueryProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <QueryProvider>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </QueryProvider>,
 )

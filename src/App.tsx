@@ -4,16 +4,9 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { useEffect } from "react";
-import Landing from "./pages/Landing";
-import RegistrationPage from "./pages/RegistrationPage";
-import Redirect from "./pages/Redirect";
+import { Suspense, useEffect } from "react";
 import { useGA } from "./hooks/gtag";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import NotFoundPage from "./pages/404";
-import Cashback from "./pages/Cashback/Cashback";
-import CustomerService from "./pages/CustomerService/CustomerService";
-import MyAccount from "./pages/MyAccount/MyAccount";
+import { publicRoutes, protectedRoutes } from "./routes/routes";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -23,7 +16,7 @@ function ScrollToTop() {
   return null;
 }
 
-function App() {
+function AppRoutes() {
   const { trackEvent } = useGA();
 
   useEffect(() => {
@@ -33,22 +26,36 @@ function App() {
   }, [trackEvent, window.gtag]);
 
   return (
+    <Routes>
+      {/* Protected routes (requires auth) */}
+      {protectedRoutes.map((route, i) => (
+        <Route key={`protected-${i}`} path={route.path} element={route.element}>
+          {route.children?.map((child, j) => (
+            <Route
+              key={child.path ?? `index-${j}`}
+              index={"index" in child ? (child.index as boolean) : undefined}
+              path={"path" in child ? child.path : undefined}
+              element={child.element}
+            />
+          ))}
+        </Route>
+      ))}
+
+      {/* Public routes */}
+      {publicRoutes.map((route) => (
+        <Route key={route.path} path={route.path} element={route.element} />
+      ))}
+    </Routes>
+  );
+}
+
+function App() {
+  return (
     <Router>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/cashback" element={<Cashback />} />
-        <Route path="/kundtjanst" element={<CustomerService />} />
-        <Route path="/minasidor" element={<MyAccount />} />
-        <Route path="/register/:code" element={<RegistrationPage />} />
-        <Route path="/r/:code" element={<Landing />} />
-        <Route path="/IG" element={<Landing />} />
-        <Route path="/redirect/:platform" element={<Redirect />} />
-        <Route path="/redirect/detect" element={<Redirect />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/404" element={<NotFoundPage />} />
-        <Route path="/*" element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <AppRoutes />
+      </Suspense>
     </Router>
   );
 }

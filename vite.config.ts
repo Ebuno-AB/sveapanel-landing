@@ -29,6 +29,10 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      "/v1": {
+        target: "http://192.168.1.101:3025",
+        changeOrigin: true,
+      },
     },
   },
 });

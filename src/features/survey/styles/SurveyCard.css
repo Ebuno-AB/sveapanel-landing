@@ -1,0 +1,189 @@
+/* ── Survey Grid ── */
+.survey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* ── Survey Card ── */
+.survey-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 190px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.survey-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.survey-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.survey-provider {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+.survey-provider-logo {
+  height: 22px;
+  max-width: 70px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.survey-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.badge-time {
+  background: rgba(0, 204, 163, 0.12);
+  color: #00b892;
+}
+
+/* ── Reward ── */
+.survey-reward {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.reward-amount {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #111;
+  line-height: 1;
+}
+
+.reward-currency {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ── CTA ── */
+.survey-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #00cca3;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 9px 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.survey-cta:hover {
+  background: #00b892;
+  transform: scale(1.03);
+}
+
+.survey-cta svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Empty State ── */
+.survey-empty {
+  background: #fff;
+  border-radius: 18px;
+  padding: 40px 24px;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.survey-empty-icon {
+  font-size: 2rem;
+  opacity: 0.4;
+  margin-bottom: 8px;
+}
+
+.survey-empty h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #111;
+}
+
+.survey-empty p {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ── Survey Count Badge ── */
+.survey-count-badge {
+  background: #111;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .survey-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .survey-card {
+    min-height: 170px;
+    padding: 14px 14px 12px;
+  }
+
+  .reward-amount {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .survey-grid {
+    grid-template-columns: 1fr;
+  }
+}

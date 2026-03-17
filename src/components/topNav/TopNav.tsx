@@ -3,11 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/assets/icons/logo.png";
 
-interface TopNavProps {
-  handleAppDownload: () => void;
-}
-
-const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
+const TopNav: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -116,8 +112,8 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
                 >
                   Kundtjänst
                 </button>
-                <button className="topnav-download" onClick={handleAppDownload}>
-                  Ladda ner appen
+                <button className="topnav-download" onClick={() => navigate("/logga-in")}>
+                  Logga in
                 </button>
               </div>
             )}
@@ -191,11 +187,11 @@ const TopNav: React.FC<TopNavProps> = ({ handleAppDownload }) => {
               <button
                 className="mobile-menu-cta"
                 onClick={() => {
-                  handleAppDownload();
+                  navigate("/logga-in");
                   closeMenu();
                 }}
               >
-                Ladda ner appen
+                Logga in
               </button>
             </div>
           </div>
