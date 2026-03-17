@@ -5,6 +5,32 @@
   gap: 16px;
 }
 
+/* ── Load More ── */
+.survey-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.survey-load-more-btn {
+  background: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.55rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.survey-load-more-btn:hover {
+  border-color: #111;
+  background: rgba(0, 0, 0, 0.04);
+}
+
 /* ── Survey Card ── */
 .survey-card {
   background: #fff;
@@ -16,7 +42,9 @@
   min-height: 190px;
   border: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   cursor: pointer;
 }
 
@@ -110,7 +138,9 @@
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
   width: 80%;
   margin: 0 auto;
 }

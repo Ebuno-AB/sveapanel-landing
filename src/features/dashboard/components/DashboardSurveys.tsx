@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
 import "@/features/survey/styles/SurveyCard.css";
+
+const getPageSize = () => (window.innerWidth < 769 ? 4 : 8);
 
 const ClipboardIcon = () => (
   <svg
@@ -20,6 +23,7 @@ const ClipboardIcon = () => (
 
 export const DashboardSurveys = () => {
   const { data: surveys, isLoading } = useSurveys();
+  const [visibleCount, setVisibleCount] = useState(() => getPageSize());
 
   return (
     <section className="dashboard-section">
@@ -28,7 +32,7 @@ export const DashboardSurveys = () => {
         {surveys && surveys.length > 0 && (
           <span className="survey-count-badge">
             <ClipboardIcon />
-            {surveys.length}
+            {Math.min(visibleCount, surveys.length)} av {surveys.length}
           </span>
         )}
       </div>
@@ -93,11 +97,23 @@ export const DashboardSurveys = () => {
           ))}
         </div>
       ) : surveys && surveys.length > 0 ? (
-        <div className="survey-grid">
-          {surveys.map((s) => (
-            <SurveyCard key={s.project_id} survey={s} />
-          ))}
-        </div>
+        <>
+          <div className="survey-grid">
+            {surveys.slice(0, visibleCount).map((s) => (
+              <SurveyCard key={s.project_id} survey={s} />
+            ))}
+          </div>
+          {visibleCount < surveys.length && (
+            <div className="survey-load-more">
+              <button
+                className="survey-load-more-btn"
+                onClick={() => setVisibleCount((c) => c + getPageSize())}
+              >
+                Visa fler
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="survey-empty">
           <div className="survey-empty-icon">📋</div>
