@@ -21,7 +21,12 @@ function BalanceRing({ balance }: { balance: number }) {
 
   return (
     <div className="balance-ring-wrapper">
-      <svg width="52" height="52" viewBox="0 0 52 52" className="balance-ring-svg">
+      <svg
+        width="52"
+        height="52"
+        viewBox="0 0 52 52"
+        className="balance-ring-svg"
+      >
         {/* Track */}
         <circle
           cx="26"
@@ -47,7 +52,8 @@ function BalanceRing({ balance }: { balance: number }) {
         />
       </svg>
       <span className="balance-ring-text">
-        {Math.round(displayBalance)}<span className="balance-ring-currency">kr</span>
+        {Math.round(displayBalance)}
+        <span className="balance-ring-currency">kr</span>
       </span>
     </div>
   );
@@ -104,16 +110,19 @@ const AuthNav = () => {
     <>
       <nav className="auth-topnav">
         <div className="auth-topnav-container">
-          {/* Logo */}
-          <div className="auth-topnav-logo" onClick={() => navigate("/dashboard")}>
-            <img src={logoImg} alt="SveaPanelen" />
-            {!isMobile && <span className="auth-topnav-brand">SveaPanelen</span>}
-          </div>
-
-          {/* Center links (desktop) */}
-          {!isMobile && (
-            <div className="auth-topnav-center">
-              {NAV_ITEMS.map((item) => {
+          {/* Left: logo + nav links */}
+          <div className="auth-topnav-left">
+            <div
+              className="auth-topnav-logo"
+              onClick={() => navigate("/dashboard")}
+            >
+              <img src={logoImg} alt="SveaPanelen" />
+              {!isMobile && (
+                <span className="auth-topnav-brand">SveaPanelen</span>
+              )}
+            </div>
+            {!isMobile &&
+              NAV_ITEMS.map((item) => {
                 const isActive =
                   item.path === "/dashboard"
                     ? location.pathname === "/dashboard"
@@ -128,15 +137,17 @@ const AuthNav = () => {
                   </button>
                 );
               })}
-            </div>
-          )}
+          </div>
 
           {/* Right: balance + avatar (desktop) */}
           <div className="auth-topnav-right">
             {!isMobile && (
               <>
                 <BalanceRing balance={user?.balance ?? 0} />
-                <button className="auth-avatar-btn" onClick={() => navigate("/dashboard/konto")}>
+                <button
+                  className="auth-avatar-btn"
+                  onClick={() => navigate("/dashboard/konto")}
+                >
                   <div className="auth-avatar">{initials}</div>
                 </button>
               </>

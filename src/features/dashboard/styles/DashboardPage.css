@@ -1,6 +1,7 @@
 .dashboard {
   min-height: 100vh;
   background: #f2f2f7;
+  padding-top: 60px;
   padding-bottom: 60px;
 }
 
@@ -99,7 +100,9 @@
   gap: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   text-decoration: none;
   color: inherit;
 }
