@@ -5,7 +5,7 @@ import logoImg from "@/assets/icons/logo.png";
 import "./AuthNav.css";
 
 const NAV_ITEMS = [
-  { label: "Hem", path: "/dashboard" },
+  { label: "Utforska", path: "/dashboard" },
   { label: "Cashback", path: "/dashboard/cashback" },
   { label: "Tävlingar", path: "/dashboard/tavlingar" },
 ];

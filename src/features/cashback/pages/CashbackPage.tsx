@@ -11,21 +11,14 @@ import "@/features/cashback/styles/CashbackPage.css";
 const CashbackPage = () => {
   const { data: feedSections, isLoading: sectionsLoading } = useFeedSections();
   const { data: categories, isLoading: catsLoading } = useCategories();
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
+  const [selectedCategory, setSelectedCategory] = useState<
+    string | undefined
+  >();
 
   const isLoading = sectionsLoading || catsLoading;
 
   return (
     <div className="dash-cashback">
-      <div className="dash-cashback-header">
-        <div className="dash-cashback-header-inner">
-          <h2 className="dash-cashback-title">Cashback</h2>
-          <p className="dash-cashback-subtitle">
-            Handla via våra butiker och få pengar tillbaka
-          </p>
-        </div>
-      </div>
-
       <div className="dash-cashback-content">
         {categories && categories.length > 0 && (
           <CategoryCarousel

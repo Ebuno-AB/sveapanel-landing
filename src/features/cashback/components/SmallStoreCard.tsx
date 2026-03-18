@@ -1,7 +1,10 @@
+import { useState } from "react";
 import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import CashbackBadge from "./CashbackBadge";
 
 function SmallStoreCard({ store }: { store: CashbackStore }) {
+  const [logoError, setLogoError] = useState(false);
+
   const handleClick = () => {
     if (store.websiteUrl) {
       window.open(store.websiteUrl, "_blank", "noopener,noreferrer");
@@ -10,14 +13,18 @@ function SmallStoreCard({ store }: { store: CashbackStore }) {
 
   return (
     <div className="cb-small-card" onClick={handleClick}>
-      <img
-        src={store.logoUrl}
-        alt={store.name}
-        className="cb-small-logo"
-        onError={(e) => {
-          (e.target as HTMLImageElement).style.display = "none";
-        }}
-      />
+      {logoError || !store.logoUrl ? (
+        <div className="cb-small-logo cb-small-logo-fallback">
+          {store.name.charAt(0).toUpperCase()}
+        </div>
+      ) : (
+        <img
+          src={store.logoUrl}
+          alt={store.name}
+          className="cb-small-logo"
+          onError={() => setLogoError(true)}
+        />
+      )}
       <span className="cb-small-name">{store.name}</span>
       <CashbackBadge store={store} />
     </div>
