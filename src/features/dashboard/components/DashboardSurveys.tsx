@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
-import "@/features/survey/styles/SurveyCard.css";
 
 const getPageSize = () => (window.innerWidth < 769 ? 4 : 8);
 
