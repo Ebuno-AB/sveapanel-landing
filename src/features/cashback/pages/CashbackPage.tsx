@@ -1,50 +1,152 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { Search, ChevronDown } from "lucide-react";
 import {
-  useFeedSections,
+  useFeaturedStore,
+  useStores,
   useCategories,
 } from "@/features/cashback/api/cashback.queries";
 import CategoryCarousel from "@/features/cashback/components/CategoryCarousel";
-import FeedSection from "@/features/cashback/components/FeedSection";
+import FeaturedCard from "@/features/cashback/components/FeaturedCard";
+import SmallStoreCard from "@/features/cashback/components/SmallStoreCard";
 import FeedSkeleton from "@/features/cashback/components/FeedSkeleton";
 import "@/features/cashback/styles/CashbackPage.css";
 
+const INITIAL_LIMIT = 12;
+
 const CashbackPage = () => {
-  const { data: feedSections, isLoading: sectionsLoading } = useFeedSections();
-  const { data: categories, isLoading: catsLoading } = useCategories();
+  const { data: featuredStore, isLoading: featuredLoading } =
+    useFeaturedStore();
+  const { data: stores, isLoading: storesLoading } = useStores();
+  const { data: categories } = useCategories();
+
   const [selectedCategory, setSelectedCategory] = useState<
     string | undefined
   >();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"az" | "cashback">("az");
+  const [showAll, setShowAll] = useState(false);
 
-  const isLoading = sectionsLoading || catsLoading;
+  const filteredStores = useMemo(() => {
+    if (!stores) return [];
+    let result = stores.filter((s) => s.isActive);
+
+    if (selectedCategory) {
+      result = result.filter((s) =>
+        s.categories?.some((c) => c.slug === selectedCategory),
+      );
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter((s) => s.name.toLowerCase().includes(q));
+    }
+
+    if (sortBy === "az") {
+      result = [...result].sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    } else {
+      result = [...result].sort(
+        (a, b) => (b.cashback?.amount ?? 0) - (a.cashback?.amount ?? 0),
+      );
+    }
+
+    return result;
+  }, [stores, selectedCategory, searchQuery, sortBy]);
+
+  const displayedStores = showAll
+    ? filteredStores
+    : filteredStores.slice(0, INITIAL_LIMIT);
+
+  const isLoading = featuredLoading || storesLoading;
 
   return (
     <div className="dash-cashback">
       <div className="dash-cashback-content">
-        {categories && categories.length > 0 && (
-          <CategoryCarousel
-            categories={categories}
-            selected={selectedCategory}
-            onSelect={setSelectedCategory}
-          />
-        )}
-
-        {isLoading ? (
-          <FeedSkeleton />
-        ) : feedSections && feedSections.length > 0 ? (
-          feedSections.map((section) => (
-            <FeedSection
-              key={section.id}
-              section={section}
-              categories={categories ?? []}
-            />
-          ))
-        ) : (
-          <div className="cb-empty" style={{ marginTop: 32 }}>
-            <div className="cb-empty-icon">🛍</div>
-            <h3>Inga butiker just nu</h3>
-            <p>Kom tillbaka senare — nya butiker dyker upp regelbundet.</p>
+        {/* Veckans butiker */}
+        {featuredStore && (
+          <div className="cb-feed-section">
+            <div className="cb-feed-section-header">
+              <h3 className="cb-feed-section-title">Veckans butiker</h3>
+            </div>
+            <div className="cb-featured-single">
+              <FeaturedCard store={featuredStore} />
+            </div>
           </div>
         )}
+
+        {/* Alla butiker */}
+        <div className="cb-feed-section">
+          <div className="cb-feed-section-header">
+            <h3 className="cb-feed-section-title">Alla butiker</h3>
+          </div>
+
+          <div className="cb-search-input-wrap">
+            <Search size={18} strokeWidth={2.5} />
+            <input
+              className="cb-search-input"
+              type="text"
+              placeholder="Sök efter butiker"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowAll(false);
+              }}
+            />
+          </div>
+
+          {categories && categories.length > 0 && (
+            <CategoryCarousel
+              categories={categories}
+              selected={selectedCategory}
+              onSelect={(slug) => {
+                setSelectedCategory(slug);
+                setShowAll(false);
+              }}
+            />
+          )}
+
+          <div className="cb-sort-chips">
+            <button
+              className={`cb-sort-chip${sortBy === "az" ? " active" : ""}`}
+              onClick={() => setSortBy("az")}
+            >
+              ↕ A-Ö
+            </button>
+            <button
+              className={`cb-sort-chip${sortBy === "cashback" ? " active" : ""}`}
+              onClick={() => setSortBy("cashback")}
+            >
+              ↕ Högst cashback
+            </button>
+          </div>
+
+          {isLoading ? (
+            <FeedSkeleton />
+          ) : filteredStores.length === 0 ? (
+            <div className="cb-empty" style={{ marginTop: 24 }}>
+              <div className="cb-empty-icon">🛍</div>
+              <h3>Inga butiker hittades</h3>
+              <p>
+                Prova att söka efter något annat eller välj en annan kategori.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="cb-stores-scroll">
+                {displayedStores.map((store) => (
+                  <SmallStoreCard key={store.id} store={store} />
+                ))}
+              </div>
+              {!showAll && filteredStores.length > INITIAL_LIMIT && (
+                <button
+                  className="cb-show-more"
+                  onClick={() => setShowAll(true)}
+                >
+                  Visa fler <ChevronDown size={16} strokeWidth={2.5} />
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -22,3 +22,23 @@ export const useCategories = () => {
     enabled: isAuthenticated,
   });
 };
+
+export const useStores = () => {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return useQuery({
+    queryKey: queryKeys.cashback.stores,
+    queryFn: cashbackApi.getStores,
+    enabled: isAuthenticated,
+  });
+};
+
+export const useFeaturedStore = () => {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return useQuery({
+    queryKey: queryKeys.cashback.featuredStore,
+    queryFn: cashbackApi.getFeaturedStore,
+    enabled: isAuthenticated,
+  });
+};
