@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
-import "./MyAccount.css";
+import { ChevronRight, ArrowLeft } from "lucide-react";
+import "../styles/MyAccount.css";
 import { useAuthStore } from "@/core/auth/authStore";
+import { useUser } from "@/features/user/api/user.queries";
 import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal";
-import { AccountOverview } from "@/components/AccountOverview/AccountOverview";
-import { InviteFriends } from "@/components/InviteFriends/InviteFriends";
-import { Extentsion } from "@/components/Extention/Extention";
+import { AccountOverview } from "@/features/myAccount/components/AccountOverview/AccountOverview";
+import { InviteFriends } from "@/features/myAccount/components/InviteFriends/InviteFriends";
+import { Extentsion } from "@/features/myAccount/components/Extention/Extention";
 
 type Tab =
   | "oversikt"
@@ -66,6 +67,7 @@ const contentMap: Record<Tab, React.ReactNode> = {
 export const MyAccount = () => {
   const navigate = useNavigate();
   const logout = useAuthStore((s) => s.logout);
+  const { data: user } = useUser();
   const [activeTab, setActiveTab] = useState<Tab | null>(null);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
@@ -88,7 +90,7 @@ export const MyAccount = () => {
         isOpen={isAppDownloadQRModalOpen}
         onClose={() => setIsAppDownloadQRModalOpen(false)}
       />
-      <div className="my-account" style={{ paddingTop: 100 }}>
+      <div className="my-account">
         {/* Sidebar */}
         <aside
           className={`my-account__sidebar${
@@ -96,8 +98,15 @@ export const MyAccount = () => {
           }`}
         >
           <div className="my-account__profile">
-            <div className="my-account__avatar">EM</div>
-            <h1 className="my-account__greeting">Hej Elias!</h1>
+            <div className="my-account__avatar">
+              {user ? `${user.firstName[0]}${user.lastName[0]}` : ""}
+            </div>
+            <div>
+              <p className="my-account__greeting">
+                {user?.firstName} {user?.lastName}
+              </p>
+              <p className="my-account__greeting-sub">{user?.email}</p>
+            </div>
           </div>
 
           <ul className="my-account__nav">
@@ -128,7 +137,7 @@ export const MyAccount = () => {
         >
           {isMobile && (
             <button className="my-account__back" onClick={handleBack}>
-              ‹ Tillbaka
+              <ArrowLeft size={16} /> Tillbaka
             </button>
           )}
           {resolvedTab && contentMap[resolvedTab]}

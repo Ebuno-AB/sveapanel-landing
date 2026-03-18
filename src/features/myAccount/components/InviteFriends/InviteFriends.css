@@ -72,7 +72,7 @@
 
 .invite-friends__info-box {
   flex: 1;
-  border: 1.5px solid #000;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   overflow: hidden;
 }
@@ -129,7 +129,7 @@
 }
 
 .invite-friends__qr {
-  border: 1.5px solid #000;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   padding: 12px;
   display: flex;

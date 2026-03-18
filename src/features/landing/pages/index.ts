@@ -8,4 +8,4 @@ export { default as RedirectPage } from "./RedirectPage";
 export { default as NotFoundPage } from "./NotFoundPage";
 
 // Protected pages (requires authentication)
-export { default as MyAccountPage } from "./MyAccount/MyAccount";
+export { default as MyAccountPage } from "../../myAccount/pages/MyAccount";

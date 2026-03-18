@@ -5,9 +5,10 @@ import logoImg from "@/assets/icons/logo.png";
 import "./AuthNav.css";
 
 const NAV_ITEMS = [
-  { label: "Utforska", path: "/dashboard" },
+  { label: "Upptäck", path: "/dashboard" },
   { label: "Cashback", path: "/dashboard/cashback" },
   { label: "Tävlingar", path: "/dashboard/tavlingar" },
+  { label: "Mina sidor", path: "/dashboard/konto" },
 ];
 
 const BALANCE_MAX = 300;

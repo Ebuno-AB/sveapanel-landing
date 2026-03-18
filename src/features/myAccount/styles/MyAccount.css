@@ -1,0 +1,241 @@
+/* ── Layout ─────────────────────────────────────────── */
+.my-account {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f7;
+  font-family:
+    "Cereal",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  /* Account for fixed TopNav (20px top offset + 70px height + 20px gap) */
+  padding-top: 110px;
+}
+
+/* ── Sidebar ────────────────────────────────────────── */
+.my-account__sidebar {
+  width: 300px;
+  min-width: 260px;
+  background: #fff;
+  border-right: 1.5px solid rgba(0, 0, 0, 0.08);
+  padding: 150px 0 32px; /* 110px nav offset + 40px original top padding */
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-top: -110px;
+  overflow-y: auto;
+}
+
+.my-account__profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px 28px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 8px;
+}
+
+.my-account__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  font-family: "Cereal", sans-serif;
+}
+
+.my-account__greeting {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.my-account__greeting-sub {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* ── Nav ── */
+.my-account__nav {
+  list-style: none;
+  margin: 0;
+  padding: 16px 12px 0;
+  flex: 1;
+}
+
+.my-account__nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  border-radius: 12px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  user-select: none;
+  margin-bottom: 4px;
+}
+
+.my-account__nav-item:hover {
+  background: #f5f5f5;
+  color: #111;
+}
+
+.my-account__nav-item--active {
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+}
+
+.my-account__nav-item--active:hover {
+  background: #333;
+  color: #fff;
+}
+
+.my-account__nav-chevron {
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+
+.my-account__nav-item--active .my-account__nav-chevron {
+  opacity: 0.7;
+}
+
+/* ── Logout ── */
+.my-account__logout {
+  margin: 16px 16px 0;
+  background: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  color: #666;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-family: "Cereal", sans-serif;
+}
+
+.my-account__logout:hover {
+  border-color: #e53e3e;
+  color: #e53e3e;
+  background: rgba(229, 62, 62, 0.04);
+}
+
+/* ── Content Area ───────────────────────────────────── */
+.my-account__content {
+  flex: 1;
+  padding: 48px 60px;
+  overflow-y: auto;
+  background: #f7f7f7;
+}
+
+.my-account__content-inner {
+  max-width: 680px;
+}
+
+.my-account__content-inner h2 {
+  color: #111;
+  margin: 0 0 28px;
+}
+
+.my-account__content-inner p {
+  color: #555;
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+
+/* Placeholder cards */
+.my-account__placeholder-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+.my-account__placeholder-card h3 {
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.my-account__placeholder-card p {
+  font-size: 0.92rem;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Back button ── */
+.my-account__back {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0 0 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  font-family: "Cereal", sans-serif;
+}
+
+/* ── Mobile: stack layout ──────────────────────────── */
+@media (max-width: 700px) {
+  .my-account {
+    flex-direction: column;
+    background: #fff;
+  }
+
+  .my-account__sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.08);
+    padding: 28px 0 0;
+    position: static;
+    height: auto;
+    display: none;
+  }
+
+  .my-account__sidebar--visible {
+    display: flex;
+  }
+
+  .my-account__content {
+    padding: 28px 20px;
+    background: #fff;
+    display: none;
+  }
+
+  .my-account__content--visible {
+    display: block;
+  }
+
+  .my-account__back {
+    display: flex;
+  }
+}
+
+@media (min-width: 701px) {
+  .my-account__back {
+    display: none;
+  }
+}

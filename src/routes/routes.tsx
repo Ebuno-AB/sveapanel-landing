@@ -5,18 +5,38 @@ import ProtectedRoute from "./ProtectedRoute";
 // Lazy-loaded pages for code splitting
 const LandingPage = lazy(() => import("@/features/landing/pages/LandingPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
-const RegistrationPage = lazy(() => import("@/features/landing/pages/RegistrationPage"));
-const CashbackLandingPage = lazy(() => import("@/features/landing/pages/Cashback/Cashback"));
-const CustomerServicePage = lazy(() => import("@/features/landing/pages/CustomerService/CustomerService"));
-const PrivacyPolicyPage = lazy(() => import("@/features/landing/pages/PrivacyPolicyPage"));
-const RedirectPage = lazy(() => import("@/features/landing/pages/RedirectPage"));
-const NotFoundPage = lazy(() => import("@/features/landing/pages/NotFoundPage"));
+const RegistrationPage = lazy(
+  () => import("@/features/landing/pages/RegistrationPage"),
+);
+const CashbackLandingPage = lazy(
+  () => import("@/features/landing/pages/Cashback/Cashback"),
+);
+const CustomerServicePage = lazy(
+  () => import("@/features/landing/pages/CustomerService/CustomerService"),
+);
+const PrivacyPolicyPage = lazy(
+  () => import("@/features/landing/pages/PrivacyPolicyPage"),
+);
+const RedirectPage = lazy(
+  () => import("@/features/landing/pages/RedirectPage"),
+);
+const NotFoundPage = lazy(
+  () => import("@/features/landing/pages/NotFoundPage"),
+);
 
 // Dashboard (authenticated)
-const DashboardPage = lazy(() => import("@/features/dashboard/pages/DashboardPage"));
-const CashbackPage = lazy(() => import("@/features/cashback/pages/CashbackPage"));
-const CompetitionPage = lazy(() => import("@/features/competition/pages/CompetitionPage"));
-const MyAccountPage = lazy(() => import("@/features/landing/pages/MyAccount/MyAccount"));
+const DashboardPage = lazy(
+  () => import("@/features/dashboard/pages/DashboardPage"),
+);
+const CashbackPage = lazy(
+  () => import("@/features/cashback/pages/CashbackPage"),
+);
+const CompetitionPage = lazy(
+  () => import("@/features/competition/pages/CompetitionPage"),
+);
+const MyAccountPage = lazy(
+  () => import("@/features/myAccount/pages/MyAccount"),
+);
 
 /**
  * Public routes — accessible by everyone.

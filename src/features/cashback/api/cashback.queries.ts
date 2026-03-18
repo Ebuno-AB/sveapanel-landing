@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/core/query/queryKeys";
 import { useAuthStore } from "@/core/auth/authStore";
+import { httpClient } from "@/core/api/httpClient";
+import { ENDPOINTS } from "@/core/api/endpoints";
 import { cashbackApi } from "./cashback.api";
 
 export const useFeedSections = () => {
@@ -39,6 +41,16 @@ export const useFeaturedStore = () => {
   return useQuery({
     queryKey: queryKeys.cashback.featuredStore,
     queryFn: cashbackApi.getFeaturedStore,
+    enabled: isAuthenticated,
+  });
+};
+
+export const usePendingBalance = () => {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return useQuery({
+    queryKey: queryKeys.cashback.pendingBalance,
+    queryFn: () => httpClient.get<number>(ENDPOINTS.cashback.pendingBalance),
     enabled: isAuthenticated,
   });
 };
