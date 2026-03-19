@@ -1,14 +1,5 @@
-import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import {
-  Wallet,
-  TrendingUp,
-  Clock,
-  Users,
-  ChevronRight,
-  Copy,
-  Check,
-} from "lucide-react";
+import { Wallet, TrendingUp, Clock, ChevronRight } from "lucide-react";
 import { useUser } from "@/features/user/api/user.queries";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import { usePendingBalance } from "@/features/cashback/api/cashback.queries";
@@ -38,19 +29,11 @@ export const AccountOverview = () => {
   const { data: user, isLoading: userLoading } = useUser();
   const { data: surveys } = useSurveys();
   const { data: pendingBalance } = usePendingBalance();
-  const [copied, setCopied] = useState(false);
 
   const topSurveyReward =
     surveys && surveys.length > 0
       ? Math.max(...surveys.map((s) => s.reward.amount))
       : null;
-
-  const handleCopyCode = () => {
-    if (!user?.referralCode) return;
-    navigator.clipboard.writeText(user.referralCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="overview">
@@ -150,45 +133,6 @@ export const AccountOverview = () => {
             )}
           </div>
           <p className="overview__stat-sub">Väntar på godkännande</p>
-        </motion.div>
-
-        {/* Referral card — full width */}
-        <motion.div
-          className="overview__card overview__card--referral"
-          variants={cardVariants}
-        >
-          <div className="overview__card-header">
-            <Users size={18} className="overview__card-icon" />
-            <span className="overview__card-label">Bjud in vänner</span>
-          </div>
-          <p className="overview__referral-desc">
-            Du och din vän får <strong>10 kr</strong> vardera — dela din kod!
-          </p>
-          <div className="overview__referral-row">
-            <span className="overview__referral-code">
-              {userLoading ? (
-                <span className="overview__skel overview__skel--code" />
-              ) : (
-                (user?.referralCode ?? "-----")
-              )}
-            </span>
-            <button
-              className="overview__copy-btn"
-              onClick={handleCopyCode}
-              disabled={!user?.referralCode}
-              aria-label="Kopiera värvningskod"
-            >
-              {copied ? (
-                <>
-                  <Check size={14} /> Kopierad!
-                </>
-              ) : (
-                <>
-                  <Copy size={14} /> Kopiera
-                </>
-              )}
-            </button>
-          </div>
         </motion.div>
       </motion.div>
     </div>

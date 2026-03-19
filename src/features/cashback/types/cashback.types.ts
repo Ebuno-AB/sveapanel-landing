@@ -45,3 +45,13 @@ export type CashbackFeedSection = {
   sectionType: string;
   stores: CashbackStore[];
 };
+
+export type PendingBalance = {
+  totalPending: number;
+  fullTotalPending: number;
+  totalApproved: number;
+  fullTotalApproved: number;
+  currency: string;
+  pendingCount: number;
+  approvedCount: number;
+};
