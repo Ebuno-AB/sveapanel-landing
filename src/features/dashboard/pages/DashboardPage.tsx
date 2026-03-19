@@ -1,7 +1,6 @@
 import "@/features/dashboard/styles/DashboardPage.css";
 import { DashboardSurveys } from "@/features/dashboard/components/DashboardSurveys";
 import { DashboardStores } from "../components/DashboardStores";
-import Footer from "@/components/footer/Footer";
 
 const DashboardPage = () => {
   return (
@@ -12,7 +11,6 @@ const DashboardPage = () => {
           <DashboardStores />
         </div>
       </div>
-      <Footer />
     </>
   );
 };

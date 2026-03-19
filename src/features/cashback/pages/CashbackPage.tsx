@@ -24,7 +24,7 @@ const CashbackPage = () => {
   >();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "cashback">("az");
-  const [showAll, setShowAll] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_LIMIT);
 
   const filteredStores = useMemo(() => {
     if (!stores) return [];
@@ -52,9 +52,7 @@ const CashbackPage = () => {
     return result;
   }, [stores, selectedCategory, searchQuery, sortBy]);
 
-  const displayedStores = showAll
-    ? filteredStores
-    : filteredStores.slice(0, INITIAL_LIMIT);
+  const displayedStores = filteredStores.slice(0, visibleCount);
 
   const isLoading = featuredLoading || storesLoading;
 
@@ -88,7 +86,7 @@ const CashbackPage = () => {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setShowAll(false);
+                setVisibleCount(INITIAL_LIMIT);
               }}
             />
           </div>
@@ -99,7 +97,7 @@ const CashbackPage = () => {
               selected={selectedCategory}
               onSelect={(slug) => {
                 setSelectedCategory(slug);
-                setShowAll(false);
+                setVisibleCount(INITIAL_LIMIT);
               }}
             />
           )}
@@ -138,11 +136,11 @@ const CashbackPage = () => {
                   <SmallStoreCard key={store.id} store={store} />
                 ))}
               </div>
-              {!showAll && filteredStores.length > INITIAL_LIMIT && (
+              {visibleCount < filteredStores.length && (
                 <div className="cb-show-more-wrap">
                   <button
                     className="cb-show-more"
-                    onClick={() => setShowAll(true)}
+                    onClick={() => setVisibleCount((c) => c + INITIAL_LIMIT)}
                   >
                     Visa fler
                   </button>

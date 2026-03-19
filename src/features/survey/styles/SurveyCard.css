@@ -74,8 +74,8 @@
   height: 25px;
   width: 70px;
   max-width: 70px;
-  object-fit: contain;
-  border-radius: 4px;
+  object-fit: cover;
+  border-radius: 8px;
   flex-shrink: 0;
 }
 
