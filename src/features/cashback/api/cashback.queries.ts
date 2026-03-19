@@ -4,6 +4,7 @@ import { useAuthStore } from "@/core/auth/authStore";
 import { httpClient } from "@/core/api/httpClient";
 import { ENDPOINTS } from "@/core/api/endpoints";
 import { cashbackApi } from "./cashback.api";
+import type { PendingBalance } from "@/features/cashback/types/cashback.types";
 
 export const useFeedSections = () => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -50,7 +51,8 @@ export const usePendingBalance = () => {
 
   return useQuery({
     queryKey: queryKeys.cashback.pendingBalance,
-    queryFn: () => httpClient.get<number>(ENDPOINTS.cashback.pendingBalance),
+    queryFn: () =>
+      httpClient.get<PendingBalance>(ENDPOINTS.cashback.pendingBalance),
     enabled: isAuthenticated,
   });
 };

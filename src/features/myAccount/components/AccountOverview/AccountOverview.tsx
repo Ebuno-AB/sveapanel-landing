@@ -1,5 +1,11 @@
 import { motion, type Variants } from "framer-motion";
-import { Wallet, TrendingUp, Clock, ChevronRight } from "lucide-react";
+import {
+  Wallet,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  ChevronRight,
+} from "lucide-react";
 import { useUser } from "@/features/user/api/user.queries";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import { usePendingBalance } from "@/features/cashback/api/cashback.queries";
@@ -63,14 +69,52 @@ export const AccountOverview = () => {
         initial="hidden"
         animate="show"
       >
+        {/* Approved cashback card */}
+        <motion.div
+          className="overview__card overview__card--approved"
+          variants={cardVariants}
+        >
+          <div className="overview__card-header">
+            <span className="overview__card-label">Godkänd cashback</span>
+            <CheckCircle size={18} className="overview__card-icon" />
+          </div>
+          <div className="overview__stat-number">
+            {pendingBalance === undefined ? (
+              <span className="overview__skel overview__skel--number" />
+            ) : (
+              formatKr(pendingBalance.totalApproved ?? 0)
+            )}
+          </div>
+          <p className="overview__stat-sub">Kommer snart till dit saldo</p>
+        </motion.div>
+
+        {/* Pending balance card */}
+        <motion.div
+          className="overview__card overview__card--pending"
+          variants={cardVariants}
+        >
+          <div className="overview__card-header">
+            <span className="overview__card-label">Kommande cashback</span>
+            <Clock size={18} className="overview__card-icon" />
+          </div>
+          <div className="overview__stat-number">
+            {pendingBalance === undefined ? (
+              <span className="overview__skel overview__skel--number" />
+            ) : (
+              formatKr(pendingBalance.totalPending ?? 0)
+            )}
+          </div>
+          <p className="overview__stat-sub">Väntar på godkännande</p>
+        </motion.div>
+
         {/* Balance card — full width */}
         <motion.div
           className="overview__card overview__card--balance"
           variants={cardVariants}
         >
           <div className="overview__card-header">
-            <Wallet size={18} className="overview__card-icon" />
             <span className="overview__card-label">Saldo</span>
+            <Wallet size={18} className="overview__card-icon" />
           </div>
           <div className="overview__balance-amount">
             {userLoading ? (
@@ -98,8 +142,8 @@ export const AccountOverview = () => {
           variants={cardVariants}
         >
           <div className="overview__card-header">
-            <TrendingUp size={18} className="overview__card-icon" />
             <span className="overview__card-label">Enkäter</span>
+            <TrendingUp size={18} className="overview__card-icon" />
           </div>
           <div className="overview__stat-number">
             {surveys === undefined ? (
@@ -110,29 +154,10 @@ export const AccountOverview = () => {
           </div>
           <p className="overview__stat-sub">
             {topSurveyReward != null
-              ? `Upp till ${topSurveyReward} kr`
+              ? `Höst betalda enkäten ${topSurveyReward} kr`
               : "tillgängliga"}
           </p>
           <ChevronRight className="overview__card-arrow" size={16} />
-        </motion.div>
-
-        {/* Pending balance card */}
-        <motion.div
-          className="overview__card overview__card--pending"
-          variants={cardVariants}
-        >
-          <div className="overview__card-header">
-            <Clock size={18} className="overview__card-icon" />
-            <span className="overview__card-label">Kommande</span>
-          </div>
-          <div className="overview__stat-number">
-            {pendingBalance === undefined ? (
-              <span className="overview__skel overview__skel--number" />
-            ) : (
-              formatKr(pendingBalance ?? 0)
-            )}
-          </div>
-          <p className="overview__stat-sub">Väntar på godkännande</p>
         </motion.div>
       </motion.div>
     </div>

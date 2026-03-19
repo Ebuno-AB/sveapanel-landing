@@ -1,134 +1,226 @@
-.invite-friends {
+/* ── Wrapper ─────────────────────────────────────────── */
+.invite {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
   max-width: 780px;
 }
 
-.invite-friends__title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #111;
-  margin: 0 0 32px;
-}
-
-/* ── Step cards ─────────────────────────────────────── */
-.invite-friends__steps {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.invite-friends__step-card {
-  flex: 1;
-  background: #f647a4;
-  border-radius: 20px;
-  padding: 28px 20px;
+/* ── Heading ─────────────────────────────────────────── */
+.invite__heading {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border: 3px solid transparent;
-  transition: border-color 0.15s;
+  gap: 4px;
 }
 
-.invite-friends__step-card--active {
-  border-color: #000;
+.invite__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
 }
 
-.invite-friends__step-number {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.invite__subtitle {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── Bento grid ──────────────────────────────────────── */
+.invite__bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.invite__card--share {
+  grid-column: 1 / -1;
+}
+
+/* ── Cards base ──────────────────────────────────────── */
+.invite__card {
+  border-radius: 20px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.invite__card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.invite__card-icon {
+  flex-shrink: 0;
+  color: #00cca3;
+}
+
+.invite__card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+}
+
+/* ── Step cards ──────────────────────────────────────── */
+.invite__card--step {
   background: #fff;
-  color: #f647a4;
-  font-size: 1.2rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+.invite__step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #7571fc;
+  color: #fff;
+  font-size: 1.1rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
-.invite-friends__step-title {
+.invite__step-title {
   font-size: 1rem;
-  font-weight: 800;
-  color: #fff;
-  margin: 0 0 10px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 6px;
 }
 
-.invite-friends__step-description {
-  font-size: 1rem;
-  color: #fff;
+.invite__step-desc {
+  font-size: 0.88rem;
+  color: #555;
   line-height: 1.55;
   margin: 0;
-  /* text-align: left; */
 }
 
-/* ── Share section ──────────────────────────────────── */
-.invite-friends__share {
+/* ── Share card ──────────────────────────────────────── */
+.invite__card--share {
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+.invite__card--share .invite__card-label {
+  color: #111;
+  opacity: 0.65;
+}
+
+.invite__card--share .invite__card-icon {
+  color: #00cca3;
+}
+
+.invite__share-desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0 0 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.invite__share-desc strong {
+  color: #3dbf7a;
+  font-weight: 700;
+}
+
+.invite__share-body {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 
-.invite-friends__info-box {
+.invite__fields {
   flex: 1;
   border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   overflow: hidden;
 }
 
-.invite-friends__info-row {
+.invite__row {
   display: flex;
   align-items: center;
-  padding: 14px 20px;
+  padding: 13px 16px;
   gap: 12px;
 }
 
-.invite-friends__info-label {
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: #111;
-  min-width: 50px;
+.invite__row-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+  min-width: 44px;
 }
 
-.invite-friends__info-value {
+.invite__code {
   flex: 1;
-  font-size: 0.92rem;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: #111;
-  text-align: right;
+  letter-spacing: 0.15em;
+}
+
+.invite__link {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #555;
   word-break: break-all;
 }
 
-.invite-friends__info-divider {
+.invite__divider {
   height: 1px;
-  background: #000;
+  background: rgba(0, 0, 0, 0.08);
 }
 
-.invite-friends__copy-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  color: #111;
+.invite__copy-btn {
   display: flex;
   align-items: center;
-  line-height: 1;
-  transition: color 0.15s;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 50px;
+  background: #111;
+  border: 1.5px solid #111;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: "Cereal", sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.invite-friends__copy-btn:hover {
-  color: #f647a4;
+.invite__copy-btn:hover:not(:disabled) {
+  background: #333;
+  border-color: #333;
 }
 
-.invite-friends__copy-btn--copied {
-  color: #16a34a;
+.invite__copy-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.invite-friends__copy-btn--copied:hover {
-  color: #16a34a;
+.invite__copy-btn--copied {
+  background: rgba(61, 191, 122, 0.12);
+  border-color: rgba(61, 191, 122, 0.4);
+  color: #3dbf7a;
 }
 
-.invite-friends__qr {
+.invite__copy-btn--copied:hover:not(:disabled) {
+  background: rgba(61, 191, 122, 0.2);
+}
+
+.invite__qr {
+  background: #fff;
   border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   padding: 12px;
@@ -138,18 +230,51 @@
   flex-shrink: 0;
 }
 
-/* ── Mobile ─────────────────────────────────────────── */
+/* ── Skeleton loaders ────────────────────────────────── */
+.invite__skel {
+  display: inline-block;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: invite-shimmer 1.5s infinite;
+  flex: 1;
+}
+
+.invite__skel--code {
+  height: 1.2rem;
+  max-width: 80px;
+}
+
+.invite__skel--link {
+  height: 0.9rem;
+}
+
+@keyframes invite-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────────── */
 @media (max-width: 700px) {
-  .invite-friends__steps {
-    flex-direction: column;
+  .invite__bento {
+    grid-template-columns: 1fr;
   }
 
-  .invite-friends__share {
+  .invite__share-body {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .invite-friends__qr {
+  .invite__qr {
     align-self: flex-start;
   }
 }
