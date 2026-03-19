@@ -12,49 +12,20 @@ const NAV_ITEMS = [
 ];
 
 const BALANCE_MAX = 300;
-const RADIUS = 20;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function BalanceRing({ balance }: { balance: number }) {
   const displayBalance = balance / 10;
   const progress = Math.min(displayBalance / BALANCE_MAX, 1);
-  const offset = CIRCUMFERENCE * (1 - progress);
 
   return (
-    <div className="balance-ring-wrapper">
-      <svg
-        width="52"
-        height="52"
-        viewBox="0 0 52 52"
-        className="balance-ring-svg"
-      >
-        {/* Track */}
-        <circle
-          cx="26"
-          cy="26"
-          r={RADIUS}
-          fill="none"
-          stroke="rgba(0,0,0,0.06)"
-          strokeWidth="3.5"
-        />
-        {/* Progress */}
-        <circle
-          cx="26"
-          cy="26"
-          r={RADIUS}
-          fill="none"
-          stroke="#00cca3"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeDasharray={CIRCUMFERENCE}
-          strokeDashoffset={offset}
-          transform="rotate(-90 26 26)"
-          style={{ transition: "stroke-dashoffset 0.6s ease" }}
-        />
-      </svg>
-      <span className="balance-ring-text">
+    <div className="balance-pill">
+      <div
+        className="balance-pill-fill"
+        style={{ width: `${progress * 100}%` }}
+      />
+      <span className="balance-pill-text">
         {Math.round(displayBalance)}
-        <span className="balance-ring-currency">kr</span>
+        <span className="balance-pill-currency">kr</span>
       </span>
     </div>
   );

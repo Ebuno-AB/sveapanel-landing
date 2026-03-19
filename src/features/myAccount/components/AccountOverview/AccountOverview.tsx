@@ -120,7 +120,7 @@ export const AccountOverview = () => {
             {userLoading ? (
               <span className="overview__skel overview__skel--balance" />
             ) : (
-              formatKr(user?.balance ?? 0)
+              formatKr((user?.balance ?? 0) / 10)
             )}
           </div>
           <button
