@@ -103,6 +103,9 @@
   color: #555;
   line-height: 1.55;
   margin: 0;
+  hyphens: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ── Share card ──────────────────────────────────────── */

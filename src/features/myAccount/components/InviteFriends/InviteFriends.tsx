@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Copy, Check, Users, Share2 } from "lucide-react";
+import { Copy, Check, Share2 } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useUser } from "@/features/user/api/user.queries";
 import "./InviteFriends.css";
@@ -80,11 +80,9 @@ export const InviteFriends = () => {
             key={step.number}
             className="invite__card invite__card--step"
             variants={cardVariants}
+            lang="sv"
           >
-            <div className="invite__card-header">
-              <div className="invite__step-number">{step.number}</div>
-              <Users size={18} className="invite__card-icon" />
-            </div>
+            <div className="invite__step-number">{step.number}</div>
             <h3 className="invite__step-title">{step.title}</h3>
             <p className="invite__step-desc">{step.description}</p>
           </motion.div>

@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { ExternalLink, Download, ShieldCheck, Puzzle } from "lucide-react";
+import { Puzzle } from "lucide-react";
 import "./Extention.css";
 
 const containerVariants: Variants = {
@@ -55,21 +55,18 @@ const getBrowserInfo = (): BrowserInfo => {
 const steps = [
   {
     number: 1,
-    icon: ExternalLink,
     title: "Öppna butiken",
     description:
       "Klicka på installationsknappen för att komma till tilläggsbutiken för din webbläsare.",
   },
   {
     number: 2,
-    icon: Download,
     title: "Installera tillägget",
     description:
       "Klicka på knappen för att lägga till tillägget och följ instruktionerna.",
   },
   {
     number: 3,
-    icon: ShieldCheck,
     title: "Börja shoppa",
     description:
       "Ge tillåtelse till alla webbplatser om du blir ombedd – sen är det bara att shoppa som vanligt!",
@@ -105,11 +102,9 @@ export const Extentsion = () => {
             key={step.number}
             className="extension__card extension__card--step"
             variants={cardVariants}
+            lang="sv"
           >
-            <div className="extension__card-header">
-              <div className="extension__step-number">{step.number}</div>
-              <Puzzle size={18} className="extension__card-icon" />
-            </div>
+            <div className="extension__step-number">{step.number}</div>
             <h3 className="extension__step-title">{step.title}</h3>
             <p className="extension__step-desc">{step.description}</p>
           </motion.div>
