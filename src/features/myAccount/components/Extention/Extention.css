@@ -1,106 +1,164 @@
+/* ── Wrapper ─────────────────────────────────────────── */
 .extension {
-  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 780px;
 }
 
-.extension__info {
-  max-width: 480px;
-  margin-bottom: 36px;
+/* ── Heading ─────────────────────────────────────────── */
+.extension__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .extension__title {
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  color: #000000;
-  margin: 0 0 20px;
+  color: #111;
+  margin: 0;
 }
 
-.extension__tagline {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #000000;
-  margin: 0 0 10px;
-}
-
-.extension__description {
+.extension__subtitle {
   font-size: 0.9rem;
-  color: #000000;
-  line-height: 1.65;
+  color: #888;
   margin: 0;
+  font-weight: 400;
 }
 
-/* ── Steps ────────────────────────────────────────── */
-.extension__steps-col {
-  max-width: 400px;
-  margin-bottom: 48px;
+/* ── Bento grid ──────────────────────────────────────── */
+.extension__bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
-.extension__steps-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #000000;
-  margin: 0 0 20px;
+.extension__card--install {
+  grid-column: 1 / -1;
 }
 
-.extension__steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ── Cards base ──────────────────────────────────────── */
+.extension__card {
+  border-radius: 20px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
 }
 
-.extension__step {
+.extension__card-header {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
-.extension__step-icon {
-  width: 38px;
-  height: 38px;
-  background: #a3a0ff;
-  border-radius: 10px;
+.extension__card-icon {
+  flex-shrink: 0;
+  color: #00cca3;
+}
+
+.extension__card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+}
+
+/* ── Step cards ──────────────────────────────────────── */
+.extension__card--step {
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+.extension__step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f647a4;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #000000;
 }
 
-.extension__step p {
-  margin: 0;
-  font-size: 0.88rem;
+.extension__step-title {
+  font-size: 1rem;
+  font-weight: 700;
   color: #111;
-  line-height: 1.55;
+  margin: 0 0 6px;
 }
 
-/* ── Action button ───────────────────────────────── */
-.extension__actions {
+.extension__step-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Install card ────────────────────────────────────── */
+.extension__card--install {
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+.extension__card--install .extension__card-label {
+  color: #111;
+  opacity: 0.65;
+}
+
+.extension__install-desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0 0 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.extension__install-desc strong {
+  color: #f647a4;
+  font-weight: 700;
+}
+
+.extension__install-actions {
   display: flex;
-  justify-content: center;
-  max-width: 480px;
+  align-items: center;
 }
 
 .extension__install-btn {
-  display: inline-block;
-  padding: 10px 30px;
-  border-radius: 900px;
-  border: 1.5px solid #111;
-  background: #a3a0ff;
-  color: #111;
-  font-size: 0.95rem;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 50px;
+  background: #111;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition:
-    background 0.15s,
-    color 0.15s;
+  transition: background 0.15s;
+  font-family: "Cereal", sans-serif;
+  line-height: 1;
 }
 
 .extension__install-btn:hover {
-  background: #fff;
-  color: #000000;
+  background: #333;
 }
 
-/* ── Responsive ──────────────────────────────────── */
+/* ── Mobile ──────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .extension__bento {
+    grid-template-columns: 1fr;
+  }
+}
