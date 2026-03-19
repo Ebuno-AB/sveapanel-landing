@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ChevronDown } from "lucide-react";
+import { Search } from "lucide-react";
 import {
   useFeaturedStore,
   useStores,
@@ -137,12 +137,14 @@ const CashbackPage = () => {
                 ))}
               </div>
               {!showAll && filteredStores.length > INITIAL_LIMIT && (
-                <button
-                  className="cb-show-more"
-                  onClick={() => setShowAll(true)}
-                >
-                  Visa fler <ChevronDown size={16} strokeWidth={2.5} />
-                </button>
+                <div className="cb-show-more-wrap">
+                  <button
+                    className="cb-show-more"
+                    onClick={() => setShowAll(true)}
+                  >
+                    Visa fler
+                  </button>
+                </div>
               )}
             </>
           )}

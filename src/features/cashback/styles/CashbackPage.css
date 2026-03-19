@@ -563,8 +563,8 @@
 .cb-sort-chips {
   display: flex;
   gap: 8px;
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-top: 28px;
+  margin-bottom: 5px;
 }
 
 .cb-sort-chip {
@@ -597,27 +597,27 @@
 }
 
 /* ── Show More Button ── */
-.cb-show-more {
+.cb-show-more-wrap {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: 100%;
-  margin-top: 20px;
-  padding: 14px;
-  background: #fff;
-  border: 1.5px solid rgba(0, 0, 0, 0.1);
-  border-radius: 14px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #444;
+  margin-top: 24px;
+}
+
+.cb-show-more {
+  background: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.55rem 2rem;
+  border-radius: 50px;
   cursor: pointer;
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
 .cb-show-more:hover {
-  border-color: #e60077;
-  color: #e60077;
+  border-color: #111;
+  background: rgba(0, 0, 0, 0.04);
 }
