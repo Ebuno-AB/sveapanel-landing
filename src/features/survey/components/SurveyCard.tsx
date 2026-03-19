@@ -1,38 +1,7 @@
+import { Clock, ArrowRight } from "lucide-react";
 import "@/features/survey/styles/SurveyCard.css";
 import type { Survey } from "@/features/survey/api/survey.api";
 import StarRating from "./StarRating";
-
-const TimerIcon = () => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-
-const ArrowIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
 
 function SurveyCard({ survey }: { survey: Survey }) {
   const handleStart = () => {
@@ -65,7 +34,7 @@ function SurveyCard({ survey }: { survey: Survey }) {
           <span className="survey-provider">{survey.provider}</span>
         )}
         <span className="badge badge-time">
-          <TimerIcon />
+          <Clock size={12} strokeWidth={2.5} />
           {survey.loi}min
         </span>
       </div>
@@ -86,7 +55,7 @@ function SurveyCard({ survey }: { survey: Survey }) {
           handleStart();
         }}
       >
-        Starta <ArrowIcon />
+        Starta <ArrowRight size={14} strokeWidth={2.5} />
       </button>
     </div>
   );

@@ -1,24 +1,9 @@
 import { useState } from "react";
+import { Clipboard } from "lucide-react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
 
 const getPageSize = () => (window.innerWidth < 769 ? 4 : 8);
-
-const ClipboardIcon = () => (
-  <svg
-    width="13"
-    height="13"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-  </svg>
-);
 
 export const DashboardSurveys = () => {
   const { data: surveys, isLoading } = useSurveys();
@@ -30,7 +15,7 @@ export const DashboardSurveys = () => {
         <h3 className="section-title">Enkäter för dig</h3>
         {surveys && surveys.length > 0 && (
           <span className="survey-count-badge">
-            <ClipboardIcon />
+            <Clipboard size={13} strokeWidth={2.5} />
             {Math.min(visibleCount, surveys.length)} av {surveys.length}
           </span>
         )}
