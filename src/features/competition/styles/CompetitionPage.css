@@ -1,7 +1,7 @@
 .comp-page {
   min-height: 100vh;
-  background: #1a1a2e;
-  color: #fff;
+  background: #f2f2f7;
+  color: #111;
 }
 
 /* ── Header ── */
@@ -44,9 +44,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: #fff;
   padding: 6px 12px;
   border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .comp-stat-icon {
@@ -56,12 +57,12 @@
 .comp-stat-value {
   font-size: 0.78rem;
   font-weight: 700;
-  color: #fff;
+  color: #111;
 }
 
 .comp-stat-label {
   font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.4);
   font-weight: 500;
 }
 
@@ -69,14 +70,13 @@
 .comp-tabs-section {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 24px;
 }
 
 .comp-tabs {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 6px;
+  padding: 0 24px 6px;
   scrollbar-width: none;
 }
 
@@ -86,27 +86,28 @@
 
 .comp-tab {
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 12px 18px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .comp-tab:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f7f7f7;
 }
 
 .comp-tab.active {
-  background: rgba(0, 204, 163, 0.12);
-  border-color: rgba(0, 204, 163, 0.3);
+  background: rgba(0, 204, 163, 0.08);
+  border-color: rgba(0, 204, 163, 0.35);
 }
 
 .comp-tab-title {
   font-size: 0.82rem;
   font-weight: 700;
-  color: #fff;
+  color: #111;
   margin: 0 0 4px;
   white-space: nowrap;
 }
@@ -120,8 +121,8 @@
 .comp-tab-type {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.08);
+  color: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.06);
   padding: 2px 8px;
   border-radius: 50px;
 }
@@ -153,8 +154,15 @@
 }
 
 @keyframes comp-pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
 }
 
 /* ── Competition Content ── */
@@ -164,13 +172,20 @@
   padding: 28px 24px 60px;
 }
 
+/* ── Inner column (shared 700px boundary) ── */
+.comp-inner {
+  max-width: 700px;
+  width: 100%;
+}
+
 /* ── Competition Card ── */
 .comp-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 20px;
   padding: 24px;
-  margin-bottom: 24px;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .comp-card-header {
@@ -184,14 +199,14 @@
 .comp-card-title {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #fff;
+  color: #111;
   margin: 0;
 }
 
 /* ── Description ── */
 .comp-description {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(0, 0, 0, 0.45);
   margin: 0 0 24px;
   line-height: 1.5;
 }
@@ -210,7 +225,7 @@
 
 .comp-my-rank {
   background: #00cca3;
-  color: #1a1a2e;
+  color: #fff;
   font-size: 0.8rem;
   font-weight: 900;
   padding: 4px 10px;
@@ -219,7 +234,7 @@
 
 .comp-my-label {
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .comp-my-amount {
@@ -234,9 +249,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 32px;
-  padding: 20px 0 0;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 12px 0 0;
 }
 
 .comp-pod {
@@ -267,18 +282,18 @@
 }
 
 .comp-pod-avatar.first {
-  width: 68px;
-  height: 68px;
-  font-size: 1.1rem;
-  box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
+  width: 52px;
+  height: 52px;
+  font-size: 0.9rem;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
 }
 
 .comp-pod-avatar.second,
 .comp-pod-avatar.third {
-  width: 50px;
-  height: 50px;
-  font-size: 0.85rem;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  width: 38px;
+  height: 38px;
+  font-size: 0.72rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .comp-pod-rank {
@@ -291,10 +306,10 @@
 }
 
 .comp-pod-name {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 80px;
+  color: rgba(0, 0, 0, 0.55);
+  max-width: 65px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -302,19 +317,19 @@
 }
 
 .comp-pod-score {
-  font-size: 1rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  color: #fff;
+  color: #111;
 }
 
 .comp-pod-score.first-score {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
 }
 
 .comp-pod-score span {
   font-size: 0.65rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .comp-pod-prize {
@@ -328,19 +343,20 @@
 
 /* ── Leaderboard ── */
 .comp-leaderboard {
-  background: rgba(255, 255, 255, 0.04);
+  background: #fff;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-height: 520px;
+  max-height: 200px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .comp-leaderboard-title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 14px 18px 10px;
+  color: rgba(0, 0, 0, 0.45);
+  padding: 10px 14px 8px;
   margin: 0;
   flex-shrink: 0;
 }
@@ -349,7 +365,7 @@
   overflow-y: auto;
   flex: 1;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
 }
 
 .comp-leaderboard-scroll::-webkit-scrollbar {
@@ -361,40 +377,40 @@
 }
 
 .comp-leaderboard-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 
 .comp-lb-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 8px;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   transition: background 0.15s ease;
 }
 
 .comp-lb-row:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .comp-lb-pos {
   width: 24px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(0, 0, 0, 0.3);
   text-align: center;
   flex-shrink: 0;
 }
 
 .comp-lb-avatar {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
@@ -402,9 +418,9 @@
 
 .comp-lb-name {
   flex: 1;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.65);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -421,26 +437,27 @@
   font-size: 0.68rem;
   font-weight: 700;
   color: #00cca3;
-  background: rgba(0, 204, 163, 0.15);
+  background: rgba(0, 204, 163, 0.12);
   padding: 3px 8px;
   border-radius: 50px;
 }
 
 .comp-lb-amount {
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.8);
+  color: #111;
 }
 
 .comp-lb-amount span {
   font-size: 0.65rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.35);
 }
 
 /* ── History Section ── */
 .comp-history-section {
   margin-top: 40px;
+  width: 100%;
 }
 
 .comp-history-header {
@@ -453,97 +470,103 @@
 .comp-history-header h3 {
   font-size: 1rem;
   font-weight: 700;
+  color: #111;
   margin: 0;
 }
 
 .comp-history-list {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
 }
 
 .comp-history-row {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
-.comp-history-row:first-child {
-  border-top: none;
-}
-
-.comp-history-rank {
-  width: 38px;
-  height: 30px;
-  border-radius: 9px;
+/* Card header — title + date */
+.comp-history-card-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-
-.comp-history-rank.top {
-  color: #fff;
-}
-
-.comp-history-rank.normal {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.comp-history-info {
-  flex: 1;
-  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .comp-history-title {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .comp-history-date {
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 2px;
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.35);
 }
 
-.comp-history-right {
-  text-align: right;
-  flex-shrink: 0;
+/* Card body — big rank + amount */
+.comp-history-card-body {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
 }
 
-.comp-history-score {
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.7);
+.comp-history-rank-big {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
-.comp-history-score span {
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.comp-history-prize {
-  font-size: 0.65rem;
+.comp-history-amount {
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #00cca3;
-  margin-top: 2px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.comp-history-amount span {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.35);
+  margin-left: 1px;
+}
+
+/* Card footer — winner pill */
+.comp-history-card-footer {
+  display: flex;
+}
+
+.comp-history-winner-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 204, 163, 0.12);
+  color: #00a885;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+
+.comp-history-winner-icon {
+  font-size: 0.75rem;
 }
 
 /* ── Empty / Loading ── */
 .comp-empty {
   text-align: center;
   padding: 60px 24px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.35);
 }
 
 .comp-empty-icon {
@@ -555,7 +578,7 @@
 .comp-empty h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.5);
   margin: 0 0 4px;
 }
 
@@ -573,14 +596,19 @@
 
 .comp-skeleton-bar {
   height: 48px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 12px;
   animation: comp-pulse 1.2s ease-in-out infinite;
 }
 
 @keyframes comp-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 /* ── Responsive ── */
@@ -593,8 +621,8 @@
     font-size: 1.3rem;
   }
 
-  .comp-tabs-section {
-    padding: 0 18px;
+  .comp-tabs {
+    padding: 0 18px 6px;
   }
 
   .comp-content {

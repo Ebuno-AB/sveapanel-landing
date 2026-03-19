@@ -32,7 +32,6 @@ function Podium({ users }: { users: CompetitionUser[] }) {
     const color = RANK_COLORS[rank - 1] ?? "#555";
     return (
       <div className={`comp-pod ${cls}`}>
-        {rank === 1 && <span className="comp-pod-crown">👑</span>}
         <div
           className={`comp-pod-avatar ${rank === 1 ? "first" : rank === 2 ? "second" : "third"}`}
           style={{
@@ -42,12 +41,16 @@ function Podium({ users }: { users: CompetitionUser[] }) {
         >
           {getInitials(user.name)}
         </div>
-        <span className="comp-pod-rank" style={{ background: color, color: rank === 1 ? "#1a1a2e" : "#fff" }}>
+        <span
+          className="comp-pod-rank"
+          style={{ background: color, color: rank === 1 ? "#1a1a2e" : "#fff" }}
+        >
           #{user.position}
         </span>
         <span className="comp-pod-name">{user.name.split(" ")[0]}</span>
         <span className={`comp-pod-score${rank === 1 ? " first-score" : ""}`}>
-          {user.amount}<span>st</span>
+          {user.amount}
+          <span>st</span>
         </span>
         {user.price > 0 && (
           <span className="comp-pod-prize">{formatPrize(user.price)}</span>

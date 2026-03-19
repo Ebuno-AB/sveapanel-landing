@@ -12,25 +12,24 @@ import CompSkeleton from "@/features/competition/components/CompSkeleton";
 import "@/features/competition/styles/CompetitionPage.css";
 
 const CompetitionPage = () => {
-  const { data: competitions, isLoading: compLoading } = useActiveCompetitions();
+  const { data: competitions, isLoading: compLoading } =
+    useActiveCompetitions();
   const { data: historyRes, isLoading: histLoading } = useCompetitionHistory();
   const { data: stats } = useCompetitionStats();
 
   const [activeIdx, setActiveIdx] = useState(0);
-  const history = historyRes?.data ?? (Array.isArray(historyRes) ? historyRes as unknown as CompetitionHistoryItem[] : []);
+  const history =
+    historyRes?.data ??
+    (Array.isArray(historyRes)
+      ? (historyRes as unknown as CompetitionHistoryItem[])
+      : []);
   const activeComp = competitions?.[activeIdx];
 
   return (
     <div className="comp-page">
       <div className="comp-header">
         <div className="comp-header-inner">
-          <div className="comp-header-top">
-            <span style={{ fontSize: "1.4rem" }}>🏆</span>
-            <h2>Tävlingar</h2>
-          </div>
-          <p className="comp-header-subtitle">
-            Tävla mot andra och vinn fantastiska priser
-          </p>
+          <div className="comp-header-top"></div>
 
           {stats && (
             <div className="comp-stats">
@@ -70,9 +69,13 @@ const CompetitionPage = () => {
                 className={`comp-tab${i === activeIdx ? " active" : ""}`}
                 onClick={() => setActiveIdx(i)}
               >
-                <div className="comp-tab-title">{comp.competition_info.title}</div>
+                <div className="comp-tab-title">
+                  {comp.competition_info.title}
+                </div>
                 <div className="comp-tab-meta">
-                  <span className="comp-tab-type">{comp.competition_info.competition_type}</span>
+                  <span className="comp-tab-type">
+                    {comp.competition_info.competition_type}
+                  </span>
                   {comp.competition_info.end_date && (
                     <TimerPill endDate={comp.competition_info.end_date} />
                   )}
@@ -85,39 +88,41 @@ const CompetitionPage = () => {
       )}
 
       <div className="comp-content">
-        {compLoading ? (
-          <CompSkeleton />
-        ) : activeComp ? (
-          <CompetitionCard competition={activeComp} />
-        ) : !competitions || competitions.length === 0 ? (
-          <div className="comp-empty">
-            <div className="comp-empty-icon">🏆</div>
-            <h3>Inga aktiva tävlingar</h3>
-            <p>Nya tävlingar startar snart — håll utkik!</p>
-          </div>
-        ) : null}
-
-        {history.length > 0 && (
-          <div className="comp-history-section">
-            <div className="comp-history-header">
-              <h3>Tidigare tävlingar</h3>
-            </div>
-            <div className="comp-history-list">
-              {history.map((item) => (
-                <HistoryRow key={item.competition_info.id} item={item} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {histLoading && !history.length && (
-          <div className="comp-history-section" style={{ marginTop: 40 }}>
-            <div className="comp-history-header">
-              <h3>Tidigare tävlingar</h3>
-            </div>
+        <div className="comp-inner">
+          {compLoading ? (
             <CompSkeleton />
-          </div>
-        )}
+          ) : activeComp ? (
+            <CompetitionCard competition={activeComp} />
+          ) : !competitions || competitions.length === 0 ? (
+            <div className="comp-empty">
+              <div className="comp-empty-icon">🏆</div>
+              <h3>Inga aktiva tävlingar</h3>
+              <p>Nya tävlingar startar snart — håll utkik!</p>
+            </div>
+          ) : null}
+
+          {history.length > 0 && (
+            <div className="comp-history-section">
+              <div className="comp-history-header">
+                <h3>Tidigare tävlingar</h3>
+              </div>
+              <div className="comp-history-list">
+                {history.map((item) => (
+                  <HistoryRow key={item.competition_info.id} item={item} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {histLoading && !history.length && (
+            <div className="comp-history-section" style={{ marginTop: 40 }}>
+              <div className="comp-history-header">
+                <h3>Tidigare tävlingar</h3>
+              </div>
+              <CompSkeleton />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
