@@ -1,14 +1,15 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx';
-import { Provider } from 'react-redux';
-import { store } from './redux/store.ts';
-import { QueryProvider } from './core/query/QueryProvider.tsx';
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import "./styles/theme.css";
+import App from "./App.tsx";
+import { Provider } from "react-redux";
+import { store } from "./redux/store.ts";
+import { QueryProvider } from "./core/query/QueryProvider.tsx";
 
-createRoot(document.getElementById('root')!).render(
-    <QueryProvider>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </QueryProvider>,
-)
+createRoot(document.getElementById("root")!).render(
+  <QueryProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </QueryProvider>,
+);

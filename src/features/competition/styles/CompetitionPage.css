@@ -1,7 +1,7 @@
 .comp-page {
   min-height: 100vh;
-  background: #f2f2f7;
-  color: #111;
+  background: var(--color-bg-page);
+  color: var(--color-text);
 }
 
 /* ── Header ── */
@@ -23,7 +23,7 @@
 
 .comp-header-top h2 {
   font-size: 1.6rem;
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   margin: 0;
 }
 
@@ -44,26 +44,26 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #fff;
+  background: var(--color-bg);
   padding: 6px 12px;
-  border-radius: 50px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-stat-icon {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .comp-stat-value {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #111;
+  font-size: 0.9rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
 }
 
 .comp-stat-label {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.4);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* ── Competition Tabs ── */
@@ -85,28 +85,29 @@
 
 .comp-tab {
   flex-shrink: 0;
-  background: #fff;
-  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border-subtle);
   border-radius: 16px;
   padding: 12px 18px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-tab:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-secondary);
 }
 
 .comp-tab.active {
   background: rgba(0, 204, 163, 0.08);
   border-color: rgba(0, 204, 163, 0.35);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
 }
 
 .comp-tab-title {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #111;
+  font-size: 0.9rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
   margin: 0 0 4px;
   white-space: nowrap;
 }
@@ -118,12 +119,12 @@
 }
 
 .comp-tab-type {
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: var(--weight-semibold);
   color: rgba(0, 0, 0, 0.45);
   background: rgba(0, 0, 0, 0.06);
   padding: 2px 8px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 /* ── Timer Pill ── */
@@ -131,12 +132,12 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: #00cca3;
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
   background: rgba(0, 204, 163, 0.15);
   padding: 2px 8px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 .comp-tab-timer svg {
@@ -147,7 +148,7 @@
 .live-dot {
   width: 6px;
   height: 6px;
-  background: #00cca3;
+  background: var(--color-primary);
   border-radius: 50%;
   animation: comp-pulse-dot 1.5s ease-in-out infinite;
 }
@@ -171,20 +172,19 @@
   padding: 28px 24px 60px;
 }
 
-/* ── Inner column (shared 700px boundary) ── */
+/* ── Inner column ── */
 .comp-inner {
-  max-width: 700px;
   width: 100%;
 }
 
 /* ── Competition Card ── */
 .comp-card {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
   padding: 24px;
   box-sizing: border-box;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-card-header {
@@ -197,14 +197,14 @@
 
 .comp-card-title {
   font-size: 1.1rem;
-  font-weight: 800;
-  color: #111;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-text);
   margin: 0;
 }
 
 /* ── Description ── */
 .comp-description {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.45);
   margin: 0 0 24px;
   line-height: 1.5;
@@ -220,27 +220,28 @@
   border-radius: 14px;
   padding: 12px 18px;
   margin-bottom: 24px;
+  font-family: var(--font-primary);
 }
 
 .comp-my-rank {
-  background: #00cca3;
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 900;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: 0.85rem;
+  font-weight: var(--weight-black);
   padding: 4px 10px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 .comp-my-label {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: rgba(0, 0, 0, 0.6);
 }
 
 .comp-my-amount {
   margin-left: auto;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #00cca3;
+  font-size: 0.92rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
 }
 
 /* ── Podium ── */
@@ -274,8 +275,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  color: #fff;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-inverse);
   flex-shrink: 0;
   position: relative;
 }
@@ -296,17 +297,17 @@
 }
 
 .comp-pod-rank {
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-size: 0.75rem;
+  font-weight: var(--weight-extrabold);
   padding: 3px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   margin-top: -6px;
   z-index: 1;
 }
 
 .comp-pod-name {
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
   color: rgba(0, 0, 0, 0.55);
   max-width: 65px;
   text-align: center;
@@ -316,44 +317,44 @@
 }
 
 .comp-pod-score {
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #111;
+  font-size: 0.9rem;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-text);
 }
 
 .comp-pod-score.first-score {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
 }
 
 .comp-pod-score span {
-  font-size: 0.65rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: var(--weight-medium);
   color: rgba(0, 0, 0, 0.4);
 }
 
 .comp-pod-prize {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #00cca3;
+  font-size: 0.72rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
   background: rgba(0, 204, 163, 0.2);
   padding: 2px 8px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 /* ── Leaderboard ── */
 .comp-leaderboard {
-  background: #fff;
+  background: var(--color-bg);
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   max-height: 200px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-leaderboard-title {
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: rgba(0, 0, 0, 0.45);
   padding: 10px 14px 8px;
   margin: 0;
@@ -386,7 +387,7 @@
   gap: 8px;
   padding: 8px 14px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  transition: background 0.15s ease;
+  transition: background var(--transition-fast);
 }
 
 .comp-lb-row:hover {
@@ -395,8 +396,8 @@
 
 .comp-lb-pos {
   width: 24px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: var(--weight-semibold);
   color: rgba(0, 0, 0, 0.3);
   text-align: center;
   flex-shrink: 0;
@@ -410,15 +411,15 @@
   align-items: center;
   justify-content: center;
   font-size: 0.6rem;
-  font-weight: 700;
-  color: #fff;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-inverse);
   flex-shrink: 0;
 }
 
 .comp-lb-name {
   flex: 1;
-  font-size: 0.76rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: var(--weight-medium);
   color: rgba(0, 0, 0, 0.65);
   white-space: nowrap;
   overflow: hidden;
@@ -433,23 +434,23 @@
 }
 
 .comp-lb-prize {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #00cca3;
+  font-size: 0.75rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
   background: rgba(0, 204, 163, 0.12);
   padding: 3px 8px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 .comp-lb-amount {
-  font-size: 0.76rem;
-  font-weight: 800;
-  color: #111;
+  font-size: 0.85rem;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-text);
 }
 
 .comp-lb-amount span {
-  font-size: 0.65rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: var(--weight-medium);
   color: rgba(0, 0, 0, 0.35);
 }
 
@@ -468,8 +469,8 @@
 
 .comp-history-header h3 {
   font-size: 1rem;
-  font-weight: 700;
-  color: #111;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
   margin: 0;
 }
 
@@ -485,10 +486,10 @@
   flex-direction: column;
   gap: 10px;
   padding: 16px 18px;
-  background: #fff;
+  background: var(--color-bg);
   border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Card header — title + date */
@@ -500,8 +501,8 @@
 
 .comp-history-title {
   font-size: 0.88rem;
-  font-weight: 800;
-  color: #111;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -510,7 +511,7 @@
 }
 
 .comp-history-date {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.35);
 }
 
@@ -523,19 +524,19 @@
 
 .comp-history-rank-big {
   font-size: 2.2rem;
-  font-weight: 900;
+  font-weight: var(--weight-black);
   line-height: 1;
 }
 
 .comp-history-amount {
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: rgba(0, 0, 0, 0.5);
 }
 
 .comp-history-amount span {
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   color: rgba(0, 0, 0, 0.35);
   margin-left: 1px;
 }
@@ -550,11 +551,11 @@
   align-items: center;
   gap: 5px;
   background: rgba(0, 204, 163, 0.12);
-  color: #00a885;
-  font-size: 0.72rem;
-  font-weight: 700;
+  color: var(--color-primary-dark);
+  font-size: 0.75rem;
+  font-weight: var(--weight-bold);
   padding: 4px 10px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
 }
 
 .comp-history-winner-icon {
@@ -576,7 +577,7 @@
 
 .comp-empty h3 {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: rgba(0, 0, 0, 0.5);
   margin: 0 0 4px;
 }
@@ -596,7 +597,7 @@
 .comp-skeleton-bar {
   height: 48px;
   background: rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   animation: comp-pulse 1.2s ease-in-out infinite;
 }
 
@@ -646,6 +647,10 @@
 
   .comp-stats {
     flex-wrap: wrap;
+  }
+
+  .comp-stat {
+    flex: 1 1 45%;
   }
 
   .comp-stat {

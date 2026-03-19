@@ -1,0 +1,89 @@
+/* =====================================================
+   SveaPanel Design Tokens
+   Single source of truth for colors, typography,
+   spacing, radius, and shadows.
+   ===================================================== */
+
+:root {
+  /* ---------------------------------------------------
+     Colors — Brand
+     --------------------------------------------------- */
+  --color-primary: #00cca3;
+  --color-primary-light: #00e6b8;
+  --color-primary-dark: #00b892;
+
+  --color-accent-pink: #f647a4;
+  --color-accent-purple: #7571fc;
+  --color-accent-cashback: #e60077;
+
+  /* ---------------------------------------------------
+     Colors — Neutrals
+     --------------------------------------------------- */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f7f7f7;
+  --color-bg-page: #f2f2f7;
+  --color-surface-glass: rgba(255, 255, 255, 0.85);
+
+  --color-text: #111111;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #e0e0e0;
+  --color-border-subtle: rgba(0, 0, 0, 0.08);
+
+  /* ---------------------------------------------------
+     Typography
+     --------------------------------------------------- */
+  --font-primary:
+    "Cereal", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* Font-size scale — desktop base
+     Usage: font-size: var(--text-display);
+  */
+  --text-display: 3.5rem; /* page hero titles          */
+  --text-heading-1: 3rem; /* major section headings    */
+  --text-heading-2: 1.8rem; /* subsection / component h  */
+  --text-heading-3: 1.4rem; /* card / minor headings     */
+  --text-heading-4: 1.2rem; /* label / small headings    */
+  --text-heading-5: 1rem; /* caption / tiny headings   */
+  --text-body: 1rem; /* standard body copy        */
+  --text-body-sm: 0.9rem; /* secondary / meta text     */
+  --text-caption: 0.8rem; /* fine print / timestamps   */
+
+  /* Font-weight scale */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* Line heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* ---------------------------------------------------
+     Border Radius
+     --------------------------------------------------- */
+  --radius-sm: 8px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* ---------------------------------------------------
+     Shadows
+     --------------------------------------------------- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+
+  /* ---------------------------------------------------
+     Transitions
+     --------------------------------------------------- */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
