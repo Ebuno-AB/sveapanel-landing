@@ -68,6 +68,7 @@ const ENDPOINTS = {
     complete: "streak/complete",
     stats: (streakName: string) => `streak/${streakName}/stats`,
     toplist: (streakName: string) => `streak/${streakName}/toplist`,
+    completions: (streakName: string) => `streak/${streakName}/completions`,
   },
   cashback: {
     categories: "cashback/categories",

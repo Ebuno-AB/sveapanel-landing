@@ -154,6 +154,39 @@
   margin-left: 1px;
 }
 
+/* ── Streak Badge ── */
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 2px solid var(--color-border);
+  background: #f7f7f7;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.streak-badge:hover {
+  background: rgba(0, 204, 163, 0.1);
+  border-color: rgba(0, 204, 163, 0.6);
+}
+
+.streak-badge-count {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1;
+}
+
+.streak-badge-fire {
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+}
+
 /* ── Mobile hamburger ── */
 .auth-hamburger {
   display: none;

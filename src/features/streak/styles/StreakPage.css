@@ -1,0 +1,422 @@
+/* =====================================================
+   StreakPage
+   ===================================================== */
+
+.streak-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+  padding: 88px 16px 48px;
+}
+
+/* ── Tab switcher ── */
+.streak-tab-switcher-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.streak-tab-switcher {
+  display: flex;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  gap: 2px;
+}
+
+.streak-tab-btn {
+  padding: 8px 28px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-primary);
+}
+
+.streak-tab-btn.active {
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Content wrapper ── */
+.streak-content {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Hero / counter ── */
+.streak-hero {
+  text-align: center;
+  padding: 20px 16px 24px;
+}
+
+.streak-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.streak-fire-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.streak-hero-count {
+  font-size: 4.5rem;
+  font-weight: var(--weight-black);
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.streak-hero-label {
+  margin-top: 6px;
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.streak-hero-status {
+  margin-top: 4px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.streak-hero-status.done {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Weekly progress card ── */
+.weekly-progress-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.weekly-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.weekly-progress-title {
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.weekly-progress-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.88rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.weekly-fire {
+  font-size: 0.85rem;
+}
+
+.weekly-progress-bar-track {
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.weekly-progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease;
+}
+
+/* Day circles */
+.weekly-days {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.day-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background: #e5e5ea;
+  border: 2px solid transparent;
+}
+
+.day-circle.completed {
+  background: rgba(0, 204, 163, 0.12);
+  border-color: var(--color-primary);
+}
+
+.day-circle.today-pending {
+  background: transparent;
+  border: 2.5px solid var(--color-primary);
+  color: var(--color-primary);
+  font-size: 0.85rem;
+}
+
+.day-circle.future {
+  background: #e5e5ea;
+  opacity: 0.45;
+}
+
+.day-circle.missed {
+  background: #e5e5ea;
+}
+
+.day-label {
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.day-label.today {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* ── How to complete ── */
+.streak-how-to {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.streak-how-to-title {
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: 0 0 6px;
+}
+
+.streak-how-to-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Personal best ── */
+.streak-personal-best {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.streak-pb-label {
+  font-size: 0.9rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.streak-pb-value {
+  font-size: 0.9rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+/* ── Leaderboard ── */
+.streak-leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-row {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.leaderboard-rank {
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.leaderboard-medal {
+  font-size: 1.3rem;
+}
+
+.leaderboard-rank-num {
+  font-size: 0.82rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.leaderboard-name {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.leaderboard-streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.leaderboard-streak-icon {
+  font-size: 0.88rem;
+}
+
+.leaderboard-streak-count {
+  font-size: 0.95rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+/* ── Empty state ── */
+.streak-leaderboard-empty {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.streak-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.streak-leaderboard-empty p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ── Skeleton ── */
+.streak-skeleton-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.skel {
+  background: #e5e5ea;
+  border-radius: var(--radius-sm);
+  animation: streak-shimmer 1.4s ease infinite;
+}
+
+@keyframes streak-shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.skel-tab {
+  width: 88px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+}
+
+.skel-fire {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skel-num {
+  width: 88px;
+  height: 64px;
+}
+
+.skel-text {
+  width: 130px;
+  height: 17px;
+  margin: 8px auto 0;
+}
+
+.skel-text-sm {
+  width: 100px;
+  height: 13px;
+  margin: 6px auto 0;
+}
+
+.skel-title {
+  width: 160px;
+  height: 17px;
+  margin-bottom: 12px;
+}
+
+.skel-bar-full {
+  width: 100%;
+  height: 4px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-pill);
+}
+
+.skel-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skel-day-label {
+  width: 32px;
+  height: 10px;
+}
+
+.leaderboard-skeleton-row {
+  height: 54px;
+  background: #e5e5ea;
+  border-radius: var(--radius-md);
+  animation: streak-shimmer 1.4s ease infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .streak-page {
+    padding-top: 80px;
+  }
+
+  .day-circle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .day-label {
+    font-size: 0.65rem;
+  }
+}

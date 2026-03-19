@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "@/features/user/api/user.queries";
+import { useStreakStats } from "@/features/streak/api/streak.queries";
+import { Flame } from "lucide-react";
 import logoImg from "@/assets/icons/logo.png";
 import "./AuthNav.css";
 
@@ -12,6 +14,21 @@ const NAV_ITEMS = [
 ];
 
 const BALANCE_MAX = 300;
+
+function StreakBadge({
+  streak,
+  onClick,
+}: {
+  streak: number;
+  onClick: () => void;
+}) {
+  return (
+    <button className="streak-badge" onClick={onClick} aria-label="Streak">
+      <span className="streak-badge-count">{streak}</span>
+      <Flame className="streak-badge-fire" size={15} strokeWidth={2.5} />
+    </button>
+  );
+}
 
 function BalanceRing({ balance }: { balance: number }) {
   const displayBalance = balance / 10;
@@ -35,6 +52,7 @@ const AuthNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: user } = useUser();
+  const { data: streakStats } = useStreakStats();
 
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -116,6 +134,10 @@ const AuthNav = () => {
             {!isMobile && (
               <>
                 <BalanceRing balance={user?.balance ?? 0} />
+                <StreakBadge
+                  streak={streakStats?.currentStreak ?? 0}
+                  onClick={() => navigate("/dashboard/streak")}
+                />
                 <button
                   className="auth-avatar-btn"
                   onClick={() => navigate("/dashboard/konto")}

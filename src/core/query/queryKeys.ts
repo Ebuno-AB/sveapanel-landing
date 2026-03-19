@@ -27,8 +27,7 @@ export const queryKeys = {
   cashback: {
     categories: ["cashback", "categories"] as const,
     stores: ["cashback", "stores"] as const,
-    storeDetail: (storeId: number) =>
-      ["cashback", "store", storeId] as const,
+    storeDetail: (storeId: number) => ["cashback", "store", storeId] as const,
     featuredStore: ["cashback", "featuredStore"] as const,
     pendingBalance: ["cashback", "pendingBalance"] as const,
     clicks: ["cashback", "clicks"] as const,
@@ -46,6 +45,8 @@ export const queryKeys = {
     all: ["streak"] as const,
     stats: (streakName: string) => ["streak", "stats", streakName] as const,
     toplist: (streakName: string) => ["streak", "toplist", streakName] as const,
+    completions: (streakName: string) =>
+      ["streak", "completions", streakName] as const,
   },
   duels: {
     stats: ["duels", "stats"] as const,
