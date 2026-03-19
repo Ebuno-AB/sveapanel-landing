@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import { Search, ArrowUpDown, ShoppingBag } from "lucide-react";
 import {
   useFeaturedStore,
   useStores,
@@ -109,13 +109,13 @@ const CashbackPage = () => {
               className={`cb-sort-chip${sortBy === "az" ? " active" : ""}`}
               onClick={() => setSortBy("az")}
             >
-              ↕ A-Ö
+              <ArrowUpDown size={14} /> A-Ö
             </button>
             <button
               className={`cb-sort-chip${sortBy === "cashback" ? " active" : ""}`}
               onClick={() => setSortBy("cashback")}
             >
-              ↕ Högst cashback
+              <ArrowUpDown size={14} /> Högst cashback
             </button>
           </div>
 
@@ -123,7 +123,9 @@ const CashbackPage = () => {
             <FeedSkeleton />
           ) : filteredStores.length === 0 ? (
             <div className="cb-empty" style={{ marginTop: 24 }}>
-              <div className="cb-empty-icon">🛍</div>
+              <div className="cb-empty-icon">
+                <ShoppingBag size={32} />
+              </div>
               <h3>Inga butiker hittades</h3>
               <p>
                 Prova att söka efter något annat eller välj en annan kategori.
