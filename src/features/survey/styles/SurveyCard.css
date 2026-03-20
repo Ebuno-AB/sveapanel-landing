@@ -85,7 +85,7 @@
   flex-shrink: 0;
 }
 
-.badge {
+.survey-card .badge {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -94,6 +94,8 @@
   font-size: 0.72rem;
   font-weight: 600;
   white-space: nowrap;
+  position: static;
+  width: auto;
 }
 
 .star-rating {
@@ -103,7 +105,7 @@
   gap: 2px;
 }
 
-.badge-time {
+.survey-card .badge-time {
   background: rgba(0, 204, 163, 0.12);
   color: #00b892;
 }
