@@ -162,7 +162,7 @@
   padding: 6px 10px;
   border-radius: 999px;
   border: 2px solid var(--color-border);
-  background: #f7f7f7;
+  background: #ffffff;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -170,8 +170,8 @@
 }
 
 .streak-badge:hover {
-  background: rgba(0, 204, 163, 0.1);
-  border-color: rgba(0, 204, 163, 0.6);
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border);
 }
 
 .streak-badge-count {

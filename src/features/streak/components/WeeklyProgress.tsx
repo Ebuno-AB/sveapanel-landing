@@ -1,3 +1,4 @@
+import { Flame, Clock } from "lucide-react";
 import type { StreakCompletion } from "../types/streak.types";
 
 const SWEDISH_DAYS = ["MAN", "TIS", "ONS", "TORS", "FRE", "LÖR", "SÖN"];
@@ -38,7 +39,7 @@ const WeeklyProgress = ({ completions }: Props) => {
       <div className="weekly-progress-header">
         <span className="weekly-progress-title">Veckans framsteg</span>
         <span className="weekly-progress-count">
-          <span className="weekly-fire">🔥</span>
+          <Flame className="weekly-fire" size={16} />
           {completedCount}/7
         </span>
       </div>
@@ -65,7 +66,11 @@ const WeeklyProgress = ({ completions }: Props) => {
           return (
             <div key={date} className="day-item">
               <div className={circleClass}>
-                {isCompleted ? "🔥" : isToday ? "⏱" : null}
+                {isCompleted ? (
+                  <Flame size={20} />
+                ) : isToday ? (
+                  <Clock size={20} />
+                ) : null}
               </div>
               <span className={`day-label${isToday ? " today" : ""}`}>
                 {SWEDISH_DAYS[i]}

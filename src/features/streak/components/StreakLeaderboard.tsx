@@ -1,6 +1,11 @@
+import { Flame, Trophy, Medal } from "lucide-react";
 import type { ToplistEntry } from "../types/streak.types";
 
-const MEDALS = ["🥇", "🥈", "🥉"];
+const MEDALS = [
+  <Medal size={20} color="#FFD700" />,
+  <Medal size={20} color="#C0C0C0" />,
+  <Medal size={20} color="#CD7F32" />,
+];
 
 interface Props {
   toplist: ToplistEntry[];
@@ -21,7 +26,9 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
   if (!toplist.length) {
     return (
       <div className="streak-leaderboard-empty">
-        <div className="streak-empty-icon">🏆</div>
+        <div className="streak-empty-icon">
+          <Trophy size={40} />
+        </div>
         <p>Ingen topplista tillgänglig ännu</p>
       </div>
     );
@@ -40,7 +47,7 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
           </div>
           <div className="leaderboard-name">{entry.name}</div>
           <div className="leaderboard-streak">
-            <span className="leaderboard-streak-icon">🔥</span>
+            <Flame size={16} className="leaderboard-streak-icon" />
             <span className="leaderboard-streak-count">
               {entry.current_streak}
             </span>

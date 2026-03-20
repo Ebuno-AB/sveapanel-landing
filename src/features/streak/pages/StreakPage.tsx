@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Flame, Check } from "lucide-react";
 import {
   useStreakStats,
   useStreakCompletions,
@@ -56,7 +57,7 @@ const StreakPage = () => {
           <>
             <div className="streak-hero">
               <div className="streak-hero-inner">
-                <span className="streak-fire-emoji">🔥</span>
+                <Flame size={60} className="streak-fire-emoji" />
                 <span className="streak-hero-count">
                   {stats?.currentStreak ?? 0}
                 </span>
@@ -65,7 +66,13 @@ const StreakPage = () => {
               <div
                 className={`streak-hero-status${completedToday ? " done" : ""}`}
               >
-                {completedToday ? "Slutförd idag! ✓" : "Ej slutförd idag"}
+                {completedToday ? (
+                  <>
+                    Slutförd idag! <Check size={16} />
+                  </>
+                ) : (
+                  "Ej slutförd idag"
+                )}
               </div>
             </div>
 
@@ -74,8 +81,7 @@ const StreakPage = () => {
             <div className="streak-how-to">
               <h3 className="streak-how-to-title">Slutför din streak</h3>
               <p className="streak-how-to-desc">
-                Spela spel, svara på enkäter, delta i dueller eller handla med
-                cashback
+                Spela spel, svara på enkäter eller handla med cashback.
               </p>
             </div>
 
@@ -83,7 +89,7 @@ const StreakPage = () => {
               <div className="streak-personal-best">
                 <span className="streak-pb-label">Längsta streak</span>
                 <span className="streak-pb-value">
-                  🔥 {stats.longestStreak} dagar
+                  <Flame size={16} /> {stats.longestStreak} dagar
                 </span>
               </div>
             )}
