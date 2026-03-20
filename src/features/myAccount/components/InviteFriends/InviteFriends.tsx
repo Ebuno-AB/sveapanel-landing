@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Copy, Check, Share2 } from "lucide-react";
-import QRCode from "react-qr-code";
-import { useUser } from "@/features/user/api/user.queries";
+import { ReferralShareCard } from "./ReferralShareCard";
 import "./InviteFriends.css";
 
 const containerVariants: Variants = {
@@ -40,20 +37,6 @@ const steps = [
 ];
 
 export const InviteFriends = () => {
-  const { data: user, isLoading } = useUser();
-  const [copiedField, setCopiedField] = useState<"code" | "link" | null>(null);
-
-  const referralCode = user?.referralCode ?? "";
-  const referralLink = referralCode
-    ? `https://sveapanelen.se/join/${referralCode}`
-    : "";
-
-  const handleCopy = (text: string, field: "code" | "link") => {
-    navigator.clipboard.writeText(text);
-    setCopiedField(field);
-    setTimeout(() => setCopiedField(null), 2000);
-  };
-
   return (
     <div className="invite">
       {/* Title */}
@@ -89,76 +72,8 @@ export const InviteFriends = () => {
         ))}
 
         {/* Share card — full width, dark */}
-        <motion.div
-          className="invite__card invite__card--share"
-          variants={cardVariants}
-        >
-          <div className="invite__card-header">
-            <span className="invite__card-label">Dela din kod eller länk</span>
-            <Share2 size={18} className="invite__card-icon" />
-          </div>
-          <p className="invite__share-desc">
-            Bjud in dina vänner och bli belönad med <strong>15%</strong> av vad
-            de tjänar.
-          </p>
-
-          <div className="invite__share-body">
-            <div className="invite__fields">
-              <div className="invite__row">
-                <span className="invite__row-label">Kod</span>
-                {isLoading ? (
-                  <span className="invite__skel invite__skel--code" />
-                ) : (
-                  <span className="invite__code">{referralCode}</span>
-                )}
-                <button
-                  className={`invite__copy-btn${
-                    copiedField === "code" ? " invite__copy-btn--copied" : ""
-                  }`}
-                  onClick={() => handleCopy(referralCode, "code")}
-                  disabled={!referralCode}
-                  aria-label="Kopiera kod"
-                >
-                  {copiedField === "code" ? (
-                    <Check size={15} />
-                  ) : (
-                    <Copy size={15} />
-                  )}
-                  {copiedField === "code" ? "Kopierad!" : "Kopiera"}
-                </button>
-              </div>
-              <div className="invite__divider" />
-              <div className="invite__row">
-                <span className="invite__row-label">Länk</span>
-                {isLoading ? (
-                  <span className="invite__skel invite__skel--link" />
-                ) : (
-                  <span className="invite__link">{referralLink}</span>
-                )}
-                <button
-                  className={`invite__copy-btn${
-                    copiedField === "link" ? " invite__copy-btn--copied" : ""
-                  }`}
-                  onClick={() => handleCopy(referralLink, "link")}
-                  disabled={!referralLink}
-                  aria-label="Kopiera länk"
-                >
-                  {copiedField === "link" ? (
-                    <Check size={15} />
-                  ) : (
-                    <Copy size={15} />
-                  )}
-                  {copiedField === "link" ? "Kopierad!" : "Kopiera"}
-                </button>
-              </div>
-            </div>
-
-            {referralLink && (
-              <div className="invite__qr">
-                <QRCode value={referralLink} size={88} />
-              </div>
-            )}
-          </div>
+        <motion.div className="invite__card--share" variants={cardVariants}>
+          <ReferralShareCard />
         </motion.div>
       </motion.div>
     </div>

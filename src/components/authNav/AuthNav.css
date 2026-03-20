@@ -154,8 +154,8 @@
   margin-left: 1px;
 }
 
-/* ── Streak Badge ── */
-.streak-badge {
+/* ── Streak Badge (nav pill) ── */
+.auth-streak-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -169,19 +169,19 @@
     border-color 0.2s ease;
 }
 
-.streak-badge:hover {
+.auth-streak-badge:hover {
   background: var(--color-bg-secondary);
   border-color: var(--color-border);
 }
 
-.streak-badge-count {
+.auth-streak-badge-count {
   font-size: 0.85rem;
   font-weight: 800;
   color: #111;
   line-height: 1;
 }
 
-.streak-badge-fire {
+.auth-streak-badge-fire {
   color: var(--color-text);
   display: flex;
   align-items: center;

@@ -23,9 +23,9 @@ function StreakBadge({
   onClick: () => void;
 }) {
   return (
-    <button className="streak-badge" onClick={onClick} aria-label="Streak">
-      <span className="streak-badge-count">{streak}</span>
-      <Flame className="streak-badge-fire" size={15} strokeWidth={2.5} />
+    <button className="auth-streak-badge" onClick={onClick} aria-label="Streak">
+      <span className="auth-streak-badge-count">{streak}</span>
+      <Flame className="auth-streak-badge-fire" size={15} strokeWidth={2.5} />
     </button>
   );
 }

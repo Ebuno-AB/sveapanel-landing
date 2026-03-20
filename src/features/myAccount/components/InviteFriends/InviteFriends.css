@@ -113,6 +113,7 @@
   background: #fff;
   border: 1.5px solid rgba(0, 0, 0, 0.08);
   color: #111;
+  padding: 14px 16px;
 }
 
 .invite__card--share .invite__card-label {
@@ -127,7 +128,7 @@
 .invite__share-desc {
   font-size: 0.9rem;
   color: #555;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -153,7 +154,7 @@
 .invite__row {
   display: flex;
   align-items: center;
-  padding: 13px 16px;
+  padding: 8px 12px;
   gap: 12px;
 }
 
@@ -187,13 +188,13 @@
 .invite__copy-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
+  gap: 5px;
+  padding: 5px 10px;
   border-radius: 50px;
   background: #111;
   border: 1.5px solid #111;
   color: #fff;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
