@@ -2,7 +2,7 @@ import "@/features/dashboard/styles/DashboardPage.css";
 import { DashboardSurveys } from "@/features/dashboard/components/DashboardSurveys";
 import { DashboardStores } from "../components/DashboardStores";
 import StreakBadge from "@/features/streak/components/StreakBadge";
-import { ReferralShareCard } from "@/features/myAccount/components/InviteFriends/ReferralShareCard";
+import { DashboardReferralCard } from "@/features/dashboard/components/DashboardReferralCard";
 
 const DashboardPage = () => {
   return (
@@ -12,7 +12,7 @@ const DashboardPage = () => {
           <DashboardSurveys />
           <div className="dashboard-section dashboard-section--row">
             <StreakBadge />
-            <ReferralShareCard />
+            <DashboardReferralCard />
           </div>
           <DashboardStores />
         </div>

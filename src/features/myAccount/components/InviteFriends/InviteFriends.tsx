@@ -72,7 +72,7 @@ export const InviteFriends = () => {
         ))}
 
         {/* Share card — full width, dark */}
-        <motion.div className="invite__card--share" variants={cardVariants}>
+        <motion.div className="invite__share-wrapper" variants={cardVariants}>
           <ReferralShareCard />
         </motion.div>
       </motion.div>

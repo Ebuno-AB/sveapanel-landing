@@ -35,6 +35,12 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1;
+}
+
+.streak-badge-chevron {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
 }
 
 .streak-badge-count {

@@ -1,0 +1,163 @@
+/* ── Card wrapper ────────────────────────────────────── */
+.dash-referral {
+  border-radius: 20px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+.dash-referral__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.dash-referral__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #111;
+  opacity: 0.65;
+}
+
+.dash-referral__icon {
+  flex-shrink: 0;
+  color: #00cca3;
+}
+
+/* ── Description ─────────────────────────────────────── */
+.dash-referral__desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0 0 10px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.dash-referral__desc strong {
+  color: #3dbf7a;
+  font-weight: 700;
+}
+
+/* ── Fields ──────────────────────────────────────────── */
+.dash-referral__fields {
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.dash-referral__row {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 12px;
+}
+
+.dash-referral__row-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+  min-width: 44px;
+}
+
+.dash-referral__code {
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: 0.15em;
+}
+
+.dash-referral__link {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #555;
+  word-break: break-all;
+}
+
+.dash-referral__divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ── Copy button ─────────────────────────────────────── */
+.dash-referral__copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 50px;
+  background: #111;
+  border: 1.5px solid #111;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: "Cereal", sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dash-referral__copy-btn:hover:not(:disabled) {
+  background: #333;
+  border-color: #333;
+}
+
+.dash-referral__copy-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dash-referral__copy-btn--copied {
+  background: rgba(61, 191, 122, 0.12);
+  border-color: rgba(61, 191, 122, 0.4);
+  color: #3dbf7a;
+}
+
+.dash-referral__copy-btn--copied:hover:not(:disabled) {
+  background: rgba(61, 191, 122, 0.2);
+}
+
+/* ── Skeleton loaders ────────────────────────────────── */
+.dash-referral__skel {
+  display: inline-block;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: dash-referral-shimmer 1.5s infinite;
+  flex: 1;
+}
+
+.dash-referral__skel--code {
+  height: 1.2rem;
+  max-width: 80px;
+}
+
+.dash-referral__skel--link {
+  height: 0.9rem;
+}
+
+@keyframes dash-referral-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

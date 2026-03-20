@@ -1,4 +1,5 @@
-import { Flame, Check, Clock } from "lucide-react";
+import { Flame, Check, Clock, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useStreakStats, useStreakCompletions } from "../api/streak.queries";
 import "@/features/streak/styles/StreakBadge.css";
 
@@ -26,6 +27,7 @@ function getWeekDates(): string[] {
 }
 
 const StreakBadge = () => {
+  const navigate = useNavigate();
   const { data: stats } = useStreakStats();
   const { data: completionsRes } = useStreakCompletions();
 
@@ -36,7 +38,11 @@ const StreakBadge = () => {
   const currentStreak = stats?.currentStreak ?? 0;
 
   return (
-    <div className="streak-badge">
+    <div
+      className="streak-badge"
+      onClick={() => navigate("/dashboard/streak")}
+      style={{ cursor: "pointer" }}
+    >
       <div className="streak-badge-header">
         <div className="streak-badge-icon-wrap">
           <Flame size={26} className="streak-badge-flame" />
@@ -49,6 +55,7 @@ const StreakBadge = () => {
             Slutför din dagliga streak
           </span>
         </div>
+        <ChevronRight size={20} className="streak-badge-chevron" />
       </div>
 
       <div className="streak-badge-days">
