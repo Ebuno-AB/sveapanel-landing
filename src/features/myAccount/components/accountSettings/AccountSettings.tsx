@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell, MessageSquare, Mail, LogOut, Trash2 } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 import { useAuthStore } from "@/core/auth/authStore";
 import {
   useUpdatePushPermission,
@@ -9,6 +10,20 @@ import {
   useDeleteAccount,
 } from "@/features/myAccount/api/accountSettings.mutations";
 import "./AccountSettings.css";
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
 
 interface ToggleRowProps {
   icon: React.ReactNode;
@@ -93,8 +108,20 @@ export const AccountSettings = () => {
   return (
     <div className="account-settings">
       {/* Notiser */}
-      <p className="account-settings__section-label">Notiser</p>
-      <div className="account-settings__card">
+      <motion.p
+        className="account-settings__section-label"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        Notiser
+      </motion.p>
+      <motion.div
+        className="account-settings__card"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
         <ToggleRow
           icon={<Bell size={20} />}
           title="Push-notiser"
@@ -125,12 +152,28 @@ export const AccountSettings = () => {
           }
           disabled={updateEmail.isPending}
         />
-      </div>
+      </motion.div>
 
       {/* Konto */}
-      <p className="account-settings__section-label">Konto</p>
-      <div className="account-settings__card">
-        <div className="account-settings__row" onClick={handleLogout}>
+      <motion.p
+        className="account-settings__section-label"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+      >
+        Konto
+      </motion.p>
+      <motion.div
+        className="account-settings__card"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.div
+          className="account-settings__row"
+          variants={cardVariants}
+          onClick={handleLogout}
+        >
           <div className="account-settings__icon account-settings__icon--orange">
             <LogOut size={20} />
           </div>
@@ -140,9 +183,10 @@ export const AccountSettings = () => {
               Du kan logga in igen med BankID
             </p>
           </div>
-        </div>
-        <div
+        </motion.div>
+        <motion.div
           className="account-settings__row"
+          variants={cardVariants}
           onClick={() => setShowDeleteDialog(true)}
         >
           <div className="account-settings__icon account-settings__icon--red">
@@ -156,8 +200,8 @@ export const AccountSettings = () => {
               Permanent radering av ditt konto och all data
             </p>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Delete confirmation dialog */}
       {showDeleteDialog && (

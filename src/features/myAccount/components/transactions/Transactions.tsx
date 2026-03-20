@@ -14,9 +14,24 @@ import {
 import { httpClient } from "@/core/api/httpClient";
 import { ENDPOINTS } from "@/core/api/endpoints";
 import { queryKeys } from "@/core/query/queryKeys";
+import { motion, type Variants } from "framer-motion";
 import { useAuthStore } from "@/core/auth/authStore";
 import { useUser } from "@/features/user/api/user.queries";
 import "./Transactions.css";
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
 
 interface TransactionRow {
   id: number;
@@ -160,11 +175,22 @@ export const Transactions = () => {
 
   return (
     <div className="tx">
-      <h2 className="tx__title">Mina transaktioner</h2>
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <h2 className="tx__title">Mina transaktioner</h2>
+      </motion.div>
 
       {/* Summary cards */}
-      <div className="tx__summary">
-        <div className="tx__summary-card">
+      <motion.div
+        className="tx__summary"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.div className="tx__summary-card" variants={cardVariants}>
           <span className="tx__summary-icon tx__summary-icon--earned">
             <ArrowDown size={18} />
           </span>
@@ -176,9 +202,9 @@ export const Transactions = () => {
             )}
           </span>
           <span className="tx__summary-label">Intjänat</span>
-        </div>
+        </motion.div>
 
-        <div className="tx__summary-card">
+        <motion.div className="tx__summary-card" variants={cardVariants}>
           <span className="tx__summary-icon tx__summary-icon--withdrawn">
             <ArrowUp size={18} />
           </span>
@@ -190,9 +216,9 @@ export const Transactions = () => {
             )}
           </span>
           <span className="tx__summary-label">Uttaget</span>
-        </div>
+        </motion.div>
 
-        <div className="tx__summary-card">
+        <motion.div className="tx__summary-card" variants={cardVariants}>
           <span className="tx__summary-icon tx__summary-icon--balance">
             <Wallet size={18} />
           </span>
@@ -204,8 +230,8 @@ export const Transactions = () => {
             )}
           </span>
           <span className="tx__summary-label">Saldo</span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* History list */}
       <h3 className="tx__section-title">Historik</h3>
