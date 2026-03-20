@@ -8,33 +8,17 @@ import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal
 import { AccountOverview } from "@/features/myAccount/components/AccountOverview/AccountOverview";
 import { InviteFriends } from "@/features/myAccount/components/InviteFriends/InviteFriends";
 import { Extentsion } from "@/features/myAccount/components/Extention/Extention";
+import { Transactions } from "@/features/myAccount/components/transactions/Transactions";
 
-type Tab =
-  | "oversikt"
-  | "bjud-in"
-  | "extension"
-  | "kophistorik"
-  | "installningar";
+type Tab = "overview" | "invite" | "extension" | "transactions" | "settings";
 
 const tabs: { id: Tab; label: string }[] = [
-  { id: "oversikt", label: "Översikt" },
-  { id: "bjud-in", label: "Bjud in vänner" },
+  { id: "overview", label: "Översikt" },
+  { id: "invite", label: "Bjud in vänner" },
   { id: "extension", label: "Svea - extension" },
-  { id: "kophistorik", label: "Köphistorik" },
-  { id: "installningar", label: "Kontoinställningar" },
+  { id: "transactions", label: "Transaktioner" },
+  { id: "settings", label: "Kontoinställningar" },
 ];
-
-function KophistorikContent() {
-  return (
-    <div className="my-account__content-inner">
-      <h2>Köphistorik</h2>
-      <div className="my-account__placeholder-card">
-        <h3>Inga köp ännu</h3>
-        <p>Dina godkända och väntande köp kommer att visas här.</p>
-      </div>
-    </div>
-  );
-}
 
 function InstallningarContent() {
   return (
@@ -57,11 +41,11 @@ function InstallningarContent() {
 }
 
 const contentMap: Record<Tab, React.ReactNode> = {
-  oversikt: <AccountOverview />,
-  "bjud-in": <InviteFriends />,
+  overview: <AccountOverview />,
+  invite: <InviteFriends />,
   extension: <Extentsion />,
-  kophistorik: <KophistorikContent />,
-  installningar: <InstallningarContent />,
+  transactions: <Transactions />,
+  settings: <InstallningarContent />,
 };
 
 export const MyAccount = () => {
@@ -82,7 +66,7 @@ export const MyAccount = () => {
   const handleSelect = (tab: Tab) => setActiveTab(tab);
   const handleBack = () => setActiveTab(null);
   // On desktop activeTab defaults to first tab
-  const resolvedTab = activeTab ?? (isMobile ? null : "oversikt");
+  const resolvedTab = activeTab ?? (isMobile ? null : "overview");
 
   return (
     <>

@@ -64,6 +64,9 @@ const ENDPOINTS = {
     root: "withdraw",
     history: "withdraw/history",
   },
+  balance: {
+    pointsHistory: "balance/points/history",
+  },
   streak: {
     complete: "streak/complete",
     stats: (streakName: string) => `streak/${streakName}/stats`,

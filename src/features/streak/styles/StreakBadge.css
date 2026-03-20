@@ -41,6 +41,8 @@
 .streak-badge-chevron {
   color: var(--color-text-secondary);
   flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 3px;
 }
 
 .streak-badge-count {

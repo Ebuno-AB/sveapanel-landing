@@ -37,6 +37,9 @@ export const queryKeys = {
   cashout: {
     history: ["cashout", "history"] as const,
   },
+  balance: {
+    pointsHistory: ["balance", "pointsHistory"] as const,
+  },
   referral: {
     code: ["referral", "code"] as const,
     data: (startIndex: number) => ["referral", startIndex] as const,

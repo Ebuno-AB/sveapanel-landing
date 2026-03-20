@@ -12,6 +12,7 @@ export interface UserProfile {
   lastName: string;
   email: string | null;
   balance: number;
+  totalEarned: number;
   gender: string | null;
   dateOfBirth: string | null;
   zip: string | null;
