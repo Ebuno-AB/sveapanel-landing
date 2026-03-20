@@ -9,6 +9,7 @@ import { AccountOverview } from "@/features/myAccount/components/AccountOverview
 import { InviteFriends } from "@/features/myAccount/components/InviteFriends/InviteFriends";
 import { Extentsion } from "@/features/myAccount/components/Extention/Extention";
 import { Transactions } from "@/features/myAccount/components/transactions/Transactions";
+import { AccountSettings } from "@/features/myAccount/components/accountSettings/AccountSettings";
 
 type Tab = "overview" | "invite" | "extension" | "transactions" | "settings";
 
@@ -20,32 +21,12 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "settings", label: "Kontoinställningar" },
 ];
 
-function InstallningarContent() {
-  return (
-    <div className="my-account__content-inner">
-      <h2>Kontoinställningar</h2>
-      <div className="my-account__placeholder-card">
-        <h3>Personuppgifter</h3>
-        <p>Hantera ditt namn, e-postadress och lösenord.</p>
-      </div>
-      <div className="my-account__placeholder-card">
-        <h3>Aviseringar</h3>
-        <p>Välj vilka meddelanden du vill ta emot från oss.</p>
-      </div>
-      <div className="my-account__placeholder-card">
-        <h3>Ta bort konto</h3>
-        <p>Permanent borttagning av ditt konto och all tillhörande data.</p>
-      </div>
-    </div>
-  );
-}
-
 const contentMap: Record<Tab, React.ReactNode> = {
   overview: <AccountOverview />,
   invite: <InviteFriends />,
   extension: <Extentsion />,
   transactions: <Transactions />,
-  settings: <InstallningarContent />,
+  settings: <AccountSettings />,
 };
 
 export const MyAccount = () => {

@@ -1,0 +1,221 @@
+/* ── Container ─────────────────────────────────────── */
+.account-settings {
+  max-width: 540px;
+}
+
+/* ── Section ─────────────────────────────────────────── */
+.account-settings__section-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 10px 4px;
+}
+
+.account-settings__section-label:not(:first-child) {
+  margin-top: 28px;
+}
+
+/* ── Card group ───────────────────────────────────────── */
+.account-settings__card {
+  background: #fff;
+  border-radius: 18px;
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+.account-settings__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.account-settings__row:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.account-settings__row:hover {
+  background: #f9f9f9;
+}
+
+/* ── Icon bubble ──────────────────────────────────────── */
+.account-settings__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.account-settings__icon--teal {
+  background: #00cca3;
+}
+
+.account-settings__icon--orange {
+  background: #ff8c42;
+}
+
+.account-settings__icon--red {
+  background: rgba(229, 62, 62, 0.12);
+  color: #e53e3e;
+}
+
+/* ── Text ─────────────────────────────────────────────── */
+.account-settings__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.account-settings__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 2px;
+  line-height: 1.3;
+}
+
+.account-settings__title--red {
+  color: #e53e3e;
+}
+
+.account-settings__desc {
+  font-size: 0.82rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Toggle ───────────────────────────────────────────── */
+.account-settings__toggle {
+  flex-shrink: 0;
+  position: relative;
+  width: 50px;
+  height: 28px;
+}
+
+.account-settings__toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.account-settings__toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: #ddd;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.account-settings__toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s;
+}
+
+.account-settings__toggle input:checked + .account-settings__toggle-track {
+  background: #00cca3;
+}
+
+.account-settings__toggle
+  input:checked
+  + .account-settings__toggle-track::after {
+  transform: translateX(22px);
+}
+
+/* ── Delete confirmation dialog ───────────────────────── */
+.account-settings__dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.account-settings__dialog {
+  background: #fff;
+  border-radius: 22px;
+  padding: 32px 28px 24px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.account-settings__dialog h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 10px;
+}
+
+.account-settings__dialog p {
+  font-size: 0.92rem;
+  color: #555;
+  margin: 0 0 24px;
+  line-height: 1.55;
+}
+
+.account-settings__dialog-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.account-settings__dialog-cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  background: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  font-family: "Cereal", sans-serif;
+  transition: border-color 0.15s;
+}
+
+.account-settings__dialog-cancel:hover {
+  border-color: #999;
+}
+
+.account-settings__dialog-confirm {
+  flex: 1;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  background: #e53e3e;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Cereal", sans-serif;
+  transition: background 0.15s;
+}
+
+.account-settings__dialog-confirm:hover {
+  background: #c53030;
+}
+
+.account-settings__dialog-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

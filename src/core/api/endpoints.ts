@@ -29,6 +29,12 @@ const ENDPOINTS = {
     account: {
       delete: "user/account",
     },
+    notifications: {
+      token: "user/me/notifications/token",
+      permission: "user/me/notifications/permission",
+      smsPermission: "user/me/notifications/sms-permission",
+      emailPermission: "user/me/notifications/email-permission",
+    },
     transactions: "user/me/transactions",
   },
   competition: {
