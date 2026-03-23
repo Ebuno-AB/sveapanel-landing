@@ -102,6 +102,43 @@
   margin: 0;
 }
 
+/* ── Survey Sort Chips ── */
+.survey-sort-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.survey-sort-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.survey-sort-chip:hover {
+  border-color: #e60077;
+  color: #e60077;
+}
+
+.survey-sort-chip.active {
+  border-color: #e60077;
+  background: rgba(230, 0, 119, 0.07);
+  color: #e60077;
+}
+
 /* ── Quick Actions ── */
 .quick-actions {
   display: grid;

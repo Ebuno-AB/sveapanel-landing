@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { Clipboard } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Clipboard, Star, Coins, Timer } from "lucide-react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
 import SurveyModal from "@/features/survey/components/SurveyModal";
 import type { Survey } from "@/features/survey/api/survey.api";
+
+type SortOption = "recommended" | "reward" | "shortest";
 
 const getPageSize = () => (window.innerWidth < 769 ? 4 : 8);
 
@@ -11,6 +13,21 @@ export const DashboardSurveys = () => {
   const { data: surveys, isLoading } = useSurveys();
   const [visibleCount, setVisibleCount] = useState(() => getPageSize());
   const [selectedSurvey, setSelectedSurvey] = useState<Survey | null>(null);
+  const [sortBy, setSortBy] = useState<SortOption>("recommended");
+
+  const sortedSurveys = useMemo(() => {
+    if (!surveys) return [];
+    const result = [...surveys];
+    if (sortBy === "recommended") {
+      return result.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+    } else if (sortBy === "reward") {
+      return result.sort(
+        (a, b) => (b.reward?.amount ?? 0) - (a.reward?.amount ?? 0),
+      );
+    } else {
+      return result.sort((a, b) => (a.loi ?? 0) - (b.loi ?? 0));
+    }
+  }, [surveys, sortBy]);
 
   return (
     <section className="dashboard-section">
@@ -26,6 +43,36 @@ export const DashboardSurveys = () => {
             {Math.min(visibleCount, surveys.length)} av {surveys.length}
           </span>
         )}
+      </div>
+
+      <div className="survey-sort-chips">
+        <button
+          className={`survey-sort-chip${sortBy === "recommended" ? " active" : ""}`}
+          onClick={() => {
+            setSortBy("recommended");
+            setVisibleCount(getPageSize());
+          }}
+        >
+          <Star size={13} strokeWidth={2.5} /> Rekommenderad
+        </button>
+        <button
+          className={`survey-sort-chip${sortBy === "reward" ? " active" : ""}`}
+          onClick={() => {
+            setSortBy("reward");
+            setVisibleCount(getPageSize());
+          }}
+        >
+          <Coins size={13} strokeWidth={2.5} /> Högst belöning
+        </button>
+        <button
+          className={`survey-sort-chip${sortBy === "shortest" ? " active" : ""}`}
+          onClick={() => {
+            setSortBy("shortest");
+            setVisibleCount(getPageSize());
+          }}
+        >
+          <Timer size={13} strokeWidth={2.5} /> Kortast
+        </button>
       </div>
 
       {isLoading ? (
@@ -87,10 +134,10 @@ export const DashboardSurveys = () => {
             </div>
           ))}
         </div>
-      ) : surveys && surveys.length > 0 ? (
+      ) : sortedSurveys.length > 0 ? (
         <>
           <div className="survey-grid">
-            {surveys.slice(0, visibleCount).map((s) => (
+            {sortedSurveys.slice(0, visibleCount).map((s) => (
               <SurveyCard
                 key={s.project_id}
                 survey={s}
@@ -98,7 +145,7 @@ export const DashboardSurveys = () => {
               />
             ))}
           </div>
-          {visibleCount < surveys.length && (
+          {visibleCount < sortedSurveys.length && (
             <div className="survey-load-more">
               <button
                 className="survey-load-more-btn"
