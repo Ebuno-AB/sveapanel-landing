@@ -46,6 +46,32 @@ export type CashbackFeedSection = {
   stores: CashbackStore[];
 };
 
+export type CashbackCommissionGroup = {
+  name: string;
+  type: "percentage" | "fixed";
+  amount: number;
+  fullAmount: number;
+  currency: string | null;
+};
+
+export type CashbackStoreTerm = {
+  title: string;
+  description: string;
+};
+
+export type CashbackCoverGradient = {
+  from: string;
+  to: string;
+};
+
+export type CashbackStoreDetails = CashbackStore & {
+  commissionGroups: CashbackCommissionGroup[];
+  terms: string | null;
+  storeTerms: CashbackStoreTerm[];
+  coverImageUrl: string | null;
+  coverGradient: CashbackCoverGradient | null;
+};
+
 export type PendingBalance = {
   totalPending: number;
   fullTotalPending: number;
