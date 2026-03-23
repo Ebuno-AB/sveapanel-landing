@@ -38,6 +38,9 @@ const MyAccountPage = lazy(
   () => import("@/features/myAccount/pages/MyAccount"),
 );
 const StreakPage = lazy(() => import("@/features/streak/pages/StreakPage"));
+const TransferToStorePage = lazy(
+  () => import("@/features/cashback/pages/TransferToStorePage"),
+);
 
 /**
  * Public routes — accessible by everyone.
@@ -69,6 +72,7 @@ export const protectedRoutes: RouteObject[] = [
     children: [
       { index: true, element: <DashboardPage /> },
       { path: "cashback", element: <CashbackPage /> },
+      { path: "cashback/handla", element: <TransferToStorePage /> },
       { path: "tavlingar", element: <CompetitionPage /> },
       { path: "streak", element: <StreakPage /> },
       { path: "konto", element: <MyAccountPage /> },

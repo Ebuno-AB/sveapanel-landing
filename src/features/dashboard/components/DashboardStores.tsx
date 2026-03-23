@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import { useFeedSections } from "@/features/cashback/api/cashback.queries";
 import SmallStoreCard from "@/features/cashback/components/SmallStoreCard";
+import CashbackStoreModal from "@/features/cashback/components/CashbackStoreModal";
+import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import "@/features/cashback/styles/CashbackPage.css";
 
 export const DashboardStores = () => {
   const { data: feedSections, isLoading } = useFeedSections();
+  const [selectedStore, setSelectedStore] = useState<CashbackStore | null>(
+    null,
+  );
 
   const stores = feedSections
     ? Array.from(
@@ -37,7 +43,11 @@ export const DashboardStores = () => {
       ) : stores.length > 0 ? (
         <div className="cb-stores-scroll">
           {stores.map((store) => (
-            <SmallStoreCard key={store.id} store={store} />
+            <SmallStoreCard
+              key={store.id}
+              store={store}
+              onCardClick={() => setSelectedStore(store)}
+            />
           ))}
         </div>
       ) : (
@@ -47,6 +57,11 @@ export const DashboardStores = () => {
           <p>Kom tillbaka senare — fler butiker läggs till regelbundet.</p>
         </div>
       )}
+
+      <CashbackStoreModal
+        store={selectedStore}
+        onClose={() => setSelectedStore(null)}
+      />
     </section>
   );
 };
