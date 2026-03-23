@@ -2,13 +2,17 @@ import { Swords, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "@/features/competition/styles/DuelsBadge.css";
 
-const DuelsBadge = () => {
+interface DuelsBadgeProps {
+  onClick?: () => void;
+}
+
+const DuelsBadge = ({ onClick }: DuelsBadgeProps) => {
   const navigate = useNavigate();
 
   return (
     <div
       className="duels-badge"
-      onClick={() => navigate("/dashboard/tavlingar")}
+      onClick={onClick ?? (() => navigate("/dashboard/tavlingar"))}
     >
       {/* Corner glows */}
       <div className="duels-badge__glow duels-badge__glow--tl" />
@@ -39,7 +43,7 @@ const DuelsBadge = () => {
 
           <span className="duels-badge__title">DUELS</span>
           <span className="duels-badge__subtitle">
-            Utmana andra spelare i quiz
+            Utmana andra spelare i quiz i appen
           </span>
         </div>
 

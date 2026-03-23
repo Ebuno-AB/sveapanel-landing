@@ -2,11 +2,18 @@ import { Gamepad2, Smartphone, ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "@/features/games/styles/GamesBadge.css";
 
-const GamesBadge = () => {
+interface GamesBadgeProps {
+  onClick?: () => void;
+}
+
+const GamesBadge = ({ onClick }: GamesBadgeProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="games-badge" onClick={() => navigate("/dashboard/spel")}>
+    <div
+      className="games-badge"
+      onClick={onClick ?? (() => navigate("/dashboard/spel"))}
+    >
       {/* Corner glows */}
       <div className="games-badge__glow games-badge__glow--tl" />
       <div className="games-badge__glow games-badge__glow--br" />
