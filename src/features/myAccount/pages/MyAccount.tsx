@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronRight, ArrowLeft } from "lucide-react";
 import "../styles/MyAccount.css";
 import { useAuthStore } from "@/core/auth/authStore";
@@ -31,9 +31,11 @@ const contentMap: Record<Tab, React.ReactNode> = {
 
 export const MyAccount = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const logout = useAuthStore((s) => s.logout);
   const { data: user } = useUser();
-  const [activeTab, setActiveTab] = useState<Tab | null>(null);
+  const initialTab = (location.state as { tab?: Tab } | null)?.tab ?? null;
+  const [activeTab, setActiveTab] = useState<Tab | null>(initialTab);
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
 

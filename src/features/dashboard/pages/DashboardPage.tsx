@@ -7,6 +7,7 @@ import { DashboardReferralCard } from "@/features/dashboard/components/Dashboard
 import DuelsBadge from "@/features/competition/components/DuelsBadge";
 import GamesBadge from "@/features/games/components/GamesBadge";
 import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal";
+import { ExtensionBanner } from "@/features/dashboard/components/ExtensionBanner/ExtensionBanner";
 
 const DashboardPage = () => {
   const [isAppModalOpen, setIsAppModalOpen] = useState(false);
@@ -15,6 +16,7 @@ const DashboardPage = () => {
     <>
       <div className="dashboard">
         <div className="dashboard-content">
+          <ExtensionBanner />
           <DashboardSurveys />
           <div className="dashboard-section dashboard-section--row">
             <StreakBadge />

@@ -1,0 +1,73 @@
+.extension-banner {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 48px;
+  margin-top: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.extension-banner__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.extension-banner__close:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #333;
+}
+
+.extension-banner__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.extension-banner__desc {
+  font-size: 0.93rem;
+  color: #444;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.extension-banner__cta {
+  background: #e8308a;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+
+.extension-banner__cta:hover {
+  background: #d02279;
+  transform: translateY(-1px);
+}
+
+.extension-banner__cta:active {
+  transform: translateY(0);
+}
