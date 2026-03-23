@@ -5,10 +5,12 @@ import {
   useStores,
   useCategories,
 } from "@/features/cashback/api/cashback.queries";
+import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import CategoryCarousel from "@/features/cashback/components/CategoryCarousel";
 import FeaturedCard from "@/features/cashback/components/FeaturedCard";
 import SmallStoreCard from "@/features/cashback/components/SmallStoreCard";
 import FeedSkeleton from "@/features/cashback/components/FeedSkeleton";
+import CashbackStoreModal from "@/features/cashback/components/CashbackStoreModal";
 import "@/features/cashback/styles/CashbackPage.css";
 
 const INITIAL_LIMIT = 12;
@@ -25,6 +27,9 @@ const CashbackPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "cashback">("az");
   const [visibleCount, setVisibleCount] = useState(INITIAL_LIMIT);
+  const [selectedStore, setSelectedStore] = useState<CashbackStore | null>(
+    null,
+  );
   const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
 
   useEffect(() => {
@@ -73,7 +78,10 @@ const CashbackPage = () => {
               <h3 className="cb-feed-section-title">Veckans butiker</h3>
             </div>
             <div className="cb-featured-single">
-              <FeaturedCard store={featuredStore} />
+              <FeaturedCard
+                store={featuredStore}
+                onCardClick={() => setSelectedStore(featuredStore)}
+              />
             </div>
           </div>
         )}
@@ -159,7 +167,11 @@ const CashbackPage = () => {
             <>
               <div className="cb-stores-scroll">
                 {displayedStores.map((store) => (
-                  <SmallStoreCard key={store.id} store={store} />
+                  <SmallStoreCard
+                    key={store.id}
+                    store={store}
+                    onCardClick={() => setSelectedStore(store)}
+                  />
                 ))}
               </div>
               {visibleCount < filteredStores.length && (
@@ -176,6 +188,11 @@ const CashbackPage = () => {
           )}
         </div>
       </div>
+
+      <CashbackStoreModal
+        store={selectedStore}
+        onClose={() => setSelectedStore(null)}
+      />
     </div>
   );
 };
