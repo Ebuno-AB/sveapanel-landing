@@ -3,9 +3,17 @@ import "@/features/survey/styles/SurveyCard.css";
 import type { Survey } from "@/features/survey/api/survey.api";
 import StarRating from "./StarRating";
 
-function SurveyCard({ survey }: { survey: Survey }) {
+function SurveyCard({
+  survey,
+  onSelect,
+}: {
+  survey: Survey;
+  onSelect?: (survey: Survey) => void;
+}) {
   const handleStart = () => {
-    if (survey.entry) {
+    if (onSelect) {
+      onSelect(survey);
+    } else if (survey.entry) {
       window.open(survey.entry, "_blank", "noopener,noreferrer");
     }
   };
@@ -55,7 +63,8 @@ function SurveyCard({ survey }: { survey: Survey }) {
           handleStart();
         }}
       >
-        Starta <ArrowRight size={14} strokeWidth={2.5} />
+        {onSelect ? "Läs mer" : "Starta"}{" "}
+        <ArrowRight size={14} strokeWidth={2.5} />
       </button>
     </div>
   );

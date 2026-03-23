@@ -2,15 +2,22 @@ import { useState } from "react";
 import { Clipboard } from "lucide-react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
+import SurveyModal from "@/features/survey/components/SurveyModal";
+import type { Survey } from "@/features/survey/api/survey.api";
 
 const getPageSize = () => (window.innerWidth < 769 ? 4 : 8);
 
 export const DashboardSurveys = () => {
   const { data: surveys, isLoading } = useSurveys();
   const [visibleCount, setVisibleCount] = useState(() => getPageSize());
+  const [selectedSurvey, setSelectedSurvey] = useState<Survey | null>(null);
 
   return (
     <section className="dashboard-section">
+      <SurveyModal
+        survey={selectedSurvey}
+        onClose={() => setSelectedSurvey(null)}
+      />
       <div className="section-header">
         <h3 className="section-title">Enkäter för dig</h3>
         {surveys && surveys.length > 0 && (
@@ -84,7 +91,11 @@ export const DashboardSurveys = () => {
         <>
           <div className="survey-grid">
             {surveys.slice(0, visibleCount).map((s) => (
-              <SurveyCard key={s.project_id} survey={s} />
+              <SurveyCard
+                key={s.project_id}
+                survey={s}
+                onSelect={setSelectedSurvey}
+              />
             ))}
           </div>
           {visibleCount < surveys.length && (
