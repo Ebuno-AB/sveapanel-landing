@@ -3,6 +3,8 @@ import { DashboardSurveys } from "@/features/dashboard/components/DashboardSurve
 import { DashboardStores } from "../components/DashboardStores";
 import StreakBadge from "@/features/streak/components/StreakBadge";
 import { DashboardReferralCard } from "@/features/dashboard/components/DashboardReferralCard";
+import DuelsBadge from "@/features/competition/components/DuelsBadge";
+import GamesBadge from "@/features/games/components/GamesBadge";
 
 const DashboardPage = () => {
   return (
@@ -15,6 +17,15 @@ const DashboardPage = () => {
             <DashboardReferralCard />
           </div>
           <DashboardStores />
+          <div className="dashboard-section">
+            <div className="section-header">
+              <h2 className="section-title">Ladda ner appen</h2>
+            </div>
+            <div className="dashboard-section--row">
+              <DuelsBadge />
+              <GamesBadge />
+            </div>
+          </div>
         </div>
       </div>
     </>
