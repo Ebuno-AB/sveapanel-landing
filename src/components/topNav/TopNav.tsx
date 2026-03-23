@@ -15,7 +15,7 @@ const TopNav: React.FC = () => {
   // Responsive breakpoint + close menu when switching to desktop
   useEffect(() => {
     const checkScreenSize = () => {
-      const mobile = window.innerWidth < 900;
+      const mobile = window.innerWidth < 875;
       setIsMobile(mobile);
       if (!mobile) setIsMenuOpen(false);
     };
@@ -112,7 +112,10 @@ const TopNav: React.FC = () => {
                 >
                   Kundtjänst
                 </button>
-                <button className="topnav-download" onClick={() => navigate("/logga-in")}>
+                <button
+                  className="topnav-download"
+                  onClick={() => navigate("/logga-in")}
+                >
                   Logga in
                 </button>
               </div>

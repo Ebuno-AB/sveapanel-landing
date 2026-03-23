@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, ArrowUpDown, ShoppingBag } from "lucide-react";
 import {
   useFeaturedStore,
@@ -25,6 +25,13 @@ const CashbackPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"az" | "cashback">("az");
   const [visibleCount, setVisibleCount] = useState(INITIAL_LIMIT);
+  const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
+
+  useEffect(() => {
+    const check = () => setIsCompact(window.innerWidth < 690);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const filteredStores = useMemo(() => {
     if (!stores) return [];
@@ -91,16 +98,35 @@ const CashbackPage = () => {
             />
           </div>
 
-          {categories && categories.length > 0 && (
-            <CategoryCarousel
-              categories={categories}
-              selected={selectedCategory}
-              onSelect={(slug) => {
-                setSelectedCategory(slug);
-                setVisibleCount(INITIAL_LIMIT);
-              }}
-            />
-          )}
+          {categories &&
+            categories.length > 0 &&
+            (isCompact ? (
+              <select
+                className="cb-category-select"
+                value={selectedCategory ?? ""}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value || undefined);
+                  setVisibleCount(INITIAL_LIMIT);
+                }}
+                aria-label="Välj kategori"
+              >
+                <option value="">Alla kategorier</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.slug}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <CategoryCarousel
+                categories={categories}
+                selected={selectedCategory}
+                onSelect={(slug) => {
+                  setSelectedCategory(slug);
+                  setVisibleCount(INITIAL_LIMIT);
+                }}
+              />
+            ))}
 
           <div className="cb-sort-chips">
             <button

@@ -367,7 +367,7 @@ body.no-scroll {
 }
 
 /* Mobile responsiveness */
-@media (max-width: 900px) {
+@media (max-width: 875px) {
   .modern-topnav {
     padding: 0 1rem;
   }

@@ -37,6 +37,30 @@
   padding: 0 24px 60px;
 }
 
+/* ── Category Select (compact) ── */
+.cb-category-select {
+  width: 100%;
+  margin-top: 16px;
+  appearance: none;
+  background: var(--color-bg)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
+    no-repeat right 14px center;
+  border: 1.5px solid var(--color-border-subtle);
+  border-radius: 50px;
+  padding: 10px 40px 10px 16px;
+  font-size: 0.9rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-primary);
+}
+
+.cb-category-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 /* ── Categories Carousel ── */
 .cb-categories-section {
   margin-top: 16px;

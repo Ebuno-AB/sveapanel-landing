@@ -60,7 +60,7 @@ const AuthNav = () => {
 
   useEffect(() => {
     const check = () => {
-      const mobile = window.innerWidth < 769;
+      const mobile = window.innerWidth < 875;
       setIsMobile(mobile);
       if (!mobile) setMenuOpen(false);
     };
@@ -129,22 +129,21 @@ const AuthNav = () => {
               })}
           </div>
 
-          {/* Right: balance + avatar (desktop) */}
+          {/* Right: balance + streak (always) + avatar/hamburger */}
           <div className="auth-topnav-right">
+            <BalanceRing balance={user?.balance ?? 0} />
+            <StreakBadge
+              streak={streakStats?.currentStreak ?? 0}
+              onClick={() => navigate("/dashboard/streak")}
+            />
+
             {!isMobile && (
-              <>
-                <BalanceRing balance={user?.balance ?? 0} />
-                <StreakBadge
-                  streak={streakStats?.currentStreak ?? 0}
-                  onClick={() => navigate("/dashboard/streak")}
-                />
-                <button
-                  className="auth-avatar-btn"
-                  onClick={() => navigate("/dashboard/konto")}
-                >
-                  <div className="auth-avatar">{initials}</div>
-                </button>
-              </>
+              <button
+                className="auth-avatar-btn"
+                onClick={() => navigate("/dashboard/konto")}
+              >
+                <div className="auth-avatar">{initials}</div>
+              </button>
             )}
 
             {/* Mobile hamburger */}
@@ -191,10 +190,6 @@ const AuthNav = () => {
             </nav>
 
             <div className="auth-mobile-bottom">
-              <div className="auth-mobile-balance">
-                <BalanceRing balance={user?.balance ?? 0} />
-                <span className="auth-mobile-balance-label">Ditt saldo</span>
-              </div>
               <button
                 className="auth-mobile-profile"
                 onClick={() => closeAndGo("/dashboard/konto")}

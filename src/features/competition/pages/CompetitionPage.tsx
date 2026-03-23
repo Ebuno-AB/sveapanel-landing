@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useActiveCompetitions,
   useCompetitionHistory,
@@ -18,6 +18,14 @@ const CompetitionPage = () => {
   const { data: stats } = useCompetitionStats();
 
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
+
+  useEffect(() => {
+    const check = () => setIsCompact(window.innerWidth < 690);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const history =
     historyRes?.data ??
     (Array.isArray(historyRes)
@@ -62,28 +70,43 @@ const CompetitionPage = () => {
 
       {competitions && competitions.length > 1 && (
         <div className="comp-tabs-section">
-          <div className="comp-tabs">
-            {competitions.map((comp, i) => (
-              <div
-                key={comp.competition_info.id}
-                className={`comp-tab${i === activeIdx ? " active" : ""}`}
-                onClick={() => setActiveIdx(i)}
-              >
-                <div className="comp-tab-title">
+          {isCompact ? (
+            <select
+              className="comp-tabs-select"
+              value={activeIdx}
+              onChange={(e) => setActiveIdx(Number(e.target.value))}
+              aria-label="Välj tävling"
+            >
+              {competitions.map((comp, i) => (
+                <option key={comp.competition_info.id} value={i}>
                   {comp.competition_info.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <div className="comp-tabs">
+              {competitions.map((comp, i) => (
+                <div
+                  key={comp.competition_info.id}
+                  className={`comp-tab${i === activeIdx ? " active" : ""}`}
+                  onClick={() => setActiveIdx(i)}
+                >
+                  <div className="comp-tab-title">
+                    {comp.competition_info.title}
+                  </div>
+                  <div className="comp-tab-meta">
+                    <span className="comp-tab-type">
+                      {comp.competition_info.competition_type}
+                    </span>
+                    {comp.competition_info.end_date && (
+                      <TimerPill endDate={comp.competition_info.end_date} />
+                    )}
+                    <div className="live-dot" />
+                  </div>
                 </div>
-                <div className="comp-tab-meta">
-                  <span className="comp-tab-type">
-                    {comp.competition_info.competition_type}
-                  </span>
-                  {comp.competition_info.end_date && (
-                    <TimerPill endDate={comp.competition_info.end_date} />
-                  )}
-                  <div className="live-dot" />
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
