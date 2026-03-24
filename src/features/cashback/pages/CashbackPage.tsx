@@ -13,7 +13,7 @@ import FeedSkeleton from "@/features/cashback/components/FeedSkeleton";
 import CashbackStoreModal from "@/features/cashback/components/CashbackStoreModal";
 import "@/features/cashback/styles/CashbackPage.css";
 
-const INITIAL_LIMIT = 12;
+const INITIAL_LIMIT = 24;
 
 const CashbackPage = () => {
   const { data: featuredStore, isLoading: featuredLoading } =
