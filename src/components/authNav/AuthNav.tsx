@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "@/features/user/api/user.queries";
 import { useStreakStats } from "@/features/streak/api/streak.queries";
-import { Flame } from "lucide-react";
+import { Flame, CircleX } from "lucide-react";
 import logoImg from "@/assets/icons/logo.png";
+import swishLogo from "@/assets/icons/swishLogo.png";
 import "./AuthNav.css";
 
 const NAV_ITEMS = [
@@ -30,12 +31,18 @@ function StreakBadge({
   );
 }
 
-function BalanceRing({ balance }: { balance: number }) {
+function BalanceRing({
+  balance,
+  onClick,
+}: {
+  balance: number;
+  onClick: () => void;
+}) {
   const displayBalance = balance / 10;
   const progress = Math.min(displayBalance / BALANCE_MAX, 1);
 
   return (
-    <div className="balance-pill">
+    <button className="balance-pill" onClick={onClick} aria-label="Visa saldo">
       <div
         className="balance-pill-fill"
         style={{ width: `${progress * 100}%` }}
@@ -44,6 +51,56 @@ function BalanceRing({ balance }: { balance: number }) {
         {Math.round(displayBalance)}
         <span className="balance-pill-currency">kr</span>
       </span>
+    </button>
+  );
+}
+
+function BalanceModal({
+  balance,
+  onClose,
+}: {
+  balance: number;
+  onClose: () => void;
+}) {
+  const displayBalance = balance / 10;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="balance-modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="balance-modal" onClick={(e) => e.stopPropagation()}>
+        <button
+          className="balance-modal-close"
+          onClick={onClose}
+          aria-label="Stäng"
+        >
+          <CircleX size={24} color="#ffffff" />
+        </button>
+        <div className="balance-modal-ring">
+          <span className="balance-modal-amount">
+            {displayBalance.toFixed(1)}kr
+          </span>
+        </div>
+        <button className="balance-modal-payout-btn">
+          <img
+            src={swishLogo}
+            alt="Swish"
+            className="balance-modal-swish-logo"
+          />
+          Ta ut pengar
+        </button>
+      </div>
     </div>
   );
 }
@@ -56,6 +113,7 @@ const AuthNav = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [balanceModalOpen, setBalanceModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -131,7 +189,10 @@ const AuthNav = () => {
 
           {/* Right: balance + streak (always) + avatar/hamburger */}
           <div className="auth-topnav-right">
-            <BalanceRing balance={user?.balance ?? 0} />
+            <BalanceRing
+              balance={user?.balance ?? 0}
+              onClick={() => setBalanceModalOpen(true)}
+            />
             <StreakBadge
               streak={streakStats?.currentStreak ?? 0}
               onClick={() => navigate("/dashboard/streak")}
@@ -162,6 +223,13 @@ const AuthNav = () => {
           </div>
         </div>
       </nav>
+
+      {balanceModalOpen && (
+        <BalanceModal
+          balance={user?.balance ?? 0}
+          onClose={() => setBalanceModalOpen(false)}
+        />
+      )}
 
       {/* Mobile fullscreen menu */}
       {isMobile && (
