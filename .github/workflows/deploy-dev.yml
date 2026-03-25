@@ -92,5 +92,5 @@ jobs:
             DEPLOY_DIR=~/sveapanel-landing-dev-deploy
             chmod +x "$DEPLOY_DIR/scripts/deploy-dev.sh"
 
-            # Deploy with the image name
-            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+            # Deploy with the image name and API base URL
+            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev "${{ vars.API_BASE_URL }}"

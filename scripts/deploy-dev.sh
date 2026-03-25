@@ -6,9 +6,11 @@ set -e
 # Configuration
 CONTAINER_NAME="sveapanel-landing-dev"
 IMAGE_NAME="$1"  # Passed as argument
+API_BASE_URL="${2:-https://api.sveapanelen.se}"  # Second arg or default
 PORT=3047
 
 echo "Starting dev deployment for $IMAGE_NAME..."
+echo "API_BASE_URL: $API_BASE_URL"
 
 # 1. Pull the new image (pushed by action to GHCR)
 echo "Pulling new image..."
@@ -39,6 +41,7 @@ echo "Starting new container..."
 docker run -d \
   --name "$CONTAINER_NAME" \
   --restart unless-stopped \
+  -e API_BASE_URL="$API_BASE_URL" \
   -p $PORT:80 \
   "$IMAGE_NAME"
 
