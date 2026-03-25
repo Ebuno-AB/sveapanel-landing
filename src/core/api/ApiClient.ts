@@ -1,11 +1,11 @@
-import axios, { type AxiosInstance } from "axios";
+import axios from "axios";
 import { env } from "../config/env";
 import { tokenStorage } from "../auth/tokenStorage";
 import { useAuthStore } from "../auth/authStore";
 
-let client: AxiosInstance | null = null;
+let client: ReturnType<typeof axios.create> | null = null;
 
-export function ApiClient(): AxiosInstance {
+export function ApiClient() {
   if (client) return client;
 
   client = axios.create({
@@ -19,7 +19,7 @@ export function ApiClient(): AxiosInstance {
   // ── Auth interceptor ──
   client.interceptors.request.use((config) => {
     const token = tokenStorage.getToken();
-    if (token) {
+    if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
