@@ -48,11 +48,15 @@ jobs:
 
       - name: Build .env file from all GitHub secrets and variables
         run: |
-          # Write all variables
-          echo '${{ toJSON(vars) }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .build.env
+          # Write all variables to .env (Vite reads .env at build time)
+          echo '${{ toJSON(vars) }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
 
           # Write all secrets (excluding GitHub internal ones and SSH credentials)
-          echo '${{ toJSON(secrets) }}' | jq -r 'to_entries[] | select(.key | test("^(GITHUB_TOKEN|HOST|USERNAME|SSH_KEY|SSH_PORT)$") | not) | "\(.key)=\(.value)"' >> .build.env
+          echo '${{ toJSON(secrets) }}' | jq -r 'to_entries[] | select(.key | test("^(GITHUB_TOKEN|HOST|USERNAME|SSH_KEY|SSH_PORT)$") | not) | "\(.key)=\(.value)"' >> .env
+          
+          # Debug: show what's in .env (without values)
+          echo "Environment variables set:"
+          cut -d= -f1 .env
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

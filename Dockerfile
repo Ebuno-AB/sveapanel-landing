@@ -12,10 +12,7 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Copy build-time env file if it exists (created by CI)
-COPY .build.env* .env* ./
-
-# Build the app
+# Build the app (reads .env created by CI)
 RUN npm run build
 
 # Stage 2: Production
