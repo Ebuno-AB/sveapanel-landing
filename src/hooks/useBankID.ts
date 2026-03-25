@@ -27,7 +27,7 @@ export const useBankID = () => {
   const verifyCount = useRef<number>(0);
 
   // Generic API call function
-  const makeApiCall = async (endpoint: string, data?: Record<string, any>) => {
+  const makeApiCall = async (endpoint: keyof typeof BANKID_CONFIG.ENDPOINTS, data?: Record<string, any>) => {
     const formData = new FormData();
     if (data) {
       Object.entries(data).forEach(([key, value]) =>
