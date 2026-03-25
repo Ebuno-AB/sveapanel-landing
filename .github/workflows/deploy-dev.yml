@@ -1,0 +1,96 @@
+name: Deploy sveapanel-landing to Dev
+
+on:
+  push:
+    branches: ["dev"]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: development
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Downcase REPO
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=dev
+            type=sha,prefix=dev-
+
+      - name: Build .env file from all GitHub secrets and variables
+        run: |
+          # Write all variables
+          echo '${{ toJSON(vars) }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .build.env
+
+          # Write all secrets (excluding GitHub internal ones and SSH credentials)
+          echo '${{ toJSON(secrets) }}' | jq -r 'to_entries[] | select(.key | test("^(GITHUB_TOKEN|HOST|USERNAME|SSH_KEY|SSH_PORT)$") | not) | "\(.key)=\(.value)"' >> .build.env
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+
+      - name: Copy deploy script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "scripts/deploy-dev.sh"
+          target: "~/sveapanel-landing-dev-deploy"
+          strip_components: 0
+
+      - name: Execute deployment on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            # Login to GHCR on the server
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            # Set up deploy directory
+            DEPLOY_DIR=~/sveapanel-landing-dev-deploy
+            chmod +x "$DEPLOY_DIR/scripts/deploy-dev.sh"
+
+            # Deploy with the image name
+            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
