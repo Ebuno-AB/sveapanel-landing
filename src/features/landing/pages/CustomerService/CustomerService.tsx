@@ -10,8 +10,6 @@ function CustomerService() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
 
-  const handleAppDownload = () => setIsAppDownloadQRModalOpen(true);
-
   return (
     <>
       <TopNav />
