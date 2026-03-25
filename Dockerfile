@@ -24,10 +24,15 @@ FROM nginx:alpine
 # Copy built assets from builder
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy nginx config as template (envsubst will process it at startup)
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+# Copy nginx config as template (our entrypoint will process it)
+COPY nginx.conf /etc/nginx/nginx.conf.template
+
+# Copy and set up custom entrypoint
+COPY docker-entrypoint.sh /custom-entrypoint.sh
+RUN chmod +x /custom-entrypoint.sh
 
 # Expose port 80
 EXPOSE 80
 
+ENTRYPOINT ["/custom-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
