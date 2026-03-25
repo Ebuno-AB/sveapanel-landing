@@ -93,4 +93,4 @@ jobs:
             chmod +x "$DEPLOY_DIR/scripts/deploy-dev.sh"
 
             # Deploy with the image name and API base URL
-            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev "${{ vars.API_BASE_URL }}"
+            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev "${{ vars.VITE_API_URL }}"
