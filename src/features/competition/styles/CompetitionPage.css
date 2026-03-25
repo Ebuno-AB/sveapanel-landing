@@ -624,6 +624,32 @@
   font-size: 0.75rem;
 }
 
+/* ── History Load More ── */
+.comp-history-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.comp-history-load-more-btn {
+  background: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.55rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.comp-history-load-more-btn:hover {
+  border-color: #111;
+  background: rgba(0, 0, 0, 0.04);
+}
+
 /* ── Empty / Loading ── */
 .comp-empty {
   text-align: center;

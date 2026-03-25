@@ -19,6 +19,10 @@ const CompetitionPage = () => {
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
+  const getHistoryPageSize = () => (window.innerWidth < 690 ? 2 : 5);
+  const [visibleHistoryCount, setVisibleHistoryCount] = useState(() =>
+    getHistoryPageSize(),
+  );
 
   useEffect(() => {
     const check = () => setIsCompact(window.innerWidth < 690);
@@ -134,10 +138,22 @@ const CompetitionPage = () => {
                 <h3>Tidigare tävlingar</h3>
               </div>
               <div className="comp-history-list">
-                {history.map((item) => (
+                {history.slice(0, visibleHistoryCount).map((item) => (
                   <HistoryRow key={item.competition_info.id} item={item} />
                 ))}
               </div>
+              {visibleHistoryCount < history.length && (
+                <div className="comp-history-load-more">
+                  <button
+                    className="comp-history-load-more-btn"
+                    onClick={() =>
+                      setVisibleHistoryCount((c) => c + getHistoryPageSize())
+                    }
+                  >
+                    Visa fler
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

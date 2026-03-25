@@ -55,7 +55,7 @@ const LoginPage = () => {
           <p>
             {isPhoneDevice
               ? "Tryck på knappen för att öppna BankID"
-              : "Verifiera in med BankID för att svara på enkäter och handla med cashback."}
+              : "Verifiera dig med BankID för att svara på enkäter och handla med cashback."}
           </p>
 
           <button

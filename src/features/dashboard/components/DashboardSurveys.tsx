@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Clipboard, Star, Coins, Timer } from "lucide-react";
 import { useSurveys } from "@/features/survey/api/survey.queries";
 import SurveyCard from "@/features/survey/components/SurveyCard";
@@ -14,6 +14,13 @@ export const DashboardSurveys = () => {
   const [visibleCount, setVisibleCount] = useState(() => getPageSize());
   const [selectedSurvey, setSelectedSurvey] = useState<Survey | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("recommended");
+  const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
+
+  useEffect(() => {
+    const check = () => setIsCompact(window.innerWidth < 690);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const sortedSurveys = useMemo(() => {
     if (!surveys) return [];
@@ -45,35 +52,51 @@ export const DashboardSurveys = () => {
         )}
       </div>
 
-      <div className="survey-sort-chips">
-        <button
-          className={`survey-sort-chip${sortBy === "recommended" ? " active" : ""}`}
-          onClick={() => {
-            setSortBy("recommended");
+      {isCompact ? (
+        <select
+          className="survey-sort-select"
+          value={sortBy}
+          onChange={(e) => {
+            setSortBy(e.target.value as SortOption);
             setVisibleCount(getPageSize());
           }}
+          aria-label="Sortera enkäter"
         >
-          <Star size={13} strokeWidth={2.5} /> Rekommenderad
-        </button>
-        <button
-          className={`survey-sort-chip${sortBy === "reward" ? " active" : ""}`}
-          onClick={() => {
-            setSortBy("reward");
-            setVisibleCount(getPageSize());
-          }}
-        >
-          <Coins size={13} strokeWidth={2.5} /> Högst belöning
-        </button>
-        <button
-          className={`survey-sort-chip${sortBy === "shortest" ? " active" : ""}`}
-          onClick={() => {
-            setSortBy("shortest");
-            setVisibleCount(getPageSize());
-          }}
-        >
-          <Timer size={13} strokeWidth={2.5} /> Kortast
-        </button>
-      </div>
+          <option value="recommended">Rekommenderad</option>
+          <option value="reward">Högst belöning</option>
+          <option value="shortest">Kortast</option>
+        </select>
+      ) : (
+        <div className="survey-sort-chips">
+          <button
+            className={`survey-sort-chip${sortBy === "recommended" ? " active" : ""}`}
+            onClick={() => {
+              setSortBy("recommended");
+              setVisibleCount(getPageSize());
+            }}
+          >
+            <Star size={13} strokeWidth={2.5} /> Rekommenderad
+          </button>
+          <button
+            className={`survey-sort-chip${sortBy === "reward" ? " active" : ""}`}
+            onClick={() => {
+              setSortBy("reward");
+              setVisibleCount(getPageSize());
+            }}
+          >
+            <Coins size={13} strokeWidth={2.5} /> Högst belöning
+          </button>
+          <button
+            className={`survey-sort-chip${sortBy === "shortest" ? " active" : ""}`}
+            onClick={() => {
+              setSortBy("shortest");
+              setVisibleCount(getPageSize());
+            }}
+          >
+            <Timer size={13} strokeWidth={2.5} /> Kortast
+          </button>
+        </div>
+      )}
 
       {isLoading ? (
         <div className="survey-grid">
