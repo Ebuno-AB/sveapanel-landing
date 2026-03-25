@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import QRCode from "qrcode";
-import { BANKID_CONFIG, getApiUrl } from "../config/bankid";
+import { BANKID_CONFIG } from "../config/bankid";
 import { useAppSelector } from "../redux/store";
 import { safeRedirect } from "../utils/safeRedirect";
 
@@ -27,7 +27,7 @@ export const useBankID = () => {
   const verifyCount = useRef<number>(0);
 
   // Generic API call function
-  const makeApiCall = async (endpoint: keyof typeof BANKID_CONFIG.ENDPOINTS, data?: Record<string, any>) => {
+  const makeApiCall = async (endpoint: string, data?: Record<string, any>) => {
     const formData = new FormData();
     if (data) {
       Object.entries(data).forEach(([key, value]) =>
@@ -35,7 +35,7 @@ export const useBankID = () => {
       );
     }
 
-    const response = await fetch(getApiUrl(endpoint), {
+    const response = await fetch(endpoint, {
       method: "POST",
       body: formData,
     });
