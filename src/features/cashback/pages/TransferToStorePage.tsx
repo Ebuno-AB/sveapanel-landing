@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import { formatCashback } from "@/features/cashback/utils/formatCashback";
+import { useStoreDetail } from "@/features/cashback/api/cashback.queries";
 import "@/features/cashback/styles/TransferToStore.css";
 
 interface TransferToStoreState {
@@ -23,6 +24,11 @@ function TransferToStorePage() {
   const store = (location.state as TransferToStoreState)?.store;
 
   const [logoError, setLogoError] = useState(false);
+
+  const { data: storeDetail } = useStoreDetail(
+    store?.id ?? 0,
+    store?.hasMultipleCommissionGroups ?? false,
+  );
 
   useEffect(() => {
     if (!store) {
@@ -125,6 +131,28 @@ function TransferToStorePage() {
             </div>
           )}
 
+          {/* Cashback per commission group */}
+          {storeDetail?.commissionGroups &&
+            storeDetail.commissionGroups.length > 0 && (
+              <div className="tts-info-card tts-product-categories-card">
+                <p className="tts-product-categories-title">
+                  Cashback per kategori
+                </p>
+                <div className="tts-product-categories">
+                  {storeDetail.commissionGroups.map((group) => (
+                    <div key={group.name} className="tts-product-category-row">
+                      <span className="tts-product-category-name">
+                        {group.name}
+                      </span>
+                      <span className="tts-product-category-cashback">
+                        {formatCashback(group)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
           {/* Payout time */}
           <div className="tts-info-card">
             <div className="tts-info-card-header">
@@ -132,7 +160,7 @@ function TransferToStorePage() {
               <span className="tts-info-title">Utbetalningstid</span>
             </div>
             <p className="tts-info-text">
-              Cashback godkänns normalt inom <strong>30–60 dagar</strong> efter
+              Cashback godkänns normalt inom <strong>30-60 dagar</strong> efter
               genomfört köp, beroende på butikens returpolicy.
             </p>
           </div>

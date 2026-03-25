@@ -17,7 +17,7 @@ export interface UserProfile {
   dateOfBirth: string | null;
   zip: string | null;
   swishNumber: string | null;
-  setupComplete: boolean;
+  hasFinishedSetup: number;
   referralCode: string;
   createdAt: string;
 }

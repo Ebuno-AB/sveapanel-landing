@@ -44,7 +44,7 @@ const CompetitionPage = () => {
               <div className="comp-stat">
                 <div className="comp-stat-icon">🏅</div>
                 <div className="comp-stat-value">
-                  {stats.bestPosition > 0 ? `#${stats.bestPosition}` : "-"}
+                  {stats.bestPosition > 0 ? `${stats.bestPosition}` : "-"}
                 </div>
                 <div className="comp-stat-label">Bästa</div>
               </div>
@@ -68,62 +68,66 @@ const CompetitionPage = () => {
         </div>
       </div>
 
-      {competitions && competitions.length > 1 && (
-        <div className="comp-tabs-section">
-          {isCompact ? (
-            <select
-              className="comp-tabs-select"
-              value={activeIdx}
-              onChange={(e) => setActiveIdx(Number(e.target.value))}
-              aria-label="Välj tävling"
-            >
-              {competitions.map((comp, i) => (
-                <option key={comp.competition_info.id} value={i}>
-                  {comp.competition_info.title}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <div className="comp-tabs">
-              {competitions.map((comp, i) => (
-                <div
-                  key={comp.competition_info.id}
-                  className={`comp-tab${i === activeIdx ? " active" : ""}`}
-                  onClick={() => setActiveIdx(i)}
-                >
-                  <div className="comp-tab-title">
+      <div className="comp-active-panel">
+        {competitions && competitions.length > 1 && (
+          <div className="comp-tabs-bar">
+            {isCompact ? (
+              <select
+                className="comp-tabs-select"
+                value={activeIdx}
+                onChange={(e) => setActiveIdx(Number(e.target.value))}
+                aria-label="Välj tävling"
+              >
+                {competitions.map((comp, i) => (
+                  <option key={comp.competition_info.id} value={i}>
                     {comp.competition_info.title}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className="comp-tabs">
+                {competitions.map((comp, i) => (
+                  <div
+                    key={comp.competition_info.id}
+                    className={`comp-tab${i === activeIdx ? " active" : ""}`}
+                    onClick={() => setActiveIdx(i)}
+                  >
+                    <div className="comp-tab-title">
+                      {comp.competition_info.title}
+                    </div>
+                    <div className="comp-tab-meta">
+                      <span className="comp-tab-type">
+                        {comp.competition_info.competition_type}
+                      </span>
+                      {comp.competition_info.end_date && (
+                        <TimerPill endDate={comp.competition_info.end_date} />
+                      )}
+                      <div className="live-dot" />
+                    </div>
                   </div>
-                  <div className="comp-tab-meta">
-                    <span className="comp-tab-type">
-                      {comp.competition_info.competition_type}
-                    </span>
-                    {comp.competition_info.end_date && (
-                      <TimerPill endDate={comp.competition_info.end_date} />
-                    )}
-                    <div className="live-dot" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {compLoading ? (
+          <div className="comp-panel-body">
+            <CompSkeleton />
+          </div>
+        ) : activeComp ? (
+          <CompetitionCard competition={activeComp} />
+        ) : !competitions || competitions.length === 0 ? (
+          <div className="comp-empty">
+            <div className="comp-empty-icon">🏆</div>
+            <h3>Inga aktiva tävlingar</h3>
+            <p>Nya tävlingar startar snart — håll utkik!</p>
+          </div>
+        ) : null}
+      </div>
 
       <div className="comp-content">
         <div className="comp-inner">
-          {compLoading ? (
-            <CompSkeleton />
-          ) : activeComp ? (
-            <CompetitionCard competition={activeComp} />
-          ) : !competitions || competitions.length === 0 ? (
-            <div className="comp-empty">
-              <div className="comp-empty-icon">🏆</div>
-              <h3>Inga aktiva tävlingar</h3>
-              <p>Nya tävlingar startar snart — håll utkik!</p>
-            </div>
-          ) : null}
-
           {history.length > 0 && (
             <div className="comp-history-section">
               <div className="comp-history-header">

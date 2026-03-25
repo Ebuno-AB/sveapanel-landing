@@ -56,3 +56,16 @@ export const usePendingBalance = () => {
     enabled: isAuthenticated,
   });
 };
+
+export const useStoreDetail = (
+  storeId: number,
+  hasMultipleCommissionGroups: boolean,
+) => {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return useQuery({
+    queryKey: queryKeys.cashback.storeDetail(storeId),
+    queryFn: () => cashbackApi.getStoreDetail(storeId),
+    enabled: isAuthenticated && storeId > 0 && hasMultipleCommissionGroups,
+  });
+};

@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap");
+
+/* ── Card wrapper ─────────────────────────────────────── */
+.games-badge {
+  width: 100%;
+  height: 130px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid rgba(251, 146, 60, 0.22);
+  box-shadow: 0 6px 20px rgba(194, 65, 12, 0.4);
+  position: relative;
+  background: linear-gradient(135deg, #1a0800, #c2410c, #0a0400);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Corner glows ─────────────────────────────────────── */
+.games-badge__glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.games-badge__glow--tl {
+  top: -30px;
+  left: -30px;
+  width: 120px;
+  height: 120px;
+  background: rgba(251, 146, 60, 0.14);
+}
+
+.games-badge__glow--br {
+  bottom: -40px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(251, 191, 36, 0.07);
+}
+
+/* ── Gamepad watermark ────────────────────────────────── */
+.games-badge__watermark {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.games-badge__watermark-icon {
+  color: #fff;
+}
+
+/* ── Top edge glow ────────────────────────────────────── */
+.games-badge__edge-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to bottom, #fb923c, transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Content row ──────────────────────────────────────── */
+.games-badge__content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 14px 16px 16px;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* ── Left column ──────────────────────────────────────── */
+.games-badge__left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.games-badge__badges {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.games-badge__pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+}
+
+.games-badge__pill--new {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  gap: 3px;
+}
+
+.games-badge__pill--exclusive {
+  background: rgba(251, 191, 36, 0.13);
+  color: #fbbf24;
+  gap: 3px;
+  letter-spacing: 0.3px;
+}
+
+.games-badge__title {
+  font-family: "Bowlby One SC", cursive;
+  font-size: 32px;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(251, 146, 60, 0.55);
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.games-badge__subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Right column ─────────────────────────────────────── */
+.games-badge__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.games-badge__gamepad-icon {
+  color: #fff;
+}
+
+.games-badge__play-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: 50px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.08)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: "Bowlby One SC", cursive;
+  font-size: 11px;
+  cursor: pointer;
+  line-height: 1;
+}

@@ -1,6 +1,7 @@
 import { type RouteObject } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "./ProtectedRoute";
+import SetupRoute from "./SetupRoute";
 
 // Lazy-loaded pages for code splitting
 const LandingPage = lazy(() => import("@/features/landing/pages/LandingPage"));
@@ -42,6 +43,38 @@ const TransferToStorePage = lazy(
   () => import("@/features/cashback/pages/TransferToStorePage"),
 );
 
+// Setup flow
+const WelcomeSetUp = lazy(() =>
+  import("@/features/setup/pages/WelcomeSetUp").then((m) => ({
+    default: m.WelcomeSetUp,
+  })),
+);
+const PhoneSetUp = lazy(() =>
+  import("@/features/setup/pages/PhoneSetUp").then((m) => ({
+    default: m.PhoneSetUp,
+  })),
+);
+const EmailSetUp = lazy(() =>
+  import("@/features/setup/pages/EmailSetUp").then((m) => ({
+    default: m.EmailSetUp,
+  })),
+);
+const ZipSetUp = lazy(() =>
+  import("@/features/setup/pages/ZipSetUp").then((m) => ({
+    default: m.ZipSetUp,
+  })),
+);
+const ReferralSetUp = lazy(() =>
+  import("@/features/setup/pages/ReferralSetUp").then((m) => ({
+    default: m.ReferralSetUp,
+  })),
+);
+const JoinReasonSetUp = lazy(() =>
+  import("@/features/setup/pages/JoinReasonSetUp").then((m) => ({
+    default: m.JoinReasonSetUp,
+  })),
+);
+
 /**
  * Public routes — accessible by everyone.
  */
@@ -58,6 +91,24 @@ export const publicRoutes: RouteObject[] = [
   { path: "/redirect/detect", element: <RedirectPage /> },
   { path: "/404", element: <NotFoundPage /> },
   { path: "/*", element: <NotFoundPage /> },
+];
+
+/**
+ * Setup routes — requires authentication, only for users who haven't completed setup.
+ */
+export const setupRoutes: RouteObject[] = [
+  {
+    path: "/setup",
+    element: <SetupRoute />,
+    children: [
+      { index: true, element: <WelcomeSetUp /> },
+      { path: "phone", element: <PhoneSetUp /> },
+      { path: "email", element: <EmailSetUp /> },
+      { path: "zip", element: <ZipSetUp /> },
+      { path: "referral", element: <ReferralSetUp /> },
+      { path: "join-reason", element: <JoinReasonSetUp /> },
+    ],
+  },
 ];
 
 /**

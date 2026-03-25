@@ -4,6 +4,7 @@ import type {
   CashbackFeedSection,
   CashbackCategory,
   CashbackStore,
+  CashbackStoreDetails,
 } from "../types/cashback.types";
 
 export const cashbackApi = {
@@ -14,4 +15,8 @@ export const cashbackApi = {
   getStores: () => httpClient.get<CashbackStore[]>(ENDPOINTS.cashback.stores),
   getFeaturedStore: () =>
     httpClient.get<CashbackStore>(ENDPOINTS.cashback.featuredStore),
+  getStoreDetail: (storeId: number) =>
+    httpClient.get<CashbackStoreDetails>(
+      ENDPOINTS.cashback.storeDetail(storeId),
+    ),
 };

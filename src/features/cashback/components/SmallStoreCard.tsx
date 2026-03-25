@@ -21,6 +21,7 @@ function SmallStoreCard({
     }
   };
 
+  console.log(store.logoUrl);
   return (
     <div className="cb-small-card" onClick={handleClick}>
       {logoError || !store.logoUrl ? (

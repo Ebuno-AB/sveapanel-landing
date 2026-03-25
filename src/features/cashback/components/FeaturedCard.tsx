@@ -3,10 +3,20 @@ import { ArrowRight } from "lucide-react";
 import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import CashbackBadge from "./CashbackBadge";
 
-function FeaturedCard({ store }: { store: CashbackStore }) {
+function FeaturedCard({
+  store,
+  onCardClick,
+}: {
+  store: CashbackStore;
+  onCardClick?: () => void;
+}) {
   const [logoError, setLogoError] = useState(false);
 
   const handleClick = () => {
+    if (onCardClick) {
+      onCardClick();
+      return;
+    }
     if (store.websiteUrl) {
       window.open(store.websiteUrl, "_blank", "noopener,noreferrer");
     }
@@ -41,7 +51,8 @@ function FeaturedCard({ store }: { store: CashbackStore }) {
             handleClick();
           }}
         >
-          Handla nu <ArrowRight size={14} strokeWidth={2.5} />
+          {onCardClick ? "Se mer" : "Handla nu"}{" "}
+          <ArrowRight size={14} strokeWidth={2.5} />
         </button>
       </div>
     </div>

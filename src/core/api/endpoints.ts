@@ -105,6 +105,12 @@ const ENDPOINTS = {
     submit: "profiler",
     single: (profilerId: string | number) => `profiler/${profilerId}`,
   },
+  reasons: {
+    byType: (type: ReasonType) => `reasons/${type}` as const,
+    submit: "reasons/submit",
+  },
 } as const;
+
+export type ReasonType = "leave" | "screenout" | "delete" | "join";
 
 export { ENDPOINTS };
