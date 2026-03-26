@@ -125,11 +125,9 @@ export const AccountOverview = () => {
           </div>
           <button
             className="overview__payout-btn"
-            disabled={!user?.swishNumber}
+            disabled={!user?.phone}
             title={
-              !user?.swishNumber
-                ? "Lägg till Swish-nummer för att ta ut"
-                : undefined
+              !user?.phone ? "Lägg till Swish-nummer för att ta ut" : undefined
             }
           >
             Ta ut pengar <ChevronRight size={14} />

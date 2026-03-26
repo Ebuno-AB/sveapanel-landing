@@ -16,7 +16,7 @@ export interface UserProfile {
   gender: string | null;
   dateOfBirth: string | null;
   zip: string | null;
-  swishNumber: string | null;
+  phone: string | null;
   hasFinishedSetup: number;
   referralCode: string;
   createdAt: string;

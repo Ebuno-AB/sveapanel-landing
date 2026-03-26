@@ -19,8 +19,8 @@ export interface Reason {
 
 export const useUpdateSwish = () =>
   useMutation({
-    mutationFn: (swishNumber: string) =>
-      httpClient.patch(ENDPOINTS.user.profile.swish, { phone: swishNumber }),
+    mutationFn: (phone: string) =>
+      httpClient.patch(ENDPOINTS.user.profile.swish, { phone }),
   });
 
 export const useUpdateEmail = () =>

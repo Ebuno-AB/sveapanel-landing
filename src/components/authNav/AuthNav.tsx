@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "@/features/user/api/user.queries";
 import { useStreakStats } from "@/features/streak/api/streak.queries";
-import { Flame, CircleX } from "lucide-react";
+import { Flame } from "lucide-react";
 import logoImg from "@/assets/icons/logo.png";
-import swishLogo from "@/assets/icons/swishLogo.png";
+import PayoutModal from "@/components/PayoutModal/PayoutModal";
 import "./AuthNav.css";
 
 const NAV_ITEMS = [
@@ -52,56 +52,6 @@ function BalanceRing({
         <span className="balance-pill-currency">kr</span>
       </span>
     </button>
-  );
-}
-
-function BalanceModal({
-  balance,
-  onClose,
-}: {
-  balance: number;
-  onClose: () => void;
-}) {
-  const displayBalance = balance / 10;
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  return (
-    <div
-      className="balance-modal-overlay"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="balance-modal" onClick={(e) => e.stopPropagation()}>
-        <button
-          className="balance-modal-close"
-          onClick={onClose}
-          aria-label="Stäng"
-        >
-          <CircleX size={24} color="#ffffff" />
-        </button>
-        <div className="balance-modal-ring">
-          <span className="balance-modal-amount">
-            {displayBalance.toFixed(1)}kr
-          </span>
-        </div>
-        <button className="balance-modal-payout-btn">
-          <img
-            src={swishLogo}
-            alt="Swish"
-            className="balance-modal-swish-logo"
-          />
-          Ta ut pengar
-        </button>
-      </div>
-    </div>
   );
 }
 
@@ -225,8 +175,9 @@ const AuthNav = () => {
       </nav>
 
       {balanceModalOpen && (
-        <BalanceModal
+        <PayoutModal
           balance={user?.balance ?? 0}
+          phone={user?.phone ?? null}
           onClose={() => setBalanceModalOpen(false)}
         />
       )}
