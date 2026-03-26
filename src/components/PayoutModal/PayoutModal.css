@@ -93,6 +93,19 @@
   font-weight: 600;
 }
 
+.balance-modal-details-fee {
+  color: #e55;
+  font-weight: 600;
+}
+
+.balance-modal-details-error {
+  font-size: 0.75rem;
+  color: #e55;
+  text-align: center;
+  margin: 1.5rem 0 0;
+  font-weight: 600;
+}
+
 .balance-modal-details-total {
   font-weight: 700;
   font-size: 0.95rem;
@@ -126,6 +139,15 @@
 
 .balance-modal-payout-btn:hover {
   background: #f0f0f0;
+}
+
+.balance-modal-payout-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.balance-modal-payout-btn:disabled:hover {
+  background: #fff;
 }
 
 .balance-modal-swish-logo {

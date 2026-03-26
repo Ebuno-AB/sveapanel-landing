@@ -9,8 +9,15 @@ interface PayoutModalProps {
   onClose: () => void;
 }
 
+const FEE_THRESHOLD = 30;
+const FEE_AMOUNT = 2;
+const MIN_WITHDRAWAL = 3;
+
 const PayoutModal = ({ balance, phone, onClose }: PayoutModalProps) => {
   const displayBalance = balance / 10;
+  const fee = displayBalance <= FEE_THRESHOLD ? FEE_AMOUNT : 0;
+  const netAmount = displayBalance - fee;
+  const belowMinimum = displayBalance < MIN_WITHDRAWAL;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -48,21 +55,32 @@ const PayoutModal = ({ balance, phone, onClose }: PayoutModalProps) => {
           </div>
           <div className="balance-modal-details-row">
             <span>Belopp</span>
-            <span>{Math.round(displayBalance)}kr</span>
+            <span>{displayBalance.toFixed(1)}kr</span>
           </div>
           <div className="balance-modal-details-row">
             <span>Avgift</span>
-            <span className="balance-modal-details-free">Gratis</span>
+            {fee > 0 ? (
+              <span className="balance-modal-details-fee">-{fee}kr</span>
+            ) : (
+              <span className="balance-modal-details-free">Gratis</span>
+            )}
           </div>
           <div className="balance-modal-details-row balance-modal-details-total">
             <span>Totalt</span>
-            <span>{displayBalance.toFixed(1)}kr</span>
+            <span>{netAmount.toFixed(1)}kr</span>
           </div>
-          <p className="balance-modal-details-note">
-            Utbetalningen skickas direkt
-          </p>
+          {belowMinimum && (
+            <p className="balance-modal-details-error">
+              Minsta uttagsbelopp är {MIN_WITHDRAWAL}kr
+            </p>
+          )}
+          {!belowMinimum && (
+            <p className="balance-modal-details-note">
+              Utbetalningen skickas direkt
+            </p>
+          )}
         </div>
-        <button className="balance-modal-payout-btn">
+        <button className="balance-modal-payout-btn" disabled={belowMinimum}>
           <img
             src={swishLogo}
             alt="Swish"
