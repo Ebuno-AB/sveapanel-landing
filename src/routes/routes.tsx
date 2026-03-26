@@ -24,6 +24,9 @@ const RedirectPage = lazy(
 const NotFoundPage = lazy(
   () => import("@/features/landing/pages/NotFoundPage"),
 );
+const CashbackActivationPage = lazy(
+  () => import("@/features/cashback-activation/pages/CashbackActivationPage"),
+);
 
 // Dashboard (authenticated)
 const DashboardPage = lazy(
@@ -89,6 +92,7 @@ export const publicRoutes: RouteObject[] = [
   { path: "/privacy", element: <PrivacyPolicyPage /> },
   { path: "/redirect/:platform", element: <RedirectPage /> },
   { path: "/redirect/detect", element: <RedirectPage /> },
+  { path: "/cashback/activate", element: <CashbackActivationPage /> },
   { path: "/404", element: <NotFoundPage /> },
   { path: "/*", element: <NotFoundPage /> },
 ];
