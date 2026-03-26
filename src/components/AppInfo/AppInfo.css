@@ -31,7 +31,7 @@
   align-items: center;
 }
 
-.app-info__image-wrap img {
+.app-info__image-wrap > img {
   width: 100%;
   max-width: 500px;
   object-fit: contain;
@@ -135,14 +135,19 @@
     gap: 32px;
   }
 
-  .app-info__image-wrap img {
+  .app-info__image-wrap > img {
     max-width: 260px;
   }
 
   .app-info {
     gap: 64px;
     padding: 24px;
-    overflow: hidden;
+    overflow-x: clip;
+  }
+
+  .app-info__image-wrap {
+    width: 100%;
+    min-width: 0;
   }
 
   .app-info__row,

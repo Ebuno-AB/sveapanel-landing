@@ -1,5 +1,5 @@
 import "./AppInfo.css";
-import cashbackMockup from "../../assets/Images/cashbackMockup2.png";
+import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
 import gamingMockup from "../../assets/Images/GamingMockup2.png";
 import dualsMockup from "../../assets/Images/DualsMockup_.png";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
@@ -8,7 +8,7 @@ import surveyMockup from "../../assets/Images/surveyMockup.png";
 type Accent = "pink" | "teal" | "purple" | "orange" | "blue";
 
 interface AppInfoItem {
-  image: string;
+  image: string | null;
   imageAlt: string;
   reverse: boolean;
   accent: Accent;
@@ -26,7 +26,7 @@ const CheckIcon = ({ accent }: { accent: Accent }) => (
 
 const items: AppInfoItem[] = [
   {
-    image: cashbackMockup,
+    image: null,
     imageAlt: "Cashback mockup",
     reverse: false,
     accent: "pink",
@@ -113,7 +113,11 @@ export const AppInfo = () => {
           className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""}`}
         >
           <div className="app-info__image-wrap">
-            <img src={item.image} alt={item.imageAlt} />
+            {item.image === null ? (
+              <CashbackMockup />
+            ) : (
+              <img src={item.image} alt={item.imageAlt} />
+            )}
           </div>
 
           <div className="app-info__content">
