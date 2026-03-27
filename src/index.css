@@ -1,4 +1,6 @@
 :root {
+  --nav-height: 60px;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -22,6 +24,13 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+@media (max-width: 500px) {
+  :root {
+    --nav-height: 50px;
+  }
 }
 
 /* Headers now standardized in App.css - removing conflicting styles */

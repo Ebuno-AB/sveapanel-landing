@@ -3,28 +3,20 @@
    ===================== */
 .modern-topnav {
   position: fixed;
-  top: 20px;
+  top: 0;
   left: 0;
   width: 100%;
   z-index: 2000;
-  padding: 0 1rem;
+  background: #fff;
 }
 
 .topnav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 50px;
-  padding: 0 1rem;
-  height: 70px;
+  padding: 0 2rem;
+  height: var(--nav-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
-  overflow: visible;
 }
 
 .topnav-logo {
@@ -46,6 +38,12 @@
   letter-spacing: -0.02em;
 }
 
+.topnav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .topnav-right {
   display: flex;
   align-items: center;
@@ -55,7 +53,7 @@
 .topnav-links {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 4px;
 }
 
 /* =====================
@@ -80,6 +78,7 @@
 }
 .topnav-link.active {
   font-weight: 600;
+  background: rgba(0, 0, 0, 0.06);
 }
 .topnav-download {
   background: #111;
@@ -178,9 +177,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Mirror the topnav: 20px top offset + 70px height, 2rem side padding */
-  margin-top: 20px;
-  height: 70px;
+  margin-top: 0;
+  height: var(--nav-height);
   padding: 0 2rem;
   position: relative;
   z-index: 10002;
@@ -228,8 +226,8 @@
 .mobile-menu-content {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 110px);
-  padding-top: 110px;
+  height: calc(100vh - var(--nav-height));
+  padding-top: var(--nav-height);
   justify-content: flex-start;
 }
 
@@ -360,21 +358,12 @@ body.no-scroll {
 /* =====================
    Layout tweaks / responsive
    ===================== */
-@media (max-width: 2000px) {
-  .topnav-container {
-    max-width: 80%;
-  }
-}
 
 /* Mobile responsiveness */
 @media (max-width: 875px) {
-  .modern-topnav {
-    padding: 0 1rem;
-  }
-
   .topnav-container {
     padding: 0 1rem;
-    height: 60px;
+    height: var(--nav-height);
   }
 
   .topnav-brand {
@@ -392,11 +381,9 @@ body.no-scroll {
 
 @media (max-width: 500px) {
   .topnav-container {
-    height: 50px;
-    border-radius: 30px;
+    height: var(--nav-height);
     display: flex;
     align-items: center;
-    margin: 0 0;
   }
 
   .topnav-logo-img {

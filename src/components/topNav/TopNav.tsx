@@ -75,22 +75,21 @@ const TopNav: React.FC = () => {
     <>
       <nav className="modern-topnav">
         <div className="topnav-container">
-          {/* Logo */}
-          <div
-            className="topnav-logo"
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          >
-            <img
-              src={logoImg}
-              alt="SveaPanelen logo"
-              className="topnav-logo-img"
-            />
-            {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
-          </div>
+          {/* Left: Logo + Nav Links */}
+          <div className="topnav-left">
+            <div
+              className="topnav-logo"
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={logoImg}
+                alt="SveaPanelen logo"
+                className="topnav-logo-img"
+              />
+              {!isMobile && <span className="topnav-brand">SveaPanelen</span>}
+            </div>
 
-          {/* Right side */}
-          <div className="topnav-right">
             {/* Desktop links */}
             {!isMobile && (
               <div className="topnav-links">
@@ -112,13 +111,19 @@ const TopNav: React.FC = () => {
                 >
                   Kundtjänst
                 </button>
-                <button
-                  className="topnav-download"
-                  onClick={() => navigate("/logga-in")}
-                >
-                  Logga in
-                </button>
               </div>
+            )}
+          </div>
+
+          {/* Right: Login CTA + Hamburger */}
+          <div className="topnav-right">
+            {!isMobile && (
+              <button
+                className="topnav-download"
+                onClick={() => navigate("/logga-in")}
+              >
+                Logga in
+              </button>
             )}
 
             {/* Mobile hamburger */}

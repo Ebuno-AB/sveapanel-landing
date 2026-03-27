@@ -1,11 +1,11 @@
 /* ── Hero ─────────────────────────────────────── */
 .cashback-hero {
   background-color: #f647a4;
-  max-height: 90vh;
   display: flex;
   align-items: center;
+  min-height: calc(90vh - var(--nav-height));
   justify-content: center;
-  padding: 120px 5% 80px;
+  padding: 0 5%;
   box-sizing: border-box;
 }
 
@@ -190,8 +190,7 @@
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 768px) {
   .cashback-hero {
-    max-height: none;
-    padding-top: 160px;
+    padding-top: calc(var(--nav-height) + 40px);
   }
 
   .cashback-hero-image-wrap {
