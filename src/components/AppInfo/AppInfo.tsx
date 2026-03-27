@@ -1,7 +1,7 @@
 import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
+import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
 import gamingMockup from "../../assets/Images/GamingMockup2.png";
-import dualsMockup from "../../assets/Images/DualsMockup_.png";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
 import surveyMockup from "../../assets/Images/surveyMockup.png";
 
@@ -14,6 +14,7 @@ interface AppInfoItem {
   accent: Accent;
   headingParts: { text: string; highlighted?: boolean }[];
   bullets: string[];
+  MockupComponent?: React.ComponentType;
 }
 
 const CheckIcon = ({ accent }: { accent: Accent }) => (
@@ -58,10 +59,11 @@ const items: AppInfoItem[] = [
     ],
   },
   {
-    image: dualsMockup,
+    image: null,
     imageAlt: "Duels mockup",
     reverse: false,
     accent: "purple",
+    MockupComponent: DualsMockup,
     headingParts: [
       { text: "Spela mot andra användare i vårat " },
       { text: "quiz-spel", highlighted: true },
@@ -113,7 +115,9 @@ export const AppInfo = () => {
           className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""}`}
         >
           <div className="app-info__image-wrap">
-            {item.image === null ? (
+            {item.MockupComponent ? (
+              <item.MockupComponent />
+            ) : item.image === null ? (
               <CashbackMockup />
             ) : (
               <img src={item.image} alt={item.imageAlt} />
