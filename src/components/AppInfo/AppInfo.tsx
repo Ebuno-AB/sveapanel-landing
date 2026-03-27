@@ -112,7 +112,7 @@ export const AppInfo = () => {
       {items.map((item, i) => (
         <div
           key={i}
-          className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""}`}
+          className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""} app-info__row--bg-${item.accent}`}
         >
           <div className="app-info__image-wrap">
             {item.MockupComponent ? (
