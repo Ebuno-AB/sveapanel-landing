@@ -9,7 +9,7 @@ export const ReferralShareCard = () => {
 
   const referralCode = user?.referralCode ?? "";
   const referralLink = referralCode
-    ? `https://sveapanelen.se/join/${referralCode}`
+    ? `https://sveapanelen.se/r/${referralCode}`
     : "";
 
   const handleCopy = (text: string, field: "code" | "link") => {
