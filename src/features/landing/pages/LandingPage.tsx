@@ -69,11 +69,14 @@ function LandingPage() {
       {},
       (err: branch.BranchError, data: branch.SessionData | null) => {
         if (err) return;
-        const code = data?.data_parsed?.referral_code;
+        const parsed = data?.data_parsed as Record<string, unknown> | undefined;
+        const code =
+          typeof parsed?.referral_code === "string"
+            ? parsed.referral_code
+            : undefined;
         const hasUrlCode = window.location.pathname.match(/\/r\/\w{5}/);
         if (
           code &&
-          typeof code === "string" &&
           code.length === 5 &&
           !hasUrlCode
         ) {
