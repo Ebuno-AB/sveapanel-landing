@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import QRCode from "qrcode";
 import { BANKID_CONFIG } from "../config/bankid";
 import { useAppSelector } from "../redux/store";
-import { safeRedirect } from "../utils/safeRedirect";
+import { isIOS } from "../utils/browserDetection";
+import { useAuthStore } from "../core/auth/authStore";
 
 export const useBankID = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
@@ -197,17 +198,25 @@ export const useBankID = () => {
           setIsComplete(true);
           clearAllIntervals();
 
-          // For mobile devices, redirect to landing page with success message
-          if (isPhoneDevice) {
-            console.log(
-              "📱 Mobile authentication successful - redirecting to landing page",
-            );
-            safeRedirect("/?registration=success");
-          } else {
-            // For desktop, show success message in modal
-            showMessage("success");
+          // Authenticate user in the new auth system if a token is returned
+          const token = response?.data?.accessToken ?? response?.accessToken;
+          if (token) {
+            useAuthStore.getState().login(token);
           }
-          console.log("Authentication successful");
+
+          if (isPhoneDevice) {
+            // Send mobile users directly to the correct app store
+            window.location.href = isIOS()
+              ? BANKID_CONFIG.APP_STORE_URLS.APPLE
+              : BANKID_CONFIG.APP_STORE_URLS.ANDROID;
+          } else {
+            // Send desktop users to setup if authenticated, otherwise show success modal
+            if (token) {
+              window.location.href = "/setup";
+            } else {
+              showMessage("success");
+            }
+          }
         }
         // Continue polling for 'pending' or 'error' status
       } catch (error) {
