@@ -28,10 +28,9 @@ function CustomerService() {
             E-post: <a href="mailto:help@sveapanelen.se">help@sveapanelen.se</a>
           </p>
           <p className="cs-hero__response-time">
-            Vi svarar normalt inom 1-2 arbetsdagar.
+            Vi svarar normalt inom 3-5 arbetsdagar.
           </p>
         </div>
-        <div></div>
       </section>
 
       {/* FAQ – full-width, outside the constrained hero container */}

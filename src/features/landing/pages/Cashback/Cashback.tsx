@@ -4,7 +4,7 @@ import { useState } from "react";
 import TopNav from "@/components/topNav/TopNav";
 import Footer from "@/components/footer/Footer";
 import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal";
-import cashbackMockup from "@/assets/Images/cashbackMockup.png";
+import cashbackMockup from "@/assets/Images/cashbackMockup.webp";
 import howTo1 from "@/assets/Images/HowTo1.png";
 import howTo2 from "@/assets/Images/HowTo2.png";
 import howTo3 from "@/assets/Images/HowTo3.png";
