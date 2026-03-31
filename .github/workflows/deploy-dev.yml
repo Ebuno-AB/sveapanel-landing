@@ -2,7 +2,7 @@ name: Deploy sveapanel-landing to Dev
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["dev-real"]
   workflow_dispatch:
 
 env:
