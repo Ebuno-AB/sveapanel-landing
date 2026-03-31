@@ -1,21 +1,9 @@
 import React from "react";
 import "./HeroSection.css";
 import phoneImg from "@/assets/Images/sveamock.png";
-import bankIDLogo from "@/assets/icons/BankID_logo.svg";
-import logoImg from "@/assets/logo/logo.svg";
 import PayoutCounter from "../ui/PayoutCounter";
 
-interface HeroProps {
-  isRegistered: boolean;
-  handleBankIDRegistration: () => void;
-  handleAppDownload: () => void;
-}
-
-const HeroSection: React.FC<HeroProps> = ({
-  isRegistered,
-  handleBankIDRegistration,
-  handleAppDownload,
-}) => {
+const HeroSection: React.FC = () => {
   return (
     <div className="hero">
       <div className="hero-overlay">
@@ -39,32 +27,6 @@ const HeroSection: React.FC<HeroProps> = ({
                 </span>
               </li>
             </ul>
-            <div>
-              {isRegistered ? (
-                <div className="custom-app-buttons">
-                  <button
-                    className="custom-app-btn"
-                    onClick={handleBankIDRegistration}
-                  >
-                    Registrera dig med BankID
-                    <img
-                      src={bankIDLogo}
-                      style={{ width: 50, height: "auto", marginLeft: 8 }}
-                    />
-                  </button>
-                </div>
-              ) : (
-                <div className="custom-app-buttons">
-                  <button
-                    className="custom-app-btn"
-                    onClick={handleAppDownload}
-                  >
-                    Ladda ner appen
-                    <img src={logoImg} style={{ width: 35, height: 35 }} />
-                  </button>
-                </div>
-              )}
-            </div>
             <PayoutCounter />
           </div>
 

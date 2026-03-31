@@ -75,11 +75,7 @@ function LandingPage() {
             ? parsed.referral_code
             : undefined;
         const hasUrlCode = window.location.pathname.match(/\/r\/\w{5}/);
-        if (
-          code &&
-          code.length === 5 &&
-          !hasUrlCode
-        ) {
+        if (code && code.length === 5 && !hasUrlCode) {
           referralHook.checkReferralCodeExists(code);
         }
       },
@@ -177,12 +173,12 @@ function LandingPage() {
 
   return (
     <>
-      <TopNav />
-      <Hero
+      <TopNav
         isRegistered={isRegistered}
-        handleBankIDRegistration={handleBankIDRegistration}
-        handleAppDownload={handleAppDownload}
+        onBankIDRegistration={handleBankIDRegistration}
+        onAppDownload={handleAppDownload}
       />
+      <Hero />
       <AppInfo />
       <UserReviews />
       <DownloadToday />

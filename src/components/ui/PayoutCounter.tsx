@@ -56,7 +56,6 @@ export default function PayoutCounter() {
         flexDirection: "column",
         alignItems: "flex-start",
         justifyContent: "center",
-        padding: "80px 0 0 0",
         background: "transparent",
       }}
     >
