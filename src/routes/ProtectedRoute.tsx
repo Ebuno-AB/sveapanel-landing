@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuthStore } from "@/core/auth/authStore";
 import AuthNav from "@/components/authNav/AuthNav";
+import { AuthFooter } from "@/components/AuthFooter/AuthFooter";
 import { useUser } from "@/features/user/api/user.queries";
 
 const ProtectedRoute = () => {
@@ -24,6 +25,7 @@ const ProtectedRoute = () => {
     <>
       <AuthNav />
       <Outlet />
+      <AuthFooter />
     </>
   );
 };

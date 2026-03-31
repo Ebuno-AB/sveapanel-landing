@@ -1,16 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Copy, Check, Share2 } from "lucide-react";
 import { useUser } from "@/features/user/api/user.queries";
+import branch from "branch-sdk";
 import "./InviteFriends.css";
 
 export const ReferralShareCard = () => {
   const { data: user, isLoading } = useUser();
   const [copiedField, setCopiedField] = useState<"code" | "link" | null>(null);
+  const [referralLink, setReferralLink] = useState("");
 
   const referralCode = user?.referralCode ?? "";
-  const referralLink = referralCode
-    ? `https://sveapanelen.se/join/${referralCode}`
-    : "";
+
+  useEffect(() => {
+    if (!referralCode) return;
+    branch.link(
+      {
+        channel: "user-share",
+        feature: "referral",
+        data: {
+          referral_code: referralCode,
+          $deeplink_path: `referral/${referralCode}`,
+          $fallback_url: `https://sveapanelen.se/r/${referralCode}`,
+        },
+      },
+      (err, link) => {
+        if (!err && link) setReferralLink(link);
+        else setReferralLink(`https://sveapanelen.se/r/${referralCode}`);
+      },
+    );
+  }, [referralCode]);
 
   const handleCopy = (text: string, field: "code" | "link") => {
     if (navigator.clipboard) {

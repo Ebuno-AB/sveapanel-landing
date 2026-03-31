@@ -1,15 +1,18 @@
 /* --- HERO LAYOUT --- */
 .hero {
   position: relative;
-  min-height: 100vh;
-  width: 100%; /* avoid 100vw to prevent horizontal scrollbars */
+  min-height: calc(90vh - var(--nav-height));
+  width: 100%;
   background: #fff;
   overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-overlay {
-  position: absolute;
-  inset: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +25,7 @@
   align-items: flex-start;
   justify-content: center;
   gap: 0; /* desktop: row, no gap */
-  padding-top: 12vh;
+  padding-top: 0;
 }
 
 .hero-col {
@@ -232,19 +235,14 @@
   .hero {
     min-height: unset;
     height: auto;
-    padding: 0;
     overflow: visible;
+    align-items: flex-start;
   }
   .hero-sub {
     font-size: 1.1rem; /* Slightly larger subtext for readability */
   }
   .hero-overlay {
-    padding: 100px 20px 100px 20px;
-    position: static;
-    min-height: unset;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    padding: 40px 20px 60px;
   }
 
   .custom-app-buttons {
@@ -269,12 +267,11 @@
   .hero-inner {
     flex-direction: column; /* stack! */
     gap: 40px;
-    justify-content: flex-start; /* Start from top */
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    padding-top: 20px; /* Additional top spacing */
   }
   .hero-copy {
     text-align: left;

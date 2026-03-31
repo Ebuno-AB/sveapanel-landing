@@ -4,6 +4,7 @@ import { useUser } from "@/features/user/api/user.queries";
 import { useStreakStats } from "@/features/streak/api/streak.queries";
 import { Flame } from "lucide-react";
 import logoImg from "@/assets/icons/logo.png";
+import PayoutModal from "@/components/PayoutModal/PayoutModal";
 import "./AuthNav.css";
 
 const NAV_ITEMS = [
@@ -30,12 +31,18 @@ function StreakBadge({
   );
 }
 
-function BalanceRing({ balance }: { balance: number }) {
+function BalanceRing({
+  balance,
+  onClick,
+}: {
+  balance: number;
+  onClick: () => void;
+}) {
   const displayBalance = balance / 10;
   const progress = Math.min(displayBalance / BALANCE_MAX, 1);
 
   return (
-    <div className="balance-pill">
+    <button className="balance-pill" onClick={onClick} aria-label="Visa saldo">
       <div
         className="balance-pill-fill"
         style={{ width: `${progress * 100}%` }}
@@ -44,7 +51,7 @@ function BalanceRing({ balance }: { balance: number }) {
         {Math.round(displayBalance)}
         <span className="balance-pill-currency">kr</span>
       </span>
-    </div>
+    </button>
   );
 }
 
@@ -56,6 +63,7 @@ const AuthNav = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [balanceModalOpen, setBalanceModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -131,7 +139,10 @@ const AuthNav = () => {
 
           {/* Right: balance + streak (always) + avatar/hamburger */}
           <div className="auth-topnav-right">
-            <BalanceRing balance={user?.balance ?? 0} />
+            <BalanceRing
+              balance={user?.balance ?? 0}
+              onClick={() => setBalanceModalOpen(true)}
+            />
             <StreakBadge
               streak={streakStats?.currentStreak ?? 0}
               onClick={() => navigate("/dashboard/streak")}
@@ -162,6 +173,14 @@ const AuthNav = () => {
           </div>
         </div>
       </nav>
+
+      {balanceModalOpen && (
+        <PayoutModal
+          balance={user?.balance ?? 0}
+          phone={user?.phone ?? null}
+          onClose={() => setBalanceModalOpen(false)}
+        />
+      )}
 
       {/* Mobile fullscreen menu */}
       {isMobile && (

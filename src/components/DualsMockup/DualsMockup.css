@@ -1,0 +1,55 @@
+/* ── Container ── */
+.duals-mockup {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ── Base phone image ── */
+.duals-mockup__base {
+  position: absolute;
+  left: 15%;
+  top: 4%;
+  width: 70%;
+  height: auto;
+  display: block;
+  z-index: 2;
+}
+
+/* ── Shared layer defaults ── */
+.duals-mockup__layer {
+  position: absolute;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ── Quiz icon — top-left, behind phone ── */
+.duals-mockup__quiz {
+  left: 5%;
+  top: 5%;
+  width: 28%;
+  z-index: 3;
+  animation: levitate 6s ease-in-out infinite;
+}
+
+/* ── VS icon — bottom-right, over phone ── */
+.duals-mockup__vs {
+  right: 5%;
+  bottom: -5%;
+  width: 28%;
+  z-index: 3;
+  animation: levitate 6s ease-in-out infinite 1.5s;
+}

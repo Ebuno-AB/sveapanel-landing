@@ -32,6 +32,7 @@ export default defineConfig({
       "/v1": {
         target: "https://api.sveapanelen.yflow.io",
         changeOrigin: true,
+        secure: true,
       },
     },
   },

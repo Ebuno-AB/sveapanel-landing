@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useSubmitReferral } from "../api/setup.mutations";
 import { SetupProgress } from "../components/SetupProgress";
 import { useSetupField } from "../hooks/useSetupField";
+import { useAppSelector } from "@/redux/store";
 import "../styles/SetUp.css";
 
 export const ReferralSetUp = () => {
   const navigate = useNavigate();
-  const [code, setCode] = useSetupField("setup_referral");
+  const reduxCode = useAppSelector((state) => state.session.referral_code);
+  const [code, setCode] = useSetupField("setup_referral", reduxCode ?? "");
   const { mutate, isPending, error } = useSubmitReferral();
 
   const handleSubmit = (e: React.FormEvent) => {

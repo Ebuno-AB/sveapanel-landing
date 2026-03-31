@@ -123,7 +123,16 @@
   background: #f7f7f7;
   overflow: hidden;
   min-width: 64px;
-  cursor: default;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.balance-pill:hover,
+.balance-pill:focus {
+  background: #f7f7f7;
+  border-color: rgba(0, 204, 163, 0.35);
+  outline: none;
 }
 
 .balance-pill-fill {

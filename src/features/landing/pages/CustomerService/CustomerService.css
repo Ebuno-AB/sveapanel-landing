@@ -1,16 +1,17 @@
 .cs-hero {
   background-color: #7571fc;
-  max-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 300px 5% 211px;
   box-sizing: border-box;
+  min-height: calc(90vh - var(--nav-height));
 }
 
 .cs-hero__inner {
   max-width: 1200px;
   width: 100%;
+  padding: 60px 5%;
+  box-sizing: border-box;
 }
 
 .cs-hero__title {
@@ -56,8 +57,7 @@
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 768px) {
   .cs-hero {
-    max-height: none;
-    padding-top: 160px;
+    padding-top: calc(var(--nav-height) + 40px);
     padding-bottom: 60px;
   }
 }
