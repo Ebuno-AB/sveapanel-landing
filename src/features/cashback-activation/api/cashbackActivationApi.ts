@@ -76,7 +76,7 @@ export async function getTrackingLinkWithCode(
   });
   if (!res.ok) throw new Error(`Failed to activate (${res.status})`);
   const json = await res.json();
-  return json.url as string;
+  return json.data.url as string;
 }
 
 export function formatCashback(rate: CashbackRate): string {
