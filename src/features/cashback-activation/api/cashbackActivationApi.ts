@@ -51,7 +51,7 @@ export async function getTrackingLink(
   token: string,
   source: string,
 ): Promise<string> {
-  const res = await fetch(`${API_URL}/cashback/trackinglink`, {
+  const res = await fetch(`${API_URL}cashback/trackinglink`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -69,14 +69,14 @@ export async function getTrackingLinkWithCode(
   code: string,
   source: string,
 ): Promise<string> {
-  const res = await fetch(`${API_URL}/cashback/extension/activate`, {
+  const res = await fetch(`${API_URL}cashback/extension/activate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ storeId, code, source }),
   });
   if (!res.ok) throw new Error(`Failed to activate (${res.status})`);
   const json = await res.json();
-  return json.data.url as string;
+  return json.url as string;
 }
 
 export function formatCashback(rate: CashbackRate): string {
