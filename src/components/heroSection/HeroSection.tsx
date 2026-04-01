@@ -1,9 +1,13 @@
 import React from "react";
 import "./HeroSection.css";
 import phoneImg from "@/assets/Images/sveamock.png";
-import PayoutCounter from "../ui/PayoutCounter";
+import appLogoImg from "@/assets/logo/logo.svg";
 
-const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  onAppDownload?: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onAppDownload }) => {
   return (
     <div className="hero">
       <div className="hero-overlay">
@@ -27,7 +31,16 @@ const HeroSection: React.FC = () => {
                 </span>
               </li>
             </ul>
-            <PayoutCounter />
+            <div className="custom-app-buttons">
+              <button className="custom-app-btn" onClick={onAppDownload}>
+                Ladda ner appen
+                <img
+                  src={appLogoImg}
+                  alt="App"
+                  style={{ width: 18, height: 18, objectFit: "contain" }}
+                />
+              </button>
+            </div>
           </div>
 
           {/* Right: visuals */}

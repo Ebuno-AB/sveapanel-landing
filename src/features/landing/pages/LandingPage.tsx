@@ -18,6 +18,7 @@ import { AppInfo } from "@/components/AppInfo/AppInfo";
 import branch from "branch-sdk";
 import { DownloadToday } from "@/components/downloadToday/DownloadToday";
 import UserReviews from "@/components/userReviews/UserReviews";
+import PayoutCounter from "@/components/ui/PayoutCounter";
 
 function LandingPage() {
   const { trackEvent } = useGA();
@@ -178,7 +179,8 @@ function LandingPage() {
         onBankIDRegistration={handleBankIDRegistration}
         onAppDownload={handleAppDownload}
       />
-      <Hero />
+      <Hero onAppDownload={handleAppDownload} />
+      <PayoutCounter />
       <AppInfo />
       <UserReviews />
       <DownloadToday />

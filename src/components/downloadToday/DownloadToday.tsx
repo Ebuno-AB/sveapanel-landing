@@ -9,7 +9,7 @@ export const DownloadToday = () => {
         <h2 className="download-today-title">Ladda ner appen idag!</h2>
         <div className="download-today-buttons">
           <a
-            href="https://apps.apple.com/app/apple-store/id1617681550?pt=120111031&ct=direct&mt=8"
+            href="https://apps.apple.com/se/app/sveapanelen/id1617681550"
             target="_blank"
             rel="noopener noreferrer"
             className="store-button"

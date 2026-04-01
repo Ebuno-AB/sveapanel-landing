@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/assets/icons/logo.png";
 import bankIDLogo from "@/assets/icons/BankID_logo.svg";
-import appLogoImg from "@/assets/logo/logo.svg";
 
 interface TopNavProps {
   isRegistered?: boolean;
@@ -14,7 +13,6 @@ interface TopNavProps {
 const TopNav: React.FC<TopNavProps> = ({
   isRegistered,
   onBankIDRegistration,
-  onAppDownload,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -122,14 +120,6 @@ const TopNav: React.FC<TopNavProps> = ({
                   onClick={() => navigate("/kundtjanst")}
                 >
                   Kundtjänst
-                </button>
-                <button className="topnav-bankid-btn" onClick={onAppDownload}>
-                  Ladda ner appen
-                  <img
-                    src={appLogoImg}
-                    alt="App"
-                    className="topnav-bankid-logo"
-                  />
                 </button>
               </div>
             )}
