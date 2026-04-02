@@ -1,30 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import branch from "branch-sdk";
 import {
   getStoreDetail,
   getTrackingLink,
   getTrackingLinkWithCode,
   formatCashback,
   type CashbackStoreDetails,
+  type CashbackCommissionGroup,
 } from "../api/cashbackActivationApi";
 import "./CashbackActivation.css";
-
-const DEFAULT_GRADIENT = "linear-gradient(135deg, #e60077, #ff49a7)";
-
-function PageHeader() {
-  return (
-    <header className="activation-header">
-      <div className="header-inner">
-        <img src="/logo.png" alt="SveaPanelen" className="header-logo" />
-        <span className="logo-text">SveaPanelen Cashback</span>
-      </div>
-    </header>
-  );
-}
-
-function PageShell({ children }: { children: React.ReactNode }) {
-  return <div className="activation-page">{children}</div>;
-}
 
 function StoreLogo({ store }: { store: CashbackStoreDetails }) {
   const [imgError, setImgError] = useState(false);
@@ -34,56 +19,91 @@ function StoreLogo({ store }: { store: CashbackStoreDetails }) {
       <img
         src={store.logoUrl}
         alt={store.name}
-        className="store-logo-img"
         onError={() => setImgError(true)}
       />
     );
   }
 
+  return <div className="logo-fallback">{store.name.charAt(0).toUpperCase()}</div>;
+}
+
+function CheckIcon() {
   return (
-    <div className="store-logo-fallback">
-      <span>{store.name.charAt(0).toUpperCase()}</span>
+    <svg className="term-check" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+    </svg>
+  );
+}
+
+function ShoppingIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg className="info-box-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+    </svg>
+  );
+}
+
+function CookieIcon() {
+  return (
+    <svg className="info-box-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M21.95 10.99c-1.79-.03-3.7-1.95-2.68-4.22-2.97 1-5.78-1.59-5.19-4.56C7.11.74 2 6.41 2 12c0 5.52 4.48 10 10 10 5.89 0 10.54-5.08 9.95-11.01zM8.5 15c-.83 0-1.5-.67-1.5-1.5S7.67 12 8.5 12s1.5.67 1.5 1.5S9.33 15 8.5 15zm2-5C9.67 10 9 9.33 9 8.5S9.67 7 10.5 7s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
+    </svg>
+  );
+}
+
+function CommissionRow({ group }: { group: CashbackCommissionGroup }) {
+  const rate = formatCashback({
+    type: group.type,
+    amount: group.amount,
+    currency: group.currency,
+  });
+
+  return (
+    <div className="commission-row">
+      <span className="commission-name">{group.name}</span>
+      <span className="commission-badge">{rate}</span>
     </div>
   );
 }
 
 function LoadingSkeleton() {
   return (
-    <PageShell>
-      <div className="store-cover" style={{ background: DEFAULT_GRADIENT }}>
-        <PageHeader />
+    <div className="activation-page">
+      <div className="scroll-content">
+        <div className="skeleton skeleton-logo" />
+        <div className="skeleton skeleton-title" />
+        <div className="skeleton skeleton-cashback-bar" />
+        <div className="skeleton skeleton-description" />
+        <div className="skeleton skeleton-button" />
       </div>
-      <main className="activation-container">
-        <div className="activation-card">
-          <div className="skeleton skeleton-logo" />
-          <div className="skeleton skeleton-title" />
-          <div className="skeleton skeleton-badge" />
-          <div className="skeleton skeleton-button" />
-        </div>
-      </main>
-    </PageShell>
+    </div>
   );
 }
 
 function NotFound() {
   return (
-    <PageShell>
-      <div className="store-cover" style={{ background: DEFAULT_GRADIENT }}>
-        <PageHeader />
-      </div>
-      <main className="activation-container">
-        <div className="activation-card not-found">
-          <div className="not-found-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="40" height="40">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M15 9l-6 6M9 9l6 6" />
-            </svg>
-          </div>
-          <h1>Butiken hittades inte</h1>
-          <p>Kontrollera länken och försök igen.</p>
+    <div className="activation-page">
+      <div className="scroll-content not-found">
+        <div className="not-found-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="40" height="40">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M15 9l-6 6M9 9l6 6" />
+          </svg>
         </div>
-      </main>
-    </PageShell>
+        <h1>Butiken hittades inte</h1>
+        <p>Kontrollera l&auml;nken och f&ouml;rs&ouml;k igen.</p>
+      </div>
+    </div>
   );
 }
 
@@ -98,6 +118,31 @@ export default function CashbackActivationPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [activating, setActivating] = useState(false);
+  const [branchLink, setBranchLink] = useState<string | null>(null);
+
+  const needsLogin = source === "extension" && !code;
+
+  // Generate Branch deep link when user needs to log in
+  useEffect(() => {
+    if (!needsLogin || !store) return;
+    branch.init(import.meta.env.VITE_BRANCH_SDK_KEY, {}, () => {
+      branch.link(
+        {
+          channel: "cashback-extension",
+          feature: "cashback-activation",
+          data: {
+            cashback_store_id: String(store.id),
+            cashback_store_name: store.name,
+            cashback_source: "extension",
+            $deeplink_path: `cashback/activate/${store.id}`,
+          },
+        },
+        (err, link) => {
+          if (!err && link) setBranchLink(link);
+        },
+      );
+    });
+  }, [needsLogin, store]);
 
   useEffect(() => {
     if (!storeId || isNaN(Number(storeId))) {
@@ -139,88 +184,132 @@ export default function CashbackActivationPage() {
     setTimeout(() => { window.location.href = url; }, 50);
   };
 
-  const gradient = store.coverGradient
-    ? `linear-gradient(135deg, ${store.coverGradient.startColor}, ${store.coverGradient.endColor})`
-    : DEFAULT_GRADIENT;
+  const cashbackLabel = store.cashback ? formatCashback(store.cashback) : null;
+  const hasMultipleGroups = store.commissionGroups.length > 1;
+  const domain = store.websiteUrl
+    ? store.websiteUrl.replace(/^https?:\/\//, "").replace(/\/.*$/, "")
+    : null;
 
   return (
-    <PageShell>
-      <div className="store-cover" style={{ background: gradient, height: 150 }}>
-        <PageHeader />
-      </div>
-
-      <main className="activation-container">
-        <div className="activation-card">
-          <div className="store-logo-wrapper">
+    <div className="activation-page">
+      <div className="scroll-content">
+        {/* Logo */}
+        <div className="logo-anchor">
+          <div className="glow-ring" />
+          <div className="logo-container">
             <StoreLogo store={store} />
           </div>
-          <h1 className="activation-title">{store.name}</h1>
+        </div>
 
-          {store.cashback && (
-            <div className="cashback-badge">
-              <span>{formatCashback(store.cashback)}</span>
-            </div>
-          )}
-
-          {store.description && (
-            <p className="store-description">{store.description}</p>
-          )}
-
-          <button
-            className="activate-button"
-            onClick={handleActivate}
-            disabled={activating}
-          >
-            {activating ? <span className="btn-spinner" /> : "Aktivera cashback"}
-          </button>
-
-          {store.commissionGroups.length > 1 && (
-            <div className="info-section">
-              <h3>Cashback per kategori</h3>
-              <div className="commission-list">
-                {store.commissionGroups.map((group, i) => (
-                  <div key={i} className="commission-row">
-                    <span className="commission-name">{group.name}</span>
-                    <span className="commission-amount">
-                      {group.type === "percentage"
-                        ? `${formatCashback(group)}%`
-                        : `${group.amount} ${group.currency ?? "SEK"}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="info-section tips-section">
-            <h3>Bra att veta</h3>
-            <ul>
-              <li>Cashback registreras vanligtvis inom 48 timmar.</li>
-              <li>Godkännande kan ta upp till 90 dagar beroende på butikens returpolicy.</li>
-              <li>Se till att du har cookies aktiverade i din webbläsare.</li>
-            </ul>
-          </div>
-
+        {/* Store name + domain + categories */}
+        <div className="store-identity">
+          <h1 className="store-name">{store.name}</h1>
+          {domain && <span className="store-domain">{domain}</span>}
           {store.storeTerms.length > 0 && (
-            <div className="info-section">
-              <h3>Villkor</h3>
-              {store.storeTerms.map((term) => (
-                <div key={term.id} className="term-block">
-                  {!term.isGeneral && <p className="term-name">{term.name}</p>}
-                  <p className="term-content">{term.content}</p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {!store.storeTerms.length && store.terms && (
-            <div className="info-section">
-              <h3>Villkor</h3>
-              <p className="term-content">{store.terms}</p>
+            <div className="category-row">
+              {/* categories would go here if available */}
             </div>
           )}
         </div>
-      </main>
-    </PageShell>
+
+        {/* Cashback gradient bar */}
+        {cashbackLabel && (
+          <div className="cashback-bar">
+            <span className="cashback-bar-label">CASHBACK</span>
+            <span className="cashback-bar-value">{cashbackLabel}</span>
+          </div>
+        )}
+
+        {/* Commission groups */}
+        {hasMultipleGroups && (
+          <div className="section">
+            <div className="section-title">Cashback per kategori</div>
+            <div className="card">
+              {store.commissionGroups.map((group, i) => (
+                <CommissionRow key={i} group={group} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Om butiken */}
+        {store.description && (
+          <div className="section">
+            <div className="section-title">Om butiken</div>
+            <div className="description-card">
+              <p className="description-text">{store.description}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Two info boxes side by side */}
+        <div className="info-boxes">
+          <div className="info-box">
+            <ClockIcon />
+            <span className="info-box-label">UTBETALNINGSTID</span>
+            <span className="info-box-value">30-60 dagar</span>
+          </div>
+          <div className="info-box">
+            <CookieIcon />
+            <span className="info-box-label">KOM IH&Aring;G</span>
+            <span className="info-box-value">Acceptera cookies</span>
+          </div>
+        </div>
+
+        {/* Villkor */}
+        {store.storeTerms.length > 0 && (
+          <div className="section">
+            <div className="section-title">Villkor</div>
+            <div className="terms-card">
+              {store.storeTerms.map((term) => (
+                <div key={term.id} className="term-item">
+                  <CheckIcon />
+                  <span className="term-text">{term.content}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Fixed CTA at bottom */}
+      <div className="cta-gradient">
+        <button
+          className="cta-button"
+          onClick={handleActivate}
+          disabled={activating}
+        >
+          {activating ? (
+            <span className="btn-spinner" />
+          ) : (
+            <>
+              <ShoppingIcon />
+              Handla hos {store.name}
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* Login required modal */}
+      {needsLogin && (
+        <div className="login-overlay">
+          <div className="login-modal">
+            <div className="login-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <p className="login-text">
+              Du m&aring;ste vara inloggad i appen f&ouml;r att du ska kunna f&aring; cashback p&aring; dina k&ouml;p
+            </p>
+            <a href={branchLink ?? "sveapanelen://"} className="login-button">
+              <img src="/logo.png" alt="" className="login-button-logo" />
+              &Ouml;ppna SveaPanelen
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

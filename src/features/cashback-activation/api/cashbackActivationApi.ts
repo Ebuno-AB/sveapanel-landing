@@ -81,7 +81,7 @@ export async function getTrackingLinkWithCode(
 
 export function formatCashback(rate: CashbackRate): string {
   if (rate.type === "percentage") {
-    return `${parseFloat((rate.amount * 100).toFixed(4))}% cashback`;
+    return `${parseFloat((rate.amount * 100).toFixed(4))}%`;
   }
-  return `${rate.amount} ${rate.currency ?? "SEK"} cashback`;
+  return `${rate.amount} ${rate.currency ?? "SEK"}`;
 }
