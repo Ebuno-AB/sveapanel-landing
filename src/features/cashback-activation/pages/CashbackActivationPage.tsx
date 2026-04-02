@@ -10,6 +10,7 @@ import {
   type CashbackCommissionGroup,
 } from "../api/cashbackActivationApi";
 import "./CashbackActivation.css";
+import logoImg from "@/assets/icons/logo.png";
 
 function StoreLogo({ store }: { store: CashbackStoreDetails }) {
   const [imgError, setImgError] = useState(false);
@@ -304,7 +305,7 @@ export default function CashbackActivationPage() {
               Du m&aring;ste vara inloggad i appen f&ouml;r att du ska kunna f&aring; cashback p&aring; dina k&ouml;p
             </p>
             <a href={branchLink ?? "sveapanelen://"} className="login-button">
-              <img src="/logo.png" alt="" className="login-button-logo" />
+              <img src={logoImg} alt="SveaPanelen" className="login-button-logo" />
               &Ouml;ppna SveaPanelen
             </a>
           </div>
