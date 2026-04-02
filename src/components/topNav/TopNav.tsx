@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/assets/icons/logo.png";
-import bankIDLogo from "@/assets/icons/BankID_logo.svg";
 
 interface TopNavProps {
   isRegistered?: boolean;
