@@ -1,8 +1,8 @@
-name: Deploy sveapanel-landing to Dev
+name: Deploy sveapanel-landing to Production
 
 on:
   push:
-    branches: ["dev-real"]
+    branches: ["main"]
   workflow_dispatch:
 
 env:
@@ -11,7 +11,7 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
     permissions:
       contents: read
       packages: write
@@ -43,8 +43,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=dev
-            type=sha,prefix=dev-
+            type=raw,value=prod
+            type=sha,prefix=prod-
 
       - name: Build .env file from all GitHub secrets and variables
         run: |
@@ -52,7 +52,7 @@ jobs:
           echo '${{ toJSON(vars) }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > .env
 
           # Write all secrets (excluding GitHub internal ones and SSH credentials)
-          echo '${{ toJSON(secrets) }}' | jq -r 'to_entries[] | select(.key | test("^(GITHUB_TOKEN|HOST|USERNAME|SSH_KEY|SSH_PORT)$") | not) | "\(.key)=\(.value)"' >> .env
+          echo '${{ toJSON(secrets) }}' | jq -r 'to_entries[] | select(.key | test("^(GITHUB_TOKEN|HOST|USERNAME|SSH_KEY|SSH_PORT|HOST_PASSWORD)$") | not) | "\(.key)=\(.value)"' >> .env
 
           # Debug: show what's in .env (without values)
           echo "Environment variables set:"
@@ -63,7 +63,7 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/arm64
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
@@ -76,9 +76,10 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.HOST_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
-          source: "scripts/deploy-dev.sh"
-          target: "~/sveapanel-landing-dev-deploy"
+          source: "scripts/deploy-prod.sh"
+          target: "~/sveapanel-landing-prod-deploy"
           strip_components: 0
 
       - name: Execute deployment on server
@@ -87,14 +88,15 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.HOST_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
           script: |
             # Login to GHCR on the server
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # Set up deploy directory
-            DEPLOY_DIR=~/sveapanel-landing-dev-deploy
-            chmod +x "$DEPLOY_DIR/scripts/deploy-dev.sh"
+            DEPLOY_DIR=~/sveapanel-landing-prod-deploy
+            chmod +x "$DEPLOY_DIR/scripts/deploy-prod.sh"
 
             # Deploy with the image name and API base URL
-            "$DEPLOY_DIR/scripts/deploy-dev.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev "${{ vars.VITE_API_URL }}"
+            "$DEPLOY_DIR/scripts/deploy-prod.sh" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:prod "${{ vars.VITE_API_URL }}"
