@@ -76,6 +76,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.HOST_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
           source: "scripts/deploy-dev.sh"
           target: "~/sveapanel-landing-dev-deploy"
@@ -87,6 +88,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.HOST_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
           script: |
             # Login to GHCR on the server
