@@ -172,6 +172,9 @@
   .app-info__row--bg-orange,
   .app-info__row--bg-blue {
     padding: 40px 24px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .app-info__image-wrap > img {
@@ -179,9 +182,8 @@
   }
 
   .app-info {
-    gap: 64px;
-    padding: 24px;
-    overflow-x: clip;
+    gap: 0;
+    padding: 0;
   }
 
   .app-info__image-wrap {

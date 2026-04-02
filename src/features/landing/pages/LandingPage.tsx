@@ -18,6 +18,7 @@ import { AppInfo } from "@/components/AppInfo/AppInfo";
 import branch from "branch-sdk";
 import { DownloadToday } from "@/components/downloadToday/DownloadToday";
 import UserReviews from "@/components/userReviews/UserReviews";
+import PayoutCounter from "@/components/ui/PayoutCounter";
 
 function LandingPage() {
   const { trackEvent } = useGA();
@@ -75,11 +76,7 @@ function LandingPage() {
             ? parsed.referral_code
             : undefined;
         const hasUrlCode = window.location.pathname.match(/\/r\/\w{5}/);
-        if (
-          code &&
-          code.length === 5 &&
-          !hasUrlCode
-        ) {
+        if (code && code.length === 5 && !hasUrlCode) {
           referralHook.checkReferralCodeExists(code);
         }
       },
@@ -177,12 +174,13 @@ function LandingPage() {
 
   return (
     <>
-      <TopNav />
-      <Hero
+      <TopNav
         isRegistered={isRegistered}
-        handleBankIDRegistration={handleBankIDRegistration}
-        handleAppDownload={handleAppDownload}
+        onBankIDRegistration={handleBankIDRegistration}
+        onAppDownload={handleAppDownload}
       />
+      <Hero onAppDownload={handleAppDownload} />
+      <PayoutCounter />
       <AppInfo />
       <UserReviews />
       <DownloadToday />

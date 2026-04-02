@@ -1,5 +1,34 @@
+.payout-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 100px;
+}
+
+.payout-counter__amount {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 800;
+  color: #00cca3;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.payout-counter__label {
+  margin-top: 10px;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: #000000;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 @media (max-width: 950px) {
   .payout-counter {
-    align-items: center !important;
+    align-items: center;
+    padding: 40px 24px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }

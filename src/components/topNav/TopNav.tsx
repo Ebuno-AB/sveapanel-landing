@@ -2,8 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./TopNav.css";
 import logoImg from "@/assets/icons/logo.png";
+import bankIDLogo from "@/assets/icons/BankID_logo.svg";
 
-const TopNav: React.FC = () => {
+interface TopNavProps {
+  isRegistered?: boolean;
+  onBankIDRegistration?: () => void;
+  onAppDownload?: () => void;
+}
+
+const TopNav: React.FC<TopNavProps> = ({
+  isRegistered,
+  onBankIDRegistration,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -115,14 +125,29 @@ const TopNav: React.FC = () => {
             )}
           </div>
 
-          {/* Right: Login CTA + Hamburger */}
+          {/* Right: CTA buttons + Hamburger */}
           <div className="topnav-right">
             {!isMobile && (
               <button
                 className="topnav-download"
-                onClick={() => navigate("/logga-in")}
+                onClick={
+                  isRegistered && onBankIDRegistration
+                    ? onBankIDRegistration
+                    : () => navigate("/logga-in")
+                }
               >
-                Logga in
+                {isRegistered ? (
+                  <>
+                    Registrera med BankID
+                    <img
+                      src={bankIDLogo}
+                      alt="BankID"
+                      className="topnav-bankid-logo"
+                    />
+                  </>
+                ) : (
+                  "Logga in"
+                )}
               </button>
             )}
 

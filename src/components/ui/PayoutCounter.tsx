@@ -48,39 +48,11 @@ export default function PayoutCounter() {
   const { count, containerRef } = useCountUp();
 
   return (
-    <div
-      ref={containerRef}
-      className="payout-counter"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        padding: "80px 0 0 0",
-        background: "transparent",
-      }}
-    >
-      <span
-        style={{
-          fontSize: "clamp(2rem, 6vw, 3.5rem)",
-          fontWeight: 800,
-          color: "#00cca3",
-          fontVariantNumeric: "tabular-nums",
-          letterSpacing: "-0.02em",
-          lineHeight: 1,
-        }}
-      >
+    <div ref={containerRef} className="payout-counter">
+      <span className="payout-counter__amount">
         {count.toLocaleString("sv-SE")} kr+
       </span>
-      <span
-        style={{
-          marginTop: 10,
-          fontSize: "clamp(0.95rem, 2vw, 1.15rem)",
-          color: "#000000",
-          fontWeight: 500,
-          letterSpacing: "0.03em",
-        }}
-      >
+      <span className="payout-counter__label">
         Utbetalat till våra användare
       </span>
     </div>

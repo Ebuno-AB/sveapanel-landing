@@ -22,7 +22,7 @@
   width: 90%;
   max-width: 1200px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 0; /* desktop: row, no gap */
   padding-top: 0;
@@ -163,7 +163,7 @@
 
 /* highlight BankID and Swish */
 .hero-feature .feature-text strong {
-  color: #00e6b8; /* highlight color */
+  color: #00cca3; /* highlight color */
 }
 
 .phone-wrap {

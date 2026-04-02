@@ -80,6 +80,31 @@
   font-weight: 600;
   background: rgba(0, 0, 0, 0.06);
 }
+.topnav-bankid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.topnav-bankid-btn:hover {
+  color: #111;
+  background: rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+.topnav-bankid-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
 .topnav-download {
   background: #111;
   border: none;
