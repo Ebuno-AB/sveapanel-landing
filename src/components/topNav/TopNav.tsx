@@ -10,10 +10,7 @@ interface TopNavProps {
   onAppDownload?: () => void;
 }
 
-const TopNav: React.FC<TopNavProps> = ({
-  isRegistered,
-  onBankIDRegistration,
-}) => {
+const TopNav: React.FC<TopNavProps> = ({ onAppDownload }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -127,27 +124,9 @@ const TopNav: React.FC<TopNavProps> = ({
 
           {/* Right: CTA buttons + Hamburger */}
           <div className="topnav-right">
-            {!isMobile && (
-              <button
-                className="topnav-download"
-                onClick={
-                  isRegistered && onBankIDRegistration
-                    ? onBankIDRegistration
-                    : () => navigate("/logga-in")
-                }
-              >
-                {isRegistered ? (
-                  <>
-                    Registrera med BankID
-                    <img
-                      src={bankIDLogo}
-                      alt="BankID"
-                      className="topnav-bankid-logo"
-                    />
-                  </>
-                ) : (
-                  "Logga in"
-                )}
+            {!isMobile && onAppDownload && (
+              <button className="topnav-download" onClick={onAppDownload}>
+                Hämta appen
               </button>
             )}
 
@@ -217,15 +196,17 @@ const TopNav: React.FC<TopNavProps> = ({
 
             {/* Bottom Actions */}
             <div className="mobile-menu-actions">
-              <button
-                className="mobile-menu-cta"
-                onClick={() => {
-                  navigate("/logga-in");
-                  closeMenu();
-                }}
-              >
-                Logga in
-              </button>
+              {onAppDownload && (
+                <button
+                  className="mobile-menu-cta"
+                  onClick={() => {
+                    onAppDownload();
+                    closeMenu();
+                  }}
+                >
+                  Hämta appen
+                </button>
+              )}
             </div>
           </div>
         </div>

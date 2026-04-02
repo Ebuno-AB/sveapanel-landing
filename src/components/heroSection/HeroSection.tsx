@@ -16,7 +16,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onAppDownload }) => {
           <div className="hero-col hero-copy">
             <h1 className="hero-title">Sveriges bästa rewards app.</h1>
             <h3 className="hero-sub">
-              Bli en av våra <span className="accent">200 000+</span> användare
+              Bli en av våra <span className="accent">300 000+</span> användare
               som tjänar pengar på enkäter, mobilspel och cashback.
             </h3>
             <ul className="hero-features">
