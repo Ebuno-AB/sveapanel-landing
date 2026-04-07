@@ -12,6 +12,11 @@ const RegistrationPage = lazy(
 const CashbackLandingPage = lazy(
   () => import("@/features/landing/pages/Cashback/Cashback"),
 );
+
+const CashbackExtensionActivationPage = lazy(
+  () => import("@/features/cashback/pages/CashbackExtensionActivationPage"),
+);
+
 const CustomerServicePage = lazy(
   () => import("@/features/landing/pages/CustomerService/CustomerService"),
 );
@@ -90,6 +95,7 @@ export const publicRoutes: RouteObject[] = [
   { path: "/cashback", element: <CashbackLandingPage /> },
   { path: "/kundtjanst", element: <CustomerServicePage /> },
   { path: "/privacy", element: <PrivacyPolicyPage /> },
+  { path:"/extension-activation", element: <CashbackExtensionActivationPage />},
   { path: "/redirect/:platform", element: <RedirectPage /> },
   { path: "/redirect/detect", element: <RedirectPage /> },
   { path: "/cashback/activate", element: <CashbackActivationPage /> },
