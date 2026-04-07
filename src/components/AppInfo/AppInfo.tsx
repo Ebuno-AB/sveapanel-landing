@@ -1,7 +1,8 @@
 import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
 import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
-import gamingMockup from "../../assets/Images/GamingMockup2.png";
+import { GamingMockup } from "@/components/GamingMockup/GamingMockup";
+import { isIosReview } from "@/config/reviewConfig";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
 import surveyMockup from "../../assets/Images/surveyMockup.png";
 
@@ -15,6 +16,7 @@ interface AppInfoItem {
   headingParts: { text: string; highlighted?: boolean }[];
   bullets: string[];
   MockupComponent?: React.ComponentType;
+  iosHidden?: boolean;
 }
 
 const CheckIcon = ({ accent }: { accent: Accent }) => (
@@ -43,10 +45,12 @@ const items: AppInfoItem[] = [
     ],
   },
   {
-    image: gamingMockup,
+    image: null,
     imageAlt: "Gaming mockup",
     reverse: true,
     accent: "teal",
+    MockupComponent: GamingMockup,
+    iosHidden: true,
     headingParts: [
       { text: "Ladda ner " },
       { text: "mobilspel", highlighted: true },
@@ -107,9 +111,10 @@ const items: AppInfoItem[] = [
 ];
 
 export const AppInfo = () => {
+  const visibleItems = items.filter((item) => !(isIosReview && item.iosHidden));
   return (
     <section className="app-info">
-      {items.map((item, i) => (
+      {visibleItems.map((item, i) => (
         <div
           key={i}
           className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""} app-info__row--bg-${item.accent}`}
