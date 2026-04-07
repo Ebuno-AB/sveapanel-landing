@@ -10,6 +10,7 @@ import {
 import "@/App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 const theme = createTheme({
   typography: {
@@ -270,10 +271,121 @@ const Paragraph = ({
   </Typography>
 );
 
+const LanguageToggle = ({
+  isEn,
+  onToggle,
+}: {
+  isEn: boolean;
+  onToggle: () => void;
+}) => {
+  const TRACK_WIDTH = 96;
+  const TRACK_HEIGHT = 40;
+  const KNOB_PADDING = 3;
+  const KNOB_SIZE = TRACK_HEIGHT - KNOB_PADDING * 2; // 34
+  const KNOB_WIDTH = TRACK_WIDTH / 2 - KNOB_PADDING; // 45
+  const KNOB_LEFT = isEn ? TRACK_WIDTH / 2 : KNOB_PADDING;
+
+  return (
+    <Box
+      role="switch"
+      aria-checked={isEn}
+      tabIndex={0}
+      onClick={onToggle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
+      sx={{
+        position: "relative",
+        width: `${TRACK_WIDTH}px`,
+        height: `${TRACK_HEIGHT}px`,
+        borderRadius: 999,
+        backgroundColor: "#f1f5f9",
+        border: "1px solid #e2e8f0",
+        cursor: "pointer",
+        userSelect: "none",
+        transition: "background-color 0.25s ease, border-color 0.25s ease",
+        "&:hover": {
+          backgroundColor: "#e2e8f0",
+        },
+        "&:focus-visible": {
+          outline: "2px solid #94a3b8",
+          outlineOffset: 2,
+        },
+      }}
+    >
+      {/* Sliding knob — sits behind the flags */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: `${KNOB_PADDING}px`,
+          left: `${KNOB_LEFT}px`,
+          width: `${KNOB_WIDTH}px`,
+          height: `${KNOB_SIZE}px`,
+          borderRadius: 999,
+          backgroundColor: "#fff",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.18)",
+          transition: "left 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          zIndex: 1,
+        }}
+        aria-hidden="true"
+      />
+      {/* SE half */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "50%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 18,
+          lineHeight: 1,
+          opacity: isEn ? 0.45 : 1,
+          transition: "opacity 0.25s ease",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      >
+        🇸🇪
+      </Box>
+      {/* EN half */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "50%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 18,
+          lineHeight: 1,
+          opacity: isEn ? 1 : 0.45,
+          transition: "opacity 0.25s ease",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      >
+        🇬🇧
+      </Box>
+    </Box>
+  );
+};
+
 const TermsPage = () => {
   const [searchParams] = useSearchParams();
   const lang = searchParams.get("lang");
-  const isEn = lang === "en";
+  //const isEn = lang === "en";
+
+  const [isEn,setIsEn] = useState(lang === "en");
 
   const AppName = "SveaPanelen";
   const SupportEmail = "help@sveapanelen.se";
@@ -288,6 +400,11 @@ const TermsPage = () => {
         maxWidth="md"
         sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 3, md: 5 } }}
       >
+        {/* Language toggle */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: { xs: 2, md: 3 } }}>
+          <LanguageToggle isEn={isEn} onToggle={() => setIsEn((v) => !v)} />
+        </Box>
+
         {/* Header */}
         <Box sx={{ mb: { xs: 3, md: 5 } }}>
           <Typography
