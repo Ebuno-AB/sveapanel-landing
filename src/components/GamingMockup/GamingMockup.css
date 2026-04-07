@@ -1,0 +1,102 @@
+/* ── Container ── */
+.gaming-mockup {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ── Base phone image ── */
+.gaming-mockup__base {
+  position: absolute;
+  left: 13%;
+  top: 2%;
+  width: 80%;
+  height: auto;
+  display: block;
+  z-index: 2;
+}
+
+/* ── Shared layer defaults ── */
+.gaming-mockup__layer {
+  position: absolute;
+  object-fit: contain;
+  display: block;
+  border-radius: 22%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes levitate-rotated {
+  0%,
+  100% {
+    transform: rotate(15deg) translateY(0);
+  }
+  50% {
+    transform: rotate(15deg) translateY(-10px);
+  }
+}
+
+@keyframes levitate-rotated-right {
+  0%,
+  100% {
+    transform: rotate(-15deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-15deg) translateY(-10px);
+  }
+}
+
+/* ── Coin Master — top-left, behind phone ── */
+.gaming-mockup__coinmaster {
+  left: 5%;
+  top: 40%;
+  width: 17%;
+  z-index: 3;
+  animation: levitate 6s ease-in-out infinite;
+}
+
+/* ── Monopoly — bottom-left, over phone ── */
+.gaming-mockup__monopoly {
+  left: 5%;
+  top: 67%;
+  width: 17%;
+  z-index: 3;
+  animation: levitate-rotated 6s ease-in-out infinite 1s;
+}
+
+/* ── Candy Crush — top-right ── */
+.gaming-mockup__candy {
+  right: 10%;
+  top: 10%;
+  width: 17%;
+  z-index: 3;
+  animation: levitate 6s ease-in-out infinite 2s;
+}
+
+/* ── Clash of Clans — bottom-right ── */
+.gaming-mockup__clash {
+  right: 0%;
+  top: 30%;
+  width: 17%;
+  z-index: 3;
+  animation: levitate-rotated-right 6s ease-in-out infinite 3s;
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .gaming-mockup {
+    max-width: 260px;
+  }
+}

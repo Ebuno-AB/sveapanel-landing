@@ -1,5 +1,7 @@
 import "./CashbackMockup.css";
-import svea from "@/assets/Images/cashback/svea.webp";
+import phoneMockup from "@/assets/Images/cashback/cashback.webp";
+import phoneMockupIosReview from "@/assets/Images/cashback/cashbackIosReview2.webp";
+import { isIosReview } from "@/config/reviewConfig";
 import amazon from "@/assets/Images/cashback/Amazon.webp";
 import hotelsCom from "@/assets/Images/cashback/Hotels.com.webp";
 import headphones from "@/assets/Images/cashback/headphones.webp";
@@ -22,7 +24,11 @@ export const CashbackMockup = () => {
       />
 
       {/* Base phone (z-index 2) */}
-      <img className="cashback-mockup__base" src={svea} alt="SveaPanel app" />
+      <img
+        className="cashback-mockup__base"
+        src={isIosReview ? phoneMockupIosReview : phoneMockup}
+        alt="SveaPanel app"
+      />
 
       {/* Store cards and badge — over phone (z-index 3) */}
       <img

@@ -11,9 +11,8 @@
 /* ── Base phone image — positioned within canvas, not filling it ── */
 .cashback-mockup__base {
   position: absolute;
-  left: 15%;
-  top: 4%;
-  width: 70%;
+  left: 13%;
+  width: 76%;
   height: auto;
   display: block;
   z-index: 2;

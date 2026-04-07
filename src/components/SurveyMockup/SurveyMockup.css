@@ -1,0 +1,65 @@
+/* ── Container ── */
+.survey-mockup {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ── Blue background shape ── */
+.survey-mockup__bg {
+  position: absolute;
+  right: 0%;
+  top: 8%;
+  width: 78%;
+  height: 84%;
+  background-color: #3d52f5;
+  border-radius: 32px;
+  z-index: 1;
+}
+
+/* ── Base phone image ── */
+.survey-mockup__base {
+  position: absolute;
+  left: 28%;
+  top: -4%;
+  width: 67%;
+  height: auto;
+  display: block;
+  z-index: 2;
+}
+
+/* ── Shared layer defaults ── */
+.survey-mockup__layer {
+  position: absolute;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ── Survey clipboard icon — floating top-left ── */
+.survey-mockup__icon {
+  left: 15%;
+  top: 10%;
+  width: 32%;
+  z-index: 3;
+  animation: levitate 6s ease-in-out infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .survey-mockup {
+    max-width: 260px;
+  }
+}

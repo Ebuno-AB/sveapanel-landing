@@ -1,9 +1,10 @@
 import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
 import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
-import gamingMockup from "../../assets/Images/GamingMockup2.png";
+import { GamingMockup } from "@/components/GamingMockup/GamingMockup";
+import { SurveyMockup } from "@/components/SurveyMockup/SurveyMockup";
+import { isIosReview } from "@/config/reviewConfig";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
-import surveyMockup from "../../assets/Images/surveyMockup.png";
 
 type Accent = "pink" | "teal" | "purple" | "orange" | "blue";
 
@@ -13,8 +14,9 @@ interface AppInfoItem {
   reverse: boolean;
   accent: Accent;
   headingParts: { text: string; highlighted?: boolean }[];
-  bullets: string[];
+  bullets: ({ text: string; iosHidden?: boolean } | string)[];
   MockupComponent?: React.ComponentType;
+  iosHidden?: boolean;
 }
 
 const CheckIcon = ({ accent }: { accent: Accent }) => (
@@ -43,10 +45,12 @@ const items: AppInfoItem[] = [
     ],
   },
   {
-    image: gamingMockup,
+    image: null,
     imageAlt: "Gaming mockup",
     reverse: true,
     accent: "teal",
+    MockupComponent: GamingMockup,
+    iosHidden: true,
     headingParts: [
       { text: "Ladda ner " },
       { text: "mobilspel", highlighted: true },
@@ -71,7 +75,10 @@ const items: AppInfoItem[] = [
     bullets: [
       "Bestäm hur mycket du vill spela om",
       "Svara så snabbt du kan på frågorna för att få mer poäng",
-      "Den som får mest poäng vinner och får den andras satsade pengar",
+      {
+        text: "Den som får mest poäng vinner och får den andras satsade pengar",
+        iosHidden: true,
+      },
     ],
   },
   {
@@ -86,14 +93,15 @@ const items: AppInfoItem[] = [
     ],
     bullets: [
       "Samla poäng genom att göra enkäter och klara nivåer i spel",
-      "Vinnarna i tävlingarna får pengar i vinst",
+      { text: "Vinnarna i tävlingarna får pengar i vinst", iosHidden: true },
     ],
   },
   {
-    image: surveyMockup,
+    image: null,
     imageAlt: "Survey mockup",
     reverse: false,
     accent: "blue",
+    MockupComponent: SurveyMockup,
     headingParts: [
       { text: "Svara på " },
       { text: "enkäter", highlighted: true },
@@ -107,9 +115,10 @@ const items: AppInfoItem[] = [
 ];
 
 export const AppInfo = () => {
+  const visibleItems = items.filter((item) => !(isIosReview && item.iosHidden));
   return (
     <section className="app-info">
-      {items.map((item, i) => (
+      {visibleItems.map((item, i) => (
         <div
           key={i}
           className={`app-info__row${item.reverse ? " app-info__row--reverse" : ""} app-info__row--bg-${item.accent}`}
@@ -141,12 +150,18 @@ export const AppInfo = () => {
             </h2>
 
             <ul className="app-info__list">
-              {item.bullets.map((bullet, j) => (
-                <li key={j} className="app-info__list-item">
-                  <CheckIcon accent={item.accent} />
-                  <span>{bullet}</span>
-                </li>
-              ))}
+              {item.bullets
+                .filter(
+                  (b) => !(isIosReview && typeof b === "object" && b.iosHidden),
+                )
+                .map((bullet, j) => (
+                  <li key={j} className="app-info__list-item">
+                    <CheckIcon accent={item.accent} />
+                    <span>
+                      {typeof bullet === "string" ? bullet : bullet.text}
+                    </span>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
