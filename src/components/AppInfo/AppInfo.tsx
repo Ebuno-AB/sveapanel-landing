@@ -14,7 +14,7 @@ interface AppInfoItem {
   reverse: boolean;
   accent: Accent;
   headingParts: { text: string; highlighted?: boolean }[];
-  bullets: string[];
+  bullets: ({ text: string; iosHidden?: boolean } | string)[];
   MockupComponent?: React.ComponentType;
   iosHidden?: boolean;
 }
@@ -75,7 +75,10 @@ const items: AppInfoItem[] = [
     bullets: [
       "Bestäm hur mycket du vill spela om",
       "Svara så snabbt du kan på frågorna för att få mer poäng",
-      "Den som får mest poäng vinner och får den andras satsade pengar",
+      {
+        text: "Den som får mest poäng vinner och får den andras satsade pengar",
+        iosHidden: true,
+      },
     ],
   },
   {
@@ -90,7 +93,7 @@ const items: AppInfoItem[] = [
     ],
     bullets: [
       "Samla poäng genom att göra enkäter och klara nivåer i spel",
-      "Vinnarna i tävlingarna får pengar i vinst",
+      { text: "Vinnarna i tävlingarna får pengar i vinst", iosHidden: true },
     ],
   },
   {
@@ -146,12 +149,18 @@ export const AppInfo = () => {
             </h2>
 
             <ul className="app-info__list">
-              {item.bullets.map((bullet, j) => (
-                <li key={j} className="app-info__list-item">
-                  <CheckIcon accent={item.accent} />
-                  <span>{bullet}</span>
-                </li>
-              ))}
+              {item.bullets
+                .filter(
+                  (b) => !(isIosReview && typeof b === "object" && b.iosHidden),
+                )
+                .map((bullet, j) => (
+                  <li key={j} className="app-info__list-item">
+                    <CheckIcon accent={item.accent} />
+                    <span>
+                      {typeof bullet === "string" ? bullet : bullet.text}
+                    </span>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
