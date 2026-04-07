@@ -14,7 +14,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onAppDownload }) => {
     <div className="hero">
       <div className="hero-overlay">
         <div className="hero-inner">
-          {/* Left: copy */}
+
           <div className="hero-col hero-copy">
             <h1 className="hero-title">Sveriges bästa rewards app.</h1>
             <h3 className="hero-sub">

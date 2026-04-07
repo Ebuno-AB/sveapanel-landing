@@ -281,8 +281,8 @@ const LanguageToggle = ({
   const TRACK_WIDTH = 96;
   const TRACK_HEIGHT = 40;
   const KNOB_PADDING = 3;
-  const KNOB_SIZE = TRACK_HEIGHT - KNOB_PADDING * 2; // 34
-  const KNOB_WIDTH = TRACK_WIDTH / 2 - KNOB_PADDING; // 45
+  const KNOB_SIZE = TRACK_HEIGHT - KNOB_PADDING * 2;
+  const KNOB_WIDTH = TRACK_WIDTH / 2 - KNOB_PADDING;  
   const KNOB_LEFT = isEn ? TRACK_WIDTH / 2 : KNOB_PADDING;
 
   return (
