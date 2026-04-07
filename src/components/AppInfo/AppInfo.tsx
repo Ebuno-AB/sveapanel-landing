@@ -2,9 +2,9 @@ import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
 import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
 import { GamingMockup } from "@/components/GamingMockup/GamingMockup";
+import { SurveyMockup } from "@/components/SurveyMockup/SurveyMockup";
 import { isIosReview } from "@/config/reviewConfig";
 import competitionMockup from "../../assets/Images/GamingMockup_.png";
-import surveyMockup from "../../assets/Images/surveyMockup.png";
 
 type Accent = "pink" | "teal" | "purple" | "orange" | "blue";
 
@@ -97,10 +97,11 @@ const items: AppInfoItem[] = [
     ],
   },
   {
-    image: surveyMockup,
+    image: null,
     imageAlt: "Survey mockup",
     reverse: false,
     accent: "blue",
+    MockupComponent: SurveyMockup,
     headingParts: [
       { text: "Svara på " },
       { text: "enkäter", highlighted: true },
