@@ -1,7 +1,7 @@
 import React from "react";
 import "./HeroSection.css";
 import heroMain from "@/assets/Images/HeroMain.webp";
-import heroIosReview from "@/assets/Images/HeroIosreview.webp";
+import heroIosReview from "@/assets/Images/HeroIosReview.webp";
 import appLogoImg from "@/assets/logo/logo.svg";
 import { isIosReview } from "@/config/reviewConfig";
 
