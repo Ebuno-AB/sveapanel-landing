@@ -1,7 +1,9 @@
 import React from "react";
 import "./HeroSection.css";
-import phoneImg from "@/assets/Images/sveamock.png";
+import heroMain from "@/assets/Images/HeroMain.webp";
+import heroIosReview from "@/assets/Images/HeroIosreview.webp";
 import appLogoImg from "@/assets/logo/logo.svg";
+import { isIosReview } from "@/config/reviewConfig";
 
 interface HeroSectionProps {
   onAppDownload?: () => void;
@@ -46,7 +48,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onAppDownload }) => {
           {/* Right: visuals */}
           <div className="hero-col hero-visual">
             <div className="phone-wrap">
-              <img src={phoneImg} className="phone-img" />
+              <img
+                src={isIosReview ? heroIosReview : heroMain}
+                className="phone-img"
+              />
             </div>
           </div>
         </div>

@@ -5,9 +5,11 @@ import TopNav from "@/components/topNav/TopNav";
 import Footer from "@/components/footer/Footer";
 import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal";
 import cashbackMockup from "@/assets/Images/cashbackMockup.webp";
+import cashbackIosReview from "@/assets/Images/cashbackIosReview.webp";
 import howTo1 from "@/assets/Images/HowTo1.png";
 import howTo2 from "@/assets/Images/HowTo2.png";
 import howTo3 from "@/assets/Images/HowTo3.png";
+import { isIosReview } from "@/config/reviewConfig";
 
 function Cashback() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
@@ -33,7 +35,7 @@ function Cashback() {
           {/* Right mockup */}
           <div className="cashback-hero-image-wrap">
             <img
-              src={cashbackMockup}
+              src={isIosReview ? cashbackIosReview : cashbackMockup}
               alt="SveaPanelen Cashback app"
               className="cashback-hero-image"
             />
