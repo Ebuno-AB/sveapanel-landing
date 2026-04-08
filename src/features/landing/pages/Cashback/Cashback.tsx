@@ -1,6 +1,7 @@
 import "@/App.css";
 import "./Cashback.css";
-import { useState } from "react";
+import "@/features/cashback/styles/CashbackPage.css";
+import { useState, useMemo, useEffect } from "react";
 import TopNav from "@/components/topNav/TopNav";
 import Footer from "@/components/footer/Footer";
 import AppDownloadQRModal from "@/components/appDownloadModal/AppDownloadQRModal";
@@ -10,10 +11,68 @@ import howTo1 from "@/assets/Images/HowTo1.png";
 import howTo2 from "@/assets/Images/HowTo2.png";
 import howTo3 from "@/assets/Images/HowTo3.png";
 import { isIosReview } from "@/config/reviewConfig";
+import {
+  usePublicStores,
+  usePublicFeaturedStore,
+  usePublicCategories,
+} from "@/features/cashback/api/cashback.queries";
+import SmallStoreCard from "@/features/cashback/components/SmallStoreCard";
+import FeaturedCard from "@/features/cashback/components/FeaturedCard";
+import FeedSkeleton from "@/features/cashback/components/FeedSkeleton";
+import CategoryCarousel from "@/features/cashback/components/CategoryCarousel";
+import { ShoppingBag, Search, ArrowUpDown } from "lucide-react";
+
+const INITIAL_LIMIT = 24;
 
 function Cashback() {
   const [isAppDownloadQRModalOpen, setIsAppDownloadQRModalOpen] =
     useState(false);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_LIMIT);
+  const [selectedCategory, setSelectedCategory] = useState<
+    string | undefined
+  >();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"az" | "cashback">("az");
+  const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
+
+  useEffect(() => {
+    const check = () => setIsCompact(window.innerWidth < 690);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const { data: featuredStore, isLoading: featuredLoading } =
+    usePublicFeaturedStore();
+  const { data: stores, isLoading: storesLoading } = usePublicStores();
+  const { data: categories } = usePublicCategories();
+
+  const isLoading = featuredLoading || storesLoading;
+
+  const filteredStores = useMemo(() => {
+    if (!stores) return [];
+    let result = stores.filter((s) => s.isActive);
+
+    if (selectedCategory) {
+      result = result.filter((s) =>
+        s.categories?.some((c) => c.slug === selectedCategory),
+      );
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter((s) => s.name.toLowerCase().includes(q));
+    }
+
+    if (sortBy === "az") {
+      result = [...result].sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    } else {
+      result = [...result].sort(
+        (a, b) => (b.cashback?.amount ?? 0) - (a.cashback?.amount ?? 0),
+      );
+    }
+
+    return result;
+  }, [stores, selectedCategory, searchQuery, sortBy]);
 
   return (
     <>
@@ -87,32 +146,106 @@ function Cashback() {
             Få cashback på dina favoritbutiker
           </h2>
 
-          <div className="store-grid">
-            {[
-              { name: "IKEA", cashback: 2.0 },
-              { name: "H&M", cashback: 5.0 },
-              { name: "Zalando", cashback: 4.0 },
-              { name: "Adidas", cashback: 6.0 },
-              { name: "Nike", cashback: 5.0 },
-              { name: "Elgiganten", cashback: 3.0 },
-              { name: "Apotek Hjärtat", cashback: 8.0 },
-              { name: "Webhallen", cashback: 3.5 },
-              { name: "Stadium", cashback: 4.0 },
-              { name: "Lindex", cashback: 6.0 },
-              { name: "Boozt", cashback: 7.0 },
-              { name: "Coop", cashback: 2.5 },
-            ].map((store, i) => (
-              <div key={i} className="store-card">
-                <div className="store-logo-fallback">
-                  {store.name.charAt(0)}
-                </div>
-                <span className="store-name">{store.name}</span>
-                <span className="store-cashback-badge">
-                  {store.cashback}% cashback
-                </span>
-              </div>
-            ))}
+          {featuredStore && (
+            <div className="cb-featured-single" style={{ marginBottom: 24 }}>
+              <FeaturedCard store={featuredStore} onCardClick={() => {}} />
+            </div>
+          )}
+
+          <div className="cb-search-input-wrap">
+            <Search size={18} strokeWidth={2.5} />
+            <input
+              className="cb-search-input"
+              type="text"
+              placeholder="Sök efter butiker"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setVisibleCount(INITIAL_LIMIT);
+              }}
+            />
           </div>
+
+          {categories &&
+            categories.length > 0 &&
+            (isCompact ? (
+              <select
+                className="cb-category-select"
+                value={selectedCategory ?? ""}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value || undefined);
+                  setVisibleCount(INITIAL_LIMIT);
+                }}
+                aria-label="Välj kategori"
+              >
+                <option value="">Alla kategorier</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.slug}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <CategoryCarousel
+                categories={categories}
+                selected={selectedCategory}
+                onSelect={(slug) => {
+                  setSelectedCategory(slug);
+                  setVisibleCount(INITIAL_LIMIT);
+                }}
+              />
+            ))}
+
+          <div className="cb-sort-chips">
+            <button
+              className={`cb-sort-chip${sortBy === "az" ? " active" : ""}`}
+              onClick={() => setSortBy("az")}
+            >
+              <ArrowUpDown size={14} /> A-Ö
+            </button>
+            <button
+              className={`cb-sort-chip${sortBy === "cashback" ? " active" : ""}`}
+              onClick={() => setSortBy("cashback")}
+            >
+              <ArrowUpDown size={14} /> Högst cashback
+            </button>
+          </div>
+
+          {isLoading ? (
+            <FeedSkeleton />
+          ) : filteredStores.length === 0 ? (
+            <div className="cb-empty" style={{ marginTop: 24 }}>
+              <div className="cb-empty-icon">
+                <ShoppingBag size={32} />
+              </div>
+              <h3>Inga butiker hittades</h3>
+              <p>
+                Prova att söka efter något annat eller välj en annan kategori.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="cb-stores-scroll">
+                {filteredStores.slice(0, visibleCount).map((store) => (
+                  <SmallStoreCard
+                    key={store.id}
+                    store={store}
+                    onCardClick={() => {}}
+                  />
+                ))}
+              </div>
+              {visibleCount < filteredStores.length && (
+                <div className="cb-show-more-wrap">
+                  <button
+                    className="cb-show-more"
+                    onClick={() => setVisibleCount((c) => c + INITIAL_LIMIT)}
+                  >
+                    Visa fler
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 

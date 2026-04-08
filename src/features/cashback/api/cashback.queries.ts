@@ -57,6 +57,24 @@ export const usePendingBalance = () => {
   });
 };
 
+export const usePublicCategories = () =>
+  useQuery({
+    queryKey: [...queryKeys.cashback.categories, "public"],
+    queryFn: cashbackApi.getCategories,
+  });
+
+export const usePublicStores = () =>
+  useQuery({
+    queryKey: [...queryKeys.cashback.stores, "public"],
+    queryFn: cashbackApi.getStores,
+  });
+
+export const usePublicFeaturedStore = () =>
+  useQuery({
+    queryKey: [...queryKeys.cashback.featuredStore, "public"],
+    queryFn: cashbackApi.getFeaturedStore,
+  });
+
 export const useStoreDetail = (
   storeId: number,
   hasMultipleCommissionGroups: boolean,
