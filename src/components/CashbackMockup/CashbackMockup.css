@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   max-width: 800px;
-  aspect-ratio: 1 /1;
+  aspect-ratio: 3 / 4;
   margin: 0 auto;
   overflow: visible;
 }
@@ -11,8 +11,9 @@
 /* ── Base phone image — positioned within canvas, not filling it ── */
 .cashback-mockup__base {
   position: absolute;
-  left: 13%;
-  width: 76%;
+  top: 5%;
+  left: 8%;
+  width: 90%;
   height: auto;
   display: block;
   z-index: 2;
@@ -28,7 +29,7 @@
 /* ── Product cards — behind phone ── */
 .cashback-mockup__headphones {
   left: 18%;
-  top: -5%;
+  top: 5%;
   width: 25%;
   z-index: 1;
   transform: rotate(-20deg);
@@ -53,7 +54,7 @@
 
 /* ── Store cards — over phone ── */
 .cashback-mockup__amazon {
-  left: 2%;
+  left: 1%;
   top: 50%;
   width: 25%;
   z-index: 3;
@@ -61,7 +62,7 @@
 }
 
 .cashback-mockup__hotels {
-  right: 72%;
+  right: 75%;
   top: 62%;
   width: 25%;
   z-index: 3;
@@ -70,16 +71,9 @@
 
 /* ── Percentage badge — over phone, top-right ── */
 .cashback-mockup__percent {
-  left: 72%;
+  left: 80%;
   top: 22%;
   width: 25%;
   z-index: 3;
   animation: levitate 6s ease-in-out infinite;
-}
-
-/* ── Responsive ── */
-@media (max-width: 760px) {
-  .cashback-mockup {
-    max-width: 260px;
-  }
 }

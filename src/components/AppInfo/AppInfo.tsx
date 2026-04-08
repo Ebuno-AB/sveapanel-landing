@@ -1,10 +1,10 @@
 import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
+import { CompetitionMockup } from "@/components/CompetitionMockup/CompetitionMockup";
 import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
 import { GamingMockup } from "@/components/GamingMockup/GamingMockup";
 import { SurveyMockup } from "@/components/SurveyMockup/SurveyMockup";
 import { isIosReview } from "@/config/reviewConfig";
-import competitionMockup from "../../assets/Images/GamingMockup_.png";
 
 type Accent = "pink" | "teal" | "purple" | "orange" | "blue";
 
@@ -82,10 +82,11 @@ const items: AppInfoItem[] = [
     ],
   },
   {
-    image: competitionMockup,
+    image: null,
     imageAlt: "Competition mockup",
     reverse: true,
     accent: "orange",
+    MockupComponent: CompetitionMockup,
     headingParts: [
       { text: "Vi har dagliga och veckovisa " },
       { text: "tävlingar", highlighted: true },

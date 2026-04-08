@@ -1,5 +1,5 @@
 /* ── Container ── */
-.duals-mockup {
+.competition-mockup {
   position: relative;
   width: 100%;
   max-width: 800px;
@@ -9,18 +9,18 @@
 }
 
 /* ── Base phone image ── */
-.duals-mockup__base {
+.competition-mockup__base {
   position: absolute;
-  left: 15%;
-  top: 10%;
-  width: 70%;
+  left: 8%;
+  top: 12%;
+  width: 84%;
   height: auto;
   display: block;
   z-index: 2;
 }
 
 /* ── Shared layer defaults ── */
-.duals-mockup__layer {
+.competition-mockup__layer {
   position: absolute;
   object-fit: contain;
   display: block;
@@ -36,20 +36,19 @@
   }
 }
 
-/* ── Quiz icon — top-left, behind phone ── */
-.duals-mockup__quiz {
-  left: 5%;
-  top: 10%;
-  width: 28%;
-  z-index: 3;
-  animation: levitate 6s ease-in-out infinite;
+/* ── Confetti — behind phone ── */
+.competition-mockup__confetti {
+  right: 22%;
+  top: -12%;
+  width: 100%;
+  z-index: 1;
 }
 
-/* ── VS icon — bottom-right, over phone ── */
-.duals-mockup__vs {
-  right: 5%;
+/* ── Trophy — floating bottom-left ── */
+.competition-mockup__trophy {
+  left: 7%;
   bottom: 10%;
-  width: 28%;
+  width: 38%;
   z-index: 3;
-  animation: levitate 6s ease-in-out infinite 1.5s;
+  animation: levitate 6s ease-in-out infinite;
 }

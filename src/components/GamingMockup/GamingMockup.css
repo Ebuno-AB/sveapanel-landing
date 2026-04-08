@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   max-width: 800px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 4;
   margin: 0 auto;
   overflow: visible;
 }
@@ -12,7 +12,7 @@
 .gaming-mockup__base {
   position: absolute;
   left: 13%;
-  top: 2%;
+  top: 18%;
   width: 80%;
   height: auto;
   display: block;
@@ -61,7 +61,7 @@
 /* ── Coin Master — top-left, behind phone ── */
 .gaming-mockup__coinmaster {
   left: 5%;
-  top: 40%;
+  top: 45%;
   width: 17%;
   z-index: 3;
   animation: levitate 6s ease-in-out infinite;
@@ -70,7 +70,7 @@
 /* ── Monopoly — bottom-left, over phone ── */
 .gaming-mockup__monopoly {
   left: 5%;
-  top: 67%;
+  top: 60%;
   width: 17%;
   z-index: 3;
   animation: levitate-rotated 6s ease-in-out infinite 1s;
@@ -79,7 +79,7 @@
 /* ── Candy Crush — top-right ── */
 .gaming-mockup__candy {
   right: 10%;
-  top: 10%;
+  top: 18%;
   width: 17%;
   z-index: 3;
   animation: levitate 6s ease-in-out infinite 2s;
@@ -88,15 +88,8 @@
 /* ── Clash of Clans — bottom-right ── */
 .gaming-mockup__clash {
   right: 0%;
-  top: 30%;
+  top: 33%;
   width: 17%;
   z-index: 3;
   animation: levitate-rotated-right 6s ease-in-out infinite 3s;
-}
-
-/* ── Responsive ── */
-@media (max-width: 760px) {
-  .gaming-mockup {
-    max-width: 260px;
-  }
 }
