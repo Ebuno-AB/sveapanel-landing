@@ -68,6 +68,7 @@ const items: AppInfoItem[] = [
     reverse: false,
     accent: "purple",
     MockupComponent: DualsMockup,
+    iosHidden: true,
     headingParts: [
       { text: "Spela mot andra användare i vårat " },
       { text: "quiz-spel", highlighted: true },
