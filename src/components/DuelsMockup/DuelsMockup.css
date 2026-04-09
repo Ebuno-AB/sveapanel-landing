@@ -1,5 +1,5 @@
 /* ── Container ── */
-.duals-mockup {
+.duels-mockup {
   position: relative;
   width: 100%;
   max-width: 800px;
@@ -9,7 +9,7 @@
 }
 
 /* ── Base phone image ── */
-.duals-mockup__base {
+.duels-mockup__base {
   position: absolute;
   left: 15%;
   top: 10%;
@@ -20,7 +20,7 @@
 }
 
 /* ── Shared layer defaults ── */
-.duals-mockup__layer {
+.duels-mockup__layer {
   position: absolute;
   object-fit: contain;
   display: block;
@@ -37,7 +37,7 @@
 }
 
 /* ── Quiz icon — top-left, behind phone ── */
-.duals-mockup__quiz {
+.duels-mockup__quiz {
   left: 5%;
   top: 10%;
   width: 28%;
@@ -46,7 +46,7 @@
 }
 
 /* ── VS icon — bottom-right, over phone ── */
-.duals-mockup__vs {
+.duels-mockup__vs {
   right: 5%;
   bottom: 10%;
   width: 28%;

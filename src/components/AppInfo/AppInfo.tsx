@@ -1,7 +1,7 @@
 import "./AppInfo.css";
 import { CashbackMockup } from "@/components/CashbackMockup/CashbackMockup";
 import { CompetitionMockup } from "@/components/CompetitionMockup/CompetitionMockup";
-import { DualsMockup } from "@/components/DualsMockup/DualsMockup";
+import { DuelsMockup } from "@/components/DuelsMockup/DuelsMockup";
 import { GamingMockup } from "@/components/GamingMockup/GamingMockup";
 import { SurveyMockup } from "@/components/SurveyMockup/SurveyMockup";
 import { isIosReview } from "@/config/reviewConfig";
@@ -67,7 +67,7 @@ const items: AppInfoItem[] = [
     imageAlt: "Duels mockup",
     reverse: false,
     accent: "purple",
-    MockupComponent: DualsMockup,
+    MockupComponent: DuelsMockup,
     iosHidden: true,
     headingParts: [
       { text: "Spela mot andra användare i vårat " },
