@@ -17,6 +17,8 @@ const CompetitionPage = () => {
   const { data: historyRes, isLoading: histLoading } = useCompetitionHistory();
   const { data: stats } = useCompetitionStats();
 
+  const validCompetitions =
+    competitions?.filter((c) => c.competition_info) ?? [];
   const [activeIdx, setActiveIdx] = useState(0);
   const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
   const getHistoryPageSize = () => (window.innerWidth < 690 ? 2 : 5);
@@ -35,7 +37,7 @@ const CompetitionPage = () => {
     (Array.isArray(historyRes)
       ? (historyRes as unknown as CompetitionHistoryItem[])
       : []);
-  const activeComp = competitions?.[activeIdx];
+  const activeComp = validCompetitions[activeIdx];
 
   return (
     <div className="comp-page">
@@ -73,7 +75,7 @@ const CompetitionPage = () => {
       </div>
 
       <div className="comp-active-panel">
-        {competitions && competitions.length > 1 && (
+        {validCompetitions.length > 1 && (
           <div className="comp-tabs-bar">
             {isCompact ? (
               <select
@@ -82,7 +84,7 @@ const CompetitionPage = () => {
                 onChange={(e) => setActiveIdx(Number(e.target.value))}
                 aria-label="Välj tävling"
               >
-                {competitions.map((comp, i) => (
+                {validCompetitions.map((comp, i) => (
                   <option key={comp.competition_info.id} value={i}>
                     {comp.competition_info.title}
                   </option>
@@ -90,7 +92,7 @@ const CompetitionPage = () => {
               </select>
             ) : (
               <div className="comp-tabs">
-                {competitions.map((comp, i) => (
+                {validCompetitions.map((comp, i) => (
                   <div
                     key={comp.competition_info.id}
                     className={`comp-tab${i === activeIdx ? " active" : ""}`}
@@ -121,7 +123,7 @@ const CompetitionPage = () => {
           </div>
         ) : activeComp ? (
           <CompetitionCard competition={activeComp} />
-        ) : !competitions || competitions.length === 0 ? (
+        ) : validCompetitions.length === 0 ? (
           <div className="comp-empty">
             <div className="comp-empty-icon">🏆</div>
             <h3>Inga aktiva tävlingar</h3>

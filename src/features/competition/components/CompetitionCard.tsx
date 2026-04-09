@@ -7,6 +7,8 @@ import Leaderboard from "./Leaderboard";
 function CompetitionCard({ competition }: { competition: Competition }) {
   const { competition_info, top_users } = competition;
 
+  if (!competition_info) return null;
+
   return (
     <div className="comp-card">
       <div className="comp-card-header">

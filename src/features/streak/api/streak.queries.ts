@@ -3,7 +3,7 @@ import { queryKeys } from "@/core/query/queryKeys";
 import { useAuthStore } from "@/core/auth/authStore";
 import { streakApi } from "./streak.api";
 
-export const STREAK_NAME = "daily";
+export const STREAK_NAME = "APP_ACTION";
 
 export const useStreakStats = (streakName = STREAK_NAME) => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
