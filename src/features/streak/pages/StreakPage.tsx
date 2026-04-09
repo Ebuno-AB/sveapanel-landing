@@ -24,6 +24,8 @@ const StreakPage = () => {
     useStreakCompletions();
   const { data: toplistRes, isLoading: toplistLoading } = useStreakToplist();
 
+  console.log(completionsRes, stats);
+
   const completions = completionsRes?.data ?? [];
 
   if ((statsLoading || compLoading) && !stats) {
