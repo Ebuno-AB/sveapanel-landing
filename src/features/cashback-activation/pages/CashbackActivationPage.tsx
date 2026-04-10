@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
-import branch from "branch-sdk";
 import {
   getStoreDetail,
   getTrackingLink,
@@ -10,7 +9,14 @@ import {
   type CashbackCommissionGroup,
 } from "../api/cashbackActivationApi";
 import "./CashbackActivation.css";
-import logoImg from "@/assets/icons/logo.png";
+import { useBankIdLogin } from "@/features/auth/hooks/useBankIdLogin";
+import BankIdQRModal from "@/features/auth/components/BankIdQRModal";
+import { isPhone } from "@/utils/browserDetection";
+import { safeRedirect } from "@/utils/safeRedirect";
+import { useAuthStore } from "@/core/auth/authStore";
+import { tokenStorage } from "@/core/auth/tokenStorage";
+import { queryClient } from "@/core/query/queryClient";
+import { queryKeys } from "@/core/query/queryKeys";
 
 function StoreLogo({ store }: { store: CashbackStoreDetails }) {
   const [imgError, setImgError] = useState(false);
@@ -25,7 +31,9 @@ function StoreLogo({ store }: { store: CashbackStoreDetails }) {
     );
   }
 
-  return <div className="logo-fallback">{store.name.charAt(0).toUpperCase()}</div>;
+  return (
+    <div className="logo-fallback">{store.name.charAt(0).toUpperCase()}</div>
+  );
 }
 
 function CheckIcon() {
@@ -38,7 +46,16 @@ function CheckIcon() {
 
 function ShoppingIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
       <line x1="3" y1="6" x2="21" y2="6" />
       <path d="M16 10a4 4 0 0 1-8 0" />
@@ -96,7 +113,14 @@ function NotFound() {
     <div className="activation-page">
       <div className="scroll-content not-found">
         <div className="not-found-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="40" height="40">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            width="40"
+            height="40"
+          >
             <circle cx="12" cy="12" r="10" />
             <path d="M15 9l-6 6M9 9l6 6" />
           </svg>
@@ -111,39 +135,79 @@ function NotFound() {
 export default function CashbackActivationPage() {
   const [searchParams] = useSearchParams();
   const storeId = searchParams.get("store");
-  const token = searchParams.get("token");
+  const tokenFromQuery = searchParams.get("token");
   const code = searchParams.get("code");
   const source = searchParams.get("source") || "unknown";
+  const isExtensionSource = source.startsWith("extension");
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const browserToken = isAuthenticated ? tokenStorage.getToken() : null;
+  const authToken = tokenFromQuery ?? browserToken;
+  const isPhoneDevice = isPhone();
 
   const [store, setStore] = useState<CashbackStoreDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [activating, setActivating] = useState(false);
-  const [branchLink, setBranchLink] = useState<string | null>(null);
+  const [showBankIdModal, setShowBankIdModal] = useState(false);
+  const [pendingActivation, setPendingActivation] = useState(false);
 
-  const needsLogin = source === "extension" && !code;
+  const {
+    qrDataUrl,
+    isLoading: isBankIdLoading,
+    status: bankIdStatus,
+    error: bankIdError,
+    isSuccess: bankIdSuccess,
+    start: startBankIdLogin,
+    cancel: cancelBankIdLogin,
+  } = useBankIdLogin();
 
-  // Generate Branch deep link when user needs to log in
-  useEffect(() => {
-    if (!needsLogin || !store) return;
-    branch.init(import.meta.env.VITE_BRANCH_SDK_KEY, {}, () => {
-      branch.link(
-        {
-          channel: "cashback-extension",
-          feature: "cashback-activation",
-          data: {
-            cashback_store_id: String(store.id),
-            cashback_store_name: store.name,
-            cashback_source: "extension",
-            $deeplink_path: `cashback/activate/${store.id}`,
-          },
-        },
-        (err, link) => {
-          if (!err && link) setBranchLink(link);
-        },
+  const needsBrowserLogin = isExtensionSource && !code && !authToken;
+
+  const activateStore = useCallback(
+    async (currentAuthToken?: string | null) => {
+      if (!store) return;
+
+      setActivating(true);
+      let url: string;
+      try {
+        if (code) {
+          url = await getTrackingLinkWithCode(store.id, code, source);
+        } else if (currentAuthToken) {
+          url = await getTrackingLink(store.id, currentAuthToken, source);
+        } else {
+          url = store.trackingUrl ?? store.websiteUrl;
+        }
+      } catch {
+        url = store.trackingUrl ?? store.websiteUrl;
+      }
+
+      if (!url) {
+        setActivating(false);
+        return;
+      }
+
+      window.postMessage(
+        { type: "SVEA_CASHBACK_ACTIVATE", storeId: store.id },
+        "*",
       );
-    });
-  }, [needsLogin, store]);
+      setTimeout(() => {
+        window.location.href = url;
+      }, 50);
+    },
+    [code, source, store],
+  );
+
+  useEffect(() => {
+    if (!bankIdSuccess) return;
+
+    queryClient.invalidateQueries({ queryKey: queryKeys.user.profile });
+    setShowBankIdModal(false);
+
+    if (pendingActivation) {
+      setPendingActivation(false);
+      void activateStore(tokenStorage.getToken());
+    }
+  }, [activateStore, bankIdSuccess, pendingActivation]);
 
   useEffect(() => {
     if (!storeId || isNaN(Number(storeId))) {
@@ -151,7 +215,7 @@ export default function CashbackActivationPage() {
       setLoading(false);
       return;
     }
-    getStoreDetail(Number(storeId), token)
+    getStoreDetail(Number(storeId), authToken)
       .then((data) => {
         setStore(data);
         setLoading(false);
@@ -160,29 +224,30 @@ export default function CashbackActivationPage() {
         setNotFound(true);
         setLoading(false);
       });
-  }, [storeId]);
+  }, [storeId, authToken]);
 
   if (loading) return <LoadingSkeleton />;
   if (notFound || !store) return <NotFound />;
 
-  const handleActivate = async () => {
-    setActivating(true);
-    let url: string;
-    try {
-      if (code) {
-        url = await getTrackingLinkWithCode(store.id, code, source);
-      } else if (token) {
-        url = await getTrackingLink(store.id, token, source);
-      } else {
-        url = store.trackingUrl ?? store.websiteUrl;
-      }
-    } catch {
-      url = store.trackingUrl ?? store.websiteUrl;
+  const startLoginFlow = async () => {
+    setPendingActivation(true);
+    const universalLink = await startBankIdLogin();
+
+    if (isPhoneDevice && universalLink) {
+      safeRedirect(universalLink);
+      return;
     }
 
-    if (!url) { setActivating(false); return; }
-    window.postMessage({ type: "SVEA_CASHBACK_ACTIVATE", storeId: store.id }, "*");
-    setTimeout(() => { window.location.href = url; }, 50);
+    setShowBankIdModal(true);
+  };
+
+  const handleActivate = async () => {
+    if (!code && !authToken) {
+      await startLoginFlow();
+      return;
+    }
+
+    await activateStore(authToken);
   };
 
   const cashbackLabel = store.cashback ? formatCashback(store.cashback) : null;
@@ -243,6 +308,19 @@ export default function CashbackActivationPage() {
           </div>
         )}
 
+        {needsBrowserLogin && (
+          <div className="section">
+            <div className="section-title">Logga in f&ouml;r cashback</div>
+            <div className="description-card">
+              <p className="description-text">
+                Logga in med BankID i din webbl&auml;sare f&ouml;r att aktivera
+                cashback hos {store.name}. N&auml;r du har verifierat dig
+                skickas du vidare till butiken automatiskt.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Two info boxes side by side */}
         <div className="info-boxes">
           <div className="info-box">
@@ -278,39 +356,36 @@ export default function CashbackActivationPage() {
         <button
           className="cta-button"
           onClick={handleActivate}
-          disabled={activating}
+          disabled={activating || isBankIdLoading}
         >
-          {activating ? (
+          {activating || isBankIdLoading ? (
             <span className="btn-spinner" />
           ) : (
             <>
               <ShoppingIcon />
-              Handla hos {store.name}
+              {needsBrowserLogin
+                ? "Logga in med BankID"
+                : `Handla hos ${store.name}`}
             </>
           )}
         </button>
       </div>
 
-      {/* Login required modal */}
-      {needsLogin && (
-        <div className="login-overlay">
-          <div className="login-modal">
-            <div className="login-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-            </div>
-            <p className="login-text">
-              Du m&aring;ste vara inloggad i appen f&ouml;r att du ska kunna f&aring; cashback p&aring; dina k&ouml;p
-            </p>
-            <a href={branchLink ?? "sveapanelen://"} className="login-button">
-              <img src={logoImg} alt="SveaPanelen" className="login-button-logo" />
-              &Ouml;ppna SveaPanelen
-            </a>
-          </div>
-        </div>
-      )}
+      <BankIdQRModal
+        open={showBankIdModal}
+        qrDataUrl={qrDataUrl}
+        isLoading={isBankIdLoading}
+        status={bankIdStatus}
+        error={bankIdError}
+        onClose={() => {
+          setPendingActivation(false);
+          setShowBankIdModal(false);
+          cancelBankIdLogin();
+        }}
+        onRetry={() => {
+          void startLoginFlow();
+        }}
+      />
     </div>
   );
 }
