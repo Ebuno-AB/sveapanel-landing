@@ -19,4 +19,9 @@ export const cashbackApi = {
     httpClient.get<CashbackStoreDetails>(
       ENDPOINTS.cashback.storeDetail(storeId),
     ),
+  createTrackingLink: (storeId: number, source = "dashboard-handla") =>
+    httpClient.post<{ url: string }>(ENDPOINTS.cashback.createTrackingLink, {
+      storeId,
+      source,
+    }),
 };

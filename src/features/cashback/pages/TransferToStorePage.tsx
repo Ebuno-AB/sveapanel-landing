@@ -10,6 +10,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import type { CashbackStore } from "@/features/cashback/types/cashback.types";
+import { cashbackApi } from "@/features/cashback/api/cashback.api";
 import { formatCashback } from "@/features/cashback/utils/formatCashback";
 import { useStoreDetail } from "@/features/cashback/api/cashback.queries";
 import "@/features/cashback/styles/TransferToStore.css";
@@ -24,6 +25,7 @@ function TransferToStorePage() {
   const store = (location.state as TransferToStoreState)?.store;
 
   const [logoError, setLogoError] = useState(false);
+  const [isOpeningStore, setIsOpeningStore] = useState(false);
 
   const { data: storeDetail } = useStoreDetail(
     store?.id ?? 0,
@@ -40,9 +42,22 @@ function TransferToStorePage() {
 
   const cashbackText = formatCashback(store.cashback);
 
-  const handleVisitStore = () => {
-    if (store.websiteUrl) {
+  const handleVisitStore = async () => {
+    if (!store.websiteUrl || isOpeningStore) return;
+
+    setIsOpeningStore(true);
+
+    try {
+      const result = await cashbackApi.createTrackingLink(store.id);
+      window.open(
+        result.url || store.websiteUrl,
+        "_blank",
+        "noopener,noreferrer",
+      );
+    } catch {
       window.open(store.websiteUrl, "_blank", "noopener,noreferrer");
+    } finally {
+      setIsOpeningStore(false);
     }
   };
 
@@ -194,9 +209,9 @@ function TransferToStorePage() {
         </div>
 
         {/* CTA */}
-        <button className="tts-cta" onClick={handleVisitStore}>
+        <button className="tts-cta" onClick={() => void handleVisitStore()}>
           <ExternalLink size={18} strokeWidth={2.5} />
-          Gå till {store.name}
+          {isOpeningStore ? "Öppnar butik..." : `Gå till ${store.name}`}
         </button>
       </div>
     </div>
