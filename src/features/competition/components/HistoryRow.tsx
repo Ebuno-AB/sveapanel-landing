@@ -7,22 +7,21 @@ const TEAL = "#00cca3";
 const RANK_COLORS = [GOLD, SILVER, BRONZE];
 
 function HistoryRow({ item }: { item: CompetitionHistoryItem }) {
-  const rank = item.my_place.finalOrder;
+  const rank = item.myPlace?.finalOrder ?? 0;
   const isTop = rank >= 1 && rank <= 3;
   const rankColor = isTop ? RANK_COLORS[rank - 1] : TEAL;
-  const date = new Date(item.competition_info.start_date).toLocaleDateString(
-    "sv-SE",
-    {
-      day: "numeric",
-      month: "short",
-    },
-  );
-  const winner = item.top_three?.[0];
+  const date = new Date(
+    item.competitionInfo.startDate * 1000,
+  ).toLocaleDateString("sv-SE", {
+    day: "numeric",
+    month: "short",
+  });
+  const winner = item.topThree?.[0];
 
   return (
     <div className="comp-history-row">
       <div className="comp-history-card-header">
-        <div className="comp-history-title">{item.competition_info.title}</div>
+        <div className="comp-history-title">{item.competitionInfo.title}</div>
         <div className="comp-history-date">{date}</div>
       </div>
 
@@ -31,7 +30,7 @@ function HistoryRow({ item }: { item: CompetitionHistoryItem }) {
           #{rank}
         </span>
         <span className="comp-history-amount">
-          {item.my_place.amount}
+          {item.myPlace?.amount ?? 0}
           <span>st</span>
         </span>
       </div>

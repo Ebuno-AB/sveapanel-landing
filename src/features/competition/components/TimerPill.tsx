@@ -1,7 +1,7 @@
 import { Clock } from "lucide-react";
 import useCountdown from "@/features/competition/hooks/useCountdown";
 
-function TimerPill({ endDate }: { endDate: string }) {
+function TimerPill({ endDate }: { endDate: number }) {
   const text = useCountdown(endDate);
   return (
     <span className="comp-tab-timer">

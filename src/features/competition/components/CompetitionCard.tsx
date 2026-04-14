@@ -5,24 +5,24 @@ import Podium from "./Podium";
 import Leaderboard from "./Leaderboard";
 
 function CompetitionCard({ competition }: { competition: Competition }) {
-  const { competition_info, top_users } = competition;
+  const { competitionInfo, topUsers } = competition;
 
-  if (!competition_info) return null;
+  if (!competitionInfo) return null;
 
   return (
     <div className="comp-card">
       <div className="comp-card-header">
-        <h3 className="comp-card-title">{competition_info.title}</h3>
-        {competition_info.end_date && (
-          <TimerPill endDate={competition_info.end_date} />
+        <h3 className="comp-card-title">{competitionInfo.title}</h3>
+        {competitionInfo.endDate && (
+          <TimerPill endDate={competitionInfo.endDate} />
         )}
       </div>
-      {competition_info.description && (
-        <p className="comp-description">{competition_info.description}</p>
+      {competitionInfo.description && (
+        <p className="comp-description">{competitionInfo.description}</p>
       )}
       <MyPositionBar competition={competition} />
-      <Podium users={top_users} />
-      <Leaderboard users={top_users} />
+      <Podium users={topUsers} />
+      <Leaderboard users={topUsers} />
     </div>
   );
 }

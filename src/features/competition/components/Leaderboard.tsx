@@ -16,9 +16,9 @@ function Leaderboard({ users }: { users: CompetitionUser[] }) {
       <h4 className="comp-leaderboard-title">Topplista</h4>
       <div className="comp-leaderboard-scroll">
         {users
-          .filter((user) => user?.id != null)
+          .filter((user) => user?.userId != null)
           .map((user) => (
-            <div key={user.id} className="comp-lb-row">
+            <div key={user.userId} className="comp-lb-row">
               <span className="comp-lb-pos">{user.position}</span>
               <div
                 className="comp-lb-avatar"

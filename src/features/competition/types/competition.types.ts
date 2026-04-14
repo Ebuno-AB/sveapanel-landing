@@ -1,52 +1,46 @@
 export type CompetitionInfo = {
   id: number;
-  competition_type: string;
-  start_date: string;
-  end_date: string;
+  competitionType: string;
+  startDate: number; // unix seconds
+  endDate: number; // unix seconds
   title: string;
   description: string;
   joinText: string;
 };
 
 export type CompetitionUser = {
-  id: number;
-  user_id: number;
+  userId: number;
   name: string;
   amount: number;
-  position: string;
+  position: number;
   color: string;
   price: number;
 };
 
 export type MyPlace = {
-  id: number;
-  user_id: number;
-  position: string;
+  userId: number;
+  position: number | null;
   amount: number;
+  finalOrder: number;
 };
 
 export type Competition = {
-  competition_info: CompetitionInfo;
-  top_users: CompetitionUser[];
-  my_place: MyPlace;
+  competitionInfo: CompetitionInfo;
+  topUsers: CompetitionUser[];
+  myPlace: MyPlace | null;
+  hasEnded: boolean;
 };
 
 export type CompetitionHistoryItem = {
-  competition_info: CompetitionInfo;
-  my_place: {
-    id: number;
-    userId: number;
-    competitionId: number;
-    amount: number;
-    finalOrder: number;
-    registeredInCompetition: string;
-  };
-  top_three: CompetitionUser[];
+  competitionInfo: CompetitionInfo;
+  myPlace: MyPlace | null;
+  topThree: CompetitionUser[];
+  hasEnded: boolean;
 };
 
 export type UserCompetitionStats = {
   totalCompetitions: number;
   totalWon: number;
   bestPosition: number;
-  topThreePositions: number;
+  topThreeCount: number;
 };

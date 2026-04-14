@@ -18,7 +18,7 @@ const CompetitionPage = () => {
   const { data: stats } = useCompetitionStats();
 
   const validCompetitions =
-    competitions?.filter((c) => c.competition_info) ?? [];
+    competitions?.filter((c) => c.competitionInfo) ?? [];
   const [activeIdx, setActiveIdx] = useState(0);
   const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
   const getHistoryPageSize = () => (window.innerWidth < 690 ? 2 : 5);
@@ -61,7 +61,7 @@ const CompetitionPage = () => {
               </div>
               <div className="comp-stat">
                 <div className="comp-stat-icon">🎯</div>
-                <div className="comp-stat-value">{stats.topThreePositions}</div>
+                <div className="comp-stat-value">{stats.topThreeCount}</div>
                 <div className="comp-stat-label">Topp 3</div>
               </div>
               <div className="comp-stat">
@@ -85,8 +85,8 @@ const CompetitionPage = () => {
                 aria-label="Välj tävling"
               >
                 {validCompetitions.map((comp, i) => (
-                  <option key={comp.competition_info.id} value={i}>
-                    {comp.competition_info.title}
+                  <option key={comp.competitionInfo.id} value={i}>
+                    {comp.competitionInfo.title}
                   </option>
                 ))}
               </select>
@@ -94,19 +94,19 @@ const CompetitionPage = () => {
               <div className="comp-tabs">
                 {validCompetitions.map((comp, i) => (
                   <div
-                    key={comp.competition_info.id}
+                    key={comp.competitionInfo.id}
                     className={`comp-tab${i === activeIdx ? " active" : ""}`}
                     onClick={() => setActiveIdx(i)}
                   >
                     <div className="comp-tab-title">
-                      {comp.competition_info.title}
+                      {comp.competitionInfo.title}
                     </div>
                     <div className="comp-tab-meta">
                       <span className="comp-tab-type">
-                        {comp.competition_info.competition_type}
+                        {comp.competitionInfo.competitionType}
                       </span>
-                      {comp.competition_info.end_date && (
-                        <TimerPill endDate={comp.competition_info.end_date} />
+                      {comp.competitionInfo.endDate && (
+                        <TimerPill endDate={comp.competitionInfo.endDate} />
                       )}
                       <div className="live-dot" />
                     </div>
@@ -142,9 +142,9 @@ const CompetitionPage = () => {
               <div className="comp-history-list">
                 {history
                   .slice(0, visibleHistoryCount)
-                  .filter((item) => item?.competition_info)
+                  .filter((item) => item?.competitionInfo)
                   .map((item) => (
-                    <HistoryRow key={item.competition_info.id} item={item} />
+                    <HistoryRow key={item.competitionInfo.id} item={item} />
                   ))}
               </div>
               {visibleHistoryCount < history.length && (
