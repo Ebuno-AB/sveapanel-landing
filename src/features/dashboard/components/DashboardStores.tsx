@@ -6,11 +6,14 @@ import CashbackStoreModal from "@/features/cashback/components/CashbackStoreModa
 import type { CashbackStore } from "@/features/cashback/types/cashback.types";
 import "@/features/cashback/styles/CashbackPage.css";
 
+const INITIAL_LIMIT = 20;
+
 export const DashboardStores = () => {
   const { data: feedSections, isLoading } = useFeedSections();
   const [selectedStore, setSelectedStore] = useState<CashbackStore | null>(
     null,
   );
+  const [visibleCount, setVisibleCount] = useState(INITIAL_LIMIT);
 
   const stores = feedSections
     ? Array.from(
@@ -21,6 +24,8 @@ export const DashboardStores = () => {
         ).values(),
       )
     : [];
+
+  const displayedStores = stores.slice(0, visibleCount);
 
   return (
     <section className="dashboard-section">
@@ -41,15 +46,27 @@ export const DashboardStores = () => {
           ))}
         </div>
       ) : stores.length > 0 ? (
-        <div className="cb-stores-scroll">
-          {stores.map((store) => (
-            <SmallStoreCard
-              key={store.id}
-              store={store}
-              onCardClick={() => setSelectedStore(store)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="cb-stores-scroll">
+            {displayedStores.map((store) => (
+              <SmallStoreCard
+                key={store.id}
+                store={store}
+                onCardClick={() => setSelectedStore(store)}
+              />
+            ))}
+          </div>
+          {visibleCount < stores.length && (
+            <div className="cb-show-more-wrap">
+              <button
+                className="cb-show-more"
+                onClick={() => setVisibleCount((c) => c + INITIAL_LIMIT)}
+              >
+                Visa fler
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="cb-empty">
           <div className="cb-empty-icon">🛍️</div>

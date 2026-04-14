@@ -5,6 +5,9 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import { QueryProvider } from "./core/query/QueryProvider.tsx";
+import { setWasmUrl } from "@lottiefiles/dotlottie-react";
+
+setWasmUrl("/dotlottie-player.wasm");
 
 createRoot(document.getElementById("root")!).render(
   <QueryProvider>

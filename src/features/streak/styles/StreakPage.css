@@ -130,6 +130,7 @@
 
 .weekly-fire {
   font-size: 0.85rem;
+  color: #00cca3;
 }
 
 .weekly-progress-bar-track {
@@ -159,6 +160,7 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  color: #00cca3;
 }
 
 .day-circle {
@@ -247,9 +249,14 @@
 }
 
 .streak-pb-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.9rem;
   font-weight: var(--weight-bold);
-  color: var(--color-text);
+}
+.longest-flame {
+  color: #00cca3;
 }
 
 /* ── Leaderboard ── */

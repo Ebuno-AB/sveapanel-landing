@@ -31,10 +31,10 @@ const StreakBadge = () => {
   const { data: stats } = useStreakStats();
   const { data: completionsRes } = useStreakCompletions();
 
-  const completions = completionsRes?.data ?? [];
+  const completions = completionsRes?.entries ?? [];
   const weekDates = getWeekDates();
   const todayStr = toDateStr(new Date());
-  const completionSet = new Set(completions.map((c) => c.local_date));
+  const completionSet = new Set(completions.map((c) => c.localDate));
   const currentStreak = stats?.currentStreak ?? 0;
 
   return (

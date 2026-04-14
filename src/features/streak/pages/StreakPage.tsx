@@ -1,5 +1,8 @@
-import { useState } from "react";
-import { Flame, Check } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Check, Flame } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import type { DotLottie } from "@lottiefiles/dotlottie-react";
+import fireLottie from "@/assets/icons/Fire.lottie";
 import {
   useStreakStats,
   useStreakCompletions,
@@ -12,12 +15,15 @@ import "@/features/streak/styles/StreakPage.css";
 
 type TabId = "streak" | "toplist";
 
-function toDateStr(d: Date): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
 const StreakPage = () => {
   const [activeTab, setActiveTab] = useState<TabId>("streak");
+
+  const dotLottieRef = useCallback((instance: DotLottie | null) => {
+    if (!instance) return;
+    instance.addEventListener("load", () => {
+      instance.setSpeed(0.2);
+    });
+  }, []);
 
   const { data: stats, isLoading: statsLoading } = useStreakStats();
   const { data: completionsRes, isLoading: compLoading } =
@@ -26,14 +32,13 @@ const StreakPage = () => {
 
   console.log(completionsRes, stats);
 
-  const completions = completionsRes?.data ?? [];
+  const completions = completionsRes?.entries ?? [];
 
   if ((statsLoading || compLoading) && !stats) {
     return <StreakSkeleton />;
   }
 
-  const todayStr = toDateStr(new Date());
-  const completedToday = stats?.lastCompletedLocalDate === todayStr;
+  const completedToday = stats?.hasCompletedToday ?? false;
 
   return (
     <div className="streak-page">
@@ -59,7 +64,16 @@ const StreakPage = () => {
           <>
             <div className="streak-hero">
               <div className="streak-hero-inner">
-                <Flame size={60} className="streak-fire-emoji" />
+                <DotLottieReact
+                  src={fireLottie}
+                  autoplay
+                  loop
+                  dotLottieRefCallback={dotLottieRef}
+                  style={{
+                    width: 80,
+                    height: 80,
+                  }}
+                />
                 <span className="streak-hero-count">
                   {stats?.currentStreak ?? 0}
                 </span>
@@ -91,14 +105,15 @@ const StreakPage = () => {
               <div className="streak-personal-best">
                 <span className="streak-pb-label">Längsta streak</span>
                 <span className="streak-pb-value">
-                  <Flame size={16} /> {stats.longestStreak} dagar
+                  <Flame className="longest-flame" size={16} />
+                  {stats.longestStreak} dagar
                 </span>
               </div>
             )}
           </>
         ) : (
           <StreakLeaderboard
-            toplist={toplistRes?.data ?? []}
+            toplist={toplistRes?.entries ?? []}
             isLoading={toplistLoading}
           />
         )}

@@ -1,5 +1,5 @@
 import { Flame, Trophy, Medal } from "lucide-react";
-import type { ToplistEntry } from "../types/streak.types";
+import type { StreakLeaderboardEntry } from "../types/streak.types";
 
 const MEDALS = [
   <Medal size={20} color="#FFD700" />,
@@ -8,7 +8,7 @@ const MEDALS = [
 ];
 
 interface Props {
-  toplist: ToplistEntry[];
+  toplist: StreakLeaderboardEntry[];
   isLoading: boolean;
 }
 
@@ -37,19 +37,21 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
   return (
     <div className="streak-leaderboard">
       {toplist.map((entry, i) => (
-        <div key={entry.user_id} className="leaderboard-row">
+        <div key={entry.userId} className="leaderboard-row">
           <div className="leaderboard-rank">
             {i < 3 ? (
               <span className="leaderboard-medal">{MEDALS[i]}</span>
             ) : (
-              <span className="leaderboard-rank-num">#{entry.rank}</span>
+              <span className="leaderboard-rank-num">#{entry.position}</span>
             )}
           </div>
-          <div className="leaderboard-name">{entry.name}</div>
+          <div className="leaderboard-name">
+            {entry.firstName} {entry.lastName}
+          </div>
           <div className="leaderboard-streak">
             <Flame size={16} className="leaderboard-streak-icon" />
             <span className="leaderboard-streak-count">
-              {entry.current_streak}
+              {entry.currentStreak}
             </span>
           </div>
         </div>

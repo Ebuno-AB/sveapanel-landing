@@ -1,5 +1,5 @@
 import { Flame, Clock } from "lucide-react";
-import type { StreakCompletion } from "../types/streak.types";
+import type { StreakCompletionEntry } from "../types/streak.types";
 
 const SWEDISH_DAYS = ["MAN", "TIS", "ONS", "TORS", "FRE", "LÖR", "SÖN"];
 
@@ -25,13 +25,13 @@ function getWeekDates(): string[] {
 }
 
 interface Props {
-  completions: StreakCompletion[];
+  completions: StreakCompletionEntry[];
 }
 
 const WeeklyProgress = ({ completions }: Props) => {
   const weekDates = getWeekDates();
   const todayStr = toDateStr(new Date());
-  const completionSet = new Set(completions.map((c) => c.local_date));
+  const completionSet = new Set(completions.map((c) => c.localDate));
   const completedCount = weekDates.filter((d) => completionSet.has(d)).length;
 
   return (
