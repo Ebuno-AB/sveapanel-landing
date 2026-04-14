@@ -140,9 +140,12 @@ const CompetitionPage = () => {
                 <h3>Tidigare tävlingar</h3>
               </div>
               <div className="comp-history-list">
-                {history.slice(0, visibleHistoryCount).map((item) => (
-                  <HistoryRow key={item.competition_info.id} item={item} />
-                ))}
+                {history
+                  .slice(0, visibleHistoryCount)
+                  .filter((item) => item?.competition_info)
+                  .map((item) => (
+                    <HistoryRow key={item.competition_info.id} item={item} />
+                  ))}
               </div>
               {visibleHistoryCount < history.length && (
                 <div className="comp-history-load-more">

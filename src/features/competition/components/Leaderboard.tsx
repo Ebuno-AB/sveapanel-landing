@@ -15,26 +15,31 @@ function Leaderboard({ users }: { users: CompetitionUser[] }) {
     <div className="comp-leaderboard">
       <h4 className="comp-leaderboard-title">Topplista</h4>
       <div className="comp-leaderboard-scroll">
-        {users.map((user) => (
-          <div key={user.id} className="comp-lb-row">
-            <span className="comp-lb-pos">{user.position}</span>
-            <div
-              className="comp-lb-avatar"
-              style={{ background: user.color || "#555" }}
-            >
-              {getInitials(user.name)}
+        {users
+          .filter((user) => user?.id != null)
+          .map((user) => (
+            <div key={user.id} className="comp-lb-row">
+              <span className="comp-lb-pos">{user.position}</span>
+              <div
+                className="comp-lb-avatar"
+                style={{ background: user.color || "#555" }}
+              >
+                {getInitials(user.name)}
+              </div>
+              <span className="comp-lb-name">{user.name}</span>
+              <div className="comp-lb-right">
+                {user.price > 0 && (
+                  <span className="comp-lb-prize">
+                    {formatPrize(user.price)}
+                  </span>
+                )}
+                <span className="comp-lb-amount">
+                  {user.amount}
+                  <span>st</span>
+                </span>
+              </div>
             </div>
-            <span className="comp-lb-name">{user.name}</span>
-            <div className="comp-lb-right">
-              {user.price > 0 && (
-                <span className="comp-lb-prize">{formatPrize(user.price)}</span>
-              )}
-              <span className="comp-lb-amount">
-                {user.amount}<span>st</span>
-              </span>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
