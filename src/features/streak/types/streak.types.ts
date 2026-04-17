@@ -38,6 +38,8 @@ export type StreakLeaderboardEntry = {
   userId: number;
   firstName: string;
   lastName: string;
+  color: string;
+  avatar: { thumbnailUrl: string } | null;
   currentStreak: number;
   lastCompletedAt: string;
 };

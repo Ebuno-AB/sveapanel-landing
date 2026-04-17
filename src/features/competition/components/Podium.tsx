@@ -1,15 +1,10 @@
 import type { CompetitionUser } from "@/features/competition/types/competition.types";
+import CompetitionAvatar from "./CompetitionAvatar";
 
 const GOLD = "#FFD700";
 const SILVER = "#C0C0C0";
 const BRONZE = "#E8914E";
 const RANK_COLORS = [GOLD, SILVER, BRONZE];
-
-function getInitials(name: string) {
-  const parts = name.trim().split(" ");
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return name.slice(0, 2).toUpperCase();
-}
 
 function formatPrize(amount: number) {
   return `${amount} kr`;
@@ -32,15 +27,14 @@ function Podium({ users }: { users: CompetitionUser[] }) {
     const color = RANK_COLORS[rank - 1] ?? "#555";
     return (
       <div className={`comp-pod ${cls}`}>
-        <div
+        <CompetitionAvatar
+          user={user}
           className={`comp-pod-avatar ${rank === 1 ? "first" : rank === 2 ? "second" : "third"}`}
           style={{
             background: user.color || "#555",
             border: `${rank === 1 ? 3 : 2}px solid ${color}`,
           }}
-        >
-          {getInitials(user.name)}
-        </div>
+        />
         <span
           className="comp-pod-rank"
           style={{ background: color, color: rank === 1 ? "#1a1a2e" : "#fff" }}

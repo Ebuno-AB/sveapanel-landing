@@ -1,10 +1,5 @@
 import type { CompetitionUser } from "@/features/competition/types/competition.types";
-
-function getInitials(name: string) {
-  const parts = name.trim().split(" ");
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return name.slice(0, 2).toUpperCase();
-}
+import CompetitionAvatar from "./CompetitionAvatar";
 
 function formatPrize(amount: number) {
   return `${amount} kr`;
@@ -20,12 +15,7 @@ function Leaderboard({ users }: { users: CompetitionUser[] }) {
           .map((user) => (
             <div key={user.userId} className="comp-lb-row">
               <span className="comp-lb-pos">{user.position}</span>
-              <div
-                className="comp-lb-avatar"
-                style={{ background: user.color || "#555" }}
-              >
-                {getInitials(user.name)}
-              </div>
+              <CompetitionAvatar user={user} className="comp-lb-avatar" />
               <span className="comp-lb-name">{user.name}</span>
               <div className="comp-lb-right">
                 {user.price > 0 && (

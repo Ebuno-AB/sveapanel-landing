@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Flame, Trophy } from "lucide-react";
 import type { StreakLeaderboardEntry } from "../types/streak.types";
 
@@ -27,6 +28,39 @@ function formatName(firstName: string, lastName: string): string {
   const first = firstName?.trim() || "";
   const lastInitial = lastName?.trim()?.[0] || "";
   return lastInitial ? `${first} ${lastInitial}.` : first;
+}
+
+interface AvatarProps {
+  entry: StreakLeaderboardEntry;
+  className: string;
+}
+
+function StreakAvatar({ entry, className }: AvatarProps) {
+  const [hasImageError, setHasImageError] = useState(false);
+  const initials = getInitials(entry.firstName, entry.lastName);
+  const bgColor = entry.color || getAvatarColor(entry.userId);
+  console.log("entry", entry);
+  const thumbnailUrl = entry.avatar?.thumbnailUrl;
+  const showImage = !!thumbnailUrl && !hasImageError;
+
+  return (
+    <div
+      className={className}
+      style={{ backgroundColor: bgColor }}
+      aria-label={`${formatName(entry.firstName, entry.lastName)}s avatar`}
+    >
+      {showImage ? (
+        <img
+          src={thumbnailUrl}
+          alt=""
+          className="streak-lb-avatar-image"
+          onError={() => setHasImageError(true)}
+        />
+      ) : (
+        initials
+      )}
+    </div>
+  );
 }
 
 interface Props {
@@ -71,17 +105,13 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
     position: 1 | 2 | 3,
   ) => {
     if (!entry) return <div className="streak-lb-pod-placeholder" />;
-    const initials = getInitials(entry.firstName, entry.lastName);
-    const bgColor = getAvatarColor(entry.userId);
 
     return (
       <div className={`streak-lb-pod streak-lb-pod--${position}`}>
-        <div
+        <StreakAvatar
+          entry={entry}
           className={`streak-lb-pod-avatar${position === 1 ? " streak-lb-pod-avatar--first" : ""}`}
-          style={{ backgroundColor: bgColor }}
-        >
-          {initials}
-        </div>
+        />
         <span className="streak-lb-pod-rank">{position}</span>
       </div>
     );
@@ -101,12 +131,7 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
         {toplist.map((entry) => (
           <div key={entry.userId} className="streak-lb-row">
             <span className="streak-lb-pos">{entry.position}.</span>
-            <div
-              className="streak-lb-avatar"
-              style={{ backgroundColor: getAvatarColor(entry.userId) }}
-            >
-              {getInitials(entry.firstName, entry.lastName)}
-            </div>
+            <StreakAvatar entry={entry} className="streak-lb-avatar" />
             <span className="streak-lb-name">
               {formatName(entry.firstName, entry.lastName)}
             </span>

@@ -14,6 +14,7 @@ export type CompetitionUser = {
   amount: number;
   position: number;
   color: string;
+  avatar: { thumbnailUrl: string } | null;
   price: number;
 };
 
