@@ -1,7 +1,10 @@
 import { useState, useCallback } from "react";
-import { Check, Flame } from "lucide-react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { Check } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import type { DotLottie } from "@lottiefiles/dotlottie-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
 import fireLottie from "@/assets/icons/Fire.lottie";
 import {
   useStreakStats,
@@ -14,6 +17,34 @@ import StreakSkeleton from "../components/StreakSkeleton";
 import "@/features/streak/styles/StreakPage.css";
 
 type TabId = "streak" | "toplist";
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
+const tabContentVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.28, ease: [0.25, 0.1, 0.25, 1] },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: 0.2, ease: [0.42, 0, 1, 1] },
+  },
+};
 
 const StreakPage = () => {
   const [activeTab, setActiveTab] = useState<TabId>("streak");
@@ -30,8 +61,6 @@ const StreakPage = () => {
     useStreakCompletions();
   const { data: toplistRes, isLoading: toplistLoading } = useStreakToplist();
 
-  console.log(completionsRes, stats);
-
   const completions = completionsRes?.entries ?? [];
 
   if ((statsLoading || compLoading) && !stats) {
@@ -39,9 +68,35 @@ const StreakPage = () => {
   }
 
   const completedToday = stats?.hasCompletedToday ?? false;
+  const statistics = stats
+    ? [
+        {
+          label: "Nuvarande",
+          value: String(stats.currentStreak),
+          accent: true,
+        },
+        {
+          label: "Rank",
+          value: stats.currentRank !== null ? `#${stats.currentRank}` : "-",
+        },
+        {
+          label: "Bästa rank",
+          value: stats.bestRank !== null ? `#${stats.bestRank}` : "-",
+        },
+        {
+          label: "Längsta",
+          value: String(stats.longestStreak),
+        },
+      ]
+    : [];
 
   return (
     <div className="streak-page">
+      <div className="streak-page-inner">
+        <h2 className="page-title">
+          <FontAwesomeIcon icon={faFireFlameCurved} /> Streak
+        </h2>
+      </div>
       <div className="streak-tab-switcher-wrap">
         <div className="streak-tab-switcher">
           <button
@@ -60,63 +115,104 @@ const StreakPage = () => {
       </div>
 
       <div className="streak-content">
-        {activeTab === "streak" ? (
-          <>
-            <div className="streak-hero">
-              <div className="streak-hero-inner">
-                <DotLottieReact
-                  src={fireLottie}
-                  autoplay
-                  loop
-                  dotLottieRefCallback={dotLottieRef}
-                  style={{
-                    width: 80,
-                    height: 80,
-                  }}
-                />
-                <span className="streak-hero-count">
-                  {stats?.currentStreak ?? 0}
-                </span>
-              </div>
-              <div className="streak-hero-label">dagars streak</div>
-              <div
-                className={`streak-hero-status${completedToday ? " done" : ""}`}
+        <AnimatePresence mode="wait">
+          {activeTab === "streak" ? (
+            <motion.div
+              key="streak"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+            >
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="streak-card-stack"
               >
-                {completedToday ? (
-                  <>
-                    Slutförd idag! <Check size={16} />
-                  </>
-                ) : (
-                  "Ej slutförd idag"
+                <motion.div className="streak-hero" variants={cardVariants}>
+                  <div className="streak-hero-inner">
+                    <DotLottieReact
+                      src={fireLottie}
+                      autoplay
+                      loop
+                      dotLottieRefCallback={dotLottieRef}
+                      style={{
+                        width: 80,
+                        height: 80,
+                      }}
+                    />
+                    <span className="streak-hero-count">
+                      {stats?.currentStreak ?? 0}
+                    </span>
+                  </div>
+                  <div className="streak-hero-label">dagars streak</div>
+                  <div
+                    className={`streak-hero-status${completedToday ? " done" : ""}`}
+                  >
+                    {completedToday ? (
+                      <>
+                        Slutförd idag! <Check size={16} />
+                      </>
+                    ) : (
+                      "Ej slutförd idag"
+                    )}
+                  </div>
+                </motion.div>
+
+                <motion.div variants={cardVariants}>
+                  <WeeklyProgress completions={completions} />
+                </motion.div>
+
+                <motion.div className="streak-how-to" variants={cardVariants}>
+                  <h3 className="streak-how-to-title">Slutför din streak</h3>
+                  <p className="streak-how-to-desc">
+                    Spela spel, svara på enkäter eller handla med cashback.
+                  </p>
+                </motion.div>
+
+                {stats && (
+                  <motion.section
+                    className="streak-statistics-card"
+                    variants={cardVariants}
+                  >
+                    <h3 className="streak-statistics-title">Statistik</h3>
+                    <div className="streak-statistics-grid">
+                      {statistics.map((item) => (
+                        <div
+                          className="streak-statistics-item"
+                          key={item.label}
+                        >
+                          <span
+                            className={`streak-statistics-value${item.accent ? " accent" : ""}`}
+                          >
+                            {item.value}
+                          </span>
+                          <span className="streak-statistics-label">
+                            {item.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.section>
                 )}
-              </div>
-            </div>
-
-            <WeeklyProgress completions={completions} />
-
-            <div className="streak-how-to">
-              <h3 className="streak-how-to-title">Slutför din streak</h3>
-              <p className="streak-how-to-desc">
-                Spela spel, svara på enkäter eller handla med cashback.
-              </p>
-            </div>
-
-            {stats && stats.longestStreak > 0 && (
-              <div className="streak-personal-best">
-                <span className="streak-pb-label">Längsta streak</span>
-                <span className="streak-pb-value">
-                  <Flame className="longest-flame" size={16} />
-                  {stats.longestStreak} dagar
-                </span>
-              </div>
-            )}
-          </>
-        ) : (
-          <StreakLeaderboard
-            toplist={toplistRes?.entries ?? []}
-            isLoading={toplistLoading}
-          />
-        )}
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="toplist"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+            >
+              <StreakLeaderboard
+                toplist={toplistRes?.entries ?? []}
+                isLoading={toplistLoading}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

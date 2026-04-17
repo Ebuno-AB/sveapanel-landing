@@ -1,6 +1,35 @@
 import { useState } from "react";
+import { motion, type Variants } from "framer-motion";
 import { Flame, Trophy } from "lucide-react";
 import type { StreakLeaderboardEntry } from "../types/streak.types";
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const groupVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.1, 0.25, 1],
+      staggerChildren: 0.06,
+      delayChildren: 0.06,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.28, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
 
 // Colors for avatar backgrounds when no image is available
 const AVATAR_COLORS = [
@@ -39,7 +68,6 @@ function StreakAvatar({ entry, className }: AvatarProps) {
   const [hasImageError, setHasImageError] = useState(false);
   const initials = getInitials(entry.firstName, entry.lastName);
   const bgColor = entry.color || getAvatarColor(entry.userId);
-  console.log("entry", entry);
   const thumbnailUrl = entry.avatar?.thumbnailUrl;
   const showImage = !!thumbnailUrl && !hasImageError;
 
@@ -118,18 +146,33 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
   };
 
   return (
-    <div className="streak-leaderboard">
+    <motion.div
+      className="streak-leaderboard"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       {/* Podium for top 3 */}
-      <div className="streak-lb-podium">
-        {renderPodiumEntry(second, 2)}
-        {renderPodiumEntry(first, 1)}
-        {renderPodiumEntry(third, 3)}
-      </div>
+      <motion.div className="streak-lb-podium" variants={groupVariants}>
+        <motion.div variants={itemVariants}>
+          {renderPodiumEntry(second, 2)}
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          {renderPodiumEntry(first, 1)}
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          {renderPodiumEntry(third, 3)}
+        </motion.div>
+      </motion.div>
 
       {/* Full list */}
-      <div className="streak-lb-list">
+      <motion.div className="streak-lb-list" variants={groupVariants}>
         {toplist.map((entry) => (
-          <div key={entry.userId} className="streak-lb-row">
+          <motion.div
+            key={entry.userId}
+            className="streak-lb-row"
+            variants={itemVariants}
+          >
             <span className="streak-lb-pos">{entry.position}.</span>
             <StreakAvatar entry={entry} className="streak-lb-avatar" />
             <span className="streak-lb-name">
@@ -139,10 +182,10 @@ const StreakLeaderboard = ({ toplist, isLoading }: Props) => {
               <Flame size={18} className="streak-lb-flame" />
               <span className="streak-lb-count">{entry.currentStreak}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

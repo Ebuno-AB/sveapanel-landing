@@ -5,7 +5,36 @@
 .streak-page {
   min-height: 100vh;
   background: var(--color-bg-page);
-  padding: 88px 16px 48px;
+  padding: 20px 0 48px;
+}
+
+.streak-page-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ── Page Title ── */
+.streak-page .page-title {
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 1rem;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .streak-page .page-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .streak-page .page-title {
+    font-size: 1.2rem;
+  }
 }
 
 /* ── Tab switcher ── */
@@ -46,6 +75,12 @@
 .streak-content {
   max-width: 560px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.streak-card-stack {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -231,32 +266,94 @@
   margin: 0;
 }
 
-/* ── Personal best ── */
-.streak-personal-best {
+/* ── Statistics card ── */
+.streak-statistics-card {
   background: var(--color-bg);
   border-radius: var(--radius-lg);
-  padding: 14px 16px;
+  padding: 16px;
   box-shadow: var(--shadow-sm);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.streak-pb-label {
-  font-size: 0.9rem;
-  font-weight: var(--weight-medium);
-  color: var(--color-text-secondary);
-}
-
-.streak-pb-value {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.9rem;
+.streak-statistics-title {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  line-height: 1.2;
   font-weight: var(--weight-bold);
+  color: var(--color-text);
 }
-.longest-flame {
-  color: #00cca3;
+
+.streak-statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.streak-statistics-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 54px;
+  padding: 6px 6px;
+}
+
+.streak-statistics-item:nth-child(odd) {
+  border-right: 1px solid var(--color-border);
+}
+
+.streak-statistics-item:nth-child(-n + 2) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.streak-statistics-value {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  line-height: 1.05;
+  font-weight: var(--weight-black);
+  color: var(--color-text);
+}
+
+.streak-statistics-value.accent {
+  color: var(--color-primary);
+}
+
+.streak-statistics-label {
+  font-size: 0.66rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@media (min-width: 520px) {
+  .streak-statistics-card {
+    padding: 18px 16px 16px;
+  }
+
+  .streak-statistics-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .streak-statistics-item {
+    min-height: 72px;
+  }
+
+  .streak-statistics-item:nth-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .streak-statistics-item:nth-child(odd) {
+    border-right: none;
+  }
+
+  .streak-statistics-item:not(:last-child) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .streak-statistics-label {
+    font-size: 0.7rem;
+  }
 }
 
 /* ── Leaderboard ── */
@@ -533,7 +630,7 @@
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .streak-page {
-    padding-top: 80px;
+    padding-top: 20px;
   }
 
   .day-circle {

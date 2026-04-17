@@ -5,6 +5,29 @@
   padding-bottom: 60px;
 }
 
+/* ── Page Title ── */
+.dashboard .page-title {
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 1rem;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .dashboard .page-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard .page-title {
+    font-size: 1.2rem;
+  }
+}
+
 /* ── Side-by-side section row ── */
 .dashboard-section--row {
   display: flex;

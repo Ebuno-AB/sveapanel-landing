@@ -1,8 +1,31 @@
 .dash-cashback {
   min-height: 100vh;
   background: #f2f2f7;
-  padding-top: 60px;
+  padding-top: 20px;
   padding-bottom: 60px;
+}
+
+/* ── Page Title ── */
+.dash-cashback .page-title {
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 40px;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .dash-cashback .page-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dash-cashback .page-title {
+    font-size: 1.2rem;
+  }
 }
 
 /* ── Header ── */
@@ -106,9 +129,6 @@
 }
 
 /* ── Feed Section ── */
-.cb-feed-section {
-  margin-top: 32px;
-}
 
 .cb-feed-section-header {
   display: flex;

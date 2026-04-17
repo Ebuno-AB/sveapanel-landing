@@ -4,9 +4,32 @@
   color: var(--color-text);
 }
 
+/* ── Page Title ── */
+.comp-page .page-title {
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 20px;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .comp-page .page-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comp-page .page-title {
+    font-size: 1.2rem;
+  }
+}
+
 /* ── Header ── */
 .comp-header {
-  padding: 120px 24px 0;
+  padding: 20px 24px 0;
 }
 
 .comp-header-inner {
@@ -18,7 +41,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 4px;
 }
 
 .comp-header-top h2 {
@@ -27,226 +49,154 @@
   margin: 0;
 }
 
-.comp-header-subtitle {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0 0 24px;
-}
-
-/* ── Stats Row ── */
-.comp-stats {
+/* ── Stats Card ── */
+.comp-stats-card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 16px;
+  padding: 16px 8px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 8px;
 }
 
 .comp-stat {
+  flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  background: var(--color-bg);
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-sm);
+  gap: 2px;
+  padding: 4px 0;
+}
+
+.comp-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border-subtle);
+  flex-shrink: 0;
 }
 
 .comp-stat-icon {
-  font-size: 0.85rem;
+  font-size: 1.1rem;
+  margin-bottom: 2px;
 }
 
 .comp-stat-value {
-  font-size: 0.9rem;
-  font-weight: var(--weight-bold);
+  font-size: 1.3rem;
+  font-weight: var(--weight-black);
   color: var(--color-text);
+  line-height: 1.2;
+}
+
+.comp-stat-value--green {
+  color: var(--color-primary);
 }
 
 .comp-stat-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: rgba(0, 0, 0, 0.4);
   font-weight: var(--weight-medium);
 }
 
-/* ── Active Panel (unified tabs + card container) ── */
+/* ── Section Header ── */
+.comp-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.comp-section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comp-section-header h3 {
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.comp-live-indicator {
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: comp-pulse-dot 1.5s ease-in-out infinite;
+}
+
+.comp-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+/* ── Active Panel ── */
 .comp-active-panel {
   max-width: 1100px;
   margin: 24px auto 0;
   padding: 0 24px;
 }
 
-/* ── Tabs Bar (inside panel header) ── */
-.comp-tabs-bar {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-subtle);
-  border-bottom: none;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  padding: 12px 16px;
-}
-
-/* Inside the panel, remove comp-card's outer card styling */
-.comp-active-panel .comp-card {
-  border-top: none;
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-}
-
-/* When there are no tabs, the card gets full border-radius */
-.comp-active-panel .comp-card:first-child {
-  border-top: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-}
-
-/* Loading skeleton wrapper inside panel */
-.comp-panel-body {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-/* Empty state inside panel — give it card styling */
-.comp-active-panel .comp-empty {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-/* ── Competition Tabs Select (compact) ── */
-.comp-tabs-select {
-  width: 100%;
-  appearance: none;
-  background: var(--color-bg-secondary, #f5f5f5)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
-    no-repeat right 14px center;
-  border: 1.5px solid var(--color-border-subtle);
-  border-radius: 10px;
-  padding: 10px 40px 10px 14px;
-  font-size: 0.9rem;
-  font-weight: var(--weight-bold);
-  color: var(--color-text);
-  cursor: pointer;
-  font-family: var(--font-primary);
-}
-
-.comp-tabs-select:focus {
-  outline: none;
-  border-color: var(--color-primary);
-}
-
-/* ── Competition Tabs ── */
-.comp-tabs {
+/* ── Pill Tabs ── */
+.comp-pill-tabs {
   display: flex;
   gap: 8px;
+  margin-bottom: 14px;
   overflow-x: auto;
   scrollbar-width: none;
 }
 
-.comp-tabs::-webkit-scrollbar {
+.comp-pill-tabs::-webkit-scrollbar {
   display: none;
 }
 
-.comp-tab {
+.comp-pill-tab {
   flex-shrink: 0;
-  background: transparent;
-  border: 1.5px solid transparent;
-  border-radius: 10px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-}
-
-.comp-tab:hover {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: var(--color-border-subtle);
-}
-
-.comp-tab.active {
-  background: rgba(0, 204, 163, 0.1);
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
-
-.comp-tab-title {
-  font-size: 0.9rem;
-  font-weight: var(--weight-bold);
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--color-border-subtle);
+  background: var(--color-bg);
+  font-size: 0.85rem;
+  font-weight: var(--weight-semibold);
   color: var(--color-text);
-  margin: 0 0 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-primary);
   white-space: nowrap;
 }
 
-.comp-tab-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.comp-pill-tab:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.03);
 }
 
-.comp-tab-type {
-  font-size: 0.72rem;
-  font-weight: var(--weight-semibold);
-  color: rgba(0, 0, 0, 0.45);
-  background: rgba(0, 0, 0, 0.06);
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+.comp-pill-tab.active {
+  background: var(--color-text);
+  color: #fff;
+  border-color: var(--color-text);
 }
 
-/* ── Timer Pill ── */
-.comp-tab-timer {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
-  font-weight: var(--weight-semibold);
-  color: var(--color-primary);
-  background: rgba(0, 204, 163, 0.15);
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-}
-
-.comp-tab-timer svg {
-  width: 10px;
-  height: 10px;
-}
-
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  animation: comp-pulse-dot 1.5s ease-in-out infinite;
-}
-
-@keyframes comp-pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(0.7);
-  }
-}
-
-/* ── Competition Content (history section) ── */
-.comp-content {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px 24px 60px;
-}
-
-/* ── Inner column ── */
-.comp-inner {
-  width: 100%;
-}
-
-/* ── Competition Card ── */
+/* ── Competition Card (Dark Theme) ── */
 .comp-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
+  background: linear-gradient(145deg, #1a2035 0%, #151b2e 50%, #111827 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
   padding: 24px;
   box-sizing: border-box;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
 
 .comp-card-header {
@@ -258,21 +208,69 @@
 }
 
 .comp-card-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: var(--weight-extrabold);
-  color: var(--color-text);
+  color: #fff;
   margin: 0;
 }
 
-/* ── Description ── */
-.comp-description {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.45);
-  margin: 0 0 24px;
-  line-height: 1.5;
+.comp-card-arrow {
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
 }
 
-/* ── My Position ── */
+/* ── Card Pills ── */
+.comp-card-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.comp-card-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  background: rgba(0, 204, 163, 0.25);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+}
+
+/* Timer pill inside dark card */
+.comp-card .comp-tab-timer {
+  background: rgba(0, 204, 163, 0.15);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  padding: 5px 12px;
+}
+
+/* ── Card CTA ── */
+.comp-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.comp-card-cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ── My Position (dark variant) ── */
 .comp-my-position {
   display: flex;
   align-items: center;
@@ -283,6 +281,12 @@
   padding: 12px 18px;
   margin-bottom: 24px;
   font-family: var(--font-primary);
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.comp-my-position--placeholder {
+  visibility: hidden;
 }
 
 .comp-my-rank {
@@ -296,7 +300,7 @@
 
 .comp-my-label {
   font-size: 0.88rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .comp-my-amount {
@@ -311,27 +315,47 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 10px;
+  gap: 16px;
   margin-bottom: 20px;
-  padding: 12px 0 0;
+  padding: 20px 0 0;
 }
 
 .comp-pod {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  flex: 1;
+  max-width: 120px;
 }
 
 .comp-pod-center {
-  margin-top: -14px;
+  margin-top: -20px;
 }
 
 .comp-pod-crown {
-  font-size: 1.3rem;
-  margin-bottom: -4px;
+  font-size: 1.4rem;
+  margin-bottom: -6px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.4));
 }
 
+/* ── Avatar Ring ── */
+.comp-pod-avatar-ring {
+  border-radius: 50%;
+  padding: 3px;
+  border: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comp-pod-avatar-ring.first {
+  padding: 4px;
+  border-width: 3px;
+}
+
+/* ── Podium Avatars ── */
 .comp-pod-avatar {
   border-radius: 50%;
   overflow: hidden;
@@ -345,34 +369,32 @@
 }
 
 .comp-pod-avatar.first {
-  width: 52px;
-  height: 52px;
-  font-size: 0.9rem;
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
+  width: 64px;
+  height: 64px;
+  font-size: 1.1rem;
 }
 
 .comp-pod-avatar.second,
 .comp-pod-avatar.third {
-  width: 38px;
-  height: 38px;
-  font-size: 0.72rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  width: 48px;
+  height: 48px;
+  font-size: 0.85rem;
 }
 
 .comp-pod-rank {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: var(--weight-extrabold);
-  padding: 3px 10px;
-  border-radius: var(--radius-sm);
-  margin-top: -6px;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  margin-top: -8px;
   z-index: 1;
 }
 
 .comp-pod-name {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: var(--weight-semibold);
-  color: rgba(0, 0, 0, 0.55);
-  max-width: 65px;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 80px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -380,45 +402,51 @@
 }
 
 .comp-pod-score {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: var(--weight-extrabold);
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .comp-pod-score.first-score {
   font-size: 1.15rem;
 }
 
-.comp-pod-score span {
-  font-size: 0.72rem;
+.comp-pod-amount {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
   font-weight: var(--weight-medium);
-  color: rgba(0, 0, 0, 0.4);
 }
 
-.comp-pod-prize {
-  font-size: 0.72rem;
-  font-weight: var(--weight-bold);
-  color: var(--color-primary);
-  background: rgba(0, 204, 163, 0.2);
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+/* ── Progress Bars ── */
+.comp-pod-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
 }
 
-/* ── Leaderboard ── */
+.comp-pod-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ── Leaderboard (dark) ── */
 .comp-leaderboard {
-  background: var(--color-bg);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   max-height: 200px;
-  box-shadow: var(--shadow-sm);
 }
 
 .comp-leaderboard-title {
   font-size: 0.85rem;
   font-weight: var(--weight-bold);
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.4);
   padding: 10px 14px 8px;
   margin: 0;
   flex-shrink: 0;
@@ -428,7 +456,7 @@
   overflow-y: auto;
   flex: 1;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
 .comp-leaderboard-scroll::-webkit-scrollbar {
@@ -440,7 +468,7 @@
 }
 
 .comp-leaderboard-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 
@@ -449,19 +477,19 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   transition: background var(--transition-fast);
 }
 
 .comp-lb-row:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .comp-lb-pos {
   width: 24px;
   font-size: 0.8rem;
   font-weight: var(--weight-semibold);
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
   text-align: center;
   flex-shrink: 0;
 }
@@ -491,7 +519,7 @@
   flex: 1;
   font-size: 0.85rem;
   font-weight: var(--weight-medium);
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 0.65);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -516,13 +544,55 @@
 .comp-lb-amount {
   font-size: 0.85rem;
   font-weight: var(--weight-extrabold);
-  color: var(--color-text);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .comp-lb-amount span {
   font-size: 0.72rem;
   font-weight: var(--weight-medium);
-  color: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Timer Pill ── */
+.comp-tab-timer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  background: rgba(0, 204, 163, 0.15);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.comp-tab-timer svg {
+  width: 10px;
+  height: 10px;
+}
+
+@keyframes comp-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+/* ── Competition Content (history section) ── */
+.comp-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px 60px;
+}
+
+/* ── Inner column ── */
+.comp-inner {
+  width: 100%;
 }
 
 /* ── History Section ── */
@@ -664,6 +734,10 @@
   text-align: center;
   padding: 60px 24px;
   color: rgba(0, 0, 0, 0.35);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-empty-icon {
@@ -682,6 +756,15 @@
 .comp-empty p {
   font-size: 0.85rem;
   margin: 0;
+}
+
+/* ── Loading skeleton ── */
+.comp-panel-body {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
 .comp-skeleton {
@@ -718,17 +801,12 @@
     font-size: 1.3rem;
   }
 
-  .comp-tabs-section {
-    padding: 0 18px;
-  }
-
   .comp-content {
     padding: 24px 18px 48px;
   }
 
-  .comp-tab {
-    min-width: 160px;
-    padding: 12px 16px;
+  .comp-active-panel {
+    padding: 0 18px;
   }
 
   .comp-pod-avatar.first {
@@ -742,7 +820,11 @@
     height: 44px;
   }
 
-  .comp-stat {
-    flex: 0 1 auto;
+  .comp-stat-value {
+    font-size: 1.1rem;
+  }
+
+  .comp-card {
+    padding: 20px 16px;
   }
 }

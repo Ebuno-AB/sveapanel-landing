@@ -12,6 +12,8 @@ import SmallStoreCard from "@/features/cashback/components/SmallStoreCard";
 import FeedSkeleton from "@/features/cashback/components/FeedSkeleton";
 import CashbackStoreModal from "@/features/cashback/components/CashbackStoreModal";
 import "@/features/cashback/styles/CashbackPage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 const INITIAL_LIMIT = 24;
 
@@ -71,6 +73,9 @@ const CashbackPage = () => {
   return (
     <div className="dash-cashback">
       <div className="dash-cashback-content">
+        <h2 className="page-title">
+          <FontAwesomeIcon icon={faBagShopping} /> Cashback
+        </h2>
         {/* Veckans butiker */}
         {featuredStore && (
           <div className="cb-feed-section">
@@ -85,7 +90,6 @@ const CashbackPage = () => {
             </div>
           </div>
         )}
-
         {/* Alla butiker */}
         <div className="cb-feed-section">
           <div className="cb-feed-section-header">

@@ -5,6 +5,7 @@ const GOLD = "#FFD700";
 const SILVER = "#C0C0C0";
 const BRONZE = "#E8914E";
 const RANK_COLORS = [GOLD, SILVER, BRONZE];
+const RANK_BG = ["#FFD70033", "#C0C0C033", "#E8914E33"];
 
 function formatPrize(amount: number) {
   return `${amount} kr`;
@@ -18,6 +19,8 @@ function Podium({ users }: { users: CompetitionUser[] }) {
 
   if (!first) return null;
 
+  const maxAmount = Math.max(...top3.map((u) => u.amount), 1);
+
   const renderPod = (
     user: CompetitionUser | undefined,
     rank: number,
@@ -25,30 +28,42 @@ function Podium({ users }: { users: CompetitionUser[] }) {
   ) => {
     if (!user) return <div className="comp-pod" style={{ width: 80 }} />;
     const color = RANK_COLORS[rank - 1] ?? "#555";
+    const bgColor = RANK_BG[rank - 1] ?? "#55555533";
+    const progress = (user.amount / maxAmount) * 100;
     return (
       <div className={`comp-pod ${cls}`}>
-        <CompetitionAvatar
-          user={user}
-          className={`comp-pod-avatar ${rank === 1 ? "first" : rank === 2 ? "second" : "third"}`}
+        {rank === 1 && <div className="comp-pod-crown">👑</div>}
+        <div
+          className={`comp-pod-avatar-ring ${rank === 1 ? "first" : rank === 2 ? "second" : "third"}`}
           style={{
-            background: user.color || "#555",
-            border: `${rank === 1 ? 3 : 2}px solid ${color}`,
+            borderColor: color,
           }}
-        />
+        >
+          <CompetitionAvatar
+            user={user}
+            className={`comp-pod-avatar ${rank === 1 ? "first" : rank === 2 ? "second" : "third"}`}
+            style={{
+              background: user.color || "#555",
+            }}
+          />
+        </div>
         <span
           className="comp-pod-rank"
-          style={{ background: color, color: rank === 1 ? "#1a1a2e" : "#fff" }}
+          style={{ background: bgColor, color: color }}
         >
           #{user.position}
         </span>
         <span className="comp-pod-name">{user.name.split(" ")[0]}</span>
         <span className={`comp-pod-score${rank === 1 ? " first-score" : ""}`}>
-          {user.amount}
-          <span>st</span>
+          {user.price > 0 ? formatPrize(user.price) : `${user.amount}st`}
         </span>
-        {user.price > 0 && (
-          <span className="comp-pod-prize">{formatPrize(user.price)}</span>
-        )}
+        <span className="comp-pod-amount">{user.amount}st</span>
+        <div className="comp-pod-progress">
+          <div
+            className="comp-pod-progress-bar"
+            style={{ width: `${progress}%`, background: color }}
+          />
+        </div>
       </div>
     );
   };

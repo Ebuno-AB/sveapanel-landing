@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import {
   useActiveCompetitions,
   useCompetitionHistory,
@@ -6,7 +8,6 @@ import {
 } from "@/features/competition/api/competition.queries";
 import type { CompetitionHistoryItem } from "@/features/competition/types/competition.types";
 import CompetitionCard from "@/features/competition/components/CompetitionCard";
-import TimerPill from "@/features/competition/components/TimerPill";
 import HistoryRow from "@/features/competition/components/HistoryRow";
 import CompSkeleton from "@/features/competition/components/CompSkeleton";
 import "@/features/competition/styles/CompetitionPage.css";
@@ -20,17 +21,10 @@ const CompetitionPage = () => {
   const validCompetitions =
     competitions?.filter((c) => c.competitionInfo) ?? [];
   const [activeIdx, setActiveIdx] = useState(0);
-  const [isCompact, setIsCompact] = useState(() => window.innerWidth < 690);
   const getHistoryPageSize = () => (window.innerWidth < 690 ? 2 : 5);
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(() =>
     getHistoryPageSize(),
   );
-
-  useEffect(() => {
-    const check = () => setIsCompact(window.innerWidth < 690);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   const history =
     historyRes?.data ??
@@ -43,30 +37,39 @@ const CompetitionPage = () => {
     <div className="comp-page">
       <div className="comp-header">
         <div className="comp-header-inner">
-          <div className="comp-header-top"></div>
+          <div className="comp-header-top">
+            <h2 className="page-title">
+              <FontAwesomeIcon icon={faTrophy} /> Tävlingar
+            </h2>
+          </div>
 
           {stats && (
-            <div className="comp-stats">
+            <div className="comp-stats-card">
               <div className="comp-stat">
                 <div className="comp-stat-icon">🏅</div>
                 <div className="comp-stat-value">
-                  {stats.bestPosition > 0 ? `${stats.bestPosition}` : "-"}
+                  {stats.bestPosition > 0 ? `#${stats.bestPosition}` : "-"}
                 </div>
                 <div className="comp-stat-label">Bästa</div>
               </div>
+              <div className="comp-stat-divider" />
               <div className="comp-stat">
                 <div className="comp-stat-icon">⚡</div>
                 <div className="comp-stat-value">{stats.totalCompetitions}</div>
                 <div className="comp-stat-label">Deltagit</div>
               </div>
+              <div className="comp-stat-divider" />
               <div className="comp-stat">
                 <div className="comp-stat-icon">🎯</div>
                 <div className="comp-stat-value">{stats.topThreeCount}</div>
                 <div className="comp-stat-label">Topp 3</div>
               </div>
+              <div className="comp-stat-divider" />
               <div className="comp-stat">
                 <div className="comp-stat-icon">💰</div>
-                <div className="comp-stat-value">{stats.totalWon}kr</div>
+                <div className="comp-stat-value comp-stat-value--green">
+                  {stats.totalWon} kr
+                </div>
                 <div className="comp-stat-label">Vunnit</div>
               </div>
             </div>
@@ -75,45 +78,27 @@ const CompetitionPage = () => {
       </div>
 
       <div className="comp-active-panel">
+        <div className="comp-section-header">
+          <div className="comp-section-header-left">
+            <span className="comp-live-indicator" />
+            <h3>Aktiva tävlingar</h3>
+          </div>
+          {validCompetitions.length > 0 && (
+            <span className="comp-count-badge">{validCompetitions.length}</span>
+          )}
+        </div>
+
         {validCompetitions.length > 1 && (
-          <div className="comp-tabs-bar">
-            {isCompact ? (
-              <select
-                className="comp-tabs-select"
-                value={activeIdx}
-                onChange={(e) => setActiveIdx(Number(e.target.value))}
-                aria-label="Välj tävling"
+          <div className="comp-pill-tabs">
+            {validCompetitions.map((comp, i) => (
+              <button
+                key={comp.competitionInfo.id}
+                className={`comp-pill-tab${i === activeIdx ? " active" : ""}`}
+                onClick={() => setActiveIdx(i)}
               >
-                {validCompetitions.map((comp, i) => (
-                  <option key={comp.competitionInfo.id} value={i}>
-                    {comp.competitionInfo.title}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <div className="comp-tabs">
-                {validCompetitions.map((comp, i) => (
-                  <div
-                    key={comp.competitionInfo.id}
-                    className={`comp-tab${i === activeIdx ? " active" : ""}`}
-                    onClick={() => setActiveIdx(i)}
-                  >
-                    <div className="comp-tab-title">
-                      {comp.competitionInfo.title}
-                    </div>
-                    <div className="comp-tab-meta">
-                      <span className="comp-tab-type">
-                        {comp.competitionInfo.competitionType}
-                      </span>
-                      {comp.competitionInfo.endDate && (
-                        <TimerPill endDate={comp.competitionInfo.endDate} />
-                      )}
-                      <div className="live-dot" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                {comp.competitionInfo.title}
+              </button>
+            ))}
           </div>
         )}
 
