@@ -88,32 +88,32 @@
 
 /* ── Hero / counter ── */
 .streak-hero {
-  text-align: center;
-  padding: 20px 16px 24px;
+  padding: 28px 16px 32px;
 }
 
 .streak-hero-inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 4px;
 }
 
-.streak-fire-emoji {
-  font-size: 3rem;
-  line-height: 1;
+.streak-hero-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .streak-hero-count {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   font-weight: var(--weight-black);
   color: var(--color-text);
   line-height: 1;
+  margin-top: 30px;
 }
 
 .streak-hero-label {
-  margin-top: 6px;
-  font-size: 1.05rem;
+  margin-top: 4px;
+  font-size: 1.35rem;
   font-weight: var(--weight-semibold);
   color: var(--color-text);
 }
@@ -121,7 +121,6 @@
 .streak-hero-status {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 4px;
   margin-top: 4px;
   font-size: 0.88rem;
@@ -211,8 +210,10 @@
 }
 
 .day-circle.completed {
-  background: rgba(0, 204, 163, 0.12);
+  background: var(--color-primary);
   border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 204, 163, 0.45);
 }
 
 .day-circle.today-pending {

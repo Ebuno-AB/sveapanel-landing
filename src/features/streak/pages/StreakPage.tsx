@@ -1,10 +1,12 @@
 import { useState, useCallback } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
-import { Check } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import type { DotLottie } from "@lottiefiles/dotlottie-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFireFlameCurved,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import fireLottie from "@/assets/icons/Fire.lottie";
 import {
   useStreakStats,
@@ -138,25 +140,28 @@ const StreakPage = () => {
                       loop
                       dotLottieRefCallback={dotLottieRef}
                       style={{
-                        width: 80,
-                        height: 80,
+                        width: 120,
+                        height: 120,
                       }}
                     />
-                    <span className="streak-hero-count">
-                      {stats?.currentStreak ?? 0}
-                    </span>
-                  </div>
-                  <div className="streak-hero-label">dagars streak</div>
-                  <div
-                    className={`streak-hero-status${completedToday ? " done" : ""}`}
-                  >
-                    {completedToday ? (
-                      <>
-                        Slutförd idag! <Check size={16} />
-                      </>
-                    ) : (
-                      "Ej slutförd idag"
-                    )}
+                    <div className="streak-hero-text">
+                      <span className="streak-hero-count">
+                        {stats?.currentStreak ?? 0}
+                      </span>
+                      <div className="streak-hero-label">dagars streak</div>
+                      <div
+                        className={`streak-hero-status${completedToday ? " done" : ""}`}
+                      >
+                        {completedToday ? (
+                          <>
+                            <FontAwesomeIcon icon={faCircleCheck} /> Slutförd
+                            idag
+                          </>
+                        ) : (
+                          "Ej slutförd idag"
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 

@@ -170,8 +170,9 @@
   gap: 4px;
   padding: 6px 10px;
   border-radius: 999px;
-  border: 2px solid var(--color-border);
-  background: #ffffff;
+  border: 2px solid;
+  border-color: rgba(0, 204, 163, 0.35);
+  background: rgba(0, 204, 163, 0.14);
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -179,8 +180,8 @@
 }
 
 .auth-streak-badge:hover {
-  background: var(--color-bg-secondary);
-  border-color: var(--color-border);
+  background: rgba(0, 204, 163, 0.35);
+  border-color: rgba(0, 204, 163, 0.14);
 }
 
 .auth-streak-badge-count {

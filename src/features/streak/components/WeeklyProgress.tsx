@@ -1,4 +1,6 @@
-import { Flame, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
 import type { StreakCompletionEntry } from "../types/streak.types";
 
 const SWEDISH_DAYS = ["MAN", "TIS", "ONS", "TORS", "FRE", "LÖR", "SÖN"];
@@ -39,7 +41,7 @@ const WeeklyProgress = ({ completions }: Props) => {
       <div className="weekly-progress-header">
         <span className="weekly-progress-title">Veckans framsteg</span>
         <span className="weekly-progress-count">
-          <Flame className="weekly-fire" size={16} />
+          <FontAwesomeIcon icon={faFireFlameCurved} className="weekly-fire" />
           {completedCount}/7
         </span>
       </div>
@@ -67,7 +69,7 @@ const WeeklyProgress = ({ completions }: Props) => {
             <div key={date} className="day-item">
               <div className={circleClass}>
                 {isCompleted ? (
-                  <Flame size={20} />
+                  <FontAwesomeIcon icon={faFireFlameCurved} />
                 ) : isToday ? (
                   <Clock size={20} />
                 ) : null}
