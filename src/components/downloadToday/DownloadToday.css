@@ -9,7 +9,7 @@
 }
 
 .download-today-card {
-  background-color: #00cca3;
+  background: linear-gradient(135deg, #00cca3, #00a89a);
   border-radius: 24px;
   padding: 3rem 2.5rem;
   display: flex;

@@ -7,7 +7,7 @@
 }
 
 .ur-inner {
-  background: linear-gradient(145deg, #e8fdf8 0%, #d4f7ef 100%);
+  background: linear-gradient(135deg, #00cca3, #00a89a);
   border-radius: 28px;
   padding: 3.5rem 2.5rem;
   max-width: 1200px;
@@ -29,7 +29,7 @@
     sans-serif;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 800;
-  color: #111111;
+  color: #ffffff;
   margin: 0 0 0.6rem;
 }
 
@@ -40,12 +40,12 @@
     BlinkMacSystemFont,
     sans-serif;
   font-size: 1rem;
-  color: #555;
+  color: #ffffff;
   margin: 0;
 }
 
 .ur-stars-text {
-  color: #00cca3;
+  color: #ffffff;
   font-weight: 700;
 }
 
