@@ -1,9 +1,11 @@
-import { Flame, Check, Clock, ChevronRight } from "lucide-react";
+import { Clock, ChevronRight } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useStreakStats, useStreakCompletions } from "../api/streak.queries";
 import "@/features/streak/styles/StreakBadge.css";
 
-const SWEDISH_DAYS = ["M", "T", "O", "T", "F", "L", "S"];
+const SWEDISH_DAYS = ["MAN", "TIS", "ONS", "TORS", "FRE", "LÖR", "SÖN"];
 
 function toDateStr(d: Date): string {
   const y = d.getFullYear();
@@ -35,6 +37,7 @@ const StreakBadge = () => {
   const weekDates = getWeekDates();
   const todayStr = toDateStr(new Date());
   const completionSet = new Set(completions.map((c) => c.localDate));
+  const completedCount = weekDates.filter((d) => completionSet.has(d)).length;
   const currentStreak = stats?.currentStreak ?? 0;
 
   return (
@@ -44,18 +47,22 @@ const StreakBadge = () => {
       style={{ cursor: "pointer" }}
     >
       <div className="streak-badge-header">
-        <div className="streak-badge-icon-wrap">
-          <Flame size={26} className="streak-badge-flame" />
-        </div>
-        <div className="streak-badge-info">
-          <span className="streak-badge-count">
-            {currentStreak} dagar i rad
-          </span>
-          <span className="streak-badge-subtitle">
-            Slutför din dagliga streak
-          </span>
-        </div>
-        <ChevronRight size={20} className="streak-badge-chevron" />
+        <span className="streak-badge-title">{currentStreak} dagar i rad</span>
+        <span className="streak-badge-count-pill">
+          <FontAwesomeIcon
+            icon={faFireFlameCurved}
+            className="streak-badge-flame"
+          />
+          {completedCount}/7
+        </span>
+        <ChevronRight size={18} className="streak-badge-chevron" />
+      </div>
+
+      <div className="streak-badge-bar-track">
+        <div
+          className="streak-badge-bar-fill"
+          style={{ width: `${(completedCount / 7) * 100}%` }}
+        />
       </div>
 
       <div className="streak-badge-days">
@@ -74,9 +81,9 @@ const StreakBadge = () => {
             <div key={date} className="streak-badge-day-item">
               <div className={circleClass}>
                 {isCompleted ? (
-                  <Check size={16} strokeWidth={2.5} />
+                  <FontAwesomeIcon icon={faFireFlameCurved} />
                 ) : isToday ? (
-                  <Clock size={16} />
+                  <Clock size={18} />
                 ) : null}
               </div>
               <span

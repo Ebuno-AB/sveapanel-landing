@@ -18,6 +18,8 @@ export const queryKeys = {
     active: ["competition", "active"] as const,
     history: ["competition", "history"] as const,
     stats: ["competition", "stats"] as const,
+    leaderboard: (competitionId: number, limit = 50) =>
+      ["competition", "leaderboard", competitionId, limit] as const,
   },
   games: {
     all: ["games"] as const,

@@ -5,9 +5,17 @@ function formatPrize(amount: number) {
   return `${amount} kr`;
 }
 
-function Leaderboard({ users }: { users: CompetitionUser[] }) {
+function Leaderboard({
+  users,
+  expanded = false,
+}: {
+  users: CompetitionUser[];
+  expanded?: boolean;
+}) {
   return (
-    <div className="comp-leaderboard">
+    <div
+      className={`comp-leaderboard${expanded ? " comp-leaderboard--expanded" : ""}`}
+    >
       <h4 className="comp-leaderboard-title">Topplista</h4>
       <div className="comp-leaderboard-scroll">
         {users

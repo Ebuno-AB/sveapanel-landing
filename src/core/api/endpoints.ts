@@ -43,7 +43,7 @@ const ENDPOINTS = {
     history: "competition/history",
     stats: "competition/stats",
     leaderboard: (competitionId: string | number) =>
-      `competition/leaderboard/${competitionId}`,
+      `competition/${competitionId}/leaderboard`,
   },
   referral: {
     data: (startIndex: string | number) => `referral/${startIndex}`,

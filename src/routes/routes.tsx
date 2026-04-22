@@ -43,6 +43,9 @@ const CashbackPage = lazy(
 const CompetitionPage = lazy(
   () => import("@/features/competition/pages/CompetitionPage"),
 );
+const CompetitionDetailPage = lazy(
+  () => import("@/features/competition/pages/CompetitionDetailPage"),
+);
 const MyAccountPage = lazy(
   () => import("@/features/myAccount/pages/MyAccount"),
 );
@@ -95,7 +98,10 @@ export const publicRoutes: RouteObject[] = [
   { path: "/cashback", element: <CashbackLandingPage /> },
   { path: "/kundtjanst", element: <CustomerServicePage /> },
   { path: "/privacy", element: <PrivacyPolicyPage /> },
-  { path:"/extension-activation", element: <CashbackExtensionActivationPage />},
+  {
+    path: "/extension-activation",
+    element: <CashbackExtensionActivationPage />,
+  },
   { path: "/redirect/:platform", element: <RedirectPage /> },
   { path: "/redirect/detect", element: <RedirectPage /> },
   { path: "/cashback/activate", element: <CashbackActivationPage /> },
@@ -135,6 +141,7 @@ export const protectedRoutes: RouteObject[] = [
       { path: "cashback", element: <CashbackPage /> },
       { path: "cashback/handla", element: <TransferToStorePage /> },
       { path: "tavlingar", element: <CompetitionPage /> },
+      { path: "tavlingar/:competitionId", element: <CompetitionDetailPage /> },
       { path: "streak", element: <StreakPage /> },
       { path: "konto", element: <MyAccountPage /> },
     ],

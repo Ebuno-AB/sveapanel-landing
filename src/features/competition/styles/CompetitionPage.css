@@ -828,3 +828,57 @@
     padding: 20px 16px;
   }
 }
+
+/* ── Clickable competition card ── */
+.comp-card--clickable {
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.comp-card--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.comp-card--clickable:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ── Expanded card (detail page) ── */
+.comp-card--expanded .comp-leaderboard,
+.comp-leaderboard--expanded {
+  max-height: none;
+}
+
+.comp-card--expanded .comp-leaderboard-scroll {
+  overflow-y: visible;
+}
+
+/* ── Detail page back button ── */
+.comp-detail-back {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.comp-detail-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 8px 4px;
+  font-size: 0.95rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-primary);
+}
+
+.comp-detail-back-btn:hover {
+  opacity: 0.7;
+}

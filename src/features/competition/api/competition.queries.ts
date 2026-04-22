@@ -35,3 +35,18 @@ export const useCompetitionStats = () => {
     staleTime: 5 * 60 * 1000,
   });
 };
+
+export const useCompetitionLeaderboard = (
+  competitionId: number | undefined,
+  limit = 50,
+) => {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return useQuery({
+    queryKey: queryKeys.competition.leaderboard(competitionId ?? 0, limit),
+    queryFn: () =>
+      competitionApi.getCompetitionLeaderboard(competitionId!, limit),
+    enabled: isAuthenticated && !!competitionId,
+    staleTime: 60 * 1000,
+  });
+};

@@ -10,7 +10,16 @@ export const competitionApi = {
   getActiveCompetitions: () =>
     httpClient.get<Competition[]>(ENDPOINTS.competition.active),
   getCompetitionHistory: () =>
-    httpClient.get<{ data: CompetitionHistoryItem[] }>(ENDPOINTS.competition.history),
+    httpClient.get<{ data: CompetitionHistoryItem[] }>(
+      ENDPOINTS.competition.history,
+    ),
   getCompetitionStats: () =>
     httpClient.get<UserCompetitionStats>(ENDPOINTS.competition.stats),
+  getCompetitionLeaderboard: (competitionId: number, limit = 50) =>
+    httpClient.get<Competition>(
+      ENDPOINTS.competition.leaderboard(competitionId),
+      {
+        params: { limit },
+      },
+    ),
 };

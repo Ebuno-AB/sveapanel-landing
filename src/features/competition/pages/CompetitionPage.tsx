@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -13,6 +14,7 @@ import CompSkeleton from "@/features/competition/components/CompSkeleton";
 import "@/features/competition/styles/CompetitionPage.css";
 
 const CompetitionPage = () => {
+  const navigate = useNavigate();
   const { data: competitions, isLoading: compLoading } =
     useActiveCompetitions();
   const { data: historyRes, isLoading: histLoading } = useCompetitionHistory();
@@ -107,7 +109,12 @@ const CompetitionPage = () => {
             <CompSkeleton />
           </div>
         ) : activeComp ? (
-          <CompetitionCard competition={activeComp} />
+          <CompetitionCard
+            competition={activeComp}
+            onClick={() =>
+              navigate(`/dashboard/tavlingar/${activeComp.competitionInfo.id}`)
+            }
+          />
         ) : validCompetitions.length === 0 ? (
           <div className="comp-empty">
             <div className="comp-empty-icon">🏆</div>
