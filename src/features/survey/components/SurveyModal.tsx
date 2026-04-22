@@ -27,7 +27,18 @@ function SurveyModal({ survey, onClose }: SurveyModalProps) {
 
   const handleBegin = () => {
     if (survey.entry) {
-      window.open(survey.entry, "_blank", "noopener,noreferrer");
+      // Open as a popup window (not a tab) so window.close() from the
+      // /survey/complete callback page works reliably on desktop.
+      // `noopener` is intentionally omitted so the popup can close itself.
+      const width = Math.min(960, window.screen.availWidth);
+      const height = Math.min(820, window.screen.availHeight);
+      const left = Math.max(0, (window.screen.availWidth - width) / 2);
+      const top = Math.max(0, (window.screen.availHeight - height) / 2);
+      window.open(
+        survey.entry,
+        "svea-survey",
+        `popup=yes,width=${width},height=${height},left=${left},top=${top}`,
+      );
     }
     onClose();
   };

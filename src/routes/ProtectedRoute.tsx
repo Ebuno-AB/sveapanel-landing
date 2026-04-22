@@ -3,6 +3,7 @@ import { useAuthStore } from "@/core/auth/authStore";
 import AuthNav from "@/components/authNav/AuthNav";
 import { AuthFooter } from "@/components/AuthFooter/AuthFooter";
 import { useUser } from "@/features/user/api/user.queries";
+import SurveyRewardListener from "@/features/survey/components/SurveyRewardListener";
 
 const ProtectedRoute = () => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -25,6 +26,7 @@ const ProtectedRoute = () => {
     <>
       <AuthNav />
       <Outlet />
+      <SurveyRewardListener />
       <AuthFooter />
     </>
   );

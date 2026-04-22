@@ -32,6 +32,9 @@ const NotFoundPage = lazy(
 const CashbackActivationPage = lazy(
   () => import("@/features/cashback-activation/pages/CashbackActivationPage"),
 );
+const SurveyCompletePage = lazy(
+  () => import("@/features/survey/pages/SurveyCompletePage"),
+);
 
 // Dashboard (authenticated)
 const DashboardPage = lazy(
@@ -102,6 +105,7 @@ export const publicRoutes: RouteObject[] = [
     path: "/extension-activation",
     element: <CashbackExtensionActivationPage />,
   },
+  { path: "/survey/complete", element: <SurveyCompletePage /> },
   { path: "/redirect/:platform", element: <RedirectPage /> },
   { path: "/redirect/detect", element: <RedirectPage /> },
   { path: "/cashback/activate", element: <CashbackActivationPage /> },
