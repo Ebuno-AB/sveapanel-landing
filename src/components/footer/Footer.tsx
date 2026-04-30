@@ -14,8 +14,6 @@ export default function Footer() {
             <img src={logoImg} alt="SveaPanelen" />
             <span>SveaPanelen</span>
           </div>
-          <p className="footer-tagline-bold">Kontakt:</p>
-          <p className="footer-tagline">help@sveapanelen.se</p>
         </div>
 
         {/* Right side - Social media icons */}

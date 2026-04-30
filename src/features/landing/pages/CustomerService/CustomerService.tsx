@@ -22,18 +22,10 @@ function CustomerService() {
             <div className="cs-hero__text">
               <h1 className="cs-hero__title">Kundtjänst</h1>
               <p className="cs-hero__description">
-                Har du frågor eller behöver hjälp? Vi finns här för dig.
-                Kontakta oss via e-post eller kolla in svaren på vanliga frågor
-                nedan.
-              </p>
-
-              <h2 className="cs-hero__contact-heading">Kontakta oss</h2>
-              <p className="cs-hero__contact-email">
-                E-post:{" "}
-                <a href="mailto:help@sveapanelen.se">help@sveapanelen.se</a>
-              </p>
-              <p className="cs-hero__response-time">
-                Vi svarar normalt inom 3-5 arbetsdagar.
+                Har du frågor eller behöver hjälp? Vi finns här för dig. I appen
+                kan du enkelt skapa ett nytt supportärende. Du går in på fliken
+                mer och klickar på hjälp, därifrån får du fylla i vad du behöver
+                hjälp med.
               </p>
             </div>
             <div className="cs-hero__image-wrap">
